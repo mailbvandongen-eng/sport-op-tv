@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sport op TV Vanavond</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a73e8;
+            --primary-dark: #1557b0;
+            --bg: #f5f7fa;
+            --card-bg: #ffffff;
+            --text: #202124;
+            --text-secondary: #5f6368;
+            --border: #e0e0e0;
+            --success: #34a853;
+            --football: #4caf50;
+            --darts: #ff5722;
+            --f1: #e10600;
+            --shadow: 0 2px 8px rgba(0,0,0,0.08);
+            --shadow-hover: 0 4px 16px rgba(0,0,0,0.12);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 0;
+        }
+
+        header h1 {
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* Sport Tabs */
+        .sport-tabs {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .sport-tab {
+            padding: 12px 28px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: var(--card-bg);
+            color: var(--text-secondary);
+            box-shadow: var(--shadow);
+        }
+
+        .sport-tab:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .sport-tab.active[data-sport="voetbal"] {
+            background: var(--football);
+            color: white;
+        }
+
+        .sport-tab.active[data-sport="darts"] {
+            background: var(--darts);
+            color: white;
+        }
+
+        .sport-tab.active[data-sport="f1"] {
+            background: var(--f1);
+            color: white;
+        }
+
+        /* Date Navigation */
+        .date-nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .date-nav button {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 8px;
+            background: var(--card-bg);
+            color: var(--text);
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow);
+        }
+
+        .date-nav button:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .date-nav .current-date {
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 10px 20px;
+            background: var(--primary);
+            color: white;
+            border-radius: 8px;
+            min-width: 180px;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .date-nav .current-date:hover {
+            background: var(--primary-dark);
+            transform: scale(1.02);
+        }
+
+        /* Settings Bar */
+        .settings-bar {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .toggle-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            background: var(--card-bg);
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+        }
+
+        .toggle-btn:hover {
+            border-color: var(--primary);
+        }
+
+        .toggle-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .toggle-btn .icon {
+            font-size: 1.2rem;
+        }
+
+        /* Event Cards */
+        .events-container {
+            margin-top: 20px;
+        }
+
+        .day-section {
+            margin-bottom: 32px;
+        }
+
+        .day-header {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .event-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-bottom: 12px;
+            box-shadow: var(--shadow);
+            transition: all 0.2s ease;
+            display: grid;
+            grid-template-columns: 70px 1fr auto;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .event-card:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-2px);
+        }
+
+        .event-time {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .event-details {
+            flex: 1;
+        }
+
+        .event-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .event-meta {
+            display: flex;
+            gap: 16px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            flex-wrap: wrap;
+        }
+
+        .event-meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .event-channel {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-align: center;
+            min-width: 80px;
+        }
+
+        /* Score styling */
+        .event-score {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--success);
+            margin-left: 8px;
+            display: none;
+        }
+
+        .show-scores .event-score {
+            display: inline;
+        }
+
+        .event-score.hidden {
+            display: none !important;
+        }
+
+        /* Live indicator */
+        .live-badge {
+            background: #e10600;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Competition badge */
+        .competition-badge {
+            background: var(--bg);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+
+        /* Loading & Error states */
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-secondary);
+        }
+
+        .loading .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 16px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            text-align: center;
+            padding: 40px 20px;
+            color: #d32f2f;
+            background: #ffebee;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        /* No events message */
+        .no-events {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-secondary);
+        }
+
+        .no-events .icon {
+            font-size: 4rem;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        .no-events h3 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+        }
+
+        /* API Status */
+        .api-status {
+            text-align: center;
+            padding: 8px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .api-status .live-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            margin-right: 6px;
+            animation: pulse 2s infinite;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                padding: 12px;
+            }
+
+            .event-card {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .event-time {
+                font-size: 1.1rem;
+            }
+
+            .event-channel {
+                justify-self: start;
+            }
+
+            .sport-tab {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Sport-specific accent colors */
+        .sport-voetbal .event-time { color: var(--football); }
+        .sport-darts .event-time { color: var(--darts); }
+        .sport-f1 .event-time { color: var(--f1); }
+
+        .sport-voetbal .day-header { border-color: var(--football); }
+        .sport-darts .day-header { border-color: var(--darts); }
+        .sport-f1 .day-header { border-color: var(--f1); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Sport op TV</h1>
+            <p>Bekijk welke wedstrijden er vandaag op TV zijn</p>
+        </header>
+
+        <!-- Sport Tabs -->
+        <div class="sport-tabs">
+            <button class="sport-tab active" data-sport="voetbal">Voetbal</button>
+            <button class="sport-tab" data-sport="darts">Darts</button>
+            <button class="sport-tab" data-sport="f1">Formule 1</button>
+        </div>
+
+        <!-- Date Navigation -->
+        <div class="date-nav">
+            <button id="prev-week">&#171; Week</button>
+            <button id="prev-day">&#8249; Dag</button>
+            <button class="current-date" id="current-date">Vandaag</button>
+            <button id="next-day">Dag &#8250;</button>
+            <button id="next-week">Week &#187;</button>
+        </div>
+
+        <!-- Settings -->
+        <div class="settings-bar">
+            <button class="toggle-btn" id="toggle-scores">
+                <span class="icon">&#128065;</span>
+                <span>Toon uitslagen</span>
+            </button>
+        </div>
+
+        <!-- API Status -->
+        <div class="api-status" id="api-status">
+            <span class="live-dot"></span> Live data wordt opgehaald...
+        </div>
+
+        <!-- Events Container -->
+        <div class="events-container" id="events-container">
+            <!-- Events will be rendered here -->
+        </div>
+
+        <footer>
+            <p>Sport op TV &mdash; Geen reclame, gewoon overzicht</p>
+            <p style="margin-top: 8px; font-size: 0.8rem;">
+                Data: OpenF1 API, Football-Data.org
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // ============================================
+        // CONFIGURATION
+        // ============================================
+        const CONFIG = {
+            // Football-data.org API key (gratis aan te vragen op football-data.org)
+            FOOTBALL_API_KEY: '', // Vul hier je API key in
+            FOOTBALL_API_URL: 'https://api.football-data.org/v4',
+
+            // OpenF1 API (gratis, geen key nodig)
+            F1_API_URL: 'https://api.openf1.org/v1',
+
+            // Nederlandse TV zenders mapping
+            TV_CHANNELS: {
+                // Voetbal
+                'Eredivisie': 'ESPN',
+                'Premier League': 'Viaplay',
+                'La Liga': 'Ziggo Sport',
+                'Bundesliga': 'Viaplay',
+                'Serie A': 'Ziggo Sport',
+                'Ligue 1': 'Ziggo Sport',
+                'Champions League': 'Ziggo Sport',
+                'Europa League': 'Ziggo Sport',
+                'Conference League': 'Ziggo Sport',
+                // F1 & Darts
+                'Formula 1': 'Viaplay',
+                'Darts': 'Viaplay / RTL7'
+            }
+        };
+
+        // ============================================
+        // STATE
+        // ============================================
+        let currentSport = 'voetbal';
+        let currentDate = new Date();
+        let showScores = false;
+        let cachedData = {
+            voetbal: null,
+            darts: null,
+            f1: null
+        };
+
+        // ============================================
+        // DARTS DATA (Statisch - geen gratis API beschikbaar)
+        // Premier League Darts 2025 kalender
+        // ============================================
+        const dartsCalendar = [
+            // Week 1
+            { date: '2025-02-06', time: '19:30', event: 'Premier League Darts', location: 'Belfast', players: ['Van Gerwen', 'Price', 'Littler', 'Wright', 'Smith', 'Cross', 'Aspinall', 'Van den Bergh'], channel: 'Viaplay' },
+            { date: '2025-02-13', time: '19:30', event: 'Premier League Darts', location: 'Cardiff', players: ['Van Gerwen', 'Price', 'Littler', 'Wright', 'Smith', 'Cross', 'Aspinall', 'Van den Bergh'], channel: 'Viaplay' },
+            { date: '2025-02-20', time: '19:30', event: 'Premier League Darts', location: 'Liverpool', players: ['Van Gerwen', 'Price', 'Littler', 'Wright', 'Smith', 'Cross', 'Aspinall', 'Van den Bergh'], channel: 'Viaplay' },
+            { date: '2025-02-27', time: '19:30', event: 'Premier League Darts', location: 'Manchester', players: ['Van Gerwen', 'Price', 'Littler', 'Wright', 'Smith', 'Cross', 'Aspinall', 'Van den Bergh'], channel: 'Viaplay' },
+            { date: '2025-03-06', time: '19:30', event: 'Premier League Darts', location: 'Exeter', players: ['Van Gerwen', 'Price', 'Littler', 'Wright', 'Smith', 'Cross', 'Aspinall', 'Van den Bergh'], channel: 'Viaplay' },
+            { date: '2025-03-13', time: '19:30', event: 'Premier League Darts', location: 'Rotterdam Ahoy', players: ['Van Gerwen', 'Price', 'Littler', 'Wright', 'Smith', 'Cross', 'Aspinall', 'Van den Bergh'], channel: 'Viaplay' },
+            { date: '2025-03-20', time: '19:30', event: 'Premier League Darts', location: 'Newcastle', players: ['Van Gerwen', 'Price', 'Littler', 'Wright', 'Smith', 'Cross', 'Aspinall', 'Van den Bergh'], channel: 'Viaplay' },
+            { date: '2025-03-27', time: '19:30', event: 'Premier League Darts', location: 'Sheffield', players: ['Van Gerwen', 'Price', 'Littler', 'Wright', 'Smith', 'Cross', 'Aspinall', 'Van den Bergh'], channel: 'Viaplay' },
+            { date: '2025-04-03', time: '19:30', event: 'Premier League Darts', location: 'Aberdeen', players: ['Van Gerwen', 'Price', 'Littler', 'Wright', 'Smith', 'Cross', 'Aspinall', 'Van den Bergh'], channel: 'Viaplay' },
+            { date: '2025-04-10', time: '19:30', event: 'Premier League Darts', location: 'Dublin', players: ['Van Gerwen', 'Price', 'Littler', 'Wright', 'Smith', 'Cross', 'Aspinall', 'Van den Bergh'], channel: 'Viaplay' },
+            { date: '2025-04-17', time: '19:30', event: 'Premier League Darts', location: 'Leeds', players: ['Van Gerwen', 'Price', 'Littler', 'Wright', 'Smith', 'Cross', 'Aspinall', 'Van den Bergh'], channel: 'Viaplay' },
+            { date: '2025-04-24', time: '19:30', event: 'Premier League Darts', location: 'Birmingham', players: ['Van Gerwen', 'Price', 'Littler', 'Wright', 'Smith', 'Cross', 'Aspinall', 'Van den Bergh'], channel: 'Viaplay' },
+            { date: '2025-05-01', time: '19:30', event: 'Premier League Darts', location: 'Brighton', players: ['Van Gerwen', 'Price', 'Littler', 'Wright', 'Smith', 'Cross', 'Aspinall', 'Van den Bergh'], channel: 'Viaplay' },
+            { date: '2025-05-08', time: '19:30', event: 'Premier League Darts', location: 'Glasgow', players: ['Van Gerwen', 'Price', 'Littler', 'Wright', 'Smith', 'Cross', 'Aspinall', 'Van den Bergh'], channel: 'Viaplay' },
+            { date: '2025-05-15', time: '19:30', event: 'Premier League Darts', location: 'Nottingham', players: ['Van Gerwen', 'Price', 'Littler', 'Wright', 'Smith', 'Cross', 'Aspinall', 'Van den Bergh'], channel: 'Viaplay' },
+            { date: '2025-05-22', time: '19:00', event: 'Premier League Darts - Play-Offs', location: 'London O2', players: ['Top 4'], channel: 'Viaplay' },
+            // UK Open 2025
+            { date: '2025-02-28', time: '13:00', event: 'UK Open - Dag 1', location: 'Minehead', players: ['Alle PDC spelers'], channel: 'Viaplay' },
+            { date: '2025-03-01', time: '13:00', event: 'UK Open - Dag 2', location: 'Minehead', players: ['Alle PDC spelers'], channel: 'Viaplay' },
+            { date: '2025-03-02', time: '13:00', event: 'UK Open - Finale', location: 'Minehead', players: ['Finalisten'], channel: 'Viaplay' },
+        ];
+
+        // ============================================
+        // API FUNCTIONS
+        // ============================================
+
+        // Fetch F1 sessions from OpenF1 API
+        async function fetchF1Sessions() {
+            try {
+                const response = await fetch(`${CONFIG.F1_API_URL}/sessions?year=2025`);
+                if (!response.ok) throw new Error('F1 API error');
+                const sessions = await response.json();
+
+                return sessions.map(session => ({
+                    date: new Date(session.date_start),
+                    time: new Date(session.date_start).toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' }),
+                    title: session.session_name,
+                    competition: `GP ${session.country_name}`,
+                    circuit: session.circuit_short_name,
+                    channel: 'Viaplay',
+                    type: session.session_type,
+                    live: isLiveNow(session.date_start, session.date_end),
+                    score: null
+                }));
+            } catch (error) {
+                console.error('F1 API Error:', error);
+                return [];
+            }
+        }
+
+        // Fetch football matches from Football-Data.org API
+        async function fetchFootballMatches() {
+            if (!CONFIG.FOOTBALL_API_KEY) {
+                // Return demo data if no API key
+                return getDemoFootballData();
+            }
+
+            try {
+                const today = new Date();
+                const weekAgo = new Date(today);
+                weekAgo.setDate(weekAgo.getDate() - 7);
+                const weekAhead = new Date(today);
+                weekAhead.setDate(weekAhead.getDate() + 7);
+
+                const dateFrom = weekAgo.toISOString().split('T')[0];
+                const dateTo = weekAhead.toISOString().split('T')[0];
+
+                const response = await fetch(
+                    `${CONFIG.FOOTBALL_API_URL}/matches?dateFrom=${dateFrom}&dateTo=${dateTo}`,
+                    {
+                        headers: {
+                            'X-Auth-Token': CONFIG.FOOTBALL_API_KEY
+                        }
+                    }
+                );
+
+                if (!response.ok) throw new Error('Football API error');
+                const data = await response.json();
+
+                return data.matches.map(match => ({
+                    date: new Date(match.utcDate),
+                    time: new Date(match.utcDate).toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' }),
+                    home: match.homeTeam.shortName || match.homeTeam.name,
+                    away: match.awayTeam.shortName || match.awayTeam.name,
+                    competition: match.competition.name,
+                    channel: CONFIG.TV_CHANNELS[match.competition.name] || 'Ziggo Sport',
+                    score: match.score.fullTime.home !== null ?
+                        `${match.score.fullTime.home}-${match.score.fullTime.away}` : null,
+                    live: match.status === 'IN_PLAY' || match.status === 'PAUSED',
+                    status: match.status
+                }));
+            } catch (error) {
+                console.error('Football API Error:', error);
+                return getDemoFootballData();
+            }
+        }
+
+        // Demo football data (als fallback)
+        function getDemoFootballData() {
+            const today = new Date();
+            const events = [];
+
+            // Generate demo matches for the week
+            const demoMatches = [
+                { home: 'Ajax', away: 'PSV', comp: 'Eredivisie', channel: 'ESPN' },
+                { home: 'Feyenoord', away: 'AZ', comp: 'Eredivisie', channel: 'ESPN' },
+                { home: 'FC Utrecht', away: 'Vitesse', comp: 'Eredivisie', channel: 'ESPN' },
+                { home: 'Manchester City', away: 'Liverpool', comp: 'Premier League', channel: 'Viaplay' },
+                { home: 'Chelsea', away: 'Arsenal', comp: 'Premier League', channel: 'Viaplay' },
+                { home: 'Real Madrid', away: 'Barcelona', comp: 'La Liga', channel: 'Ziggo Sport' },
+                { home: 'Bayern München', away: 'Dortmund', comp: 'Bundesliga', channel: 'Viaplay' },
+                { home: 'AC Milan', away: 'Inter', comp: 'Serie A', channel: 'Ziggo Sport' },
+                { home: 'PSG', away: 'Lyon', comp: 'Ligue 1', channel: 'Ziggo Sport' },
+            ];
+
+            // Spread matches over the week
+            for (let i = -3; i <= 5; i++) {
+                const date = new Date(today);
+                date.setDate(date.getDate() + i);
+
+                // Add 1-3 matches per day
+                const matchCount = Math.floor(Math.random() * 3) + 1;
+                for (let j = 0; j < matchCount; j++) {
+                    const match = demoMatches[(i + 3 + j) % demoMatches.length];
+                    const hour = 14 + (j * 3); // 14:00, 17:00, 20:00
+
+                    events.push({
+                        date: new Date(date.getFullYear(), date.getMonth(), date.getDate(), hour, 30),
+                        time: `${hour}:30`,
+                        home: match.home,
+                        away: match.away,
+                        competition: match.comp,
+                        channel: match.channel,
+                        score: i < 0 ? `${Math.floor(Math.random()*4)}-${Math.floor(Math.random()*3)}` : null,
+                        live: i === 0 && hour <= new Date().getHours() && hour + 2 > new Date().getHours(),
+                        status: i < 0 ? 'FINISHED' : 'SCHEDULED'
+                    });
+                }
+            }
+
+            return events;
+        }
+
+        // Get darts events for a specific date
+        function getDartsEvents(targetDate) {
+            const dateStr = targetDate.toISOString().split('T')[0];
+            return dartsCalendar
+                .filter(event => event.date === dateStr)
+                .map(event => ({
+                    date: new Date(event.date + 'T' + event.time),
+                    time: event.time,
+                    title: event.event,
+                    location: event.location,
+                    competition: event.event,
+                    channel: event.channel,
+                    players: event.players,
+                    score: null,
+                    live: isLiveNow(event.date + 'T' + event.time, null, 3)
+                }));
+        }
+
+        // Check if event is live now
+        function isLiveNow(startTime, endTime, durationHours = 2) {
+            const now = new Date();
+            const start = new Date(startTime);
+            const end = endTime ? new Date(endTime) : new Date(start.getTime() + durationHours * 60 * 60 * 1000);
+            return now >= start && now <= end;
+        }
+
+        // ============================================
+        // RENDER FUNCTIONS
+        // ============================================
+
+        function formatDate(date) {
+            const days = ['Zondag', 'Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag', 'Zaterdag'];
+            const months = ['januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december'];
+
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const compareDate = new Date(date);
+            compareDate.setHours(0, 0, 0, 0);
+
+            const diffDays = Math.round((compareDate - today) / (1000 * 60 * 60 * 24));
+
+            if (diffDays === 0) return 'Vandaag';
+            if (diffDays === 1) return 'Morgen';
+            if (diffDays === -1) return 'Gisteren';
+
+            return `${days[date.getDay()]} ${date.getDate()} ${months[date.getMonth()]}`;
+        }
+
+        function isSameDay(date1, date2) {
+            return date1.getFullYear() === date2.getFullYear() &&
+                   date1.getMonth() === date2.getMonth() &&
+                   date1.getDate() === date2.getDate();
+        }
+
+        function showLoading() {
+            const container = document.getElementById('events-container');
+            container.innerHTML = `
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>Wedstrijden ophalen...</p>
+                </div>
+            `;
+        }
+
+        function showError(message) {
+            const container = document.getElementById('events-container');
+            container.innerHTML = `
+                <div class="error-message">
+                    <p>${message}</p>
+                </div>
+            `;
+        }
+
+        async function renderEvents() {
+            const container = document.getElementById('events-container');
+            container.className = `events-container sport-${currentSport}`;
+
+            showLoading();
+
+            let events = [];
+
+            try {
+                if (currentSport === 'f1') {
+                    if (!cachedData.f1) {
+                        cachedData.f1 = await fetchF1Sessions();
+                    }
+                    events = cachedData.f1.filter(e => isSameDay(e.date, currentDate));
+                } else if (currentSport === 'voetbal') {
+                    if (!cachedData.voetbal) {
+                        cachedData.voetbal = await fetchFootballMatches();
+                    }
+                    events = cachedData.voetbal.filter(e => isSameDay(e.date, currentDate));
+                } else if (currentSport === 'darts') {
+                    events = getDartsEvents(currentDate);
+                }
+            } catch (error) {
+                showError('Kon data niet ophalen. Probeer het later opnieuw.');
+                return;
+            }
+
+            // Update API status
+            const statusEl = document.getElementById('api-status');
+            if (currentSport === 'voetbal' && !CONFIG.FOOTBALL_API_KEY) {
+                statusEl.innerHTML = '<span class="live-dot" style="background: #ff9800;"></span> Demo data (voeg API key toe voor live data)';
+            } else {
+                statusEl.innerHTML = '<span class="live-dot"></span> Live data';
+            }
+
+            if (events.length === 0) {
+                const sportNames = { voetbal: 'voetbal', darts: 'darts', f1: 'Formule 1' };
+                const icons = { voetbal: '&#9917;', darts: '&#127919;', f1: '&#127959;' };
+                container.innerHTML = `
+                    <div class="no-events">
+                        <div class="icon">${icons[currentSport]}</div>
+                        <h3>Geen ${sportNames[currentSport]} gepland</h3>
+                        <p>Er zijn geen uitzendingen gevonden voor deze datum.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = `<div class="day-section">
+                <h2 class="day-header">${formatDate(currentDate)}</h2>`;
+
+            events.sort((a, b) => a.time.localeCompare(b.time)).forEach(event => {
+                let title = '';
+                if (currentSport === 'voetbal') {
+                    title = `${event.home} - ${event.away}`;
+                } else if (currentSport === 'f1') {
+                    title = `${event.title}`;
+                } else if (currentSport === 'darts') {
+                    title = event.title;
+                    if (event.location) {
+                        title += ` - ${event.location}`;
+                    }
+                }
+
+                const scoreHtml = event.score ? `<span class="event-score">${event.score}</span>` : '';
+                const liveHtml = event.live ? `<span class="live-badge">LIVE</span>` : '';
+
+                html += `
+                    <div class="event-card">
+                        <div class="event-time">${event.time}</div>
+                        <div class="event-details">
+                            <div class="event-title">
+                                ${title}
+                                ${scoreHtml}
+                                ${liveHtml}
+                            </div>
+                            <div class="event-meta">
+                                <span class="competition-badge">${event.competition}</span>
+                                ${event.circuit ? `<span>${event.circuit}</span>` : ''}
+                            </div>
+                        </div>
+                        <div class="event-channel">${event.channel}</div>
+                    </div>
+                `;
+            });
+
+            html += '</div>';
+            container.innerHTML = html;
+
+            if (showScores) {
+                container.classList.add('show-scores');
+            }
+        }
+
+        function updateDateDisplay() {
+            document.getElementById('current-date').textContent = formatDate(currentDate);
+        }
+
+        // ============================================
+        // EVENT LISTENERS
+        // ============================================
+
+        document.querySelectorAll('.sport-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.sport-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                currentSport = tab.dataset.sport;
+                renderEvents();
+            });
+        });
+
+        document.getElementById('prev-day').addEventListener('click', () => {
+            currentDate.setDate(currentDate.getDate() - 1);
+            updateDateDisplay();
+            renderEvents();
+        });
+
+        document.getElementById('next-day').addEventListener('click', () => {
+            currentDate.setDate(currentDate.getDate() + 1);
+            updateDateDisplay();
+            renderEvents();
+        });
+
+        document.getElementById('prev-week').addEventListener('click', () => {
+            currentDate.setDate(currentDate.getDate() - 7);
+            updateDateDisplay();
+            renderEvents();
+        });
+
+        document.getElementById('next-week').addEventListener('click', () => {
+            currentDate.setDate(currentDate.getDate() + 7);
+            updateDateDisplay();
+            renderEvents();
+        });
+
+        document.getElementById('toggle-scores').addEventListener('click', function() {
+            showScores = !showScores;
+            this.classList.toggle('active', showScores);
+            this.querySelector('span:last-child').textContent = showScores ? 'Verberg uitslagen' : 'Toon uitslagen';
+            document.getElementById('events-container').classList.toggle('show-scores', showScores);
+        });
+
+        document.getElementById('current-date').addEventListener('click', () => {
+            currentDate = new Date();
+            updateDateDisplay();
+            renderEvents();
+        });
+
+        // ============================================
+        // INITIALIZATION
+        // ============================================
+
+        updateDateDisplay();
+        renderEvents();
+
+        // Auto-refresh every 5 minutes
+        setInterval(() => {
+            cachedData = { voetbal: null, darts: null, f1: null };
+            renderEvents();
+        }, 5 * 60 * 1000);
+    </script>
+</body>
+</html>
