@@ -444,6 +444,7 @@
         <!-- API Status -->
         <div class="api-status" id="api-status">
             <span class="live-dot"></span> Live data wordt opgehaald...
+            <button id="refresh-btn" style="margin-left: 12px; padding: 4px 12px; border: 1px solid #ccc; border-radius: 4px; background: white; cursor: pointer; font-size: 0.8rem;">Ververs</button>
         </div>
 
         <!-- Events Container -->
@@ -454,7 +455,7 @@
         <footer>
             <p>Sport op TV &mdash; Geen reclame, gewoon overzicht</p>
             <p style="margin-top: 8px; font-size: 0.8rem;">
-                Data: OpenF1 API, Football-Data.org
+                Data: OpenF1, OpenFootball, Football-Data.org
             </p>
         </footer>
     </div>
@@ -468,12 +469,24 @@
             FOOTBALL_API_KEY: '', // Vul hier je API key in
             FOOTBALL_API_URL: 'https://api.football-data.org/v4',
 
+            // OpenFootball GitHub (gratis, geen key nodig)
+            OPENFOOTBALL_URL: 'https://raw.githubusercontent.com/openfootball/football.json/master/2024-25',
+
             // OpenF1 API (gratis, geen key nodig)
             F1_API_URL: 'https://api.openf1.org/v1',
 
+            // Competities voor OpenFootball
+            LEAGUES: [
+                { file: 'nl.1.json', name: 'Eredivisie', channel: 'ESPN' },
+                { file: 'en.1.json', name: 'Premier League', channel: 'Viaplay' },
+                { file: 'de.1.json', name: 'Bundesliga', channel: 'Viaplay' },
+                { file: 'es.1.json', name: 'La Liga', channel: 'Ziggo Sport' },
+                { file: 'it.1.json', name: 'Serie A', channel: 'Ziggo Sport' },
+                { file: 'fr.1.json', name: 'Ligue 1', channel: 'Ziggo Sport' }
+            ],
+
             // Nederlandse TV zenders mapping
             TV_CHANNELS: {
-                // Voetbal
                 'Eredivisie': 'ESPN',
                 'Premier League': 'Viaplay',
                 'La Liga': 'Ziggo Sport',
@@ -483,7 +496,6 @@
                 'Champions League': 'Ziggo Sport',
                 'Europa League': 'Ziggo Sport',
                 'Conference League': 'Ziggo Sport',
-                // F1 & Darts
                 'Formula 1': 'Viaplay',
                 'Darts': 'Viaplay / RTL7'
             }
@@ -557,97 +569,116 @@
             }
         }
 
-        // Fetch football matches from Football-Data.org API
+        // Fetch football matches - tries Football-Data.org first, then OpenFootball
         async function fetchFootballMatches() {
-            if (!CONFIG.FOOTBALL_API_KEY) {
-                // Return demo data if no API key
-                return getDemoFootballData();
-            }
-
-            try {
-                const today = new Date();
-                const weekAgo = new Date(today);
-                weekAgo.setDate(weekAgo.getDate() - 7);
-                const weekAhead = new Date(today);
-                weekAhead.setDate(weekAhead.getDate() + 7);
-
-                const dateFrom = weekAgo.toISOString().split('T')[0];
-                const dateTo = weekAhead.toISOString().split('T')[0];
-
-                const response = await fetch(
-                    `${CONFIG.FOOTBALL_API_URL}/matches?dateFrom=${dateFrom}&dateTo=${dateTo}`,
-                    {
-                        headers: {
-                            'X-Auth-Token': CONFIG.FOOTBALL_API_KEY
-                        }
-                    }
-                );
-
-                if (!response.ok) throw new Error('Football API error');
-                const data = await response.json();
-
-                return data.matches.map(match => ({
-                    date: new Date(match.utcDate),
-                    time: new Date(match.utcDate).toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' }),
-                    home: match.homeTeam.shortName || match.homeTeam.name,
-                    away: match.awayTeam.shortName || match.awayTeam.name,
-                    competition: match.competition.name,
-                    channel: CONFIG.TV_CHANNELS[match.competition.name] || 'Ziggo Sport',
-                    score: match.score.fullTime.home !== null ?
-                        `${match.score.fullTime.home}-${match.score.fullTime.away}` : null,
-                    live: match.status === 'IN_PLAY' || match.status === 'PAUSED',
-                    status: match.status
-                }));
-            } catch (error) {
-                console.error('Football API Error:', error);
-                return getDemoFootballData();
-            }
-        }
-
-        // Demo football data (als fallback)
-        function getDemoFootballData() {
-            const today = new Date();
-            const events = [];
-
-            // Generate demo matches for the week
-            const demoMatches = [
-                { home: 'Ajax', away: 'PSV', comp: 'Eredivisie', channel: 'ESPN' },
-                { home: 'Feyenoord', away: 'AZ', comp: 'Eredivisie', channel: 'ESPN' },
-                { home: 'FC Utrecht', away: 'Vitesse', comp: 'Eredivisie', channel: 'ESPN' },
-                { home: 'Manchester City', away: 'Liverpool', comp: 'Premier League', channel: 'Viaplay' },
-                { home: 'Chelsea', away: 'Arsenal', comp: 'Premier League', channel: 'Viaplay' },
-                { home: 'Real Madrid', away: 'Barcelona', comp: 'La Liga', channel: 'Ziggo Sport' },
-                { home: 'Bayern München', away: 'Dortmund', comp: 'Bundesliga', channel: 'Viaplay' },
-                { home: 'AC Milan', away: 'Inter', comp: 'Serie A', channel: 'Ziggo Sport' },
-                { home: 'PSG', away: 'Lyon', comp: 'Ligue 1', channel: 'Ziggo Sport' },
-            ];
-
-            // Spread matches over the week
-            for (let i = -3; i <= 5; i++) {
-                const date = new Date(today);
-                date.setDate(date.getDate() + i);
-
-                // Add 1-3 matches per day
-                const matchCount = Math.floor(Math.random() * 3) + 1;
-                for (let j = 0; j < matchCount; j++) {
-                    const match = demoMatches[(i + 3 + j) % demoMatches.length];
-                    const hour = 14 + (j * 3); // 14:00, 17:00, 20:00
-
-                    events.push({
-                        date: new Date(date.getFullYear(), date.getMonth(), date.getDate(), hour, 30),
-                        time: `${hour}:30`,
-                        home: match.home,
-                        away: match.away,
-                        competition: match.comp,
-                        channel: match.channel,
-                        score: i < 0 ? `${Math.floor(Math.random()*4)}-${Math.floor(Math.random()*3)}` : null,
-                        live: i === 0 && hour <= new Date().getHours() && hour + 2 > new Date().getHours(),
-                        status: i < 0 ? 'FINISHED' : 'SCHEDULED'
-                    });
+            // Try Football-Data.org API first if key is available
+            if (CONFIG.FOOTBALL_API_KEY) {
+                try {
+                    const matches = await fetchFromFootballDataOrg();
+                    if (matches.length > 0) return matches;
+                } catch (error) {
+                    console.warn('Football-Data.org failed, falling back to OpenFootball');
                 }
             }
 
-            return events;
+            // Fallback to OpenFootball GitHub
+            return await fetchFromOpenFootball();
+        }
+
+        // Fetch from Football-Data.org (realtime)
+        async function fetchFromFootballDataOrg() {
+            const today = new Date();
+            const weekAgo = new Date(today);
+            weekAgo.setDate(weekAgo.getDate() - 7);
+            const weekAhead = new Date(today);
+            weekAhead.setDate(weekAhead.getDate() + 7);
+
+            const dateFrom = weekAgo.toISOString().split('T')[0];
+            const dateTo = weekAhead.toISOString().split('T')[0];
+
+            const response = await fetch(
+                `${CONFIG.FOOTBALL_API_URL}/matches?dateFrom=${dateFrom}&dateTo=${dateTo}`,
+                {
+                    headers: {
+                        'X-Auth-Token': CONFIG.FOOTBALL_API_KEY
+                    }
+                }
+            );
+
+            if (!response.ok) throw new Error('Football API error');
+            const data = await response.json();
+
+            return data.matches.map(match => ({
+                date: new Date(match.utcDate),
+                time: new Date(match.utcDate).toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' }),
+                home: match.homeTeam.shortName || match.homeTeam.name,
+                away: match.awayTeam.shortName || match.awayTeam.name,
+                competition: match.competition.name,
+                channel: CONFIG.TV_CHANNELS[match.competition.name] || 'Ziggo Sport',
+                score: match.score.fullTime.home !== null ?
+                    `${match.score.fullTime.home}-${match.score.fullTime.away}` : null,
+                live: match.status === 'IN_PLAY' || match.status === 'PAUSED',
+                status: match.status
+            }));
+        }
+
+        // Fetch from OpenFootball GitHub (historical data, updated daily)
+        async function fetchFromOpenFootball() {
+            const allMatches = [];
+
+            // Fetch all leagues in parallel
+            const leaguePromises = CONFIG.LEAGUES.map(async (league) => {
+                try {
+                    const response = await fetch(`${CONFIG.OPENFOOTBALL_URL}/${league.file}`);
+                    if (!response.ok) return [];
+
+                    const data = await response.json();
+                    const matches = [];
+
+                    // Parse matches from all rounds
+                    if (data.rounds) {
+                        data.rounds.forEach(round => {
+                            if (round.matches) {
+                                round.matches.forEach(match => {
+                                    const matchDate = new Date(match.date + 'T' + (match.time || '15:00'));
+                                    const hasScore = match.score && match.score.ft;
+
+                                    matches.push({
+                                        date: matchDate,
+                                        time: match.time || '15:00',
+                                        home: match.team1,
+                                        away: match.team2,
+                                        competition: league.name,
+                                        channel: league.channel,
+                                        score: hasScore ? `${match.score.ft[0]}-${match.score.ft[1]}` : null,
+                                        live: false,
+                                        status: hasScore ? 'FINISHED' : 'SCHEDULED'
+                                    });
+                                });
+                            }
+                        });
+                    }
+
+                    return matches;
+                } catch (error) {
+                    console.error(`Error fetching ${league.name}:`, error);
+                    return [];
+                }
+            });
+
+            const results = await Promise.all(leaguePromises);
+            results.forEach(matches => allMatches.push(...matches));
+
+            // Filter to show only matches within 2 weeks range
+            const today = new Date();
+            const twoWeeksAgo = new Date(today);
+            twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
+            const twoWeeksAhead = new Date(today);
+            twoWeeksAhead.setDate(twoWeeksAhead.getDate() + 14);
+
+            return allMatches.filter(match =>
+                match.date >= twoWeeksAgo && match.date <= twoWeeksAhead
+            );
         }
 
         // Get darts events for a specific date
@@ -752,10 +783,16 @@
 
             // Update API status
             const statusEl = document.getElementById('api-status');
-            if (currentSport === 'voetbal' && !CONFIG.FOOTBALL_API_KEY) {
-                statusEl.innerHTML = '<span class="live-dot" style="background: #ff9800;"></span> Demo data (voeg API key toe voor live data)';
+            if (currentSport === 'voetbal') {
+                if (CONFIG.FOOTBALL_API_KEY) {
+                    statusEl.innerHTML = '<span class="live-dot"></span> Live data (Football-Data.org)';
+                } else {
+                    statusEl.innerHTML = '<span class="live-dot"></span> Seizoen data (OpenFootball)';
+                }
+            } else if (currentSport === 'f1') {
+                statusEl.innerHTML = '<span class="live-dot"></span> Live data (OpenF1)';
             } else {
-                statusEl.innerHTML = '<span class="live-dot"></span> Live data';
+                statusEl.innerHTML = '<span class="live-dot" style="background: #ff9800;"></span> Kalender data';
             }
 
             if (events.length === 0) {
@@ -868,6 +905,11 @@
         document.getElementById('current-date').addEventListener('click', () => {
             currentDate = new Date();
             updateDateDisplay();
+            renderEvents();
+        });
+
+        document.getElementById('refresh-btn').addEventListener('click', () => {
+            cachedData = { voetbal: null, darts: null, f1: null };
             renderEvents();
         });
 
