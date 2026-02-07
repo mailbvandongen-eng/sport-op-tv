@@ -585,7 +585,7 @@
             return await fetchFromOpenFootball();
         }
 
-        // Fetch from Football-Data.org (realtime)
+        // Fetch from Football-Data.org (realtime) via CORS proxy
         async function fetchFromFootballDataOrg() {
             const today = new Date();
             const weekAgo = new Date(today);
@@ -596,14 +596,15 @@
             const dateFrom = weekAgo.toISOString().split('T')[0];
             const dateTo = weekAhead.toISOString().split('T')[0];
 
-            const response = await fetch(
-                `${CONFIG.FOOTBALL_API_URL}/matches?dateFrom=${dateFrom}&dateTo=${dateTo}`,
-                {
-                    headers: {
-                        'X-Auth-Token': CONFIG.FOOTBALL_API_KEY
-                    }
+            // Use corsproxy.io to bypass CORS restrictions
+            const apiUrl = `${CONFIG.FOOTBALL_API_URL}/matches?dateFrom=${dateFrom}&dateTo=${dateTo}`;
+            const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(apiUrl)}`;
+
+            const response = await fetch(proxyUrl, {
+                headers: {
+                    'X-Auth-Token': CONFIG.FOOTBALL_API_KEY
                 }
-            );
+            });
 
             if (!response.ok) throw new Error('Football API error');
             const data = await response.json();
