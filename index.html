@@ -1400,6 +1400,43 @@
         }
 
         // Fetch F1 standings from Ergast API
+        // F1 2026 static data (seizoen start 8 maart)
+        const f1_2026_drivers = [
+            { position: 1, Driver: { givenName: 'Lando', familyName: 'Norris' }, Constructors: [{ name: 'McLaren' }], points: 0 },
+            { position: 2, Driver: { givenName: 'Oscar', familyName: 'Piastri' }, Constructors: [{ name: 'McLaren' }], points: 0 },
+            { position: 3, Driver: { givenName: 'Max', familyName: 'Verstappen' }, Constructors: [{ name: 'Red Bull' }], points: 0 },
+            { position: 4, Driver: { givenName: 'Yuki', familyName: 'Tsunoda' }, Constructors: [{ name: 'Red Bull' }], points: 0 },
+            { position: 5, Driver: { givenName: 'Charles', familyName: 'Leclerc' }, Constructors: [{ name: 'Ferrari' }], points: 0 },
+            { position: 6, Driver: { givenName: 'Lewis', familyName: 'Hamilton' }, Constructors: [{ name: 'Ferrari' }], points: 0 },
+            { position: 7, Driver: { givenName: 'George', familyName: 'Russell' }, Constructors: [{ name: 'Mercedes' }], points: 0 },
+            { position: 8, Driver: { givenName: 'Kimi', familyName: 'Antonelli' }, Constructors: [{ name: 'Mercedes' }], points: 0 },
+            { position: 9, Driver: { givenName: 'Fernando', familyName: 'Alonso' }, Constructors: [{ name: 'Aston Martin' }], points: 0 },
+            { position: 10, Driver: { givenName: 'Lance', familyName: 'Stroll' }, Constructors: [{ name: 'Aston Martin' }], points: 0 },
+            { position: 11, Driver: { givenName: 'Pierre', familyName: 'Gasly' }, Constructors: [{ name: 'Alpine' }], points: 0 },
+            { position: 12, Driver: { givenName: 'Jack', familyName: 'Doohan' }, Constructors: [{ name: 'Alpine' }], points: 0 },
+            { position: 13, Driver: { givenName: 'Alex', familyName: 'Albon' }, Constructors: [{ name: 'Williams' }], points: 0 },
+            { position: 14, Driver: { givenName: 'Carlos', familyName: 'Sainz' }, Constructors: [{ name: 'Williams' }], points: 0 },
+            { position: 15, Driver: { givenName: 'Nico', familyName: 'Hülkenberg' }, Constructors: [{ name: 'Sauber' }], points: 0 },
+            { position: 16, Driver: { givenName: 'Gabriel', familyName: 'Bortoleto' }, Constructors: [{ name: 'Sauber' }], points: 0 },
+            { position: 17, Driver: { givenName: 'Liam', familyName: 'Lawson' }, Constructors: [{ name: 'RB' }], points: 0 },
+            { position: 18, Driver: { givenName: 'Isack', familyName: 'Hadjar' }, Constructors: [{ name: 'RB' }], points: 0 },
+            { position: 19, Driver: { givenName: 'Esteban', familyName: 'Ocon' }, Constructors: [{ name: 'Haas' }], points: 0 },
+            { position: 20, Driver: { givenName: 'Oliver', familyName: 'Bearman' }, Constructors: [{ name: 'Haas' }], points: 0 },
+        ];
+
+        const f1_2026_constructors = [
+            { position: 1, Constructor: { name: 'McLaren' }, points: 0 },
+            { position: 2, Constructor: { name: 'Ferrari' }, points: 0 },
+            { position: 3, Constructor: { name: 'Red Bull' }, points: 0 },
+            { position: 4, Constructor: { name: 'Mercedes' }, points: 0 },
+            { position: 5, Constructor: { name: 'Aston Martin' }, points: 0 },
+            { position: 6, Constructor: { name: 'Alpine' }, points: 0 },
+            { position: 7, Constructor: { name: 'Williams' }, points: 0 },
+            { position: 8, Constructor: { name: 'RB' }, points: 0 },
+            { position: 9, Constructor: { name: 'Haas' }, points: 0 },
+            { position: 10, Constructor: { name: 'Sauber' }, points: 0 },
+        ];
+
         async function fetchF1Standings() {
             try {
                 const [driversRes, constructorsRes] = await Promise.all([
@@ -1408,13 +1445,19 @@
                 ]);
                 const driversData = await driversRes.json();
                 const constructorsData = await constructorsRes.json();
+
+                const drivers = driversData.MRData.StandingsTable.StandingsLists[0]?.DriverStandings || [];
+                const constructors = constructorsData.MRData.StandingsTable.StandingsLists[0]?.ConstructorStandings || [];
+
+                // Use API data if available, otherwise use static 2026 data
                 return {
-                    drivers: driversData.MRData.StandingsTable.StandingsLists[0]?.DriverStandings || [],
-                    constructors: constructorsData.MRData.StandingsTable.StandingsLists[0]?.ConstructorStandings || []
+                    drivers: drivers.length > 0 ? drivers : f1_2026_drivers,
+                    constructors: constructors.length > 0 ? constructors : f1_2026_constructors
                 };
             } catch (e) {
                 console.error('F1 standings error:', e);
-                return { drivers: [], constructors: [] };
+                // Return static 2026 data on error
+                return { drivers: f1_2026_drivers, constructors: f1_2026_constructors };
             }
         }
 
