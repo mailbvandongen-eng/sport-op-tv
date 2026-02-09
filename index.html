@@ -108,7 +108,12 @@
             flex-wrap: wrap;
         }
 
-        .filter-select {
+        /* Dropdown */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-btn {
             padding: 8px 12px;
             border: 1px solid #ddd;
             border-radius: 6px;
@@ -117,11 +122,67 @@
             color: var(--text);
             cursor: pointer;
             min-width: 140px;
+            text-align: left;
         }
 
-        .filter-select:focus {
-            outline: none;
-            border-color: var(--primary);
+        .dropdown-btn:hover {
+            border-color: #bbb;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-shadow: var(--shadow-hover);
+            z-index: 100;
+            min-width: 180px;
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 4px;
+        }
+
+        .dropdown-content.show {
+            display: block;
+        }
+
+        .dropdown-content label {
+            display: block;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .dropdown-content label:hover {
+            background: #f5f5f5;
+        }
+
+        .dropdown-content input[type="checkbox"] {
+            margin-right: 8px;
+        }
+
+        .dropdown-content hr {
+            border: none;
+            border-top: 1px solid #eee;
+            margin: 4px 0;
+        }
+
+        .reset-btn {
+            padding: 6px 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background: white;
+            color: #666;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .reset-btn:hover {
+            background: #f5f5f5;
+            color: var(--primary);
         }
 
         .filter-input {
@@ -513,25 +574,30 @@
 
         <!-- Filters Panel -->
         <div class="filters-row" id="filters-row">
-            <select class="filter-select" id="filter-competition">
-                <option value="">Alle competities</option>
-                <option value="Eredivisie">Eredivisie</option>
-                <option value="Premier League">Premier League</option>
-                <option value="Bundesliga">Bundesliga</option>
-                <option value="La Liga">La Liga</option>
-                <option value="Serie A">Serie A</option>
-                <option value="Ligue 1">Ligue 1</option>
-                <option value="Champions League">Champions League</option>
-                <option value="Europa League">Europa League</option>
-                <option value="Conference League">Conference League</option>
-                <option value="FA Cup">FA Cup</option>
-                <option value="League Cup">League Cup</option>
-                <option value="Coppa Italia">Coppa Italia</option>
-                <option value="DFB Pokal">DFB Pokal</option>
-                <option value="Copa del Rey">Copa del Rey</option>
-                <option value="KNVB Beker">KNVB Beker</option>
-            </select>
-            <input type="text" class="filter-input" id="filter-clubs" placeholder="Club zoeken...">
+            <div class="dropdown" id="comp-dropdown">
+                <button class="dropdown-btn" id="comp-btn">Competities ▾</button>
+                <div class="dropdown-content" id="comp-content">
+                    <label><input type="checkbox" value="Eredivisie"> Eredivisie</label>
+                    <label><input type="checkbox" value="Premier League"> Premier League</label>
+                    <label><input type="checkbox" value="Bundesliga"> Bundesliga</label>
+                    <label><input type="checkbox" value="La Liga"> La Liga</label>
+                    <label><input type="checkbox" value="Serie A"> Serie A</label>
+                    <label><input type="checkbox" value="Ligue 1"> Ligue 1</label>
+                    <hr>
+                    <label><input type="checkbox" value="Champions League"> Champions League</label>
+                    <label><input type="checkbox" value="Europa League"> Europa League</label>
+                    <label><input type="checkbox" value="Conference League"> Conference League</label>
+                    <hr>
+                    <label><input type="checkbox" value="FA Cup"> FA Cup</label>
+                    <label><input type="checkbox" value="League Cup"> League Cup</label>
+                    <label><input type="checkbox" value="Coppa Italia"> Coppa Italia</label>
+                    <label><input type="checkbox" value="DFB Pokal"> DFB Pokal</label>
+                    <label><input type="checkbox" value="Copa del Rey"> Copa del Rey</label>
+                    <label><input type="checkbox" value="KNVB Beker"> KNVB Beker</label>
+                </div>
+            </div>
+            <input type="text" class="filter-input" id="filter-clubs" placeholder="Clubs (komma)...">
+            <button class="reset-btn" id="reset-filters" title="Herstel filters">&#x21bb;</button>
             <div class="filters-spacer"></div>
             <div class="toggle-section">
                 <label class="slim-toggle">
@@ -655,11 +721,21 @@
         let currentSport = 'voetbal';
         let showScores = false;
         let showPast = false;
-        // Load filters from localStorage
-        let filters = {
-            competition: localStorage.getItem('selectedCompetition') || '',
-            club: localStorage.getItem('selectedClub') || ''
-        };
+        // Load filters from localStorage (with error handling)
+        let filters = { competitions: [], clubs: [] };
+        try {
+            const savedComps = localStorage.getItem('selectedCompetitions');
+            const savedClubs = localStorage.getItem('selectedClubs');
+            if (savedComps) filters.competitions = JSON.parse(savedComps) || [];
+            if (savedClubs) filters.clubs = JSON.parse(savedClubs) || [];
+            // Ensure arrays
+            if (!Array.isArray(filters.competitions)) filters.competitions = [];
+            if (!Array.isArray(filters.clubs)) filters.clubs = [];
+        } catch (e) {
+            console.warn('Could not load filters from localStorage:', e);
+            localStorage.removeItem('selectedCompetitions');
+            localStorage.removeItem('selectedClubs');
+        }
         let cachedData = {
             voetbal: null,
             darts: null,
@@ -667,31 +743,48 @@
         };
 
         // ============================================
-        // DARTS DATA (Statisch - geen gratis API beschikbaar)
-        // Premier League Darts 2025 kalender
+        // DARTS DATA 2026 - Premier League Darts & Major Events
         // ============================================
         const dartsCalendar = [
-            // Week 1
-            { date: '2025-02-06', time: '19:30', event: 'Premier League Darts', location: 'Belfast', players: ['Van Gerwen', 'Price', 'Littler', 'Wright', 'Smith', 'Cross', 'Aspinall', 'Van den Bergh'], channel: 'Viaplay' },
-            { date: '2025-02-13', time: '19:30', event: 'Premier League Darts', location: 'Cardiff', players: ['Van Gerwen', 'Price', 'Littler', 'Wright', 'Smith', 'Cross', 'Aspinall', 'Van den Bergh'], channel: 'Viaplay' },
-            { date: '2025-02-20', time: '19:30', event: 'Premier League Darts', location: 'Liverpool', players: ['Van Gerwen', 'Price', 'Littler', 'Wright', 'Smith', 'Cross', 'Aspinall', 'Van den Bergh'], channel: 'Viaplay' },
-            { date: '2025-02-27', time: '19:30', event: 'Premier League Darts', location: 'Manchester', players: ['Van Gerwen', 'Price', 'Littler', 'Wright', 'Smith', 'Cross', 'Aspinall', 'Van den Bergh'], channel: 'Viaplay' },
-            { date: '2025-03-06', time: '19:30', event: 'Premier League Darts', location: 'Exeter', players: ['Van Gerwen', 'Price', 'Littler', 'Wright', 'Smith', 'Cross', 'Aspinall', 'Van den Bergh'], channel: 'Viaplay' },
-            { date: '2025-03-13', time: '19:30', event: 'Premier League Darts', location: 'Rotterdam Ahoy', players: ['Van Gerwen', 'Price', 'Littler', 'Wright', 'Smith', 'Cross', 'Aspinall', 'Van den Bergh'], channel: 'Viaplay' },
-            { date: '2025-03-20', time: '19:30', event: 'Premier League Darts', location: 'Newcastle', players: ['Van Gerwen', 'Price', 'Littler', 'Wright', 'Smith', 'Cross', 'Aspinall', 'Van den Bergh'], channel: 'Viaplay' },
-            { date: '2025-03-27', time: '19:30', event: 'Premier League Darts', location: 'Sheffield', players: ['Van Gerwen', 'Price', 'Littler', 'Wright', 'Smith', 'Cross', 'Aspinall', 'Van den Bergh'], channel: 'Viaplay' },
-            { date: '2025-04-03', time: '19:30', event: 'Premier League Darts', location: 'Aberdeen', players: ['Van Gerwen', 'Price', 'Littler', 'Wright', 'Smith', 'Cross', 'Aspinall', 'Van den Bergh'], channel: 'Viaplay' },
-            { date: '2025-04-10', time: '19:30', event: 'Premier League Darts', location: 'Dublin', players: ['Van Gerwen', 'Price', 'Littler', 'Wright', 'Smith', 'Cross', 'Aspinall', 'Van den Bergh'], channel: 'Viaplay' },
-            { date: '2025-04-17', time: '19:30', event: 'Premier League Darts', location: 'Leeds', players: ['Van Gerwen', 'Price', 'Littler', 'Wright', 'Smith', 'Cross', 'Aspinall', 'Van den Bergh'], channel: 'Viaplay' },
-            { date: '2025-04-24', time: '19:30', event: 'Premier League Darts', location: 'Birmingham', players: ['Van Gerwen', 'Price', 'Littler', 'Wright', 'Smith', 'Cross', 'Aspinall', 'Van den Bergh'], channel: 'Viaplay' },
-            { date: '2025-05-01', time: '19:30', event: 'Premier League Darts', location: 'Brighton', players: ['Van Gerwen', 'Price', 'Littler', 'Wright', 'Smith', 'Cross', 'Aspinall', 'Van den Bergh'], channel: 'Viaplay' },
-            { date: '2025-05-08', time: '19:30', event: 'Premier League Darts', location: 'Glasgow', players: ['Van Gerwen', 'Price', 'Littler', 'Wright', 'Smith', 'Cross', 'Aspinall', 'Van den Bergh'], channel: 'Viaplay' },
-            { date: '2025-05-15', time: '19:30', event: 'Premier League Darts', location: 'Nottingham', players: ['Van Gerwen', 'Price', 'Littler', 'Wright', 'Smith', 'Cross', 'Aspinall', 'Van den Bergh'], channel: 'Viaplay' },
-            { date: '2025-05-22', time: '19:00', event: 'Premier League Darts - Play-Offs', location: 'London O2', players: ['Top 4'], channel: 'Viaplay' },
-            // UK Open 2025
-            { date: '2025-02-28', time: '13:00', event: 'UK Open - Dag 1', location: 'Minehead', players: ['Alle PDC spelers'], channel: 'Viaplay' },
-            { date: '2025-03-01', time: '13:00', event: 'UK Open - Dag 2', location: 'Minehead', players: ['Alle PDC spelers'], channel: 'Viaplay' },
-            { date: '2025-03-02', time: '13:00', event: 'UK Open - Finale', location: 'Minehead', players: ['Finalisten'], channel: 'Viaplay' },
+            // Premier League Darts 2026 (donderdagen)
+            { date: '2026-02-05', time: '19:30', event: 'Premier League Darts', location: 'Belfast', channel: 'Viaplay' },
+            { date: '2026-02-12', time: '19:30', event: 'Premier League Darts', location: 'Cardiff', channel: 'Viaplay' },
+            { date: '2026-02-19', time: '19:30', event: 'Premier League Darts', location: 'Liverpool', channel: 'Viaplay' },
+            { date: '2026-02-26', time: '19:30', event: 'Premier League Darts', location: 'Manchester', channel: 'Viaplay' },
+            { date: '2026-03-05', time: '19:30', event: 'Premier League Darts', location: 'Exeter', channel: 'Viaplay' },
+            { date: '2026-03-12', time: '19:30', event: 'Premier League Darts', location: 'Rotterdam Ahoy', channel: 'Viaplay' },
+            { date: '2026-03-19', time: '19:30', event: 'Premier League Darts', location: 'Newcastle', channel: 'Viaplay' },
+            { date: '2026-03-26', time: '19:30', event: 'Premier League Darts', location: 'Sheffield', channel: 'Viaplay' },
+            { date: '2026-04-02', time: '19:30', event: 'Premier League Darts', location: 'Aberdeen', channel: 'Viaplay' },
+            { date: '2026-04-09', time: '19:30', event: 'Premier League Darts', location: 'Dublin', channel: 'Viaplay' },
+            { date: '2026-04-16', time: '19:30', event: 'Premier League Darts', location: 'Leeds', channel: 'Viaplay' },
+            { date: '2026-04-23', time: '19:30', event: 'Premier League Darts', location: 'Birmingham', channel: 'Viaplay' },
+            { date: '2026-04-30', time: '19:30', event: 'Premier League Darts', location: 'Brighton', channel: 'Viaplay' },
+            { date: '2026-05-07', time: '19:30', event: 'Premier League Darts', location: 'Glasgow', channel: 'Viaplay' },
+            { date: '2026-05-14', time: '19:30', event: 'Premier League Darts', location: 'Nottingham', channel: 'Viaplay' },
+            { date: '2026-05-21', time: '19:00', event: 'Premier League Darts - Play-Offs', location: 'London O2', channel: 'Viaplay' },
+            // UK Open 2026
+            { date: '2026-02-27', time: '13:00', event: 'UK Open', location: 'Minehead', channel: 'Viaplay' },
+            { date: '2026-02-28', time: '13:00', event: 'UK Open', location: 'Minehead', channel: 'Viaplay' },
+            { date: '2026-03-01', time: '13:00', event: 'UK Open - Finale', location: 'Minehead', channel: 'Viaplay' },
+            // World Matchplay 2026
+            { date: '2026-07-18', time: '13:00', event: 'World Matchplay', location: 'Blackpool', channel: 'Viaplay' },
+            { date: '2026-07-19', time: '19:00', event: 'World Matchplay', location: 'Blackpool', channel: 'Viaplay' },
+            { date: '2026-07-25', time: '19:00', event: 'World Matchplay', location: 'Blackpool', channel: 'Viaplay' },
+            { date: '2026-07-26', time: '19:00', event: 'World Matchplay - Finale', location: 'Blackpool', channel: 'Viaplay' },
+            // World Grand Prix 2026
+            { date: '2026-10-04', time: '19:00', event: 'World Grand Prix', location: 'Leicester', channel: 'Viaplay' },
+            { date: '2026-10-10', time: '19:00', event: 'World Grand Prix - Finale', location: 'Leicester', channel: 'Viaplay' },
+            // Grand Slam of Darts 2026
+            { date: '2026-11-07', time: '13:00', event: 'Grand Slam of Darts', location: 'Wolverhampton', channel: 'Viaplay' },
+            { date: '2026-11-15', time: '19:00', event: 'Grand Slam of Darts - Finale', location: 'Wolverhampton', channel: 'Viaplay' },
+            // Players Championship Finals 2026
+            { date: '2026-11-27', time: '13:00', event: 'Players Championship Finals', location: 'Minehead', channel: 'Viaplay' },
+            { date: '2026-11-29', time: '19:00', event: 'Players Championship Finals - Finale', location: 'Minehead', channel: 'Viaplay' },
+            // World Championship 2026/2027
+            { date: '2026-12-15', time: '19:00', event: 'World Championship', location: 'Alexandra Palace', channel: 'Viaplay' },
+            { date: '2026-12-22', time: '19:00', event: 'World Championship', location: 'Alexandra Palace', channel: 'Viaplay' },
+            { date: '2026-12-29', time: '19:00', event: 'World Championship', location: 'Alexandra Palace', channel: 'Viaplay' },
         ];
 
         // ============================================
@@ -701,7 +794,7 @@
         // Fetch F1 sessions from OpenF1 API
         async function fetchF1Sessions() {
             try {
-                const response = await fetch(`${CONFIG.F1_API_URL}/sessions?year=2025`);
+                const response = await fetch(`${CONFIG.F1_API_URL}/sessions?year=2026`);
                 if (!response.ok) throw new Error('F1 API error');
                 const sessions = await response.json();
 
@@ -722,67 +815,82 @@
             }
         }
 
-        // Fetch football matches - uses OpenFootball (reliable) with Football-Data.org as enhancement
+        // Fetch football matches from API-Football
         async function fetchFootballMatches() {
             console.log('Fetching football matches from API-Football...');
 
             try {
-                const today = new Date();
-                const weekAgo = new Date(today);
-                weekAgo.setDate(weekAgo.getDate() - 7);
-                const twoWeeksAhead = new Date(today);
-                twoWeeksAhead.setDate(twoWeeksAhead.getDate() + 14);
-
-                // Get all dates we need
+                // Fetch per league instead of per day (fewer API calls)
                 const allMatches = [];
-                const currentDate = new Date(weekAgo);
+                const today = new Date();
+                const fromDate = new Date(today);
+                fromDate.setDate(fromDate.getDate() - 7);
+                const toDate = new Date(today);
+                toDate.setDate(toDate.getDate() + 14);
 
-                // Fetch matches for each day (API-Football requires date parameter)
-                while (currentDate <= twoWeeksAhead) {
-                    const dateStr = currentDate.toISOString().split('T')[0];
+                const fromStr = fromDate.toISOString().split('T')[0];
+                const toStr = toDate.toISOString().split('T')[0];
 
-                    try {
-                        const response = await fetch(`${CONFIG.API_FOOTBALL_URL}/fixtures?date=${dateStr}`, {
-                            headers: {
-                                'x-apisports-key': CONFIG.API_FOOTBALL_KEY
-                            }
-                        });
+                // Fetch all leagues in one call using season parameter
+                const season = today.getMonth() >= 7 ? today.getFullYear() : today.getFullYear() - 1;
+                const leagueIds = CONFIG.API_FOOTBALL_LEAGUES.map(l => l.id).join('-');
 
-                        if (response.ok) {
-                            const data = await response.json();
-
-                            // Filter only our leagues
-                            const leagueIds = CONFIG.API_FOOTBALL_LEAGUES.map(l => l.id);
-                            const filtered = data.response.filter(match =>
-                                leagueIds.includes(match.league.id)
-                            );
-
-                            filtered.forEach(match => {
-                                const leagueConfig = CONFIG.API_FOOTBALL_LEAGUES.find(l => l.id === match.league.id);
-                                const matchDate = new Date(match.fixture.date);
-
-                                allMatches.push({
-                                    date: matchDate,
-                                    time: matchDate.toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' }),
-                                    home: match.teams.home.name,
-                                    away: match.teams.away.name,
-                                    homeCrest: match.teams.home.logo,
-                                    awayCrest: match.teams.away.logo,
-                                    competition: leagueConfig ? leagueConfig.name : match.league.name,
-                                    competitionLogo: match.league.logo,
-                                    channel: leagueConfig ? leagueConfig.channel : (CONFIG.TV_CHANNELS[match.league.name] || 'Ziggo Sport'),
-                                    score: match.goals.home !== null ? `${match.goals.home}-${match.goals.away}` : null,
-                                    live: match.fixture.status.short === '1H' || match.fixture.status.short === '2H' || match.fixture.status.short === 'HT',
-                                    status: match.fixture.status.short
-                                });
-                            });
+                const response = await fetch(
+                    `${CONFIG.API_FOOTBALL_URL}/fixtures?season=${season}&from=${fromStr}&to=${toStr}`,
+                    {
+                        headers: {
+                            'x-apisports-key': CONFIG.API_FOOTBALL_KEY
                         }
-                    } catch (error) {
-                        console.warn(`Failed to fetch ${dateStr}:`, error);
                     }
+                );
 
-                    currentDate.setDate(currentDate.getDate() + 1);
+                if (!response.ok) {
+                    console.error('API-Football HTTP error:', response.status);
+                    return [];
                 }
+
+                const data = await response.json();
+
+                // Check for API errors
+                if (data.errors && Object.keys(data.errors).length > 0) {
+                    console.error('API-Football error:', data.errors);
+                    return [];
+                }
+
+                if (!data.response) {
+                    console.error('API-Football: geen response data');
+                    return [];
+                }
+
+                console.log(`API returned ${data.response.length} total fixtures`);
+
+                // Filter only our leagues
+                const ourLeagueIds = CONFIG.API_FOOTBALL_LEAGUES.map(l => l.id);
+                const filtered = data.response.filter(match =>
+                    ourLeagueIds.includes(match.league.id)
+                );
+
+                console.log(`After league filter: ${filtered.length} fixtures`);
+
+                filtered.forEach(match => {
+                    const leagueConfig = CONFIG.API_FOOTBALL_LEAGUES.find(l => l.id === match.league.id);
+                    const matchDate = new Date(match.fixture.date);
+
+                    allMatches.push({
+                        date: matchDate,
+                        time: matchDate.toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' }),
+                        home: match.teams.home.name,
+                        away: match.teams.away.name,
+                        homeCrest: match.teams.home.logo,
+                        awayCrest: match.teams.away.logo,
+                        competition: leagueConfig ? leagueConfig.name : match.league.name,
+                        competitionLogo: match.league.logo,
+                        channel: leagueConfig ? leagueConfig.channel : (CONFIG.TV_CHANNELS[match.league.name] || 'Ziggo Sport'),
+                        score: match.goals.home !== null ? `${match.goals.home}-${match.goals.away}` : null,
+                        live: match.fixture.status.short === '1H' || match.fixture.status.short === '2H' || match.fixture.status.short === 'HT',
+                        status: match.fixture.status.short
+                    });
+                });
 
                 console.log(`Got ${allMatches.length} matches from API-Football`);
                 return allMatches;
@@ -1031,20 +1139,29 @@
                     if (!cachedData.voetbal) {
                         cachedData.voetbal = await fetchFootballMatches();
                     }
-                    allEvents = cachedData.voetbal.filter(e => {
-                        // Filter by competition (if selected)
-                        if (filters.competition && e.competition !== filters.competition) return false;
+                    // Make sure we have an array
+                    const matches = cachedData.voetbal || [];
+                    console.log(`Totaal ${matches.length} wedstrijden opgehaald`);
+                    console.log('Actieve filters:', filters);
 
-                        // Filter by club (if specified)
-                        if (filters.club) {
-                            const clubLower = filters.club.toLowerCase();
-                            const homeMatch = e.home.toLowerCase().includes(clubLower);
-                            const awayMatch = e.away.toLowerCase().includes(clubLower);
+                    allEvents = matches.filter(e => {
+                        // Filter by competitions (if any selected)
+                        if (filters.competitions && filters.competitions.length > 0) {
+                            if (!filters.competitions.includes(e.competition)) return false;
+                        }
+
+                        // Filter by clubs (if any specified)
+                        if (filters.clubs && filters.clubs.length > 0) {
+                            const homeMatch = filters.clubs.some(club =>
+                                e.home && e.home.toLowerCase().includes(club.toLowerCase()));
+                            const awayMatch = filters.clubs.some(club =>
+                                e.away && e.away.toLowerCase().includes(club.toLowerCase()));
                             if (!homeMatch && !awayMatch) return false;
                         }
 
                         return true;
                     });
+                    console.log(`Na filtering: ${allEvents.length} wedstrijden`);
                 } else if (currentSport === 'darts') {
                     // Use static calendar (TheSportsDB returns incorrect data)
                     if (!cachedData.darts) {
@@ -1201,10 +1318,22 @@
         // ============================================
 
         function updateFilterVisibility() {
-            const show = currentSport === 'voetbal';
             const filtersRow = document.getElementById('filters-row');
-            if (filtersRow) {
-                filtersRow.style.display = show ? 'flex' : 'none';
+            const compDropdown = document.getElementById('comp-dropdown');
+            const clubInput = document.getElementById('filter-clubs');
+            const resetBtn = document.getElementById('reset-filters');
+
+            if (currentSport === 'voetbal') {
+                filtersRow.style.display = 'flex';
+                compDropdown.style.display = 'block';
+                clubInput.style.display = 'block';
+                resetBtn.style.display = 'block';
+            } else {
+                // Show only toggles for darts and F1
+                filtersRow.style.display = 'flex';
+                compDropdown.style.display = 'none';
+                clubInput.style.display = 'none';
+                resetBtn.style.display = 'none';
             }
         }
 
@@ -1228,27 +1357,89 @@
             document.getElementById('events-container').classList.toggle('show-scores', showScores);
         });
 
-        // Competition filter dropdown
-        const compSelect = document.getElementById('filter-competition');
-        compSelect.value = filters.competition;
-        compSelect.addEventListener('change', () => {
-            filters.competition = compSelect.value;
-            localStorage.setItem('selectedCompetition', filters.competition);
-            renderEvents();
+        // Competition dropdown
+        const compBtn = document.getElementById('comp-btn');
+        const compContent = document.getElementById('comp-content');
+        const compCheckboxes = compContent.querySelectorAll('input[type="checkbox"]');
+
+        // Set initial state from localStorage
+        compCheckboxes.forEach(cb => {
+            cb.checked = filters.competitions.includes(cb.value);
+        });
+        updateCompBtnText();
+
+        // Toggle dropdown
+        compBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            compContent.classList.toggle('show');
         });
 
-        // Club filter with debounce
+        // Handle checkbox changes
+        compCheckboxes.forEach(cb => {
+            cb.addEventListener('change', () => {
+                filters.competitions = Array.from(compCheckboxes)
+                    .filter(c => c.checked)
+                    .map(c => c.value);
+                localStorage.setItem('selectedCompetitions', JSON.stringify(filters.competitions));
+                updateCompBtnText();
+                renderEvents();
+            });
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!compContent.contains(e.target) && e.target !== compBtn) {
+                compContent.classList.remove('show');
+            }
+        });
+
+        function updateCompBtnText() {
+            const count = filters.competitions.length;
+            if (count === 0) {
+                compBtn.textContent = 'Alle competities ▾';
+            } else if (count === 1) {
+                compBtn.textContent = filters.competitions[0] + ' ▾';
+            } else {
+                compBtn.textContent = `${count} competities ▾`;
+            }
+        }
+
+        // Club filter with debounce (comma separated)
         let clubFilterTimeout;
         const clubInput = document.getElementById('filter-clubs');
-        clubInput.value = filters.club;
+        clubInput.value = (filters.clubs || []).join(', ');
 
         clubInput.addEventListener('input', () => {
             clearTimeout(clubFilterTimeout);
             clubFilterTimeout = setTimeout(() => {
-                filters.club = clubInput.value.trim();
-                localStorage.setItem('selectedClub', filters.club);
+                const value = clubInput.value;
+                filters.clubs = value ? value.split(',').map(c => c.trim()).filter(c => c) : [];
+                localStorage.setItem('selectedClubs', JSON.stringify(filters.clubs));
                 renderEvents();
             }, 300);
+        });
+
+        // Reset filters button
+        document.getElementById('reset-filters').addEventListener('click', () => {
+            // Clear competitions
+            filters.competitions = [];
+            if (compCheckboxes) compCheckboxes.forEach(cb => cb.checked = false);
+            updateCompBtnText();
+            localStorage.removeItem('selectedCompetitions');
+
+            // Clear clubs
+            filters.clubs = [];
+            if (clubInput) clubInput.value = '';
+            localStorage.removeItem('selectedClubs');
+
+            // Reset toggles
+            document.getElementById('toggle-past').checked = false;
+            document.getElementById('toggle-scores').checked = false;
+            showPast = false;
+            showScores = false;
+            document.getElementById('events-container').classList.remove('show-scores');
+
+            renderEvents();
         });
 
 
