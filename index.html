@@ -811,7 +811,6 @@
         <!-- API Status -->
         <div class="api-status" id="api-status">
             <span class="live-dot"></span> <span class="status-text">Laden...</span>
-            <button class="refresh-btn" id="refresh-btn" title="Cache wissen en opnieuw laden">Ververs</button>
         </div>
 
         <!-- Events Container -->
@@ -921,6 +920,7 @@
         // STATE
         // ============================================
         let currentSport = 'voetbal';
+        let currentView = 'programma'; // 'programma' or 'standen'
         let showScores = false;
         let showPast = false;
         // Load filters from localStorage (with error handling)
@@ -1075,68 +1075,6 @@
         ];
 
         // ============================================
-        // FALLBACK DATA (when API rate limited)
-        // ============================================
-        function getFootballFallbackData() {
-            const today = new Date();
-            const events = [];
-
-            // Generate sample matches for the coming week
-            const sampleMatches = [
-                { home: 'Ajax', away: 'Feyenoord', competition: 'Eredivisie', channel: 'ESPN' },
-                { home: 'PSV', away: 'AZ', competition: 'Eredivisie', channel: 'ESPN' },
-                { home: 'FC Utrecht', away: 'FC Twente', competition: 'Eredivisie', channel: 'ESPN' },
-                { home: 'Manchester City', away: 'Arsenal', competition: 'Premier League', channel: 'Viaplay' },
-                { home: 'Liverpool', away: 'Chelsea', competition: 'Premier League', channel: 'Viaplay' },
-                { home: 'Bayern München', away: 'Dortmund', competition: 'Bundesliga', channel: 'Viaplay' },
-                { home: 'Real Madrid', away: 'Barcelona', competition: 'La Liga', channel: 'Ziggo Sport' },
-                { home: 'Inter', away: 'AC Milan', competition: 'Serie A', channel: 'Ziggo Sport' },
-            ];
-
-            // Today's matches
-            const times = ['15:30', '18:45', '20:00', '21:00'];
-            for (let i = 0; i < 3; i++) {
-                const match = sampleMatches[i % sampleMatches.length];
-                const matchDate = new Date(today);
-                matchDate.setHours(parseInt(times[i].split(':')[0]), parseInt(times[i].split(':')[1]), 0, 0);
-                events.push({
-                    date: matchDate,
-                    time: times[i],
-                    home: match.home,
-                    away: match.away,
-                    competition: match.competition,
-                    channel: match.channel,
-                    score: null,
-                    live: false,
-                    status: 'SCHEDULED',
-                    isFallback: true
-                });
-            }
-
-            // Tomorrow's matches
-            for (let i = 0; i < 2; i++) {
-                const match = sampleMatches[(i + 3) % sampleMatches.length];
-                const matchDate = new Date(today);
-                matchDate.setDate(matchDate.getDate() + 1);
-                matchDate.setHours(parseInt(times[i].split(':')[0]), parseInt(times[i].split(':')[1]), 0, 0);
-                events.push({
-                    date: matchDate,
-                    time: times[i],
-                    home: match.home,
-                    away: match.away,
-                    competition: match.competition,
-                    channel: match.channel,
-                    score: null,
-                    live: false,
-                    status: 'SCHEDULED',
-                    isFallback: true
-                });
-            }
-
-            return events;
-        }
-
-        // ============================================
         // API FUNCTIONS
         // ============================================
 
@@ -1164,55 +1102,48 @@
             }
         }
 
-        // Fetch football matches from API-Football (per league)
+        // Fetch football matches - try API-Football first, fall back to cache
         async function fetchFootballMatches() {
-            console.log('Fetching football matches from API-Football...');
+            console.log('Fetching football matches...');
 
-            // Check localStorage cache first (valid for 6 hours to save API calls)
+            // Check localStorage cache first (valid for 6 hours)
             const cached = localStorage.getItem('footballCache');
             const cacheTime = localStorage.getItem('footballCacheTime');
-            if (cached && cacheTime && (Date.now() - parseInt(cacheTime)) < 6 * 60 * 60 * 1000) {
+            const cacheValid = cached && cacheTime && (Date.now() - parseInt(cacheTime)) < 6 * 60 * 60 * 1000;
+
+            if (cacheValid) {
                 console.log('Using cached football data (cache valid for 6 hours)');
                 const data = JSON.parse(cached);
-                // Convert date strings back to Date objects
                 return data.map(m => ({ ...m, date: new Date(m.date) }));
             }
 
+            // Try API-Football
             const allMatches = [];
             const today = new Date();
             const season = today.getMonth() >= 7 ? today.getFullYear() : today.getFullYear() - 1;
             let apiErrors = 0;
+            let rateLimited = false;
 
-            // Fetch per league (max 16 leagues = 16 API calls)
             for (const league of CONFIG.API_FOOTBALL_LEAGUES) {
+                if (rateLimited) break;
+
                 try {
                     const response = await fetch(
                         `${CONFIG.API_FOOTBALL_URL}/fixtures?league=${league.id}&season=${season}&from=${getDateStr(-7)}&to=${getDateStr(14)}`,
-                        {
-                            headers: {
-                                'x-apisports-key': CONFIG.API_FOOTBALL_KEY
-                            }
-                        }
+                        { headers: { 'x-apisports-key': CONFIG.API_FOOTBALL_KEY } }
                     );
 
                     if (!response.ok) {
-                        console.warn(`${league.name}: HTTP ${response.status}`);
                         apiErrors++;
                         continue;
                     }
 
                     const data = await response.json();
 
-                    // Check for rate limit
                     if (data.errors && data.errors.requests) {
-                        console.error('API rate limit reached:', data.errors.requests);
+                        console.warn('API rate limit reached');
+                        rateLimited = true;
                         break;
-                    }
-
-                    if (data.errors && Object.keys(data.errors).length > 0) {
-                        console.warn(`${league.name} API error:`, data.errors);
-                        apiErrors++;
-                        continue;
                     }
 
                     if (data.response && data.response.length > 0) {
@@ -1232,33 +1163,31 @@
                                 status: match.fixture.status.short
                             });
                         });
-                        console.log(`${league.name}: ${data.response.length} fixtures`);
                     }
                 } catch (error) {
-                    console.warn(`${league.name} fetch failed:`, error);
                     apiErrors++;
                 }
             }
 
-            console.log(`Total: ${allMatches.length} matches, ${apiErrors} errors`);
-
-            // Cache results if we got data
+            // If we got fresh data, cache it
             if (allMatches.length > 0) {
                 localStorage.setItem('footballCache', JSON.stringify(allMatches));
                 localStorage.setItem('footballCacheTime', Date.now().toString());
-            } else if (apiErrors > 0) {
-                // If all requests failed (rate limit), show message and return empty
-                console.error('API rate limit likely reached - no data available');
-                // Check if we have any old cached data we can use
-                const oldCache = localStorage.getItem('footballCache');
-                if (oldCache) {
-                    console.log('Using old cached data due to API failure');
-                    const data = JSON.parse(oldCache);
-                    return data.map(m => ({ ...m, date: new Date(m.date) }));
-                }
+                localStorage.setItem('footballSource', 'api');
+                return allMatches;
             }
 
-            return allMatches;
+            // API failed - use old cache if available (regardless of age)
+            if (cached) {
+                console.log('API unavailable, using cached data');
+                localStorage.setItem('footballSource', 'cache');
+                const data = JSON.parse(cached);
+                return data.map(m => ({ ...m, date: new Date(m.date) }));
+            }
+
+            // No cache available
+            localStorage.setItem('footballSource', 'none');
+            return [];
         }
 
         // Helper function for date strings
@@ -1593,22 +1522,31 @@
 
             // Update API status
             const statusEl = document.getElementById('api-status');
+            const source = localStorage.getItem('footballSource') || 'api';
             if (currentSport === 'voetbal') {
                 if (allEvents.length === 0) {
-                    // No data - try fallback
-                    allEvents = getFootballFallbackData();
-                    statusEl.innerHTML = '<span class="live-dot" style="background: #e10600;"></span> API limit bereikt - demo data';
-                } else if (allEvents.some(e => e.isFallback)) {
-                    statusEl.innerHTML = '<span class="live-dot" style="background: #ff9800;"></span> Demo data (API niet beschikbaar)';
+                    statusEl.innerHTML = '<span class="live-dot" style="background: #e10600;"></span> Geen data beschikbaar <button class="refresh-btn" onclick="location.reload()">Ververs</button>';
+                } else if (source === 'cache') {
+                    statusEl.innerHTML = '<span class="live-dot" style="background: #ff9800;"></span> Gecachede data <button class="refresh-btn" id="refresh-btn">Ververs</button>';
                 } else {
-                    statusEl.innerHTML = '<span class="live-dot"></span> API-Football';
+                    statusEl.innerHTML = '<span class="live-dot"></span> API-Football <button class="refresh-btn" id="refresh-btn">Ververs</button>';
                 }
             } else if (currentSport === 'f1') {
-                statusEl.innerHTML = '<span class="live-dot"></span> OpenF1';
+                statusEl.innerHTML = '<span class="live-dot"></span> OpenF1 <button class="refresh-btn" id="refresh-btn">Ververs</button>';
             } else if (currentSport === 'darts') {
-                statusEl.innerHTML = '<span class="live-dot" style="background: #ff9800;"></span> PDC Kalender';
-            } else {
-                statusEl.innerHTML = '<span class="live-dot" style="background: #ff9800;"></span> Kalender';
+                statusEl.innerHTML = '<span class="live-dot" style="background: #ff9800;"></span> PDC Kalender <button class="refresh-btn" id="refresh-btn">Ververs</button>';
+            }
+
+            // Re-attach refresh button handler
+            const refreshBtn = document.getElementById('refresh-btn');
+            if (refreshBtn) {
+                refreshBtn.onclick = () => {
+                    localStorage.removeItem('footballCache');
+                    localStorage.removeItem('footballCacheTime');
+                    localStorage.removeItem('footballSource');
+                    cachedData = { voetbal: null, darts: null, f1: null };
+                    renderEvents();
+                };
             }
 
             // Filter events based on date range
@@ -1759,6 +1697,168 @@
             });
         }
 
+        // Render standings
+        async function renderStandings() {
+            const tabsContainer = document.getElementById('standings-tabs');
+            const contentContainer = document.getElementById('standings-content');
+
+            if (currentSport === 'voetbal') {
+                // Football standings - show tabs for each league
+                const leagues = [
+                    { id: 88, name: 'Eredivisie' },
+                    { id: 39, name: 'Premier League' },
+                    { id: 78, name: 'Bundesliga' },
+                    { id: 140, name: 'La Liga' },
+                    { id: 135, name: 'Serie A' },
+                    { id: 61, name: 'Ligue 1' }
+                ];
+
+                tabsContainer.innerHTML = leagues.map((l, i) =>
+                    `<button class="standings-tab ${i === 0 ? 'active' : ''}" data-league="${l.id}">${l.name}</button>`
+                ).join('');
+
+                contentContainer.innerHTML = '<div class="loading"><div class="spinner"></div><p>Stand ophalen...</p></div>';
+
+                // Load first league
+                await loadFootballStandings(leagues[0].id, leagues[0].name);
+
+                // Add tab handlers
+                tabsContainer.querySelectorAll('.standings-tab').forEach(tab => {
+                    tab.addEventListener('click', async () => {
+                        tabsContainer.querySelectorAll('.standings-tab').forEach(t => t.classList.remove('active'));
+                        tab.classList.add('active');
+                        const league = leagues.find(l => l.id === parseInt(tab.dataset.league));
+                        await loadFootballStandings(league.id, league.name);
+                    });
+                });
+
+            } else if (currentSport === 'darts') {
+                tabsContainer.innerHTML = '<button class="standings-tab active">Premier League</button>';
+                contentContainer.innerHTML = renderDartsStandings();
+
+            } else if (currentSport === 'f1') {
+                tabsContainer.innerHTML = `
+                    <button class="standings-tab active" data-type="drivers">Coureurs</button>
+                    <button class="standings-tab" data-type="constructors">Constructeurs</button>
+                `;
+                contentContainer.innerHTML = '<div class="loading"><div class="spinner"></div><p>Stand ophalen...</p></div>';
+
+                const f1Data = await fetchF1Standings();
+                renderF1Standings(f1Data, 'drivers');
+
+                tabsContainer.querySelectorAll('.standings-tab').forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        tabsContainer.querySelectorAll('.standings-tab').forEach(t => t.classList.remove('active'));
+                        tab.classList.add('active');
+                        renderF1Standings(f1Data, tab.dataset.type);
+                    });
+                });
+            }
+        }
+
+        async function loadFootballStandings(leagueId, leagueName) {
+            const contentContainer = document.getElementById('standings-content');
+            contentContainer.innerHTML = '<div class="loading"><div class="spinner"></div><p>Stand ophalen...</p></div>';
+
+            const standings = await fetchFootballStandings(leagueId);
+
+            if (!standings || standings.length === 0) {
+                contentContainer.innerHTML = '<div class="no-events"><p>Kon stand niet ophalen (API limiet bereikt?)</p></div>';
+                return;
+            }
+
+            let html = `<div class="standings-container">
+                <div class="standings-title">${leagueName}</div>
+                <table class="standings-table">
+                    <tr><th class="pos">#</th><th>Club</th><th class="stats">W</th><th class="stats">G</th><th class="stats">V</th><th class="stats">+/-</th><th class="pts">Ptn</th></tr>`;
+
+            standings.forEach(team => {
+                html += `<tr>
+                    <td class="pos">${team.rank}</td>
+                    <td><div class="team"><img src="${team.team.logo}" class="team-logo" alt="">${team.team.name}</div></td>
+                    <td class="stats">${team.all.win}</td>
+                    <td class="stats">${team.all.draw}</td>
+                    <td class="stats">${team.all.lose}</td>
+                    <td class="stats">${team.goalsDiff > 0 ? '+' : ''}${team.goalsDiff}</td>
+                    <td class="pts">${team.points}</td>
+                </tr>`;
+            });
+
+            html += '</table></div>';
+            contentContainer.innerHTML = html;
+        }
+
+        function renderDartsStandings() {
+            let html = `<div class="standings-container">
+                <div class="standings-title">Premier League Darts 2026</div>
+                <table class="standings-table">
+                    <tr><th class="pos">#</th><th>Speler</th><th class="stats">GS</th><th class="stats">W</th><th class="stats">L+/-</th><th class="pts">Ptn</th></tr>`;
+
+            plDartsStandings.forEach(player => {
+                html += `<tr>
+                    <td class="pos">${player.pos}</td>
+                    <td>${player.name}</td>
+                    <td class="stats">${player.played}</td>
+                    <td class="stats">${player.won}</td>
+                    <td class="stats">${player.legs}</td>
+                    <td class="pts">${player.pts}</td>
+                </tr>`;
+            });
+
+            html += '</table></div>';
+            return html;
+        }
+
+        function renderF1Standings(data, type) {
+            const contentContainer = document.getElementById('standings-content');
+
+            if (type === 'drivers') {
+                if (!data.drivers.length) {
+                    contentContainer.innerHTML = '<div class="no-events"><p>Kon coureurs stand niet ophalen</p></div>';
+                    return;
+                }
+
+                let html = `<div class="standings-container">
+                    <div class="standings-title">F1 Coureurs Kampioenschap 2026</div>
+                    <table class="standings-table">
+                        <tr><th class="pos">#</th><th>Coureur</th><th>Team</th><th class="pts">Ptn</th></tr>`;
+
+                data.drivers.forEach(d => {
+                    html += `<tr>
+                        <td class="pos">${d.position}</td>
+                        <td>${d.Driver.givenName} ${d.Driver.familyName}</td>
+                        <td>${d.Constructors[0]?.name || ''}</td>
+                        <td class="pts">${d.points}</td>
+                    </tr>`;
+                });
+
+                html += '</table></div>';
+                contentContainer.innerHTML = html;
+
+            } else {
+                if (!data.constructors.length) {
+                    contentContainer.innerHTML = '<div class="no-events"><p>Kon constructeurs stand niet ophalen</p></div>';
+                    return;
+                }
+
+                let html = `<div class="standings-container">
+                    <div class="standings-title">F1 Constructeurs Kampioenschap 2026</div>
+                    <table class="standings-table">
+                        <tr><th class="pos">#</th><th>Team</th><th class="pts">Ptn</th></tr>`;
+
+                data.constructors.forEach(c => {
+                    html += `<tr>
+                        <td class="pos">${c.position}</td>
+                        <td>${c.Constructor.name}</td>
+                        <td class="pts">${c.points}</td>
+                    </tr>`;
+                });
+
+                html += '</table></div>';
+                contentContainer.innerHTML = html;
+            }
+        }
+
         // ============================================
         // EVENT LISTENERS
         // ============================================
@@ -1789,7 +1889,33 @@
                 tab.classList.add('active');
                 currentSport = tab.dataset.sport;
                 updateFilterVisibility();
-                renderEvents();
+                if (currentView === 'standen') {
+                    renderStandings();
+                } else {
+                    renderEvents();
+                }
+            });
+        });
+
+        // View toggle (Programma / Standen)
+        document.querySelectorAll('.view-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentView = btn.dataset.view;
+
+                const eventsContainer = document.getElementById('events-container');
+                const standingsWrapper = document.getElementById('standings-wrapper');
+
+                if (currentView === 'standen') {
+                    eventsContainer.style.display = 'none';
+                    standingsWrapper.style.display = 'block';
+                    renderStandings();
+                } else {
+                    eventsContainer.style.display = 'block';
+                    standingsWrapper.style.display = 'none';
+                    renderEvents();
+                }
             });
         });
 
@@ -1863,16 +1989,6 @@
                 localStorage.setItem('selectedClubs', JSON.stringify(filters.clubs));
                 renderEvents();
             }, 300);
-        });
-
-        // Refresh button - clear cache and reload
-        document.getElementById('refresh-btn').addEventListener('click', () => {
-            // Clear cache
-            localStorage.removeItem('footballCache');
-            localStorage.removeItem('footballCacheTime');
-            cachedData = { voetbal: null, darts: null, f1: null };
-            console.log('Cache cleared, reloading data...');
-            renderEvents();
         });
 
         // Reset filters button
