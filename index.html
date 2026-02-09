@@ -357,40 +357,6 @@
             transform: rotate(180deg);
         }
 
-        /* Country flag badges for darts */
-        .flag-eng, .flag-wal, .flag-nl, .flag-nir {
-            display: inline-block;
-            padding: 2px 5px;
-            border-radius: 3px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            margin: 0 4px;
-        }
-
-        .flag-eng {
-            background: linear-gradient(180deg, #fff 50%, #c8102e 50%);
-            color: #c8102e;
-            border: 1px solid #c8102e;
-        }
-
-        .flag-wal {
-            background: linear-gradient(180deg, #fff 50%, #00ab39 50%);
-            color: #c8102e;
-            border: 1px solid #00ab39;
-        }
-
-        .flag-nl {
-            background: linear-gradient(180deg, #ae1c28 33%, #fff 33%, #fff 66%, #21468b 66%);
-            color: #21468b;
-            border: 1px solid #21468b;
-        }
-
-        .flag-nir {
-            background: linear-gradient(180deg, #fff 50%, #012169 50%);
-            color: #012169;
-            border: 1px solid #012169;
-        }
-
         .filter-input {
             padding: 8px 12px;
             border: 1px solid #ddd;
@@ -981,16 +947,16 @@
         // ============================================
         // DARTS DATA 2026 - Premier League Darts & Major Events
         // ============================================
-        // Spelers met vlaggen (ENG, WAL, NL, NIR)
+        // Spelers
         const dartsPlayers = {
-            'Littler': {name: 'Luke Littler', flag: '<span class="flag-eng">ENG</span>'},
-            'Humphries': {name: 'Luke Humphries', flag: '<span class="flag-eng">ENG</span>'},
-            'Van Gerwen': {name: 'Michael van Gerwen', flag: '<span class="flag-nl">NL</span>'},
-            'Rock': {name: 'Josh Rock', flag: '<span class="flag-nir">NIR</span>'},
-            'Clayton': {name: 'Jonny Clayton', flag: '<span class="flag-wal">WAL</span>'},
-            'Bunting': {name: 'Stephen Bunting', flag: '<span class="flag-eng">ENG</span>'},
-            'Price': {name: 'Gerwyn Price', flag: '<span class="flag-wal">WAL</span>'},
-            'Van Veen': {name: 'Gian van Veen', flag: '<span class="flag-nl">NL</span>'}
+            'Littler': {name: 'Luke Littler'},
+            'Humphries': {name: 'Luke Humphries'},
+            'Van Gerwen': {name: 'Michael van Gerwen'},
+            'Rock': {name: 'Josh Rock'},
+            'Clayton': {name: 'Jonny Clayton'},
+            'Bunting': {name: 'Stephen Bunting'},
+            'Price': {name: 'Gerwyn Price'},
+            'Van Veen': {name: 'Gian van Veen'}
         };
 
         const dartsCalendar = [
@@ -1342,14 +1308,14 @@
 
         // PL Darts standings (static for now, would need API)
         const plDartsStandings = [
-            { pos: 1, name: 'Luke Littler', flag: '<span class="flag-eng">ENG</span>', played: 1, won: 1, legs: '+3', pts: 2 },
-            { pos: 2, name: 'Luke Humphries', flag: '<span class="flag-eng">ENG</span>', played: 1, won: 1, legs: '+2', pts: 2 },
-            { pos: 3, name: 'Michael van Gerwen', flag: '<span class="flag-nl">NL</span>', played: 1, won: 1, legs: '+1', pts: 2 },
-            { pos: 4, name: 'Jonny Clayton', flag: '<span class="flag-wal">WAL</span>', played: 1, won: 0, legs: '-1', pts: 1 },
-            { pos: 5, name: 'Stephen Bunting', flag: '<span class="flag-eng">ENG</span>', played: 1, won: 0, legs: '-1', pts: 1 },
-            { pos: 6, name: 'Josh Rock', flag: '<span class="flag-nir">NIR</span>', played: 1, won: 0, legs: '-1', pts: 1 },
-            { pos: 7, name: 'Gerwyn Price', flag: '<span class="flag-wal">WAL</span>', played: 1, won: 0, legs: '-2', pts: 0 },
-            { pos: 8, name: 'Gian van Veen', flag: '<span class="flag-nl">NL</span>', played: 1, won: 0, legs: '-3', pts: 0 }
+            { pos: 1, name: 'Luke Littler', played: 1, won: 1, legs: '+3', pts: 2 },
+            { pos: 2, name: 'Luke Humphries', played: 1, won: 1, legs: '+2', pts: 2 },
+            { pos: 3, name: 'Michael van Gerwen', played: 1, won: 1, legs: '+1', pts: 2 },
+            { pos: 4, name: 'Jonny Clayton', played: 1, won: 0, legs: '-1', pts: 1 },
+            { pos: 5, name: 'Stephen Bunting', played: 1, won: 0, legs: '-1', pts: 1 },
+            { pos: 6, name: 'Josh Rock', played: 1, won: 0, legs: '-1', pts: 1 },
+            { pos: 7, name: 'Gerwyn Price', played: 1, won: 0, legs: '-2', pts: 0 },
+            { pos: 8, name: 'Gian van Veen', played: 1, won: 0, legs: '-3', pts: 0 }
         ];
 
         // Fetch from OpenFootball GitHub (historical data, updated daily)
@@ -1736,11 +1702,11 @@
                     if (hasMatches) {
                         matchesHtml = '<div class="matches-list">';
                         event.matches.forEach(m => {
-                            const homePlayer = dartsPlayers[m.home] || {name: m.home, flag: ''};
-                            const awayPlayer = dartsPlayers[m.away] || {name: m.away, flag: ''};
+                            const homePlayer = dartsPlayers[m.home] || {name: m.home};
+                            const awayPlayer = dartsPlayers[m.away] || {name: m.away};
                             const timeStr = m.time ? `<span class="match-time">${m.time}</span>` : '';
                             if (m.away) {
-                                matchesHtml += `<div class="match-item">${timeStr}${homePlayer.flag} ${homePlayer.name}<span class="vs">-</span>${awayPlayer.name} ${awayPlayer.flag}</div>`;
+                                matchesHtml += `<div class="match-item">${timeStr}${homePlayer.name}<span class="vs">-</span>${awayPlayer.name}</div>`;
                             } else {
                                 matchesHtml += `<div class="match-item">${timeStr}${homePlayer.name}</div>`;
                             }
