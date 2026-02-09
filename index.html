@@ -569,20 +569,25 @@
             }
         }
 
-        // Fetch football matches - tries Football-Data.org first, then OpenFootball
+        // Fetch football matches - uses OpenFootball (reliable) with Football-Data.org as enhancement
         async function fetchFootballMatches() {
-            // Try Football-Data.org API first if key is available
-            if (CONFIG.FOOTBALL_API_KEY) {
+            console.log('Fetching football matches...');
+
+            // Use OpenFootball as primary source (no CORS issues)
+            const openFootballMatches = await fetchFromOpenFootball();
+
+            // If we have an API key, try to get live data from Football-Data.org
+            if (CONFIG.FOOTBALL_API_KEY && openFootballMatches.length === 0) {
                 try {
+                    console.log('Trying Football-Data.org...');
                     const matches = await fetchFromFootballDataOrg();
                     if (matches.length > 0) return matches;
                 } catch (error) {
-                    console.warn('Football-Data.org failed, falling back to OpenFootball');
+                    console.warn('Football-Data.org failed:', error);
                 }
             }
 
-            // Fallback to OpenFootball GitHub
-            return await fetchFromOpenFootball();
+            return openFootballMatches;
         }
 
         // Fetch from Football-Data.org (realtime) via CORS proxy
@@ -631,35 +636,35 @@
             const leaguePromises = CONFIG.LEAGUES.map(async (league) => {
                 try {
                     const response = await fetch(`${CONFIG.OPENFOOTBALL_URL}/${league.file}`);
-                    if (!response.ok) return [];
+                    if (!response.ok) {
+                        console.warn(`Failed to fetch ${league.name}`);
+                        return [];
+                    }
 
                     const data = await response.json();
                     const matches = [];
 
-                    // Parse matches from all rounds
-                    if (data.rounds) {
-                        data.rounds.forEach(round => {
-                            if (round.matches) {
-                                round.matches.forEach(match => {
-                                    const matchDate = new Date(match.date + 'T' + (match.time || '15:00'));
-                                    const hasScore = match.score && match.score.ft;
+                    // Parse matches - structure is { matches: [...] }
+                    if (data.matches && Array.isArray(data.matches)) {
+                        data.matches.forEach(match => {
+                            const matchDate = new Date(match.date + 'T' + (match.time || '15:00'));
+                            const hasScore = match.score && match.score.ft;
 
-                                    matches.push({
-                                        date: matchDate,
-                                        time: match.time || '15:00',
-                                        home: match.team1,
-                                        away: match.team2,
-                                        competition: league.name,
-                                        channel: league.channel,
-                                        score: hasScore ? `${match.score.ft[0]}-${match.score.ft[1]}` : null,
-                                        live: false,
-                                        status: hasScore ? 'FINISHED' : 'SCHEDULED'
-                                    });
-                                });
-                            }
+                            matches.push({
+                                date: matchDate,
+                                time: match.time || '15:00',
+                                home: match.team1,
+                                away: match.team2,
+                                competition: league.name,
+                                channel: league.channel,
+                                score: hasScore ? `${match.score.ft[0]}-${match.score.ft[1]}` : null,
+                                live: false,
+                                status: hasScore ? 'FINISHED' : 'SCHEDULED'
+                            });
                         });
                     }
 
+                    console.log(`Loaded ${matches.length} matches from ${league.name}`);
                     return matches;
                 } catch (error) {
                     console.error(`Error fetching ${league.name}:`, error);
@@ -670,6 +675,8 @@
             const results = await Promise.all(leaguePromises);
             results.forEach(matches => allMatches.push(...matches));
 
+            console.log(`Total matches loaded: ${allMatches.length}`);
+
             // Filter to show only matches within 2 weeks range
             const today = new Date();
             const twoWeeksAgo = new Date(today);
@@ -677,9 +684,12 @@
             const twoWeeksAhead = new Date(today);
             twoWeeksAhead.setDate(twoWeeksAhead.getDate() + 14);
 
-            return allMatches.filter(match =>
+            const filtered = allMatches.filter(match =>
                 match.date >= twoWeeksAgo && match.date <= twoWeeksAhead
             );
+
+            console.log(`Matches in date range: ${filtered.length}`);
+            return filtered;
         }
 
         // Get darts events for a specific date
