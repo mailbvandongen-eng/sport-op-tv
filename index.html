@@ -179,6 +179,128 @@
             color: var(--primary);
         }
 
+        /* Standings toggle */
+        .view-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            margin-bottom: 16px;
+        }
+
+        .view-btn {
+            padding: 8px 20px;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .view-btn:first-child {
+            border-radius: 6px 0 0 6px;
+        }
+
+        .view-btn:last-child {
+            border-radius: 0 6px 6px 0;
+            border-left: none;
+        }
+
+        .view-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Standings table */
+        .standings-container {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+        }
+
+        .standings-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .standings-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        .standings-table th {
+            text-align: left;
+            padding: 8px 4px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            border-bottom: 1px solid #eee;
+        }
+
+        .standings-table td {
+            padding: 10px 4px;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .standings-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .standings-table .pos {
+            width: 30px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .standings-table .team {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .standings-table .team-logo {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+        }
+
+        .standings-table .pts {
+            font-weight: 700;
+            text-align: right;
+        }
+
+        .standings-table .stats {
+            color: var(--text-secondary);
+            text-align: center;
+        }
+
+        .standings-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .standings-tab {
+            padding: 6px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: white;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .standings-tab.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
         /* Expandable darts matches */
         .event-card.has-matches {
             cursor: pointer;
@@ -233,6 +355,40 @@
 
         .event-card.expanded .expand-icon {
             transform: rotate(180deg);
+        }
+
+        /* Country flag badges for darts */
+        .flag-eng, .flag-wal, .flag-nl, .flag-nir {
+            display: inline-block;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            margin: 0 4px;
+        }
+
+        .flag-eng {
+            background: linear-gradient(180deg, #fff 50%, #c8102e 50%);
+            color: #c8102e;
+            border: 1px solid #c8102e;
+        }
+
+        .flag-wal {
+            background: linear-gradient(180deg, #fff 50%, #00ab39 50%);
+            color: #c8102e;
+            border: 1px solid #00ab39;
+        }
+
+        .flag-nl {
+            background: linear-gradient(180deg, #ae1c28 33%, #fff 33%, #fff 66%, #21468b 66%);
+            color: #21468b;
+            border: 1px solid #21468b;
+        }
+
+        .flag-nir {
+            background: linear-gradient(180deg, #fff 50%, #012169 50%);
+            color: #012169;
+            border: 1px solid #012169;
         }
 
         .filter-input {
@@ -547,8 +703,26 @@
             padding: 4px;
             font-size: 0.7rem;
             color: #999;
-            margin-bottom: 8px;
             margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .refresh-btn {
+            background: none;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 2px 8px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .refresh-btn:hover {
+            background: #f5f5f5;
+            color: var(--primary);
         }
 
         .api-status .live-dot {
@@ -662,14 +836,27 @@
             </div>
         </div>
 
+        <!-- View Toggle -->
+        <div class="view-toggle" id="view-toggle">
+            <button class="view-btn active" data-view="programma">Programma</button>
+            <button class="view-btn" data-view="standen">Standen</button>
+        </div>
+
         <!-- API Status -->
         <div class="api-status" id="api-status">
             <span class="live-dot"></span> <span class="status-text">Laden...</span>
+            <button class="refresh-btn" id="refresh-btn" title="Cache wissen en opnieuw laden">Ververs</button>
         </div>
 
         <!-- Events Container -->
         <div class="events-container" id="events-container">
             <!-- Events will be rendered here -->
+        </div>
+
+        <!-- Standings Container -->
+        <div class="standings-wrapper" id="standings-wrapper" style="display:none;">
+            <div class="standings-tabs" id="standings-tabs"></div>
+            <div id="standings-content"></div>
         </div>
 
         <footer>
@@ -794,16 +981,16 @@
         // ============================================
         // DARTS DATA 2026 - Premier League Darts & Major Events
         // ============================================
-        // Spelers met vlaggen
+        // Spelers met vlaggen (ENG, WAL, NL, NIR)
         const dartsPlayers = {
-            'Littler': {name: 'Luke Littler', flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿'},
-            'Humphries': {name: 'Luke Humphries', flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿'},
-            'Van Gerwen': {name: 'Michael van Gerwen', flag: '🇳🇱'},
-            'Rock': {name: 'Josh Rock', flag: '🇬🇧'},
-            'Clayton': {name: 'Jonny Clayton', flag: '🏴󠁧󠁢󠁷󠁬󠁳󠁿'},
-            'Bunting': {name: 'Stephen Bunting', flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿'},
-            'Price': {name: 'Gerwyn Price', flag: '🏴󠁧󠁢󠁷󠁬󠁳󠁿'},
-            'Van Veen': {name: 'Gian van Veen', flag: '🇳🇱'}
+            'Littler': {name: 'Luke Littler', flag: '<span class="flag-eng">ENG</span>'},
+            'Humphries': {name: 'Luke Humphries', flag: '<span class="flag-eng">ENG</span>'},
+            'Van Gerwen': {name: 'Michael van Gerwen', flag: '<span class="flag-nl">NL</span>'},
+            'Rock': {name: 'Josh Rock', flag: '<span class="flag-nir">NIR</span>'},
+            'Clayton': {name: 'Jonny Clayton', flag: '<span class="flag-wal">WAL</span>'},
+            'Bunting': {name: 'Stephen Bunting', flag: '<span class="flag-eng">ENG</span>'},
+            'Price': {name: 'Gerwyn Price', flag: '<span class="flag-wal">WAL</span>'},
+            'Van Veen': {name: 'Gian van Veen', flag: '<span class="flag-nl">NL</span>'}
         };
 
         const dartsCalendar = [
@@ -922,6 +1109,68 @@
         ];
 
         // ============================================
+        // FALLBACK DATA (when API rate limited)
+        // ============================================
+        function getFootballFallbackData() {
+            const today = new Date();
+            const events = [];
+
+            // Generate sample matches for the coming week
+            const sampleMatches = [
+                { home: 'Ajax', away: 'Feyenoord', competition: 'Eredivisie', channel: 'ESPN' },
+                { home: 'PSV', away: 'AZ', competition: 'Eredivisie', channel: 'ESPN' },
+                { home: 'FC Utrecht', away: 'FC Twente', competition: 'Eredivisie', channel: 'ESPN' },
+                { home: 'Manchester City', away: 'Arsenal', competition: 'Premier League', channel: 'Viaplay' },
+                { home: 'Liverpool', away: 'Chelsea', competition: 'Premier League', channel: 'Viaplay' },
+                { home: 'Bayern München', away: 'Dortmund', competition: 'Bundesliga', channel: 'Viaplay' },
+                { home: 'Real Madrid', away: 'Barcelona', competition: 'La Liga', channel: 'Ziggo Sport' },
+                { home: 'Inter', away: 'AC Milan', competition: 'Serie A', channel: 'Ziggo Sport' },
+            ];
+
+            // Today's matches
+            const times = ['15:30', '18:45', '20:00', '21:00'];
+            for (let i = 0; i < 3; i++) {
+                const match = sampleMatches[i % sampleMatches.length];
+                const matchDate = new Date(today);
+                matchDate.setHours(parseInt(times[i].split(':')[0]), parseInt(times[i].split(':')[1]), 0, 0);
+                events.push({
+                    date: matchDate,
+                    time: times[i],
+                    home: match.home,
+                    away: match.away,
+                    competition: match.competition,
+                    channel: match.channel,
+                    score: null,
+                    live: false,
+                    status: 'SCHEDULED',
+                    isFallback: true
+                });
+            }
+
+            // Tomorrow's matches
+            for (let i = 0; i < 2; i++) {
+                const match = sampleMatches[(i + 3) % sampleMatches.length];
+                const matchDate = new Date(today);
+                matchDate.setDate(matchDate.getDate() + 1);
+                matchDate.setHours(parseInt(times[i].split(':')[0]), parseInt(times[i].split(':')[1]), 0, 0);
+                events.push({
+                    date: matchDate,
+                    time: times[i],
+                    home: match.home,
+                    away: match.away,
+                    competition: match.competition,
+                    channel: match.channel,
+                    score: null,
+                    live: false,
+                    status: 'SCHEDULED',
+                    isFallback: true
+                });
+            }
+
+            return events;
+        }
+
+        // ============================================
         // API FUNCTIONS
         // ============================================
 
@@ -949,91 +1198,159 @@
             }
         }
 
-        // Fetch football matches from API-Football
+        // Fetch football matches from API-Football (per league)
         async function fetchFootballMatches() {
             console.log('Fetching football matches from API-Football...');
 
-            try {
-                // Fetch per league instead of per day (fewer API calls)
-                const allMatches = [];
-                const today = new Date();
-                const fromDate = new Date(today);
-                fromDate.setDate(fromDate.getDate() - 7);
-                const toDate = new Date(today);
-                toDate.setDate(toDate.getDate() + 14);
+            // Check localStorage cache first (valid for 6 hours to save API calls)
+            const cached = localStorage.getItem('footballCache');
+            const cacheTime = localStorage.getItem('footballCacheTime');
+            if (cached && cacheTime && (Date.now() - parseInt(cacheTime)) < 6 * 60 * 60 * 1000) {
+                console.log('Using cached football data (cache valid for 6 hours)');
+                const data = JSON.parse(cached);
+                // Convert date strings back to Date objects
+                return data.map(m => ({ ...m, date: new Date(m.date) }));
+            }
 
-                const fromStr = fromDate.toISOString().split('T')[0];
-                const toStr = toDate.toISOString().split('T')[0];
+            const allMatches = [];
+            const today = new Date();
+            const season = today.getMonth() >= 7 ? today.getFullYear() : today.getFullYear() - 1;
+            let apiErrors = 0;
 
-                // Fetch all leagues in one call using season parameter
-                const season = today.getMonth() >= 7 ? today.getFullYear() : today.getFullYear() - 1;
-                const leagueIds = CONFIG.API_FOOTBALL_LEAGUES.map(l => l.id).join('-');
-
-                const response = await fetch(
-                    `${CONFIG.API_FOOTBALL_URL}/fixtures?season=${season}&from=${fromStr}&to=${toStr}`,
-                    {
-                        headers: {
-                            'x-apisports-key': CONFIG.API_FOOTBALL_KEY
+            // Fetch per league (max 16 leagues = 16 API calls)
+            for (const league of CONFIG.API_FOOTBALL_LEAGUES) {
+                try {
+                    const response = await fetch(
+                        `${CONFIG.API_FOOTBALL_URL}/fixtures?league=${league.id}&season=${season}&from=${getDateStr(-7)}&to=${getDateStr(14)}`,
+                        {
+                            headers: {
+                                'x-apisports-key': CONFIG.API_FOOTBALL_KEY
+                            }
                         }
+                    );
+
+                    if (!response.ok) {
+                        console.warn(`${league.name}: HTTP ${response.status}`);
+                        apiErrors++;
+                        continue;
                     }
-                );
 
-                if (!response.ok) {
-                    console.error('API-Football HTTP error:', response.status);
-                    return [];
+                    const data = await response.json();
+
+                    // Check for rate limit
+                    if (data.errors && data.errors.requests) {
+                        console.error('API rate limit reached:', data.errors.requests);
+                        break;
+                    }
+
+                    if (data.errors && Object.keys(data.errors).length > 0) {
+                        console.warn(`${league.name} API error:`, data.errors);
+                        apiErrors++;
+                        continue;
+                    }
+
+                    if (data.response && data.response.length > 0) {
+                        data.response.forEach(match => {
+                            const matchDate = new Date(match.fixture.date);
+                            allMatches.push({
+                                date: matchDate,
+                                time: matchDate.toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' }),
+                                home: match.teams.home.name,
+                                away: match.teams.away.name,
+                                homeCrest: match.teams.home.logo,
+                                awayCrest: match.teams.away.logo,
+                                competition: league.name,
+                                channel: league.channel,
+                                score: match.goals.home !== null ? `${match.goals.home}-${match.goals.away}` : null,
+                                live: ['1H', '2H', 'HT', 'ET', 'P'].includes(match.fixture.status.short),
+                                status: match.fixture.status.short
+                            });
+                        });
+                        console.log(`${league.name}: ${data.response.length} fixtures`);
+                    }
+                } catch (error) {
+                    console.warn(`${league.name} fetch failed:`, error);
+                    apiErrors++;
                 }
+            }
 
+            console.log(`Total: ${allMatches.length} matches, ${apiErrors} errors`);
+
+            // Cache results if we got data
+            if (allMatches.length > 0) {
+                localStorage.setItem('footballCache', JSON.stringify(allMatches));
+                localStorage.setItem('footballCacheTime', Date.now().toString());
+            } else if (apiErrors > 0) {
+                // If all requests failed (rate limit), show message and return empty
+                console.error('API rate limit likely reached - no data available');
+                // Check if we have any old cached data we can use
+                const oldCache = localStorage.getItem('footballCache');
+                if (oldCache) {
+                    console.log('Using old cached data due to API failure');
+                    const data = JSON.parse(oldCache);
+                    return data.map(m => ({ ...m, date: new Date(m.date) }));
+                }
+            }
+
+            return allMatches;
+        }
+
+        // Helper function for date strings
+        function getDateStr(daysFromNow) {
+            const d = new Date();
+            d.setDate(d.getDate() + daysFromNow);
+            return d.toISOString().split('T')[0];
+        }
+
+        // Fetch football standings
+        async function fetchFootballStandings(leagueId) {
+            const season = new Date().getMonth() >= 7 ? new Date().getFullYear() : new Date().getFullYear() - 1;
+            try {
+                const response = await fetch(
+                    `${CONFIG.API_FOOTBALL_URL}/standings?league=${leagueId}&season=${season}`,
+                    { headers: { 'x-apisports-key': CONFIG.API_FOOTBALL_KEY } }
+                );
+                if (!response.ok) return null;
                 const data = await response.json();
-
-                // Check for API errors
-                if (data.errors && Object.keys(data.errors).length > 0) {
-                    console.error('API-Football error:', data.errors);
-                    return [];
+                if (data.response && data.response[0] && data.response[0].league.standings) {
+                    return data.response[0].league.standings[0];
                 }
+            } catch (e) {
+                console.error('Standings fetch error:', e);
+            }
+            return null;
+        }
 
-                if (!data.response) {
-                    console.error('API-Football: geen response data');
-                    return [];
-                }
-
-                console.log(`API returned ${data.response.length} total fixtures`);
-
-                // Filter only our leagues
-                const ourLeagueIds = CONFIG.API_FOOTBALL_LEAGUES.map(l => l.id);
-                const filtered = data.response.filter(match =>
-                    ourLeagueIds.includes(match.league.id)
-                );
-
-                console.log(`After league filter: ${filtered.length} fixtures`);
-
-                filtered.forEach(match => {
-                    const leagueConfig = CONFIG.API_FOOTBALL_LEAGUES.find(l => l.id === match.league.id);
-                    const matchDate = new Date(match.fixture.date);
-
-                    allMatches.push({
-                        date: matchDate,
-                        time: matchDate.toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' }),
-                        home: match.teams.home.name,
-                        away: match.teams.away.name,
-                        homeCrest: match.teams.home.logo,
-                        awayCrest: match.teams.away.logo,
-                        competition: leagueConfig ? leagueConfig.name : match.league.name,
-                        competitionLogo: match.league.logo,
-                        channel: leagueConfig ? leagueConfig.channel : (CONFIG.TV_CHANNELS[match.league.name] || 'Ziggo Sport'),
-                        score: match.goals.home !== null ? `${match.goals.home}-${match.goals.away}` : null,
-                        live: match.fixture.status.short === '1H' || match.fixture.status.short === '2H' || match.fixture.status.short === 'HT',
-                        status: match.fixture.status.short
-                    });
-                });
-
-                console.log(`Got ${allMatches.length} matches from API-Football`);
-                return allMatches;
-
-            } catch (error) {
-                console.error('API-Football failed:', error);
-                return [];
+        // Fetch F1 standings from Ergast API
+        async function fetchF1Standings() {
+            try {
+                const [driversRes, constructorsRes] = await Promise.all([
+                    fetch('https://ergast.com/api/f1/current/driverStandings.json'),
+                    fetch('https://ergast.com/api/f1/current/constructorStandings.json')
+                ]);
+                const driversData = await driversRes.json();
+                const constructorsData = await constructorsRes.json();
+                return {
+                    drivers: driversData.MRData.StandingsTable.StandingsLists[0]?.DriverStandings || [],
+                    constructors: constructorsData.MRData.StandingsTable.StandingsLists[0]?.ConstructorStandings || []
+                };
+            } catch (e) {
+                console.error('F1 standings error:', e);
+                return { drivers: [], constructors: [] };
             }
         }
+
+        // PL Darts standings (static for now, would need API)
+        const plDartsStandings = [
+            { pos: 1, name: 'Luke Littler', flag: '<span class="flag-eng">ENG</span>', played: 1, won: 1, legs: '+3', pts: 2 },
+            { pos: 2, name: 'Luke Humphries', flag: '<span class="flag-eng">ENG</span>', played: 1, won: 1, legs: '+2', pts: 2 },
+            { pos: 3, name: 'Michael van Gerwen', flag: '<span class="flag-nl">NL</span>', played: 1, won: 1, legs: '+1', pts: 2 },
+            { pos: 4, name: 'Jonny Clayton', flag: '<span class="flag-wal">WAL</span>', played: 1, won: 0, legs: '-1', pts: 1 },
+            { pos: 5, name: 'Stephen Bunting', flag: '<span class="flag-eng">ENG</span>', played: 1, won: 0, legs: '-1', pts: 1 },
+            { pos: 6, name: 'Josh Rock', flag: '<span class="flag-nir">NIR</span>', played: 1, won: 0, legs: '-1', pts: 1 },
+            { pos: 7, name: 'Gerwyn Price', flag: '<span class="flag-wal">WAL</span>', played: 1, won: 0, legs: '-2', pts: 0 },
+            { pos: 8, name: 'Gian van Veen', flag: '<span class="flag-nl">NL</span>', played: 1, won: 0, legs: '-3', pts: 0 }
+        ];
 
         // Fetch from OpenFootball GitHub (historical data, updated daily)
         async function fetchFromOpenFootball() {
@@ -1311,7 +1628,15 @@
             // Update API status
             const statusEl = document.getElementById('api-status');
             if (currentSport === 'voetbal') {
-                statusEl.innerHTML = '<span class="live-dot"></span> API-Football';
+                if (allEvents.length === 0) {
+                    // No data - try fallback
+                    allEvents = getFootballFallbackData();
+                    statusEl.innerHTML = '<span class="live-dot" style="background: #e10600;"></span> API limit bereikt - demo data';
+                } else if (allEvents.some(e => e.isFallback)) {
+                    statusEl.innerHTML = '<span class="live-dot" style="background: #ff9800;"></span> Demo data (API niet beschikbaar)';
+                } else {
+                    statusEl.innerHTML = '<span class="live-dot"></span> API-Football';
+                }
             } else if (currentSport === 'f1') {
                 statusEl.innerHTML = '<span class="live-dot"></span> OpenF1';
             } else if (currentSport === 'darts') {
@@ -1572,6 +1897,16 @@
                 localStorage.setItem('selectedClubs', JSON.stringify(filters.clubs));
                 renderEvents();
             }, 300);
+        });
+
+        // Refresh button - clear cache and reload
+        document.getElementById('refresh-btn').addEventListener('click', () => {
+            // Clear cache
+            localStorage.removeItem('footballCache');
+            localStorage.removeItem('footballCacheTime');
+            cachedData = { voetbal: null, darts: null, f1: null };
+            console.log('Cache cleared, reloading data...');
+            renderEvents();
         });
 
         // Reset filters button
