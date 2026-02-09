@@ -2171,18 +2171,21 @@
             const compDropdown = document.getElementById('comp-dropdown');
             const clubInput = document.getElementById('filter-clubs');
             const resetBtn = document.getElementById('reset-filters');
+            const scoresToggle = document.getElementById('toggle-scores').parentElement;
 
             if (currentSport === 'voetbal') {
                 filtersRow.style.display = 'flex';
                 compDropdown.style.display = 'block';
                 clubInput.style.display = 'block';
                 resetBtn.style.display = 'block';
+                scoresToggle.style.display = 'flex';
             } else {
-                // Show only toggles for darts and F1
+                // Hide filters and scores toggle for darts and F1
                 filtersRow.style.display = 'flex';
                 compDropdown.style.display = 'none';
                 clubInput.style.display = 'none';
                 resetBtn.style.display = 'none';
+                scoresToggle.style.display = 'none';
             }
         }
 
