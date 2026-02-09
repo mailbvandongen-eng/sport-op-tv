@@ -783,6 +783,9 @@
                     <label><input type="checkbox" value="DFB Pokal"> DFB Pokal</label>
                     <label><input type="checkbox" value="Copa del Rey"> Copa del Rey</label>
                     <label><input type="checkbox" value="KNVB Beker"> KNVB Beker</label>
+                    <hr>
+                    <label><input type="checkbox" value="UWCL"> UWCL (Vrouwen)</label>
+                    <label><input type="checkbox" value="Eredivisie Vrouwen"> Eredivisie Vrouwen</label>
                 </div>
             </div>
             <input type="text" class="filter-input" id="filter-clubs" placeholder="Clubs (komma)...">
@@ -863,7 +866,10 @@
                 // European
                 { id: 2, name: 'Champions League', channel: 'Ziggo Sport' },
                 { id: 3, name: 'Europa League', channel: 'Ziggo Sport' },
-                { id: 848, name: 'Conference League', channel: 'Ziggo Sport' }
+                { id: 848, name: 'Conference League', channel: 'Ziggo Sport' },
+                // Women (NL)
+                { id: 309, name: 'UWCL', channel: 'DAZN' },
+                { id: 129, name: 'Eredivisie Vrouwen', channel: 'ESPN' }
             ],
 
             // OpenF1 API (gratis, geen key nodig)
@@ -1310,6 +1316,39 @@
                     { rank: 6, team: { name: 'Nice', logo: '' }, all: { win: 9, draw: 8, lose: 5 }, goalsDiff: 5, points: 35 },
                     { rank: 7, team: { name: 'Lens', logo: '' }, all: { win: 9, draw: 6, lose: 7 }, goalsDiff: 3, points: 33 },
                     { rank: 8, team: { name: 'Strasbourg', logo: '' }, all: { win: 8, draw: 7, lose: 7 }, goalsDiff: 0, points: 31 },
+                ],
+                // Champions League (League Phase - top 8)
+                2: [
+                    { rank: 1, team: { name: 'Liverpool', logo: '' }, all: { win: 7, draw: 1, lose: 0 }, goalsDiff: 15, points: 22 },
+                    { rank: 2, team: { name: 'Barcelona', logo: '' }, all: { win: 6, draw: 1, lose: 1 }, goalsDiff: 17, points: 19 },
+                    { rank: 3, team: { name: 'Arsenal', logo: '' }, all: { win: 5, draw: 2, lose: 1 }, goalsDiff: 9, points: 17 },
+                    { rank: 4, team: { name: 'Inter', logo: '' }, all: { win: 5, draw: 2, lose: 1 }, goalsDiff: 7, points: 17 },
+                    { rank: 5, team: { name: 'Atlético Madrid', logo: '' }, all: { win: 5, draw: 1, lose: 2 }, goalsDiff: 8, points: 16 },
+                    { rank: 6, team: { name: 'AC Milan', logo: '' }, all: { win: 5, draw: 1, lose: 2 }, goalsDiff: 5, points: 16 },
+                    { rank: 7, team: { name: 'Atalanta', logo: '' }, all: { win: 5, draw: 1, lose: 2 }, goalsDiff: 9, points: 16 },
+                    { rank: 8, team: { name: 'Bayer Leverkusen', logo: '' }, all: { win: 4, draw: 3, lose: 1 }, goalsDiff: 7, points: 15 },
+                ],
+                // Eredivisie Vrouwen
+                129: [
+                    { rank: 1, team: { name: 'Ajax Vrouwen', logo: '' }, all: { win: 12, draw: 1, lose: 1 }, goalsDiff: 35, points: 37 },
+                    { rank: 2, team: { name: 'PSV Vrouwen', logo: '' }, all: { win: 11, draw: 2, lose: 1 }, goalsDiff: 28, points: 35 },
+                    { rank: 3, team: { name: 'FC Twente Vrouwen', logo: '' }, all: { win: 10, draw: 2, lose: 2 }, goalsDiff: 22, points: 32 },
+                    { rank: 4, team: { name: 'Feyenoord Vrouwen', logo: '' }, all: { win: 8, draw: 3, lose: 3 }, goalsDiff: 15, points: 27 },
+                    { rank: 5, team: { name: 'ADO Den Haag Vrouwen', logo: '' }, all: { win: 6, draw: 4, lose: 4 }, goalsDiff: 5, points: 22 },
+                    { rank: 6, team: { name: 'sc Heerenveen Vrouwen', logo: '' }, all: { win: 5, draw: 3, lose: 6 }, goalsDiff: -2, points: 18 },
+                    { rank: 7, team: { name: 'AZ Vrouwen', logo: '' }, all: { win: 4, draw: 4, lose: 6 }, goalsDiff: -5, points: 16 },
+                    { rank: 8, team: { name: 'PEC Zwolle Vrouwen', logo: '' }, all: { win: 3, draw: 3, lose: 8 }, goalsDiff: -12, points: 12 },
+                ],
+                // UWCL (Group stage - top 8)
+                309: [
+                    { rank: 1, team: { name: 'Barcelona Femení', logo: '' }, all: { win: 5, draw: 1, lose: 0 }, goalsDiff: 18, points: 16 },
+                    { rank: 2, team: { name: 'Lyon Féminin', logo: '' }, all: { win: 5, draw: 0, lose: 1 }, goalsDiff: 14, points: 15 },
+                    { rank: 3, team: { name: 'Chelsea Women', logo: '' }, all: { win: 4, draw: 1, lose: 1 }, goalsDiff: 10, points: 13 },
+                    { rank: 4, team: { name: 'Bayern München Frauen', logo: '' }, all: { win: 4, draw: 1, lose: 1 }, goalsDiff: 8, points: 13 },
+                    { rank: 5, team: { name: 'Arsenal Women', logo: '' }, all: { win: 3, draw: 2, lose: 1 }, goalsDiff: 6, points: 11 },
+                    { rank: 6, team: { name: 'Real Madrid Femenino', logo: '' }, all: { win: 3, draw: 1, lose: 2 }, goalsDiff: 4, points: 10 },
+                    { rank: 7, team: { name: 'Wolfsburg Frauen', logo: '' }, all: { win: 3, draw: 1, lose: 2 }, goalsDiff: 3, points: 10 },
+                    { rank: 8, team: { name: 'Manchester City Women', logo: '' }, all: { win: 2, draw: 2, lose: 2 }, goalsDiff: 2, points: 8 },
                 ]
             };
             return standings[leagueId] || [];
@@ -1334,16 +1373,17 @@
             }
         }
 
-        // PL Darts standings (static for now, would need API)
+        // PL Darts standings - Na Night 1 Newcastle (5 feb 2026)
+        // Punten: 5 = avondwinnaar, 3 = finalist, 2 = halve finale verliezer
         const plDartsStandings = [
-            { pos: 1, name: 'Luke Littler', played: 1, won: 1, legs: '+3', pts: 2 },
-            { pos: 2, name: 'Luke Humphries', played: 1, won: 1, legs: '+2', pts: 2 },
-            { pos: 3, name: 'Michael van Gerwen', played: 1, won: 1, legs: '+1', pts: 2 },
-            { pos: 4, name: 'Jonny Clayton', played: 1, won: 0, legs: '-1', pts: 1 },
-            { pos: 5, name: 'Stephen Bunting', played: 1, won: 0, legs: '-1', pts: 1 },
-            { pos: 6, name: 'Josh Rock', played: 1, won: 0, legs: '-1', pts: 1 },
-            { pos: 7, name: 'Gerwyn Price', played: 1, won: 0, legs: '-2', pts: 0 },
-            { pos: 8, name: 'Gian van Veen', played: 1, won: 0, legs: '-3', pts: 0 }
+            { pos: 1, name: 'Michael van Gerwen', played: 1, sf: 1, f: 1, w: 1, pts: 5 },
+            { pos: 2, name: 'Gian van Veen', played: 1, sf: 1, f: 1, w: 0, pts: 3 },
+            { pos: 3, name: 'Luke Humphries', played: 1, sf: 1, f: 0, w: 0, pts: 2 },
+            { pos: 4, name: 'Jonny Clayton', played: 1, sf: 1, f: 0, w: 0, pts: 2 },
+            { pos: 5, name: 'Luke Littler', played: 1, sf: 0, f: 0, w: 0, pts: 0 },
+            { pos: 6, name: 'Stephen Bunting', played: 1, sf: 0, f: 0, w: 0, pts: 0 },
+            { pos: 7, name: 'Josh Rock', played: 1, sf: 0, f: 0, w: 0, pts: 0 },
+            { pos: 8, name: 'Gerwyn Price', played: 1, sf: 0, f: 0, w: 0, pts: 0 }
         ];
 
         // Fetch from OpenFootball GitHub (historical data, updated daily)
@@ -1809,7 +1849,10 @@
                     { id: 78, name: 'Bundesliga' },
                     { id: 140, name: 'La Liga' },
                     { id: 135, name: 'Serie A' },
-                    { id: 61, name: 'Ligue 1' }
+                    { id: 61, name: 'Ligue 1' },
+                    { id: 2, name: 'Champions League' },
+                    { id: 129, name: 'Eredivisie Vrouwen' },
+                    { id: 309, name: 'UWCL' }
                 ];
 
                 tabsContainer.innerHTML = leagues.map((l, i) =>
@@ -1895,17 +1938,18 @@
 
         function renderDartsStandings() {
             let html = `<div class="standings-container">
-                <div class="standings-title">Premier League Darts 2026</div>
+                <div class="standings-title">Premier League Darts 2026 <span style="font-size:0.7em;color:#999;">(na Night 1)</span></div>
                 <table class="standings-table">
-                    <tr><th class="pos">#</th><th>Speler</th><th class="stats">GS</th><th class="stats">W</th><th class="stats">L+/-</th><th class="pts">Ptn</th></tr>`;
+                    <tr><th class="pos">#</th><th>Speler</th><th class="stats">GS</th><th class="stats">HF</th><th class="stats">F</th><th class="stats">W</th><th class="pts">Ptn</th></tr>`;
 
             plDartsStandings.forEach(player => {
                 html += `<tr>
                     <td class="pos">${player.pos}</td>
                     <td>${player.name}</td>
                     <td class="stats">${player.played}</td>
-                    <td class="stats">${player.won}</td>
-                    <td class="stats">${player.legs}</td>
+                    <td class="stats">${player.sf}</td>
+                    <td class="stats">${player.f}</td>
+                    <td class="stats">${player.w}</td>
                     <td class="pts">${player.pts}</td>
                 </tr>`;
             });
