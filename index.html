@@ -1102,6 +1102,59 @@
             }
         }
 
+        // Static football data (iservoetbalvanavond.nl fallback)
+        function getStaticFootballMatches() {
+            const matches = [
+                // 9 feb 2026
+                { date: '2026-02-09', time: '17:30', home: 'Atalanta', away: 'Cremonese', competition: 'Serie A', channel: 'Ziggo Sport' },
+                { date: '2026-02-09', time: '19:45', home: 'Roma', away: 'Cagliari', competition: 'Serie A', channel: 'Ziggo Sport' },
+                { date: '2026-02-09', time: '20:00', home: 'Villarreal', away: 'Espanyol', competition: 'La Liga', channel: 'Ziggo Sport' },
+                { date: '2026-02-09', time: '20:45', home: 'FC Porto', away: 'Sporting CP', competition: 'Primeira Liga', channel: 'Ziggo Sport' },
+                // 10 feb 2026
+                { date: '2026-02-10', time: '19:30', home: 'Tottenham', away: 'Newcastle', competition: 'Premier League', channel: 'Viaplay' },
+                { date: '2026-02-10', time: '19:30', home: 'Chelsea', away: 'Leeds United', competition: 'Premier League', channel: 'Viaplay' },
+                { date: '2026-02-10', time: '19:30', home: 'Everton', away: 'Bournemouth', competition: 'Premier League', channel: 'Viaplay' },
+                { date: '2026-02-10', time: '19:45', home: 'Hertha BSC', away: 'SC Freiburg', competition: 'DFB Pokal', channel: 'Ziggo Sport' },
+                { date: '2026-02-10', time: '20:00', home: 'Napoli', away: 'Como', competition: 'Coppa Italia', channel: 'Ziggo Sport' },
+                { date: '2026-02-10', time: '20:15', home: 'West Ham', away: 'Manchester United', competition: 'Premier League', channel: 'Viaplay' },
+                // 11 feb 2026
+                { date: '2026-02-11', time: '17:45', home: 'Go Ahead Eagles', away: 'sc Heerenveen', competition: 'Eredivisie', channel: 'ESPN' },
+                { date: '2026-02-11', time: '19:30', home: 'Nottingham Forest', away: 'Wolverhampton', competition: 'Premier League', channel: 'Viaplay' },
+                { date: '2026-02-11', time: '19:30', home: 'Aston Villa', away: 'Brighton', competition: 'Premier League', channel: 'Viaplay' },
+                { date: '2026-02-11', time: '19:30', home: 'Crystal Palace', away: 'Burnley', competition: 'Premier League', channel: 'Viaplay' },
+                { date: '2026-02-11', time: '19:30', home: 'Manchester City', away: 'Fulham', competition: 'Premier League', channel: 'Viaplay' },
+                { date: '2026-02-11', time: '19:45', home: 'Bayern München', away: 'RB Leipzig', competition: 'DFB Pokal', channel: 'Ziggo Sport' },
+                { date: '2026-02-11', time: '20:00', home: 'NEC', away: 'FC Utrecht', competition: 'Eredivisie', channel: 'ESPN' },
+                { date: '2026-02-11', time: '20:00', home: 'Athletic Bilbao', away: 'Real Sociedad', competition: 'Copa del Rey', channel: 'Ziggo Sport' },
+                { date: '2026-02-11', time: '20:15', home: 'Sunderland', away: 'Liverpool', competition: 'Premier League', channel: 'Viaplay' },
+                // 12 feb 2026
+                { date: '2026-02-12', time: '20:00', home: 'Atlético Madrid', away: 'Barcelona', competition: 'Copa del Rey', channel: 'Ziggo Sport' },
+                // 13 feb 2026
+                { date: '2026-02-13', time: '20:00', home: 'FC Volendam', away: 'PSV', competition: 'Eredivisie', channel: 'ESPN' },
+                { date: '2026-02-13', time: '21:00', home: 'Ajax', away: 'Fortuna Sittard', competition: 'Eredivisie', channel: 'ESPN' },
+                // 14 feb 2026
+                { date: '2026-02-14', time: '18:45', home: 'Sparta Rotterdam', away: 'AZ', competition: 'Eredivisie', channel: 'ESPN' },
+                { date: '2026-02-14', time: '21:00', home: 'Feyenoord', away: 'Go Ahead Eagles', competition: 'Eredivisie', channel: 'ESPN' },
+                // 15 feb 2026
+                { date: '2026-02-15', time: '12:30', home: 'FC Twente', away: 'NEC', competition: 'Eredivisie', channel: 'ESPN' },
+                { date: '2026-02-15', time: '14:30', home: 'sc Heerenveen', away: 'FC Utrecht', competition: 'Eredivisie', channel: 'ESPN' },
+                { date: '2026-02-15', time: '16:45', home: 'Heracles', away: 'Ajax', competition: 'Eredivisie', channel: 'ESPN' },
+            ];
+
+            return matches.map(m => ({
+                date: new Date(m.date + 'T' + m.time),
+                time: m.time,
+                home: m.home,
+                away: m.away,
+                competition: m.competition,
+                channel: m.channel,
+                score: null,
+                live: false,
+                status: 'SCHEDULED',
+                isStatic: true
+            }));
+        }
+
         // Fetch football matches - try API-Football first, fall back to cache
         async function fetchFootballMatches() {
             console.log('Fetching football matches...');
@@ -1185,9 +1238,10 @@
                 return data.map(m => ({ ...m, date: new Date(m.date) }));
             }
 
-            // No cache available
-            localStorage.setItem('footballSource', 'none');
-            return [];
+            // No cache - use static fallback data
+            console.log('Using static fallback data');
+            localStorage.setItem('footballSource', 'static');
+            return getStaticFootballMatches();
         }
 
         // Helper function for date strings
@@ -1673,6 +1727,8 @@
             if (currentSport === 'voetbal') {
                 if (allEvents.length === 0) {
                     statusEl.innerHTML = '<span class="live-dot" style="background: #e10600;"></span> Geen data beschikbaar <button class="refresh-btn" onclick="location.reload()">Ververs</button>';
+                } else if (source === 'static') {
+                    statusEl.innerHTML = '<span class="live-dot" style="background: #ff9800;"></span> iservoetbalvanavond.nl <button class="refresh-btn" id="refresh-btn">Ververs</button>';
                 } else if (source === 'cache') {
                     statusEl.innerHTML = '<span class="live-dot" style="background: #ff9800;"></span> Gecachede data <button class="refresh-btn" id="refresh-btn">Ververs</button>';
                 } else {
