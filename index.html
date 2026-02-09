@@ -783,8 +783,6 @@
                     <label><input type="checkbox" value="DFB Pokal"> DFB Pokal</label>
                     <label><input type="checkbox" value="Copa del Rey"> Copa del Rey</label>
                     <label><input type="checkbox" value="KNVB Beker"> KNVB Beker</label>
-                    <hr>
-                    <label><input type="checkbox" value="UWCL"> UWCL (Vrouwen)</label>
                 </div>
             </div>
             <input type="text" class="filter-input" id="filter-clubs" placeholder="Clubs (komma)...">
@@ -865,9 +863,7 @@
                 // European
                 { id: 2, name: 'Champions League', channel: 'Ziggo Sport' },
                 { id: 3, name: 'Europa League', channel: 'Ziggo Sport' },
-                { id: 848, name: 'Conference League', channel: 'Ziggo Sport' },
-                // Women (EU)
-                { id: 309, name: 'UWCL', channel: 'DAZN' }
+                { id: 848, name: 'Conference League', channel: 'Ziggo Sport' }
             ],
 
             // OpenF1 API (gratis, geen key nodig)
@@ -1325,17 +1321,6 @@
                     { rank: 6, team: { name: 'Chelsea', logo: '' }, all: { win: 5, draw: 1, lose: 2 }, goalsDiff: 7, points: 16 },
                     { rank: 7, team: { name: 'Sporting CP', logo: '' }, all: { win: 5, draw: 1, lose: 2 }, goalsDiff: 6, points: 16 },
                     { rank: 8, team: { name: 'Manchester City', logo: '' }, all: { win: 5, draw: 1, lose: 2 }, goalsDiff: 5, points: 16 },
-                ],
-                // UWCL (Group stage - top 8)
-                309: [
-                    { rank: 1, team: { name: 'Barcelona Femení', logo: '' }, all: { win: 5, draw: 1, lose: 0 }, goalsDiff: 18, points: 16 },
-                    { rank: 2, team: { name: 'Lyon Féminin', logo: '' }, all: { win: 5, draw: 0, lose: 1 }, goalsDiff: 14, points: 15 },
-                    { rank: 3, team: { name: 'Chelsea Women', logo: '' }, all: { win: 4, draw: 1, lose: 1 }, goalsDiff: 10, points: 13 },
-                    { rank: 4, team: { name: 'Bayern München Frauen', logo: '' }, all: { win: 4, draw: 1, lose: 1 }, goalsDiff: 8, points: 13 },
-                    { rank: 5, team: { name: 'Arsenal Women', logo: '' }, all: { win: 3, draw: 2, lose: 1 }, goalsDiff: 6, points: 11 },
-                    { rank: 6, team: { name: 'Real Madrid Femenino', logo: '' }, all: { win: 3, draw: 1, lose: 2 }, goalsDiff: 4, points: 10 },
-                    { rank: 7, team: { name: 'Wolfsburg Frauen', logo: '' }, all: { win: 3, draw: 1, lose: 2 }, goalsDiff: 3, points: 10 },
-                    { rank: 8, team: { name: 'Manchester City Women', logo: '' }, all: { win: 2, draw: 2, lose: 2 }, goalsDiff: 2, points: 8 },
                 ]
             };
             return standings[leagueId] || [];
@@ -1874,7 +1859,6 @@
                     { id: 135, name: 'Serie A' },
                     { id: 61, name: 'Ligue 1' },
                     { id: 2, name: 'Champions League' },
-                    { id: 309, name: 'UWCL' },
                     { id: 'wk2026', name: 'WK 2026' }
                 ];
 
