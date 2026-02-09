@@ -785,7 +785,6 @@
                     <label><input type="checkbox" value="KNVB Beker"> KNVB Beker</label>
                     <hr>
                     <label><input type="checkbox" value="UWCL"> UWCL (Vrouwen)</label>
-                    <label><input type="checkbox" value="Eredivisie Vrouwen"> Eredivisie Vrouwen</label>
                 </div>
             </div>
             <input type="text" class="filter-input" id="filter-clubs" placeholder="Clubs (komma)...">
@@ -867,9 +866,8 @@
                 { id: 2, name: 'Champions League', channel: 'Ziggo Sport' },
                 { id: 3, name: 'Europa League', channel: 'Ziggo Sport' },
                 { id: 848, name: 'Conference League', channel: 'Ziggo Sport' },
-                // Women (NL)
-                { id: 309, name: 'UWCL', channel: 'DAZN' },
-                { id: 129, name: 'Eredivisie Vrouwen', channel: 'ESPN' }
+                // Women (EU)
+                { id: 309, name: 'UWCL', channel: 'DAZN' }
             ],
 
             // OpenF1 API (gratis, geen key nodig)
@@ -1251,27 +1249,27 @@
         // Static standings fallback (February 2026 data)
         function getStaticStandings(leagueId) {
             const standings = {
-                // Eredivisie
+                // Eredivisie (bijgewerkt 8 feb 2026)
                 88: [
-                    { rank: 1, team: { name: 'PSV', logo: '' }, all: { win: 19, draw: 2, lose: 1 }, goalsDiff: 52, points: 59 },
-                    { rank: 2, team: { name: 'Ajax', logo: '' }, all: { win: 17, draw: 3, lose: 2 }, goalsDiff: 41, points: 54 },
-                    { rank: 3, team: { name: 'Feyenoord', logo: '' }, all: { win: 15, draw: 4, lose: 3 }, goalsDiff: 28, points: 49 },
-                    { rank: 4, team: { name: 'FC Twente', logo: '' }, all: { win: 13, draw: 5, lose: 4 }, goalsDiff: 18, points: 44 },
-                    { rank: 5, team: { name: 'AZ', logo: '' }, all: { win: 12, draw: 5, lose: 5 }, goalsDiff: 15, points: 41 },
-                    { rank: 6, team: { name: 'FC Utrecht', logo: '' }, all: { win: 11, draw: 6, lose: 5 }, goalsDiff: 12, points: 39 },
-                    { rank: 7, team: { name: 'Sparta Rotterdam', logo: '' }, all: { win: 9, draw: 7, lose: 6 }, goalsDiff: 5, points: 34 },
-                    { rank: 8, team: { name: 'Go Ahead Eagles', logo: '' }, all: { win: 9, draw: 5, lose: 8 }, goalsDiff: 2, points: 32 },
+                    { rank: 1, team: { name: 'PSV', logo: '' }, all: { win: 18, draw: 2, lose: 1 }, goalsDiff: 39, points: 56 },
+                    { rank: 2, team: { name: 'NEC', logo: '' }, all: { win: 12, draw: 5, lose: 4 }, goalsDiff: 21, points: 41 },
+                    { rank: 3, team: { name: 'Feyenoord', logo: '' }, all: { win: 12, draw: 3, lose: 6 }, goalsDiff: 19, points: 39 },
+                    { rank: 4, team: { name: 'Ajax', logo: '' }, all: { win: 10, draw: 8, lose: 3 }, goalsDiff: 13, points: 38 },
+                    { rank: 5, team: { name: 'AZ', logo: '' }, all: { win: 10, draw: 3, lose: 8 }, goalsDiff: 8, points: 33 },
+                    { rank: 6, team: { name: 'FC Twente', logo: '' }, all: { win: 9, draw: 5, lose: 7 }, goalsDiff: 5, points: 32 },
+                    { rank: 7, team: { name: 'FC Utrecht', logo: '' }, all: { win: 9, draw: 4, lose: 8 }, goalsDiff: 3, points: 31 },
+                    { rank: 8, team: { name: 'Sparta Rotterdam', logo: '' }, all: { win: 8, draw: 6, lose: 7 }, goalsDiff: 0, points: 30 },
                 ],
-                // Premier League
+                // Premier League (bijgewerkt 8 feb 2026)
                 39: [
-                    { rank: 1, team: { name: 'Liverpool', logo: '' }, all: { win: 18, draw: 3, lose: 1 }, goalsDiff: 38, points: 57 },
-                    { rank: 2, team: { name: 'Arsenal', logo: '' }, all: { win: 15, draw: 5, lose: 2 }, goalsDiff: 30, points: 50 },
-                    { rank: 3, team: { name: 'Manchester City', logo: '' }, all: { win: 14, draw: 5, lose: 3 }, goalsDiff: 25, points: 47 },
-                    { rank: 4, team: { name: 'Chelsea', logo: '' }, all: { win: 12, draw: 7, lose: 3 }, goalsDiff: 20, points: 43 },
-                    { rank: 5, team: { name: 'Nottingham Forest', logo: '' }, all: { win: 12, draw: 5, lose: 5 }, goalsDiff: 9, points: 41 },
-                    { rank: 6, team: { name: 'Newcastle', logo: '' }, all: { win: 11, draw: 6, lose: 5 }, goalsDiff: 12, points: 39 },
-                    { rank: 7, team: { name: 'Brighton', logo: '' }, all: { win: 10, draw: 7, lose: 5 }, goalsDiff: 8, points: 37 },
-                    { rank: 8, team: { name: 'Bournemouth', logo: '' }, all: { win: 10, draw: 5, lose: 7 }, goalsDiff: 5, points: 35 },
+                    { rank: 1, team: { name: 'Arsenal', logo: '' }, all: { win: 17, draw: 5, lose: 3 }, goalsDiff: 32, points: 56 },
+                    { rank: 2, team: { name: 'Manchester City', logo: '' }, all: { win: 14, draw: 5, lose: 5 }, goalsDiff: 26, points: 47 },
+                    { rank: 3, team: { name: 'Aston Villa', logo: '' }, all: { win: 14, draw: 5, lose: 6 }, goalsDiff: 9, points: 47 },
+                    { rank: 4, team: { name: 'Manchester United', logo: '' }, all: { win: 12, draw: 8, lose: 5 }, goalsDiff: 10, points: 44 },
+                    { rank: 5, team: { name: 'Chelsea', logo: '' }, all: { win: 12, draw: 7, lose: 6 }, goalsDiff: 17, points: 43 },
+                    { rank: 6, team: { name: 'Liverpool', logo: '' }, all: { win: 11, draw: 6, lose: 7 }, goalsDiff: 6, points: 39 },
+                    { rank: 7, team: { name: 'Newcastle', logo: '' }, all: { win: 10, draw: 8, lose: 7 }, goalsDiff: 5, points: 38 },
+                    { rank: 8, team: { name: 'Brighton', logo: '' }, all: { win: 10, draw: 6, lose: 9 }, goalsDiff: 3, points: 36 },
                 ],
                 // Bundesliga
                 78: [
@@ -1317,27 +1315,16 @@
                     { rank: 7, team: { name: 'Lens', logo: '' }, all: { win: 9, draw: 6, lose: 7 }, goalsDiff: 3, points: 33 },
                     { rank: 8, team: { name: 'Strasbourg', logo: '' }, all: { win: 8, draw: 7, lose: 7 }, goalsDiff: 0, points: 31 },
                 ],
-                // Champions League (League Phase - top 8)
+                // Champions League - League Phase eindstand (top 8 direct naar R16)
                 2: [
-                    { rank: 1, team: { name: 'Liverpool', logo: '' }, all: { win: 7, draw: 1, lose: 0 }, goalsDiff: 15, points: 22 },
-                    { rank: 2, team: { name: 'Barcelona', logo: '' }, all: { win: 6, draw: 1, lose: 1 }, goalsDiff: 17, points: 19 },
-                    { rank: 3, team: { name: 'Arsenal', logo: '' }, all: { win: 5, draw: 2, lose: 1 }, goalsDiff: 9, points: 17 },
-                    { rank: 4, team: { name: 'Inter', logo: '' }, all: { win: 5, draw: 2, lose: 1 }, goalsDiff: 7, points: 17 },
-                    { rank: 5, team: { name: 'Atlético Madrid', logo: '' }, all: { win: 5, draw: 1, lose: 2 }, goalsDiff: 8, points: 16 },
-                    { rank: 6, team: { name: 'AC Milan', logo: '' }, all: { win: 5, draw: 1, lose: 2 }, goalsDiff: 5, points: 16 },
-                    { rank: 7, team: { name: 'Atalanta', logo: '' }, all: { win: 5, draw: 1, lose: 2 }, goalsDiff: 9, points: 16 },
-                    { rank: 8, team: { name: 'Bayer Leverkusen', logo: '' }, all: { win: 4, draw: 3, lose: 1 }, goalsDiff: 7, points: 15 },
-                ],
-                // Eredivisie Vrouwen
-                129: [
-                    { rank: 1, team: { name: 'Ajax Vrouwen', logo: '' }, all: { win: 12, draw: 1, lose: 1 }, goalsDiff: 35, points: 37 },
-                    { rank: 2, team: { name: 'PSV Vrouwen', logo: '' }, all: { win: 11, draw: 2, lose: 1 }, goalsDiff: 28, points: 35 },
-                    { rank: 3, team: { name: 'FC Twente Vrouwen', logo: '' }, all: { win: 10, draw: 2, lose: 2 }, goalsDiff: 22, points: 32 },
-                    { rank: 4, team: { name: 'Feyenoord Vrouwen', logo: '' }, all: { win: 8, draw: 3, lose: 3 }, goalsDiff: 15, points: 27 },
-                    { rank: 5, team: { name: 'ADO Den Haag Vrouwen', logo: '' }, all: { win: 6, draw: 4, lose: 4 }, goalsDiff: 5, points: 22 },
-                    { rank: 6, team: { name: 'sc Heerenveen Vrouwen', logo: '' }, all: { win: 5, draw: 3, lose: 6 }, goalsDiff: -2, points: 18 },
-                    { rank: 7, team: { name: 'AZ Vrouwen', logo: '' }, all: { win: 4, draw: 4, lose: 6 }, goalsDiff: -5, points: 16 },
-                    { rank: 8, team: { name: 'PEC Zwolle Vrouwen', logo: '' }, all: { win: 3, draw: 3, lose: 8 }, goalsDiff: -12, points: 12 },
+                    { rank: 1, team: { name: 'Arsenal', logo: '' }, all: { win: 6, draw: 2, lose: 0 }, goalsDiff: 14, points: 20 },
+                    { rank: 2, team: { name: 'Bayern München', logo: '' }, all: { win: 6, draw: 1, lose: 1 }, goalsDiff: 12, points: 19 },
+                    { rank: 3, team: { name: 'Liverpool', logo: '' }, all: { win: 6, draw: 1, lose: 1 }, goalsDiff: 11, points: 19 },
+                    { rank: 4, team: { name: 'Tottenham', logo: '' }, all: { win: 5, draw: 2, lose: 1 }, goalsDiff: 8, points: 17 },
+                    { rank: 5, team: { name: 'Barcelona', logo: '' }, all: { win: 5, draw: 2, lose: 1 }, goalsDiff: 10, points: 17 },
+                    { rank: 6, team: { name: 'Chelsea', logo: '' }, all: { win: 5, draw: 1, lose: 2 }, goalsDiff: 7, points: 16 },
+                    { rank: 7, team: { name: 'Sporting CP', logo: '' }, all: { win: 5, draw: 1, lose: 2 }, goalsDiff: 6, points: 16 },
+                    { rank: 8, team: { name: 'Manchester City', logo: '' }, all: { win: 5, draw: 1, lose: 2 }, goalsDiff: 5, points: 16 },
                 ],
                 // UWCL (Group stage - top 8)
                 309: [
@@ -1385,6 +1372,42 @@
             { pos: 7, name: 'Josh Rock', played: 1, sf: 0, f: 0, w: 0, pts: 0 },
             { pos: 8, name: 'Gerwyn Price', played: 1, sf: 0, f: 0, w: 0, pts: 0 }
         ];
+
+        // WK 2026 Groepen (11 juni - 19 juli 2026, USA/Mexico/Canada)
+        const wk2026Groups = {
+            'A': ['Mexico', 'Zuid-Afrika', 'Zuid-Korea', 'UEFA PO D'],
+            'B': ['Canada', 'Zwitserland', 'Qatar', 'UEFA PO A'],
+            'C': ['Brazilië', 'Marokko', 'Haïti', 'Schotland'],
+            'D': ['Verenigde Staten', 'Paraguay', 'Australië', 'UEFA PO C'],
+            'E': ['Duitsland', 'Curaçao', 'Ivoorkust', 'Ecuador'],
+            'F': ['Nederland', 'Japan', 'Tunesië', 'UEFA PO B'],
+            'G': ['België', 'Egypte', 'Iran', 'Nieuw-Zeeland'],
+            'H': ['Spanje', 'Kaapverdië', 'Saudi-Arabië', 'Uruguay'],
+            'I': ['Frankrijk', 'Senegal', 'Noorwegen', 'Intercont. PO 2'],
+            'J': ['Argentinië', 'Algerije', 'Oostenrijk', 'Jordanië'],
+            'K': ['Portugal', 'Oezbekistan', 'Colombia', 'Intercont. PO 1'],
+            'L': ['Engeland', 'Kroatië', 'Ghana', 'Panama']
+        };
+
+        // Functie om WK groepen te renderen
+        function renderWK2026Groups() {
+            let html = '<div class="standings-container"><div class="standings-title">WK 2026 Groepen</div>';
+            html += '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;">';
+
+            for (const [group, teams] of Object.entries(wk2026Groups)) {
+                const isNLGroup = group === 'F';
+                html += `<div style="background:${isNLGroup ? '#fff3e0' : '#f5f5f5'};padding:12px;border-radius:8px;">`;
+                html += `<div style="font-weight:700;margin-bottom:8px;color:${isNLGroup ? '#e65100' : '#333'};">Groep ${group}</div>`;
+                teams.forEach((team, i) => {
+                    const isNL = team === 'Nederland';
+                    html += `<div style="padding:4px 0;${isNL ? 'font-weight:700;color:#e65100;' : ''}">${i+1}. ${team}</div>`;
+                });
+                html += '</div>';
+            }
+
+            html += '</div></div>';
+            return html;
+        }
 
         // Fetch from OpenFootball GitHub (historical data, updated daily)
         async function fetchFromOpenFootball() {
@@ -1851,8 +1874,8 @@
                     { id: 135, name: 'Serie A' },
                     { id: 61, name: 'Ligue 1' },
                     { id: 2, name: 'Champions League' },
-                    { id: 129, name: 'Eredivisie Vrouwen' },
-                    { id: 309, name: 'UWCL' }
+                    { id: 309, name: 'UWCL' },
+                    { id: 'wk2026', name: 'WK 2026' }
                 ];
 
                 tabsContainer.innerHTML = leagues.map((l, i) =>
@@ -1900,6 +1923,13 @@
 
         async function loadFootballStandings(leagueId, leagueName) {
             const contentContainer = document.getElementById('standings-content');
+
+            // Special case: WK 2026 groups
+            if (leagueId === 'wk2026') {
+                contentContainer.innerHTML = renderWK2026Groups();
+                return;
+            }
+
             contentContainer.innerHTML = '<div class="loading"><div class="spinner"></div><p>Stand ophalen...</p></div>';
 
             const standings = await fetchFootballStandings(leagueId);
