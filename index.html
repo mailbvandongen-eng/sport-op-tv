@@ -1428,18 +1428,79 @@
             'L': ['Engeland', 'Kroatië', 'Ghana', 'Panama']
         };
 
+        // WK 2026 Schema - Nederland wedstrijden + knockout rondes
+        const wk2026Schedule = {
+            nederland: [
+                { date: '14 juni', time: '21:00', home: 'Nederland', away: 'Japan', city: 'Philadelphia', stage: 'Groep F' },
+                { date: '20 juni', time: '18:00', home: 'Nederland', away: 'UEFA PO B', city: 'Philadelphia', stage: 'Groep F' },
+                { date: '25 juni', time: '21:00', home: 'Tunesië', away: 'Nederland', city: 'Kansas City', stage: 'Groep F' }
+            ],
+            knockout: [
+                { stage: 'Ronde van 32', dates: '28 juni - 3 juli' },
+                { stage: 'Ronde van 16', dates: '4 - 7 juli' },
+                { stage: 'Kwartfinales', dates: '9 & 11 juli' },
+                { stage: 'Halve finales', dates: '14 & 15 juli' },
+                { stage: 'Troostfinale', dates: '18 juli' },
+                { stage: 'Finale', dates: '19 juli', city: 'New Jersey (MetLife Stadium)' }
+            ],
+            openingMatches: [
+                { date: '11 juni', time: '21:00', home: 'Mexico', away: 'Zuid-Afrika', city: 'Mexico City', stage: 'Groep A - Opening' },
+                { date: '12 juni', time: '18:00', home: 'Canada', away: 'Zwitserland', city: 'Toronto', stage: 'Groep B' },
+                { date: '12 juni', time: '21:00', home: 'Verenigde Staten', away: 'Paraguay', city: 'Los Angeles', stage: 'Groep D' }
+            ]
+        };
+
         // Functie om WK groepen te renderen
         function renderWK2026Groups() {
-            let html = '<div class="standings-container"><div class="standings-title">WK 2026 Groepen</div>';
-            html += '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;">';
+            let html = '<div class="standings-container">';
+
+            // Nederland schema
+            html += '<div class="standings-title" style="color:#e65100;">🇳🇱 Nederland - WK 2026 Schema</div>';
+            html += '<table class="standings-table"><tr><th>Datum</th><th>Wedstrijd</th><th>Stad</th></tr>';
+            wk2026Schedule.nederland.forEach(m => {
+                html += `<tr style="background:#fff3e0;">
+                    <td>${m.date}<br><small>${m.time}</small></td>
+                    <td><strong>${m.home}</strong> - ${m.away}</td>
+                    <td>${m.city}</td>
+                </tr>`;
+            });
+            html += '</table>';
+
+            // Knockout schema
+            html += '<div class="standings-title" style="margin-top:20px;">Knockout Rondes</div>';
+            html += '<table class="standings-table"><tr><th>Ronde</th><th>Data</th><th>Locatie</th></tr>';
+            wk2026Schedule.knockout.forEach(k => {
+                html += `<tr>
+                    <td>${k.stage}</td>
+                    <td>${k.dates}</td>
+                    <td>${k.city || 'Diverse steden'}</td>
+                </tr>`;
+            });
+            html += '</table>';
+
+            // Opening wedstrijden
+            html += '<div class="standings-title" style="margin-top:20px;">Opening Wedstrijden</div>';
+            html += '<table class="standings-table"><tr><th>Datum</th><th>Wedstrijd</th><th>Stad</th></tr>';
+            wk2026Schedule.openingMatches.forEach(m => {
+                html += `<tr>
+                    <td>${m.date}<br><small>${m.time}</small></td>
+                    <td>${m.home} - ${m.away}<br><small>${m.stage}</small></td>
+                    <td>${m.city}</td>
+                </tr>`;
+            });
+            html += '</table>';
+
+            // Alle groepen
+            html += '<div class="standings-title" style="margin-top:20px;">Alle Groepen</div>';
+            html += '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;">';
 
             for (const [group, teams] of Object.entries(wk2026Groups)) {
                 const isNLGroup = group === 'F';
-                html += `<div style="background:${isNLGroup ? '#fff3e0' : '#f5f5f5'};padding:12px;border-radius:8px;">`;
-                html += `<div style="font-weight:700;margin-bottom:8px;color:${isNLGroup ? '#e65100' : '#333'};">Groep ${group}</div>`;
+                html += `<div style="background:${isNLGroup ? '#fff3e0' : '#f5f5f5'};padding:10px;border-radius:8px;font-size:0.85rem;">`;
+                html += `<div style="font-weight:700;margin-bottom:6px;color:${isNLGroup ? '#e65100' : '#333'};">Groep ${group}</div>`;
                 teams.forEach((team, i) => {
                     const isNL = team === 'Nederland';
-                    html += `<div style="padding:4px 0;${isNL ? 'font-weight:700;color:#e65100;' : ''}">${i+1}. ${team}</div>`;
+                    html += `<div style="padding:2px 0;${isNL ? 'font-weight:700;color:#e65100;' : ''}">${team}</div>`;
                 });
                 html += '</div>';
             }
