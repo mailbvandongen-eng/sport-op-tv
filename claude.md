@@ -1,8 +1,12 @@
 # Sport op TV - Claude Project Notes
 
-## Current Version: 1.1.2
+## Current Version: 1.1.3
 
 ## Changelog
+
+### v1.1.3 (2026-02-11)
+- Improved: Standings fallback logic - altijd static data als API faalt
+- Added: Debug logging voor standings troubleshooting
 
 ### v1.1.2 (2026-02-11)
 - Fixed: CORS proxy toegevoegd voor GitHub Pages (API was geblokkeerd door browser)

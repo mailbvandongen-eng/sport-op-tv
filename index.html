@@ -1213,7 +1213,7 @@
             <p style="margin-top: 12px; font-size: 0.8rem;">
                 Data: API-Football, OpenF1 | Fallback: <a href="https://www.iservoetbalvanavond.nl" target="_blank">iservoetbalvanavond.nl</a>
             </p>
-            <p style="margin-top: 8px; font-size: 0.7rem; opacity: 0.5;">v1.1.2</p>
+            <p style="margin-top: 8px; font-size: 0.7rem; opacity: 0.5;">v1.1.3</p>
         </footer>
     </div>
 
@@ -1712,7 +1712,7 @@
 
         // Fetch football standings with caching
         async function fetchFootballStandings(leagueId) {
-            // Check cache first
+            // Check cache first (valid for 24 hours)
             const cacheKey = `standings_${leagueId}`;
             const cached = localStorage.getItem(cacheKey);
             const cacheTime = localStorage.getItem(cacheKey + '_time');
@@ -1722,6 +1722,7 @@
                 return JSON.parse(cached);
             }
 
+            // Try API
             const season = new Date().getMonth() >= 7 ? new Date().getFullYear() : new Date().getFullYear() - 1;
             try {
                 const apiUrl = `${CONFIG.API_FOOTBALL_URL}/standings?league=${leagueId}&season=${season}`;
@@ -1729,30 +1730,34 @@
                     `${CONFIG.CORS_PROXY}${encodeURIComponent(apiUrl)}`,
                     { headers: { 'x-apisports-key': CONFIG.API_FOOTBALL_KEY } }
                 );
-                if (!response.ok) throw new Error('API error');
-                const data = await response.json();
 
-                if (data.errors && data.errors.requests) {
-                    console.warn('Standings API rate limited');
-                    // Return cached data if available (even if old)
-                    if (cached) return JSON.parse(cached);
-                    // Return fallback static data
-                    return getStaticStandings(leagueId);
-                }
+                if (response.ok) {
+                    const data = await response.json();
 
-                if (data.response && data.response[0] && data.response[0].league.standings) {
-                    const standings = data.response[0].league.standings[0];
-                    // Cache the result
-                    localStorage.setItem(cacheKey, JSON.stringify(standings));
-                    localStorage.setItem(cacheKey + '_time', Date.now().toString());
-                    return standings;
+                    // Check for rate limit error in response
+                    if (data.errors && Object.keys(data.errors).length > 0) {
+                        console.warn('Standings API error:', data.errors);
+                    } else if (data.response && data.response[0] && data.response[0].league.standings) {
+                        const standings = data.response[0].league.standings[0];
+                        // Cache the result
+                        localStorage.setItem(cacheKey, JSON.stringify(standings));
+                        localStorage.setItem(cacheKey + '_time', Date.now().toString());
+                        console.log(`Standings for ${leagueId} fetched from API`);
+                        return standings;
+                    }
                 }
             } catch (e) {
                 console.error('Standings fetch error:', e);
-                // Return cached or fallback
-                if (cached) return JSON.parse(cached);
-                return getStaticStandings(leagueId);
             }
+
+            // API failed - use cached data if available (even if old)
+            if (cached) {
+                console.log(`Using old cached standings for ${leagueId}`);
+                return JSON.parse(cached);
+            }
+
+            // No cache - use static fallback
+            console.log(`Using static standings for ${leagueId}`);
             return getStaticStandings(leagueId);
         }
 
@@ -2541,8 +2546,10 @@
             contentContainer.innerHTML = '<div class="loading"><div class="spinner"></div><p>Stand ophalen...</p></div>';
 
             const standings = await fetchFootballStandings(leagueId);
+            console.log(`Standings for ${leagueName} (${leagueId}):`, standings);
 
             if (!standings || standings.length === 0) {
+                console.warn(`No standings data for ${leagueName}`);
                 contentContainer.innerHTML = '<div class="no-events"><p>Geen stand beschikbaar</p></div>';
                 return;
             }
