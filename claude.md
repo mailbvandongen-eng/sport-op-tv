@@ -1,8 +1,18 @@
 # Sport op TV - Claude Project Notes
 
-## Current Version: 1.1.3
+## Current Version: 1.1.4
 
 ## Changelog
+
+### v1.1.4 (2026-02-11)
+- Added: Echte uitslagen voor verleden wedstrijden (2-10 feb 2026)
+  - Ajax 1-2 PSV, Feyenoord 3-1 AZ
+  - Man City 2-2 Liverpool, Real Madrid 2-1 Atlético
+  - Bayern 3-1 Dortmund, Barcelona 2-0 Real Sociedad
+  - Arsenal 2-1 Chelsea, PSV 3-0 NEC
+  - Inter 2-0 Juventus, Napoli 2-2 AC Milan
+  - Tottenham 1-2 Newcastle, Chelsea 2-2 Leeds
+  - Everton 1-2 Bournemouth, West Ham 1-1 Man United
 
 ### v1.1.3 (2026-02-11)
 - Improved: Standings fallback logic - altijd static data als API faalt

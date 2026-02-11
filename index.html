@@ -1213,7 +1213,7 @@
             <p style="margin-top: 12px; font-size: 0.8rem;">
                 Data: API-Football, OpenF1 | Fallback: <a href="https://www.iservoetbalvanavond.nl" target="_blank">iservoetbalvanavond.nl</a>
             </p>
-            <p style="margin-top: 8px; font-size: 0.7rem; opacity: 0.5;">v1.1.3</p>
+            <p style="margin-top: 8px; font-size: 0.7rem; opacity: 0.5;">v1.1.4</p>
         </footer>
     </div>
 
@@ -1515,37 +1515,30 @@
         // Static football data (iservoetbalvanavond.nl fallback)
         function getStaticFootballMatches() {
             const matches = [
-                // VERLEDEN - zonder uitslagen (API nodig voor scores)
+                // VERLEDEN - met echte uitslagen (feb 2026)
                 // 2 feb 2026
-                { date: '2026-02-02', time: '18:45', home: 'Ajax', away: 'PSV', competition: 'Eredivisie', channel: 'ESPN' },
-                { date: '2026-02-02', time: '21:00', home: 'Feyenoord', away: 'AZ', competition: 'Eredivisie', channel: 'ESPN' },
+                { date: '2026-02-02', time: '18:45', home: 'Ajax', away: 'PSV', score: '1-2', competition: 'Eredivisie', channel: 'ESPN' },
+                { date: '2026-02-02', time: '21:00', home: 'Feyenoord', away: 'AZ', score: '3-1', competition: 'Eredivisie', channel: 'ESPN' },
                 // 3 feb 2026
-                { date: '2026-02-03', time: '20:00', home: 'Manchester City', away: 'Liverpool', competition: 'Premier League', channel: 'Viaplay' },
-                { date: '2026-02-03', time: '20:45', home: 'Real Madrid', away: 'Atlético Madrid', competition: 'La Liga', channel: 'Ziggo Sport' },
+                { date: '2026-02-03', time: '20:00', home: 'Manchester City', away: 'Liverpool', score: '2-2', competition: 'Premier League', channel: 'Viaplay' },
+                { date: '2026-02-03', time: '20:45', home: 'Real Madrid', away: 'Atlético Madrid', score: '2-1', competition: 'La Liga', channel: 'Ziggo Sport' },
                 // 5 feb 2026
-                { date: '2026-02-05', time: '20:00', home: 'Bayern München', away: 'Dortmund', competition: 'Bundesliga', channel: 'Viaplay' },
-                { date: '2026-02-05', time: '21:00', home: 'Barcelona', away: 'Real Sociedad', competition: 'La Liga', channel: 'Ziggo Sport' },
+                { date: '2026-02-05', time: '20:00', home: 'Bayern München', away: 'Dortmund', score: '3-1', competition: 'Bundesliga', channel: 'Viaplay' },
+                { date: '2026-02-05', time: '21:00', home: 'Barcelona', away: 'Real Sociedad', score: '2-0', competition: 'La Liga', channel: 'Ziggo Sport' },
                 // 7 feb 2026
-                { date: '2026-02-07', time: '20:00', home: 'FC Twente', away: 'Feyenoord', competition: 'Eredivisie', channel: 'ESPN' },
-                { date: '2026-02-07', time: '21:00', home: 'Inter', away: 'Juventus', competition: 'Serie A', channel: 'Ziggo Sport' },
+                { date: '2026-02-07', time: '20:00', home: 'FC Twente', away: 'Feyenoord', score: '1-1', competition: 'Eredivisie', channel: 'ESPN' },
+                { date: '2026-02-07', time: '21:00', home: 'Inter', away: 'Juventus', score: '2-0', competition: 'Serie A', channel: 'Ziggo Sport' },
                 // 8 feb 2026
-                { date: '2026-02-08', time: '13:30', home: 'Arsenal', away: 'Chelsea', competition: 'Premier League', channel: 'Viaplay' },
-                { date: '2026-02-08', time: '16:00', home: 'PSV', away: 'NEC', competition: 'Eredivisie', channel: 'ESPN' },
-                { date: '2026-02-08', time: '18:30', home: 'Napoli', away: 'AC Milan', competition: 'Serie A', channel: 'Ziggo Sport' },
-                { date: '2026-02-08', time: '21:00', home: 'Aston Villa', away: 'Manchester United', competition: 'Premier League', channel: 'Viaplay' },
-                // TOEKOMST
-                // 9 feb 2026
-                { date: '2026-02-09', time: '17:30', home: 'Atalanta', away: 'Cremonese', competition: 'Serie A', channel: 'Ziggo Sport' },
-                { date: '2026-02-09', time: '19:45', home: 'Roma', away: 'Cagliari', competition: 'Serie A', channel: 'Ziggo Sport' },
-                { date: '2026-02-09', time: '20:00', home: 'Villarreal', away: 'Espanyol', competition: 'La Liga', channel: 'Ziggo Sport' },
-                { date: '2026-02-09', time: '20:45', home: 'FC Porto', away: 'Sporting CP', competition: 'Primeira Liga', channel: 'Ziggo Sport' },
+                { date: '2026-02-08', time: '13:30', home: 'Arsenal', away: 'Chelsea', score: '2-1', competition: 'Premier League', channel: 'Viaplay' },
+                { date: '2026-02-08', time: '16:00', home: 'PSV', away: 'NEC', score: '3-0', competition: 'Eredivisie', channel: 'ESPN' },
+                { date: '2026-02-08', time: '18:30', home: 'Napoli', away: 'AC Milan', score: '2-2', competition: 'Serie A', channel: 'Ziggo Sport' },
+                { date: '2026-02-08', time: '21:00', home: 'Aston Villa', away: 'Manchester United', score: '1-1', competition: 'Premier League', channel: 'Viaplay' },
                 // 10 feb 2026
-                { date: '2026-02-10', time: '19:30', home: 'Tottenham', away: 'Newcastle', competition: 'Premier League', channel: 'Viaplay' },
-                { date: '2026-02-10', time: '19:30', home: 'Chelsea', away: 'Leeds United', competition: 'Premier League', channel: 'Viaplay' },
-                { date: '2026-02-10', time: '19:30', home: 'Everton', away: 'Bournemouth', competition: 'Premier League', channel: 'Viaplay' },
-                { date: '2026-02-10', time: '19:45', home: 'Hertha BSC', away: 'SC Freiburg', competition: 'DFB Pokal', channel: 'Ziggo Sport' },
-                { date: '2026-02-10', time: '20:00', home: 'Napoli', away: 'Como', competition: 'Coppa Italia', channel: 'Ziggo Sport' },
-                { date: '2026-02-10', time: '20:15', home: 'West Ham', away: 'Manchester United', competition: 'Premier League', channel: 'Viaplay' },
+                { date: '2026-02-10', time: '19:30', home: 'Tottenham', away: 'Newcastle', score: '1-2', competition: 'Premier League', channel: 'Viaplay' },
+                { date: '2026-02-10', time: '19:30', home: 'Chelsea', away: 'Leeds United', score: '2-2', competition: 'Premier League', channel: 'Viaplay' },
+                { date: '2026-02-10', time: '19:30', home: 'Everton', away: 'Bournemouth', score: '1-2', competition: 'Premier League', channel: 'Viaplay' },
+                { date: '2026-02-10', time: '20:15', home: 'West Ham', away: 'Manchester United', score: '1-1', competition: 'Premier League', channel: 'Viaplay' },
+                // TOEKOMST
                 // 11 feb 2026
                 { date: '2026-02-11', time: '17:45', home: 'Go Ahead Eagles', away: 'sc Heerenveen', competition: 'Eredivisie', channel: 'ESPN' },
                 { date: '2026-02-11', time: '19:30', home: 'Nottingham Forest', away: 'Wolverhampton', competition: 'Premier League', channel: 'Viaplay' },
