@@ -373,6 +373,7 @@
             margin-bottom: 16px;
             padding-bottom: 12px;
             border-bottom: 2px solid var(--primary-light);
+            color: var(--text);
             display: flex;
             align-items: center;
             gap: 10px;
@@ -382,6 +383,7 @@
             width: 100%;
             border-collapse: collapse;
             font-size: 0.85rem;
+            color: var(--text);
         }
 
         .standings-table th {
@@ -1149,7 +1151,7 @@
     <div class="container">
         <header>
             <h1>Sport op TV</h1>
-            <span class="version-badge">v1.2.1</span>
+            <span class="version-badge">v1.2.2</span>
             <button class="theme-toggle" id="theme-toggle" title="Toggle dark mode">
                 <i data-lucide="sun" class="sun-icon"></i>
                 <i data-lucide="moon" class="moon-icon"></i>
@@ -2331,9 +2333,10 @@
                 statusEl.innerHTML = '<span class="live-dot" style="background: #ff9800;"></span> PDC Kalender';
             }
 
-            // Filter events based on date range
-            const threeDaysAgo = new Date(today);
-            threeDaysAgo.setDate(threeDaysAgo.getDate() - 3);
+            // Filter events based on date range (different per sport)
+            const pastDays = currentSport === 'voetbal' ? 3 : 7; // 3 days for football, 7 for darts/F1
+            const pastDate = new Date(today);
+            pastDate.setDate(pastDate.getDate() - pastDays);
             const twoWeeksAhead = new Date(today);
             twoWeeksAhead.setDate(twoWeeksAhead.getDate() + 14);
 
@@ -2345,7 +2348,7 @@
                 if (eventDate >= today) return true;
 
                 // Show past events only if toggle is active
-                if (showPast && eventDate >= threeDaysAgo) return true;
+                if (showPast && eventDate >= pastDate) return true;
 
                 return false;
             });
@@ -2471,10 +2474,18 @@
                 }
             }
 
-            // Add click handlers for expandable darts cards
+            // Add click handlers for expandable darts cards (accordion behavior)
             container.querySelectorAll('.event-card.has-matches').forEach(card => {
                 card.addEventListener('click', () => {
-                    card.classList.toggle('expanded');
+                    const wasExpanded = card.classList.contains('expanded');
+                    // Close all other expanded cards
+                    container.querySelectorAll('.event-card.expanded').forEach(c => {
+                        c.classList.remove('expanded');
+                    });
+                    // Toggle clicked card (if it was closed, open it)
+                    if (!wasExpanded) {
+                        card.classList.add('expanded');
+                    }
                 });
             });
         }

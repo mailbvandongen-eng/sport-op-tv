@@ -1,8 +1,13 @@
 # Sport op TV - Claude Project Notes
 
-## Current Version: 1.2.1
+## Current Version: 1.2.2
 
 ## Changelog
+
+### v1.2.2 (2026-02-11)
+- Changed: Verleden periode per sport: voetbal 3 dagen, darts/F1 7 dagen
+- Fixed: Darts accordion - andere events sluiten bij openen nieuwe
+- Fixed: WK 2026 standen leesbaar in dark mode (standings-title + table kleuren)
 
 ### v1.2.1 (2026-02-11)
 - Fixed: Standings tabel nu leesbaar in dark mode
