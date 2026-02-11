@@ -1,8 +1,13 @@
 # Sport op TV - Claude Project Notes
 
-## Current Version: 1.2.3
+## Current Version: 1.2.4
 
 ## Changelog
+
+### v1.2.4 (2026-02-11)
+- Fixed: TV zender nu zichtbaar op mobiel (4-kolom layout)
+- Changed: Alle tekst kleiner op mobiel zodat lange clubnamen passen
+- Changed: Compactere weergave van wedstrijden op mobiel
 
 ### v1.2.3 (2026-02-11)
 - Fixed: Competitie tabs in standen nu wit in dark mode
