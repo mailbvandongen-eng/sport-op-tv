@@ -1213,7 +1213,7 @@
             <p style="margin-top: 12px; font-size: 0.8rem;">
                 Data: API-Football, OpenF1 | Fallback: <a href="https://www.iservoetbalvanavond.nl" target="_blank">iservoetbalvanavond.nl</a>
             </p>
-            <p style="margin-top: 8px; font-size: 0.7rem; opacity: 0.5;">v1.1.1</p>
+            <p style="margin-top: 8px; font-size: 0.7rem; opacity: 0.5;">v1.1.2</p>
         </footer>
     </div>
 
@@ -1241,6 +1241,8 @@
             // API-Football key (gratis 100 requests/dag op api-football.com)
             API_FOOTBALL_KEY: '6299b9b25468371fa7878f188ca297c0',
             API_FOOTBALL_URL: 'https://v3.football.api-sports.io',
+            // CORS proxy voor GitHub Pages (browser CORS bypass)
+            CORS_PROXY: 'https://corsproxy.io/?',
 
             // API-Football league IDs voor relevante competities
             API_FOOTBALL_LEAGUES: [
@@ -1637,8 +1639,9 @@
                 if (rateLimited) break;
 
                 try {
+                    const apiUrl = `${CONFIG.API_FOOTBALL_URL}/fixtures?league=${league.id}&season=${season}&from=${getDateStr(-7)}&to=${getDateStr(14)}`;
                     const response = await fetch(
-                        `${CONFIG.API_FOOTBALL_URL}/fixtures?league=${league.id}&season=${season}&from=${getDateStr(-7)}&to=${getDateStr(14)}`,
+                        `${CONFIG.CORS_PROXY}${encodeURIComponent(apiUrl)}`,
                         { headers: { 'x-apisports-key': CONFIG.API_FOOTBALL_KEY } }
                     );
 
@@ -1721,8 +1724,9 @@
 
             const season = new Date().getMonth() >= 7 ? new Date().getFullYear() : new Date().getFullYear() - 1;
             try {
+                const apiUrl = `${CONFIG.API_FOOTBALL_URL}/standings?league=${leagueId}&season=${season}`;
                 const response = await fetch(
-                    `${CONFIG.API_FOOTBALL_URL}/standings?league=${leagueId}&season=${season}`,
+                    `${CONFIG.CORS_PROXY}${encodeURIComponent(apiUrl)}`,
                     { headers: { 'x-apisports-key': CONFIG.API_FOOTBALL_KEY } }
                 );
                 if (!response.ok) throw new Error('API error');
