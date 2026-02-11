@@ -1,8 +1,14 @@
 # Sport op TV - Claude Project Notes
 
-## Current Version: 1.1.4
+## Current Version: 1.1.5
 
 ## Changelog
+
+### v1.1.5 (2026-02-11)
+- Fixed: Mobile layout veel compacter
+  - Kleinere sport tabs, filters, toggles
+  - Alles past nu beter op één scherm
+  - Minder ruimte tussen elementen
 
 ### v1.1.4 (2026-02-11)
 - Added: Echte uitslagen voor verleden wedstrijden (2-10 feb 2026)
