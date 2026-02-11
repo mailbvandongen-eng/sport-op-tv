@@ -1,8 +1,14 @@
 # Sport op TV - Claude Project Notes
 
-## Current Version: 1.1.9
+## Current Version: 1.2.0
 
 ## Changelog
+
+### v1.2.0 (2026-02-11)
+- Changed: Competities + Clubs + Reset op één rij
+- Changed: Verleden en Uitslagen nu als toggle switches
+- Changed: Verleden toont nu 3 dagen terug (was 7 dagen)
+- Changed: Cleaner filter layout
 
 ### v1.1.9 (2026-02-11)
 - Removed: Ververs knop (F5 volstaat)
