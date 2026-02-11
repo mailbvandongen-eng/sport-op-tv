@@ -1,8 +1,14 @@
 # Sport op TV - Claude Project Notes
 
-## Current Version: 1.1.0
+## Current Version: 1.1.1
 
 ## Changelog
+
+### v1.1.1 (2026-02-11)
+- Improved: Mobile layout (compacter header, tabs, filters)
+- Fixed: API status shows "Fallback data (API limiet)" instead of just source name
+- Fixed: Footer now clearly shows "API-Football, OpenF1 | Fallback: iservoetbalvanavond.nl"
+- Removed: Debug console.log statements
 
 ### v1.1.0 (2026-02-11)
 - **Major redesign** - Modern UI overhaul
