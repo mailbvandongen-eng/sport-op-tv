@@ -1,8 +1,11 @@
 # Sport op TV - Claude Project Notes
 
-## Current Version: 1.2.2
+## Current Version: 1.2.3
 
 ## Changelog
+
+### v1.2.3 (2026-02-11)
+- Fixed: Competitie tabs in standen nu wit in dark mode
 
 ### v1.2.2 (2026-02-11)
 - Changed: Verleden periode per sport: voetbal 3 dagen, darts/F1 7 dagen
