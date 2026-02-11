@@ -1,8 +1,14 @@
 # Sport op TV - Claude Project Notes
 
-## Current Version: 1.1.7
+## Current Version: 1.1.8
 
 ## Changelog
+
+### v1.1.8 (2026-02-11)
+- Changed: Filter (competities + clubs + reset) op één rij
+- Changed: Verleden/Uitslagen/Ververs nog compacter
+- Changed: Header tekst wit/contrasterend in dark mode
+- Changed: Alle filter/button elementen kleiner
 
 ### v1.1.7 (2026-02-11)
 - Changed: Verleden/Uitslagen/Ververs zijn nu kleine buttons naast elkaar

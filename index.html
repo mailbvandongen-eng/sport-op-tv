@@ -104,7 +104,7 @@
         }
 
         [data-theme="dark"] header h1 {
-            background: linear-gradient(135deg, #a5b4fc 0%, #c4b5fd 100%);
+            background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 100%);
             -webkit-background-clip: text;
             background-clip: text;
         }
@@ -211,14 +211,20 @@
         .filters-row {
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            padding: 16px;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 12px;
+            padding: 10px 12px;
             background: var(--glass-bg);
             backdrop-filter: blur(10px);
             border-radius: var(--radius);
             border: 1px solid var(--card-border);
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         /* Dropdown */
@@ -227,15 +233,15 @@
         }
 
         .dropdown-btn {
-            padding: 10px 16px;
+            padding: 6px 10px;
             border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            font-size: 0.85rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
             font-weight: 500;
             background: var(--card-bg);
             color: var(--text);
             cursor: pointer;
-            min-width: 150px;
+            min-width: 100px;
             text-align: left;
             transition: all 0.2s ease;
             display: flex;
@@ -301,24 +307,19 @@
         }
 
         .reset-btn {
-            padding: 10px 14px;
+            padding: 5px 8px;
             border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
+            border-radius: 4px;
             background: var(--card-bg);
             color: var(--text-secondary);
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 0.75rem;
             transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            gap: 6px;
         }
 
         .reset-btn:hover {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-            transform: scale(1.02);
+            background: var(--border);
+            color: var(--text);
         }
 
         /* View toggle */
@@ -542,12 +543,12 @@
         }
 
         .filter-input {
-            padding: 10px 14px;
+            padding: 6px 10px;
             border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            font-size: 0.85rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
             font-weight: 500;
-            width: 160px;
+            width: 100px;
             background: var(--card-bg);
             color: var(--text);
             transition: all 0.2s ease;
@@ -563,24 +564,20 @@
             color: var(--text-secondary);
         }
 
-        .filters-spacer {
-            flex: 1;
-        }
-
         /* Action Buttons */
         .action-buttons {
             display: flex;
-            gap: 6px;
+            gap: 4px;
             align-items: center;
         }
 
         .action-btn {
-            padding: 5px 10px;
-            font-size: 0.7rem;
+            padding: 4px 8px;
+            font-size: 0.65rem;
             font-weight: 500;
             background: var(--card-bg);
             border: 1px solid var(--border);
-            border-radius: 6px;
+            border-radius: 4px;
             cursor: pointer;
             transition: all 0.2s ease;
             color: var(--text-secondary);
@@ -599,22 +596,19 @@
 
         @media (max-width: 600px) {
             .filters-row {
-                flex-direction: column;
-                align-items: stretch;
-                padding: 12px;
+                flex-wrap: wrap;
+                gap: 6px;
+                padding: 8px;
             }
 
-            .filter-select, .filter-input {
-                width: 100%;
+            .filter-group {
+                flex: 1;
+                min-width: 0;
             }
 
-            .filters-spacer {
-                display: none;
-            }
-
-            .action-buttons {
-                justify-content: center;
-                width: 100%;
+            .filter-input {
+                flex: 1;
+                min-width: 60px;
             }
         }
 
@@ -973,22 +967,17 @@
             }
 
             .reset-btn {
-                padding: 6px 8px;
-                font-size: 0.8rem;
-            }
-
-            .filters-spacer {
-                display: none;
+                padding: 4px 6px;
+                font-size: 0.7rem;
             }
 
             .action-buttons {
-                gap: 4px;
-                width: 100%;
-                justify-content: flex-end;
+                gap: 3px;
             }
 
             .action-btn {
-                padding: 4px 8px;
+                padding: 3px 6px;
+                font-size: 0.6rem;
                 font-size: 0.65rem;
             }
 
@@ -1101,7 +1090,7 @@
     <div class="container">
         <header>
             <h1>Sport op TV</h1>
-            <span class="version-badge">v1.1.7</span>
+            <span class="version-badge">v1.1.8</span>
             <button class="theme-toggle" id="theme-toggle" title="Toggle dark mode">
                 <i data-lucide="sun" class="sun-icon"></i>
                 <i data-lucide="moon" class="moon-icon"></i>
@@ -1126,40 +1115,41 @@
 
         <!-- Filters Panel -->
         <div class="filters-row" id="filters-row">
-            <div class="dropdown" id="comp-dropdown">
-                <button class="dropdown-btn" id="comp-btn">Competities ▾</button>
-                <div class="dropdown-content" id="comp-content">
-                    <label><input type="checkbox" value="Eredivisie"> Eredivisie</label>
-                    <label><input type="checkbox" value="Premier League"> Premier League</label>
-                    <label><input type="checkbox" value="Bundesliga"> Bundesliga</label>
-                    <label><input type="checkbox" value="La Liga"> La Liga</label>
-                    <label><input type="checkbox" value="Serie A"> Serie A</label>
-                    <label><input type="checkbox" value="Ligue 1"> Ligue 1</label>
-                    <hr>
-                    <label><input type="checkbox" value="Champions League"> Champions League</label>
-                    <label><input type="checkbox" value="Europa League"> Europa League</label>
-                    <label><input type="checkbox" value="Conference League"> Conference League</label>
-                    <hr>
-                    <label><input type="checkbox" value="FA Cup"> FA Cup</label>
-                    <label><input type="checkbox" value="League Cup"> League Cup</label>
-                    <label><input type="checkbox" value="Coppa Italia"> Coppa Italia</label>
-                    <label><input type="checkbox" value="DFB Pokal"> DFB Pokal</label>
-                    <label><input type="checkbox" value="Copa del Rey"> Copa del Rey</label>
-                    <label><input type="checkbox" value="KNVB Beker"> KNVB Beker</label>
-                    <hr>
-                    <label><input type="checkbox" value="WK"> WK</label>
-                    <label><input type="checkbox" value="EK"> EK</label>
-                    <label><input type="checkbox" value="Nations League"> Nations League</label>
-                    <label><input type="checkbox" value="WK Kwalificatie"> WK Kwalificatie</label>
-                    <label><input type="checkbox" value="EK Kwalificatie"> EK Kwalificatie</label>
-                    <hr>
-                    <label><input type="checkbox" value="WK Vrouwen"> WK Vrouwen</label>
-                    <label><input type="checkbox" value="EK Vrouwen"> EK Vrouwen</label>
+            <div class="filter-group" id="filter-group">
+                <div class="dropdown" id="comp-dropdown">
+                    <button class="dropdown-btn" id="comp-btn">Competities ▾</button>
+                    <div class="dropdown-content" id="comp-content">
+                        <label><input type="checkbox" value="Eredivisie"> Eredivisie</label>
+                        <label><input type="checkbox" value="Premier League"> Premier League</label>
+                        <label><input type="checkbox" value="Bundesliga"> Bundesliga</label>
+                        <label><input type="checkbox" value="La Liga"> La Liga</label>
+                        <label><input type="checkbox" value="Serie A"> Serie A</label>
+                        <label><input type="checkbox" value="Ligue 1"> Ligue 1</label>
+                        <hr>
+                        <label><input type="checkbox" value="Champions League"> Champions League</label>
+                        <label><input type="checkbox" value="Europa League"> Europa League</label>
+                        <label><input type="checkbox" value="Conference League"> Conference League</label>
+                        <hr>
+                        <label><input type="checkbox" value="FA Cup"> FA Cup</label>
+                        <label><input type="checkbox" value="League Cup"> League Cup</label>
+                        <label><input type="checkbox" value="Coppa Italia"> Coppa Italia</label>
+                        <label><input type="checkbox" value="DFB Pokal"> DFB Pokal</label>
+                        <label><input type="checkbox" value="Copa del Rey"> Copa del Rey</label>
+                        <label><input type="checkbox" value="KNVB Beker"> KNVB Beker</label>
+                        <hr>
+                        <label><input type="checkbox" value="WK"> WK</label>
+                        <label><input type="checkbox" value="EK"> EK</label>
+                        <label><input type="checkbox" value="Nations League"> Nations League</label>
+                        <label><input type="checkbox" value="WK Kwalificatie"> WK Kwalificatie</label>
+                        <label><input type="checkbox" value="EK Kwalificatie"> EK Kwalificatie</label>
+                        <hr>
+                        <label><input type="checkbox" value="WK Vrouwen"> WK Vrouwen</label>
+                        <label><input type="checkbox" value="EK Vrouwen"> EK Vrouwen</label>
+                    </div>
                 </div>
+                <input type="text" class="filter-input" id="filter-clubs" placeholder="Clubs...">
+                <button class="reset-btn" id="reset-filters" title="Reset">↻</button>
             </div>
-            <input type="text" class="filter-input" id="filter-clubs" placeholder="Clubs (komma)...">
-            <button class="reset-btn" id="reset-filters" title="Herstel filters">&#x21bb;</button>
-            <div class="filters-spacer"></div>
             <div class="action-buttons">
                 <button class="action-btn" id="toggle-past">Verleden</button>
                 <button class="action-btn" id="toggle-scores">Uitslagen</button>
