@@ -1,8 +1,13 @@
 # Sport op TV - Claude Project Notes
 
-## Current Version: 1.2.0
+## Current Version: 1.2.1
 
 ## Changelog
+
+### v1.2.1 (2026-02-11)
+- Fixed: Standings tabel nu leesbaar in dark mode
+- Fixed: WK 2026 groepen werken nu correct in dark mode
+- Added: CSS variabelen voor alle kleuren (geen hardcoded waarden meer)
 
 ### v1.2.0 (2026-02-11)
 - Changed: Competities + Clubs + Reset op één rij

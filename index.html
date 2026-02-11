@@ -399,6 +399,7 @@
             padding: 14px 8px;
             border-bottom: 1px solid var(--border);
             transition: background 0.15s ease;
+            color: var(--text);
         }
 
         .standings-table tr:hover td {
@@ -407,6 +408,49 @@
 
         .standings-table tr:last-child td {
             border-bottom: none;
+        }
+
+        .standings-table tr.highlight-row td {
+            background: rgba(249, 115, 22, 0.1);
+        }
+
+        .wk-groups-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+        }
+
+        .wk-group-card {
+            background: var(--glass-bg);
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            border: 1px solid var(--border);
+        }
+
+        .wk-group-card.highlight {
+            background: rgba(249, 115, 22, 0.1);
+            border-color: var(--darts);
+        }
+
+        .wk-group-title {
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--text);
+        }
+
+        .wk-group-title.highlight {
+            color: var(--darts);
+        }
+
+        .wk-team {
+            padding: 2px 0;
+            color: var(--text);
+        }
+
+        .wk-team.highlight {
+            font-weight: 700;
+            color: var(--darts);
         }
 
         .standings-table .pos {
@@ -1105,7 +1149,7 @@
     <div class="container">
         <header>
             <h1>Sport op TV</h1>
-            <span class="version-badge">v1.2.0</span>
+            <span class="version-badge">v1.2.1</span>
             <button class="theme-toggle" id="theme-toggle" title="Toggle dark mode">
                 <i data-lucide="sun" class="sun-icon"></i>
                 <i data-lucide="moon" class="moon-icon"></i>
@@ -1941,10 +1985,10 @@
             let html = '<div class="standings-container">';
 
             // Nederland schema
-            html += '<div class="standings-title" style="color:#e65100;">🇳🇱 Nederland - WK 2026 Schema</div>';
+            html += '<div class="standings-title" style="color:var(--darts);">🇳🇱 Nederland - WK 2026 Schema</div>';
             html += '<table class="standings-table"><tr><th>Datum</th><th>Wedstrijd</th><th>Stad</th></tr>';
             wk2026Schedule.nederland.forEach(m => {
-                html += `<tr style="background:#fff3e0;">
+                html += `<tr class="highlight-row">
                     <td>${m.date}<br><small>${m.time}</small></td>
                     <td><strong>${m.home}</strong> - ${m.away}</td>
                     <td>${m.city}</td>
@@ -1978,15 +2022,15 @@
 
             // Alle groepen
             html += '<div class="standings-title" style="margin-top:20px;">Alle Groepen</div>';
-            html += '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;">';
+            html += '<div class="wk-groups-grid">';
 
             for (const [group, teams] of Object.entries(wk2026Groups)) {
                 const isNLGroup = group === 'F';
-                html += `<div style="background:${isNLGroup ? '#fff3e0' : '#f5f5f5'};padding:10px;border-radius:8px;font-size:0.85rem;">`;
-                html += `<div style="font-weight:700;margin-bottom:6px;color:${isNLGroup ? '#e65100' : '#333'};">Groep ${group}</div>`;
+                html += `<div class="wk-group-card ${isNLGroup ? 'highlight' : ''}">`;
+                html += `<div class="wk-group-title ${isNLGroup ? 'highlight' : ''}">Groep ${group}</div>`;
                 teams.forEach((team, i) => {
                     const isNL = team === 'Nederland';
-                    html += `<div style="padding:2px 0;${isNL ? 'font-weight:700;color:#e65100;' : ''}">${team}</div>`;
+                    html += `<div class="wk-team ${isNL ? 'highlight' : ''}">${team}</div>`;
                 });
                 html += '</div>';
             }
