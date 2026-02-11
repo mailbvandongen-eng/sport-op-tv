@@ -1,8 +1,11 @@
 # Sport op TV - Claude Project Notes
 
-## Current Version: 1.2.4
+## Current Version: 1.2.5
 
 ## Changelog
+
+### v1.2.5 (2026-02-11)
+- Changed: Zender iconen/badges nog kleiner op mobiel
 
 ### v1.2.4 (2026-02-11)
 - Fixed: TV zender nu zichtbaar op mobiel (4-kolom layout)
