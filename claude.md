@@ -1,8 +1,14 @@
 # Sport op TV - Claude Project Notes
 
-## Current Version: 1.2.5
+## Current Version: 1.2.6
 
 ## Changelog
+
+### v1.2.6 (2026-02-11)
+- Added: Ondersteuning voor lokale logo's in /logos/ map
+- Added: CLUB_LOGOS en F1_LOGOS configuratie
+- Added: Fallback naar tekst als logo niet gevonden wordt
+- Added: BENODIGDE_LOGOS.txt met lijst van alle benodigde bestanden
 
 ### v1.2.5 (2026-02-11)
 - Changed: Zender iconen/badges nog kleiner op mobiel

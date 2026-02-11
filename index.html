@@ -1102,6 +1102,12 @@
                 height: 18px;
             }
 
+            .club-logo {
+                height: 16px;
+                width: 16px;
+                margin: 0 3px;
+            }
+
             .day-header {
                 font-size: 0.95rem;
                 margin-bottom: 10px;
@@ -1168,7 +1174,7 @@
     <div class="container">
         <header>
             <h1>Sport op TV</h1>
-            <span class="version-badge">v1.2.5</span>
+            <span class="version-badge">v1.2.6</span>
             <button class="theme-toggle" id="theme-toggle" title="Toggle dark mode">
                 <i data-lucide="sun" class="sun-icon"></i>
                 <i data-lucide="moon" class="moon-icon"></i>
@@ -1364,13 +1370,84 @@
                 'Darts': 'Viaplay / RTL7'
             },
 
-            // TV kanaal logo's (inline SVG data URLs - fully encoded)
+            // TV kanaal logo's - lokale bestanden in /logos/ map
             CHANNEL_LOGOS: {
-                'ESPN': 'data:image/svg+xml,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 viewBox%3D%220 0 100 40%22%3E%3Crect fill%3D%22%23d00%22 width%3D%22100%22 height%3D%2240%22 rx%3D%224%22%2F%3E%3Ctext x%3D%2250%22 y%3D%2228%22 fill%3D%22white%22 font-family%3D%22Arial%22 font-size%3D%2218%22 text-anchor%3D%22middle%22 font-weight%3D%22bold%22%3EESPN%3C%2Ftext%3E%3C%2Fsvg%3E',
-                'Viaplay': 'data:image/svg+xml,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 viewBox%3D%220 0 100 40%22%3E%3Crect fill%3D%22%236b21a8%22 width%3D%22100%22 height%3D%2240%22 rx%3D%224%22%2F%3E%3Ctext x%3D%2250%22 y%3D%2227%22 fill%3D%22white%22 font-family%3D%22Arial%22 font-size%3D%2214%22 text-anchor%3D%22middle%22 font-weight%3D%22bold%22%3EVIAPLAY%3C%2Ftext%3E%3C%2Fsvg%3E',
-                'Ziggo Sport': 'data:image/svg+xml,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 viewBox%3D%220 0 100 40%22%3E%3Crect fill%3D%22%23f60%22 width%3D%22100%22 height%3D%2240%22 rx%3D%224%22%2F%3E%3Ctext x%3D%2250%22 y%3D%2227%22 fill%3D%22white%22 font-family%3D%22Arial%22 font-size%3D%2212%22 text-anchor%3D%22middle%22 font-weight%3D%22bold%22%3EZIGGO%3C%2Ftext%3E%3C%2Fsvg%3E',
-                'RTL7': 'data:image/svg+xml,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 viewBox%3D%220 0 100 40%22%3E%3Crect fill%3D%22%2300a0e1%22 width%3D%22100%22 height%3D%2240%22 rx%3D%224%22%2F%3E%3Ctext x%3D%2250%22 y%3D%2228%22 fill%3D%22white%22 font-family%3D%22Arial%22 font-size%3D%2216%22 text-anchor%3D%22middle%22 font-weight%3D%22bold%22%3ERTL7%3C%2Ftext%3E%3C%2Fsvg%3E',
-                'Viaplay / RTL7': 'data:image/svg+xml,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 viewBox%3D%220 0 100 40%22%3E%3Crect fill%3D%22%236b21a8%22 width%3D%2250%22 height%3D%2240%22%2F%3E%3Crect x%3D%2250%22 fill%3D%22%2300a0e1%22 width%3D%2250%22 height%3D%2240%22%2F%3E%3Ctext x%3D%2225%22 y%3D%2225%22 fill%3D%22white%22 font-family%3D%22Arial%22 font-size%3D%228%22 text-anchor%3D%22middle%22%3EVIA%3C%2Ftext%3E%3Ctext x%3D%2275%22 y%3D%2225%22 fill%3D%22white%22 font-family%3D%22Arial%22 font-size%3D%229%22 text-anchor%3D%22middle%22%3ERTL7%3C%2Ftext%3E%3C%2Fsvg%3E'
+                'ESPN': 'logos/espn.png',
+                'Viaplay': 'logos/viaplay.png',
+                'Ziggo Sport': 'logos/ziggo-sport.png',
+                'RTL7': 'logos/rtl7.png',
+                'NPO 1': 'logos/npo1.png',
+                'NPO 3': 'logos/npo3.png',
+                'Eurosport': 'logos/eurosport.png'
+            },
+
+            // Club logo's - lokale bestanden in /logos/ map
+            CLUB_LOGOS: {
+                // Eredivisie
+                'Ajax': 'logos/ajax.png',
+                'PSV': 'logos/psv.png',
+                'Feyenoord': 'logos/feyenoord.png',
+                'AZ': 'logos/az.png',
+                'FC Twente': 'logos/fc-twente.png',
+                'FC Utrecht': 'logos/fc-utrecht.png',
+                'Vitesse': 'logos/vitesse.png',
+                'NEC': 'logos/nec.png',
+                'sc Heerenveen': 'logos/heerenveen.png',
+                'Go Ahead Eagles': 'logos/go-ahead-eagles.png',
+                'Sparta Rotterdam': 'logos/sparta.png',
+                'Fortuna Sittard': 'logos/fortuna.png',
+                'RKC Waalwijk': 'logos/rkc.png',
+                'Heracles': 'logos/heracles.png',
+                'PEC Zwolle': 'logos/pec-zwolle.png',
+                'Almere City': 'logos/almere-city.png',
+                'Excelsior': 'logos/excelsior.png',
+                'NAC Breda': 'logos/nac.png',
+                // Premier League
+                'Arsenal': 'logos/arsenal.png',
+                'Liverpool': 'logos/liverpool.png',
+                'Manchester City': 'logos/man-city.png',
+                'Chelsea': 'logos/chelsea.png',
+                'Manchester United': 'logos/man-utd.png',
+                'Tottenham': 'logos/tottenham.png',
+                'Newcastle': 'logos/newcastle.png',
+                'Brighton': 'logos/brighton.png',
+                'Aston Villa': 'logos/aston-villa.png',
+                'West Ham': 'logos/west-ham.png',
+                'Nottingham Forest': 'logos/nottingham.png',
+                'Wolverhampton': 'logos/wolves.png',
+                'Fulham': 'logos/fulham.png',
+                'Crystal Palace': 'logos/crystal-palace.png',
+                'Brentford': 'logos/brentford.png',
+                'Everton': 'logos/everton.png',
+                'Burnley': 'logos/burnley.png',
+                'Bournemouth': 'logos/bournemouth.png',
+                // Andere competities
+                'Real Madrid': 'logos/real-madrid.png',
+                'Barcelona': 'logos/barcelona.png',
+                'Atlético Madrid': 'logos/atletico.png',
+                'Bayern München': 'logos/bayern.png',
+                'Borussia Dortmund': 'logos/dortmund.png',
+                'Juventus': 'logos/juventus.png',
+                'Inter': 'logos/inter.png',
+                'AC Milan': 'logos/ac-milan.png',
+                'Napoli': 'logos/napoli.png',
+                'Paris Saint-Germain': 'logos/psg.png',
+                // Nationaal
+                'Nederland': 'logos/nederland.png'
+            },
+
+            // F1 team logo's
+            F1_LOGOS: {
+                'Red Bull': 'logos/red-bull.png',
+                'Ferrari': 'logos/ferrari.png',
+                'Mercedes': 'logos/mercedes.png',
+                'McLaren': 'logos/mclaren.png',
+                'Aston Martin': 'logos/aston-martin-f1.png',
+                'Alpine': 'logos/alpine.png',
+                'Williams': 'logos/williams.png',
+                'AlphaTauri': 'logos/alphatauri.png',
+                'Alfa Romeo': 'logos/alfa-romeo.png',
+                'Haas': 'logos/haas.png'
             }
         };
 
@@ -2415,8 +2492,11 @@
                 events.sort((a, b) => a.time.localeCompare(b.time)).forEach(event => {
                     let titleHtml = '';
                     if (currentSport === 'voetbal') {
-                        const homeCrest = event.homeCrest ? `<img src="${event.homeCrest}" class="club-logo" alt="">` : '';
-                        const awayCrest = event.awayCrest ? `<img src="${event.awayCrest}" class="club-logo" alt="">` : '';
+                        // Gebruik API crest of lokaal logo als fallback
+                        const homeLogoSrc = event.homeCrest || CONFIG.CLUB_LOGOS[event.home];
+                        const awayLogoSrc = event.awayCrest || CONFIG.CLUB_LOGOS[event.away];
+                        const homeCrest = homeLogoSrc ? `<img src="${homeLogoSrc}" class="club-logo" onerror="this.style.display='none'" alt="">` : '';
+                        const awayCrest = awayLogoSrc ? `<img src="${awayLogoSrc}" class="club-logo" onerror="this.style.display='none'" alt="">` : '';
                         titleHtml = `${homeCrest}<span class="team-name">${event.home}</span> - <span class="team-name">${event.away}</span>${awayCrest}`;
                     } else if (currentSport === 'f1') {
                         titleHtml = event.title;
@@ -2434,7 +2514,7 @@
                     const liveHtml = event.live ? `<span class="live-badge">LIVE</span>` : '';
                     const channelLogo = CONFIG.CHANNEL_LOGOS[event.channel];
                     const channelHtml = channelLogo
-                        ? `<img src="${channelLogo}" class="channel-logo" alt="${event.channel}">`
+                        ? `<img src="${channelLogo}" class="channel-logo" onerror="this.outerHTML='<span class=\\'channel-text\\'>${event.channel}</span>'" alt="${event.channel}">`
                         : `<span class="channel-text">${event.channel}</span>`;
 
                     const hasMatches = event.matches && event.matches.length > 0;

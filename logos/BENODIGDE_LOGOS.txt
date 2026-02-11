@@ -1,0 +1,93 @@
+BENODIGDE LOGO'S
+================
+
+Download de logo's en sla ze op met exact deze bestandsnamen:
+
+TV ZENDERS:
+-----------
+espn.png
+viaplay.png
+ziggo-sport.png
+rtl7.png
+npo1.png
+npo3.png
+eurosport.png
+
+EREDIVISIE:
+-----------
+ajax.png
+psv.png
+feyenoord.png
+az.png
+fc-twente.png
+fc-utrecht.png
+vitesse.png
+nec.png
+heerenveen.png
+go-ahead-eagles.png
+sparta.png
+fortuna.png
+rkc.png
+heracles.png
+pec-zwolle.png
+almere-city.png
+excelsior.png
+nac.png
+
+PREMIER LEAGUE:
+---------------
+arsenal.png
+liverpool.png
+man-city.png
+chelsea.png
+man-utd.png
+tottenham.png
+newcastle.png
+brighton.png
+aston-villa.png
+west-ham.png
+nottingham.png
+wolves.png
+fulham.png
+crystal-palace.png
+brentford.png
+everton.png
+burnley.png
+bournemouth.png
+
+ANDERE CLUBS:
+-------------
+real-madrid.png
+barcelona.png
+atletico.png
+bayern.png
+dortmund.png
+juventus.png
+inter.png
+ac-milan.png
+napoli.png
+psg.png
+nederland.png
+
+F1 TEAMS:
+---------
+red-bull.png
+ferrari.png
+mercedes.png
+mclaren.png
+aston-martin-f1.png
+alpine.png
+williams.png
+alphatauri.png
+alfa-romeo.png
+haas.png
+
+TIPS:
+-----
+- Gebruik PNG of SVG formaat
+- Aanbevolen grootte: 100x100 pixels (wordt geschaald)
+- Transparante achtergrond werkt het beste
+- Bronnen:
+  * https://1000logos.net/soccer/
+  * https://www.voetballogos.nl/
+  * https://commons.wikimedia.org/
