@@ -1,8 +1,19 @@
 # Sport op TV - Claude Project Notes
 
-## Current Version: 1.1.5
+## Current Version: 1.1.7
 
 ## Changelog
+
+### v1.1.7 (2026-02-11)
+- Changed: Verleden/Uitslagen/Ververs zijn nu kleine buttons naast elkaar
+- Changed: API status indicator verplaatst naar onderaan de pagina
+- Changed: Versienummer in header (klein, subtiel)
+- Removed: "Geen reclame, gewoon overzicht" tekst uit footer
+- Removed: Versienummer uit footer
+
+### v1.1.6 (2026-02-11)
+- Changed: Dark mode is nu standaard
+- Fixed: "Sport op TV" titel leesbaar in dark mode (lichtere gradient)
 
 ### v1.1.5 (2026-02-11)
 - Fixed: Mobile layout veel compacter

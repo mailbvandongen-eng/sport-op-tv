@@ -103,6 +103,19 @@
             background-clip: text;
         }
 
+        [data-theme="dark"] header h1 {
+            background: linear-gradient(135deg, #a5b4fc 0%, #c4b5fd 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        .version-badge {
+            font-size: 0.65rem;
+            color: var(--text-secondary);
+            opacity: 0.5;
+            margin-left: 8px;
+        }
+
         .theme-toggle {
             display: flex;
             align-items: center;
@@ -554,66 +567,34 @@
             flex: 1;
         }
 
-        /* Toggle Section */
-        .toggle-section {
+        /* Action Buttons */
+        .action-buttons {
             display: flex;
-            gap: 20px;
+            gap: 6px;
             align-items: center;
         }
 
-        .slim-toggle {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            user-select: none;
-            padding: 6px 12px;
-            border-radius: 50px;
-            transition: background 0.2s ease;
-        }
-
-        .slim-toggle:hover {
-            background: var(--border);
-        }
-
-        .slim-toggle input {
-            display: none;
-        }
-
-        .slim-toggle .slider {
-            width: 40px;
-            height: 22px;
-            background: var(--border);
-            border-radius: 11px;
-            position: relative;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .slim-toggle .slider::after {
-            content: '';
-            position: absolute;
-            width: 18px;
-            height: 18px;
-            background: white;
-            border-radius: 50%;
-            top: 2px;
-            left: 2px;
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-        }
-
-        .slim-toggle input:checked + .slider {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-        }
-
-        .slim-toggle input:checked + .slider::after {
-            transform: translateX(18px);
-        }
-
-        .slim-toggle .label {
-            font-size: 0.85rem;
+        .action-btn {
+            padding: 5px 10px;
+            font-size: 0.7rem;
             font-weight: 500;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
             color: var(--text-secondary);
+        }
+
+        .action-btn:hover {
+            background: var(--border);
+            color: var(--text);
+        }
+
+        .action-btn.active {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border-color: var(--primary);
         }
 
         @media (max-width: 600px) {
@@ -631,9 +612,9 @@
                 display: none;
             }
 
-            .toggle-section {
+            .action-buttons {
                 justify-content: center;
-                padding-top: 8px;
+                width: 100%;
             }
         }
 
@@ -888,7 +869,7 @@
             padding: 10px 16px;
             font-size: 0.75rem;
             color: var(--text-secondary);
-            margin-bottom: 20px;
+            margin-top: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -900,32 +881,6 @@
             margin-left: auto;
             margin-right: auto;
             border: 1px solid var(--card-border);
-        }
-
-        .refresh-btn {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 50px;
-            padding: 6px 14px;
-            font-size: 0.75rem;
-            cursor: pointer;
-            color: var(--text-secondary);
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .refresh-btn:hover {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-            transform: scale(1.02);
-        }
-
-        .refresh-btn svg {
-            width: 14px;
-            height: 14px;
         }
 
         .api-status .live-dot {
@@ -1026,33 +981,15 @@
                 display: none;
             }
 
-            .toggle-section {
-                gap: 12px;
+            .action-buttons {
+                gap: 4px;
                 width: 100%;
                 justify-content: flex-end;
             }
 
-            .slim-toggle {
-                padding: 2px 6px;
-                gap: 4px;
-            }
-
-            .slim-toggle .slider {
-                width: 28px;
-                height: 16px;
-            }
-
-            .slim-toggle .slider::after {
-                width: 12px;
-                height: 12px;
-            }
-
-            .slim-toggle input:checked + .slider::after {
-                transform: translateX(12px);
-            }
-
-            .slim-toggle .label {
-                font-size: 0.7rem;
+            .action-btn {
+                padding: 4px 8px;
+                font-size: 0.65rem;
             }
 
             .view-toggle {
@@ -1067,12 +1004,7 @@
             .api-status {
                 padding: 4px 8px;
                 font-size: 0.65rem;
-                margin-bottom: 8px;
-            }
-
-            .refresh-btn {
-                padding: 3px 8px;
-                font-size: 0.65rem;
+                margin-top: 12px;
             }
 
             .event-card {
@@ -1169,6 +1101,7 @@
     <div class="container">
         <header>
             <h1>Sport op TV</h1>
+            <span class="version-badge">v1.1.7</span>
             <button class="theme-toggle" id="theme-toggle" title="Toggle dark mode">
                 <i data-lucide="sun" class="sun-icon"></i>
                 <i data-lucide="moon" class="moon-icon"></i>
@@ -1227,17 +1160,10 @@
             <input type="text" class="filter-input" id="filter-clubs" placeholder="Clubs (komma)...">
             <button class="reset-btn" id="reset-filters" title="Herstel filters">&#x21bb;</button>
             <div class="filters-spacer"></div>
-            <div class="toggle-section">
-                <label class="slim-toggle">
-                    <input type="checkbox" id="toggle-past">
-                    <span class="slider"></span>
-                    <span class="label">Verleden</span>
-                </label>
-                <label class="slim-toggle">
-                    <input type="checkbox" id="toggle-scores">
-                    <span class="slider"></span>
-                    <span class="label">Uitslagen</span>
-                </label>
+            <div class="action-buttons">
+                <button class="action-btn" id="toggle-past">Verleden</button>
+                <button class="action-btn" id="toggle-scores">Uitslagen</button>
+                <button class="action-btn" id="refresh-top-btn">Ververs</button>
             </div>
         </div>
 
@@ -1245,11 +1171,6 @@
         <div class="view-toggle" id="view-toggle">
             <button class="view-btn active" data-view="programma">Programma</button>
             <button class="view-btn" data-view="standen">Standen</button>
-        </div>
-
-        <!-- API Status -->
-        <div class="api-status" id="api-status">
-            <span class="live-dot"></span> <span class="status-text">Laden...</span>
         </div>
 
         <!-- Events Container -->
@@ -1263,13 +1184,16 @@
             <div id="standings-content"></div>
         </div>
 
+        <!-- API Status -->
+        <div class="api-status" id="api-status">
+            <span class="live-dot"></span> <span class="status-text">Laden...</span>
+        </div>
+
         <footer>
             <p style="font-weight: 600;">Sport op TV</p>
-            <p style="margin-top: 6px; opacity: 0.7;">Geen reclame, gewoon overzicht</p>
-            <p style="margin-top: 12px; font-size: 0.8rem;">
+            <p style="margin-top: 10px; font-size: 0.75rem; opacity: 0.6;">
                 Data: API-Football, OpenF1 | Fallback: <a href="https://www.iservoetbalvanavond.nl" target="_blank">iservoetbalvanavond.nl</a>
             </p>
-            <p style="margin-top: 8px; font-size: 0.7rem; opacity: 0.5;">v1.1.5</p>
         </footer>
     </div>
 
@@ -1279,7 +1203,7 @@
 
         // Dark mode toggle
         const themeToggle = document.getElementById('theme-toggle');
-        const savedTheme = localStorage.getItem('theme') || 'light';
+        const savedTheme = localStorage.getItem('theme') || 'dark';
         document.documentElement.setAttribute('data-theme', savedTheme);
 
         themeToggle.addEventListener('click', () => {
@@ -2344,30 +2268,18 @@
             const source = localStorage.getItem('footballSource') || 'api';
             if (currentSport === 'voetbal') {
                 if (allEvents.length === 0) {
-                    statusEl.innerHTML = '<span class="live-dot" style="background: #e10600;"></span> Geen data beschikbaar <button class="refresh-btn" onclick="location.reload()">Ververs</button>';
+                    statusEl.innerHTML = '<span class="live-dot" style="background: #e10600;"></span> Geen data beschikbaar';
                 } else if (source === 'static') {
-                    statusEl.innerHTML = '<span class="live-dot" style="background: #ff9800;"></span> Fallback data (API limiet) <button class="refresh-btn" id="refresh-btn">Ververs</button>';
+                    statusEl.innerHTML = '<span class="live-dot" style="background: #ff9800;"></span> Fallback data (API limiet)';
                 } else if (source === 'cache') {
-                    statusEl.innerHTML = '<span class="live-dot" style="background: #ff9800;"></span> Gecachede data <button class="refresh-btn" id="refresh-btn">Ververs</button>';
+                    statusEl.innerHTML = '<span class="live-dot" style="background: #ff9800;"></span> Gecachede data';
                 } else {
-                    statusEl.innerHTML = '<span class="live-dot"></span> API-Football <button class="refresh-btn" id="refresh-btn">Ververs</button>';
+                    statusEl.innerHTML = '<span class="live-dot"></span> API-Football';
                 }
             } else if (currentSport === 'f1') {
-                statusEl.innerHTML = '<span class="live-dot"></span> OpenF1 <button class="refresh-btn" id="refresh-btn">Ververs</button>';
+                statusEl.innerHTML = '<span class="live-dot"></span> OpenF1';
             } else if (currentSport === 'darts') {
-                statusEl.innerHTML = '<span class="live-dot" style="background: #ff9800;"></span> PDC Kalender <button class="refresh-btn" id="refresh-btn">Ververs</button>';
-            }
-
-            // Re-attach refresh button handler
-            const refreshBtn = document.getElementById('refresh-btn');
-            if (refreshBtn) {
-                refreshBtn.onclick = () => {
-                    localStorage.removeItem('footballCache');
-                    localStorage.removeItem('footballCacheTime');
-                    localStorage.removeItem('footballSource');
-                    cachedData = { voetbal: null, darts: null, f1: null };
-                    renderEvents();
-                };
+                statusEl.innerHTML = '<span class="live-dot" style="background: #ff9800;"></span> PDC Kalender';
             }
 
             // Filter events based on date range
@@ -2711,7 +2623,7 @@
             const compDropdown = document.getElementById('comp-dropdown');
             const clubInput = document.getElementById('filter-clubs');
             const resetBtn = document.getElementById('reset-filters');
-            const scoresToggle = document.getElementById('toggle-scores').parentElement;
+            const scoresToggle = document.getElementById('toggle-scores');
 
             if (currentSport === 'voetbal') {
                 filtersRow.style.display = 'flex';
@@ -2765,14 +2677,22 @@
             });
         });
 
-        document.getElementById('toggle-past').addEventListener('change', function() {
-            showPast = this.checked;
+        document.getElementById('toggle-past').addEventListener('click', function() {
+            showPast = !showPast;
+            this.classList.toggle('active', showPast);
             renderEvents();
         });
 
-        document.getElementById('toggle-scores').addEventListener('change', function() {
-            showScores = this.checked;
+        document.getElementById('toggle-scores').addEventListener('click', function() {
+            showScores = !showScores;
+            this.classList.toggle('active', showScores);
             document.getElementById('events-container').classList.toggle('show-scores', showScores);
+        });
+
+        document.getElementById('refresh-top-btn').addEventListener('click', function() {
+            localStorage.removeItem('football_cache');
+            localStorage.removeItem('standings_cache');
+            location.reload();
         });
 
         // Competition dropdown
@@ -2851,8 +2771,8 @@
             localStorage.removeItem('selectedClubs');
 
             // Reset toggles
-            document.getElementById('toggle-past').checked = false;
-            document.getElementById('toggle-scores').checked = false;
+            document.getElementById('toggle-past').classList.remove('active');
+            document.getElementById('toggle-scores').classList.remove('active');
             showPast = false;
             showScores = false;
             document.getElementById('events-container').classList.remove('show-scores');
