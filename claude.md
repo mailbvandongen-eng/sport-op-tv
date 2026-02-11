@@ -1,8 +1,14 @@
 # Sport op TV - Claude Project Notes
 
-## Current Version: 1.1.8
+## Current Version: 1.1.9
 
 ## Changelog
+
+### v1.1.9 (2026-02-11)
+- Removed: Ververs knop (F5 volstaat)
+- Removed: "Data: API-Football..." tekst uit footer
+- Changed: API status nu onder "Sport op TV" in footer
+- Changed: Footer vereenvoudigd
 
 ### v1.1.8 (2026-02-11)
 - Changed: Filter (competities + clubs + reset) op één rij

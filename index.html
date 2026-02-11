@@ -859,22 +859,10 @@
 
         /* API Status */
         .api-status {
-            text-align: center;
-            padding: 10px 16px;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--text-secondary);
-            margin-top: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            border-radius: 50px;
-            max-width: fit-content;
-            margin-left: auto;
-            margin-right: auto;
-            border: 1px solid var(--card-border);
+            margin-top: 8px;
+            opacity: 0.6;
         }
 
         .api-status .live-dot {
@@ -991,9 +979,7 @@
             }
 
             .api-status {
-                padding: 4px 8px;
-                font-size: 0.65rem;
-                margin-top: 12px;
+                font-size: 0.6rem;
             }
 
             .event-card {
@@ -1090,7 +1076,7 @@
     <div class="container">
         <header>
             <h1>Sport op TV</h1>
-            <span class="version-badge">v1.1.8</span>
+            <span class="version-badge">v1.1.9</span>
             <button class="theme-toggle" id="theme-toggle" title="Toggle dark mode">
                 <i data-lucide="sun" class="sun-icon"></i>
                 <i data-lucide="moon" class="moon-icon"></i>
@@ -1153,7 +1139,6 @@
             <div class="action-buttons">
                 <button class="action-btn" id="toggle-past">Verleden</button>
                 <button class="action-btn" id="toggle-scores">Uitslagen</button>
-                <button class="action-btn" id="refresh-top-btn">Ververs</button>
             </div>
         </div>
 
@@ -1174,16 +1159,11 @@
             <div id="standings-content"></div>
         </div>
 
-        <!-- API Status -->
-        <div class="api-status" id="api-status">
-            <span class="live-dot"></span> <span class="status-text">Laden...</span>
-        </div>
-
         <footer>
             <p style="font-weight: 600;">Sport op TV</p>
-            <p style="margin-top: 10px; font-size: 0.75rem; opacity: 0.6;">
-                Data: API-Football, OpenF1 | Fallback: <a href="https://www.iservoetbalvanavond.nl" target="_blank">iservoetbalvanavond.nl</a>
-            </p>
+            <div class="api-status" id="api-status">
+                <span class="live-dot"></span> <span class="status-text">Laden...</span>
+            </div>
         </footer>
     </div>
 
@@ -2679,11 +2659,6 @@
             document.getElementById('events-container').classList.toggle('show-scores', showScores);
         });
 
-        document.getElementById('refresh-top-btn').addEventListener('click', function() {
-            localStorage.removeItem('football_cache');
-            localStorage.removeItem('standings_cache');
-            location.reload();
-        });
 
         // Competition dropdown
         const compBtn = document.getElementById('comp-btn');
