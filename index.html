@@ -1117,11 +1117,17 @@
             .event-meta {
                 font-size: 0.65rem;
                 gap: 4px;
+                justify-content: center;
+                width: 100%;
             }
 
             .competition-badge {
                 padding: 2px 6px;
                 font-size: 0.6rem;
+            }
+
+            .event-card .event-title .event-meta {
+                margin-top: 4px;
             }
 
             .event-score-col {
@@ -2361,7 +2367,8 @@
             const today = new Date();
             today.setHours(0, 0, 0, 0);
 
-            for (let i = -7; i < 365; i++) {
+            // Only look 7 days back and 28 days (4 weeks) ahead
+            for (let i = -7; i < 28; i++) {
                 const date = new Date(today);
                 date.setDate(date.getDate() + i);
                 const dateStr = date.toISOString().split('T')[0];
