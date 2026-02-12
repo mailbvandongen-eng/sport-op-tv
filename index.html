@@ -768,6 +768,17 @@
             transition: transform 0.2s ease;
         }
 
+        /* Viaplay logo needs dark background in light mode */
+        .channel-logo.needs-dark-bg {
+            background: #1a1a2e;
+            padding: 3px 6px;
+            border-radius: 4px;
+        }
+
+        [data-theme="dark"] .channel-logo.needs-dark-bg {
+            background: #2d2d44;
+        }
+
         .event-card:hover .channel-logo {
             transform: scale(1.05);
         }
@@ -1062,9 +1073,9 @@
 
             .event-card {
                 display: grid;
-                grid-template-columns: 1fr 1fr;
-                grid-template-rows: auto auto auto;
-                gap: 4px 8px;
+                grid-template-columns: auto 1fr auto;
+                grid-template-rows: auto auto;
+                gap: 6px 8px;
                 padding: 10px;
                 margin-bottom: 6px;
             }
@@ -1073,15 +1084,18 @@
             .event-card .event-details {
                 grid-column: 1 / -1;
                 grid-row: 1;
+                display: contents;
             }
 
             .event-card .event-title {
+                grid-column: 1 / -1;
+                grid-row: 1;
                 text-align: center;
                 font-size: 0.85rem;
                 font-weight: 600;
             }
 
-            /* Row 2: Time left, Channel right */
+            /* Row 2: Time - Competition - Channel */
             .event-card .event-time {
                 grid-column: 1;
                 grid-row: 2;
@@ -1089,18 +1103,17 @@
                 font-size: 0.75rem;
             }
 
-            .event-card .event-channel {
+            .event-card .event-meta {
                 grid-column: 2;
                 grid-row: 2;
-                justify-self: end;
-            }
-
-            /* Row 3: Competition centered */
-            .event-card .event-meta {
-                grid-column: 1 / -1;
-                grid-row: 3;
                 justify-content: center;
                 font-size: 0.65rem;
+            }
+
+            .event-card .event-channel {
+                grid-column: 3;
+                grid-row: 2;
+                justify-self: end;
             }
 
             /* Hide score column on mobile */
@@ -2596,8 +2609,9 @@
                     const scoreText = event.score || '-';
                     const liveHtml = event.live ? `<span class="live-badge">LIVE</span>` : '';
                     const channelLogo = CONFIG.CHANNEL_LOGOS[event.channel];
+                    const needsDarkBg = event.channel && event.channel.includes('Viaplay');
                     const channelHtml = channelLogo
-                        ? `<img src="${channelLogo}" class="channel-logo" onerror="this.outerHTML='<span class=\\'channel-text\\'>${event.channel}</span>'" alt="${event.channel}">`
+                        ? `<img src="${channelLogo}" class="channel-logo${needsDarkBg ? ' needs-dark-bg' : ''}" onerror="this.outerHTML='<span class=\\'channel-text\\'>${event.channel}</span>'" alt="${event.channel}">`
                         : `<span class="channel-text">${event.channel}</span>`;
 
                     const hasMatches = event.matches && event.matches.length > 0;
