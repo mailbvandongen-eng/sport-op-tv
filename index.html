@@ -2463,15 +2463,15 @@
             const pastDays = currentSport === 'voetbal' ? 3 : 7; // 3 days for football, 7 for darts/F1
             const pastDate = new Date(today);
             pastDate.setDate(pastDate.getDate() - pastDays);
-            const twoWeeksAhead = new Date(today);
-            twoWeeksAhead.setDate(twoWeeksAhead.getDate() + 14);
+            const oneWeekAhead = new Date(today);
+            oneWeekAhead.setDate(oneWeekAhead.getDate() + 7);
 
             const filteredEvents = allEvents.filter(e => {
                 const eventDate = new Date(e.date);
                 eventDate.setHours(0, 0, 0, 0);
 
-                // Always show future events (from today onwards)
-                if (eventDate >= today) return true;
+                // Show future events (max 1 week ahead)
+                if (eventDate >= today && eventDate <= oneWeekAhead) return true;
 
                 // Show past events only if toggle is active
                 if (showPast && eventDate >= pastDate) return true;
