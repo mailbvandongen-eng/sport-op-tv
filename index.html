@@ -760,9 +760,11 @@
         }
 
         .channel-logo {
-            height: 30px;
+            height: 24px;
+            max-width: 50px;
             width: auto;
-            border-radius: 6px;
+            object-fit: contain;
+            border-radius: 4px;
             transition: transform 0.2s ease;
         }
 
@@ -1373,6 +1375,11 @@
             // TV kanaal logo's - lokale bestanden in /logos/ map
             CHANNEL_LOGOS: {
                 'ESPN': 'logos/espn.svg',
+                'ESPN 1': 'logos/espn.svg',
+                'ESPN 2': 'logos/espn.svg',
+                'ESPN 3': 'logos/espn.svg',
+                'ESPN 4': 'logos/espn.svg',
+                'ESPN 5': 'logos/espn.svg',
                 'Ziggo Sport': 'logos/ziggo.png',
                 'Viaplay': 'logos/Viaplay_TV_logo.svg.png',
                 'RTL7': 'logos/RTL_7_nl_Logo.svg.png',
@@ -1380,6 +1387,16 @@
                 'Veronica': 'logos/Veronica_TV_logo_2024.svg.png',
                 'SBS6': 'logos/SBS6_Logo.svg.png',
                 'SBS 6': 'logos/SBS6_Logo.svg.png'
+            },
+
+            // Competitie logo's
+            COMPETITION_LOGOS: {
+                'Eredivisie': 'logos/england_english-premier-league.football-logos.cc.svg',
+                'Premier League': 'logos/england_english-premier-league.football-logos.cc.svg',
+                'Bundesliga': 'logos/germany_bundesliga.football-logos.cc.svg',
+                'La Liga': 'logos/spain_la-liga.football-logos.cc.svg',
+                'Serie A': 'logos/italy_serie-a.football-logos.cc.svg',
+                'WK 2026': 'logos/tournaments_fifa-world-cup-2026.football-logos.cc.svg'
             },
 
             // Club logo's - lokale bestanden in /logos/ map
@@ -1391,7 +1408,7 @@
                 'FC Twente': 'logos/fc-twente.svg',
                 // Premier League
                 'Arsenal': 'logos/arsenal.svg',
-                'Liverpool': 'logos/liverpool.svg',
+                'Liverpool': 'logos/england_liverpool.football-logos.cc.svg',
                 'Manchester City': 'logos/man-city.svg',
                 'Chelsea': 'logos/chelsea.svg',
                 'Manchester United': 'logos/man-utd.svg',
