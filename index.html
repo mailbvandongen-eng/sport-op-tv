@@ -2516,17 +2516,18 @@
 
             // Filter events based on date range (different per sport)
             const pastDays = currentSport === 'voetbal' ? 3 : 7; // 3 days for football, 7 for darts/F1
+            const futureDays = currentSport === 'voetbal' ? 7 : 28; // 1 week for football, 4 weeks for darts/F1
             const pastDate = new Date(today);
             pastDate.setDate(pastDate.getDate() - pastDays);
-            const oneWeekAhead = new Date(today);
-            oneWeekAhead.setDate(oneWeekAhead.getDate() + 7);
+            const futureLimit = new Date(today);
+            futureLimit.setDate(futureLimit.getDate() + futureDays);
 
             const filteredEvents = allEvents.filter(e => {
                 const eventDate = new Date(e.date);
                 eventDate.setHours(0, 0, 0, 0);
 
-                // Show future events (max 1 week ahead)
-                if (eventDate >= today && eventDate <= oneWeekAhead) return true;
+                // Show future events (1 week for football, 4 weeks for darts/F1)
+                if (eventDate >= today && eventDate <= futureLimit) return true;
 
                 // Show past events only if toggle is active
                 if (showPast && eventDate >= pastDate) return true;
