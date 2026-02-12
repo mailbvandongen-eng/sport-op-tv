@@ -1,8 +1,15 @@
 # Sport op TV - Claude Project Notes
 
-## Current Version: 1.2.6
+## Current Version: 1.2.7
 
 ## Changelog
+
+### v1.2.7 (2026-02-12)
+- Added: 35 club logo's gedownload van Wikipedia (SVG formaat)
+- Added: ESPN logo (enige TV zender met beschikbaar logo)
+- Changed: Logo's nu in SVG formaat voor betere kwaliteit
+- Removed: F1 team logo's (niet beschikbaar via Wikipedia)
+- Removed: BENODIGDE_LOGOS.txt (niet meer nodig)
 
 ### v1.2.6 (2026-02-11)
 - Added: Ondersteuning voor lokale logo's in /logos/ map
