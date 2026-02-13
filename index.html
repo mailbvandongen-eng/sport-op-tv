@@ -145,69 +145,26 @@
             display: none;
         }
 
-        /* Sport Tabs - Row 2 */
-        .sport-tabs {
-            display: flex;
-            gap: 8px;
-            justify-content: flex-start;
-            padding: 10px 16px;
-        }
-
-        .sport-tab {
-            padding: 8px 16px;
-            border: none;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            background: rgba(255, 255, 255, 0.1);
-            color: rgba(255, 255, 255, 0.6);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .sport-tab svg {
-            display: none;
-        }
-
-        .sport-tab:hover {
-            background: rgba(255, 255, 255, 0.15);
-            color: rgba(255, 255, 255, 0.8);
-        }
-
-        .sport-tab.active {
-            background: #22c55e;
-            color: white;
-        }
-
-        .sport-tab.active::before {
-            content: '';
-            width: 6px;
-            height: 6px;
-            background: white;
-            border-radius: 50%;
-            margin-right: 2px;
-        }
-
-        /* Remove sport-specific colors - now all use green for active */
-        .sport-tab.active[data-sport="voetbal"],
-        .sport-tab.active[data-sport="darts"],
-        .sport-tab.active[data-sport="f1"] {
-            background: #22c55e;
-            color: white;
-            box-shadow: none;
-            border-color: transparent;
-        }
-
-        /* Filters Row - Row 3 */
+        /* Filters Row */
         .filters-row {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             padding: 8px 16px 12px 16px;
             flex-wrap: wrap;
+        }
+
+        .filters-primary {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex: 1;
+        }
+
+        .filters-toggles {
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         /* Dropdown */
@@ -398,6 +355,62 @@
 
         .side-menu-content {
             padding: 20px;
+        }
+
+        /* Standings sport buttons */
+        .standings-sport-buttons {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .standings-sport-btn {
+            flex: 1;
+            padding: 12px 8px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            background: var(--card-bg);
+            color: var(--text);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .standings-sport-btn .sport-icon {
+            font-size: 1.2rem;
+        }
+
+        .standings-sport-btn:hover {
+            border-color: var(--primary-light);
+            background: var(--glass-bg);
+        }
+
+        .standings-sport-btn.active {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+        }
+
+        .standings-sport-btn[data-standings-sport="voetbal"].active {
+            border-color: var(--football);
+            background: linear-gradient(135deg, var(--football) 0%, #16a34a 100%);
+        }
+
+        .standings-sport-btn[data-standings-sport="darts"].active {
+            border-color: var(--darts);
+            background: linear-gradient(135deg, var(--darts) 0%, #ea580c 100%);
+        }
+
+        .standings-sport-btn[data-standings-sport="f1"].active {
+            border-color: var(--f1);
+            background: linear-gradient(135deg, var(--f1) 0%, #dc2626 100%);
         }
 
         .menu-overlay {
@@ -667,14 +680,7 @@
             color: rgba(255, 255, 255, 0.4);
         }
 
-        /* Toggle Group - Pills */
-        .toggle-group {
-            display: flex;
-            gap: 6px;
-            align-items: center;
-            margin-left: auto;
-        }
-
+        /* Toggle Pills */
         .toggle-pill {
             display: flex;
             align-items: center;
@@ -724,12 +730,30 @@
 
         @media (max-width: 600px) {
             .filters-row {
-                gap: 6px;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 8px;
                 padding: 8px 12px;
             }
 
-            .filter-input {
-                width: 70px;
+            .filters-primary {
+                width: 100%;
+                gap: 6px;
+            }
+
+            .filters-primary .dropdown {
+                flex: 1;
+            }
+
+            .filters-primary .filter-input {
+                flex: 1;
+                width: auto;
+                min-width: 0;
+            }
+
+            .filters-toggles {
+                justify-content: flex-start;
+                gap: 8px;
             }
 
             .toggle-pill {
@@ -819,6 +843,36 @@
 
         .event-wrapper .competition-badge {
             font-size: 0.75rem;
+        }
+
+        /* Sport badges */
+        .sport-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .sport-badge-voetbal {
+            background: rgba(34, 197, 94, 0.15);
+            color: #22c55e;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+
+        .sport-badge-darts {
+            background: rgba(249, 115, 22, 0.15);
+            color: #f97316;
+            border: 1px solid rgba(249, 115, 22, 0.3);
+        }
+
+        .sport-badge-f1 {
+            background: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.3);
         }
 
         /* Desktop card header (inside card) */
@@ -1131,22 +1185,6 @@
                 height: 14px;
             }
 
-            .sport-tabs {
-                gap: 4px;
-                margin-bottom: 8px;
-            }
-
-            .sport-tab {
-                padding: 6px 12px;
-                font-size: 0.75rem;
-                gap: 3px;
-            }
-
-            .sport-tab svg {
-                width: 12px;
-                height: 12px;
-            }
-
             /* Compact filters for mobile */
             .filters-row {
                 padding: 8px;
@@ -1392,50 +1430,45 @@
             </div>
         </div>
 
-        <!-- Row 2: Sport Tabs -->
-        <div class="sport-tabs">
-            <button class="sport-tab active" data-sport="voetbal">Voetbal</button>
-            <button class="sport-tab" data-sport="darts">Darts</button>
-            <button class="sport-tab" data-sport="f1">Formule 1</button>
-        </div>
-
-        <!-- Row 3: Filters -->
+        <!-- Row 2: Filters -->
         <div class="filters-row" id="filters-row">
-            <div class="dropdown" id="comp-dropdown">
-                <button class="dropdown-btn" id="comp-btn">Competities ▾</button>
-                <div class="dropdown-content" id="comp-content">
-                    <label><input type="checkbox" value="Eredivisie"> Eredivisie</label>
-                    <label><input type="checkbox" value="Premier League"> Premier League</label>
-                    <label><input type="checkbox" value="Bundesliga"> Bundesliga</label>
-                    <label><input type="checkbox" value="La Liga"> La Liga</label>
-                    <label><input type="checkbox" value="Serie A"> Serie A</label>
-                    <label><input type="checkbox" value="Ligue 1"> Ligue 1</label>
-                    <hr>
-                    <label><input type="checkbox" value="Champions League"> Champions League</label>
-                    <label><input type="checkbox" value="Europa League"> Europa League</label>
-                    <label><input type="checkbox" value="Conference League"> Conference League</label>
-                    <hr>
-                    <label><input type="checkbox" value="FA Cup"> FA Cup</label>
-                    <label><input type="checkbox" value="League Cup"> League Cup</label>
-                    <label><input type="checkbox" value="Coppa Italia"> Coppa Italia</label>
-                    <label><input type="checkbox" value="DFB Pokal"> DFB Pokal</label>
-                    <label><input type="checkbox" value="Copa del Rey"> Copa del Rey</label>
-                    <label><input type="checkbox" value="KNVB Beker"> KNVB Beker</label>
-                    <hr>
-                    <label><input type="checkbox" value="WK"> WK</label>
-                    <label><input type="checkbox" value="EK"> EK</label>
-                    <label><input type="checkbox" value="Nations League"> Nations League</label>
-                    <label><input type="checkbox" value="WK Kwalificatie"> WK Kwalificatie</label>
-                    <label><input type="checkbox" value="EK Kwalificatie"> EK Kwalificatie</label>
-                    <hr>
-                    <label><input type="checkbox" value="WK Vrouwen"> WK Vrouwen</label>
-                    <label><input type="checkbox" value="EK Vrouwen"> EK Vrouwen</label>
+            <div class="filters-primary">
+                <div class="dropdown" id="comp-dropdown">
+                    <button class="dropdown-btn" id="comp-btn">Competities ▾</button>
+                    <div class="dropdown-content" id="comp-content">
+                        <label><input type="checkbox" value="Eredivisie"> Eredivisie</label>
+                        <label><input type="checkbox" value="Premier League"> Premier League</label>
+                        <label><input type="checkbox" value="Bundesliga"> Bundesliga</label>
+                        <label><input type="checkbox" value="La Liga"> La Liga</label>
+                        <label><input type="checkbox" value="Serie A"> Serie A</label>
+                        <label><input type="checkbox" value="Ligue 1"> Ligue 1</label>
+                        <hr>
+                        <label><input type="checkbox" value="Champions League"> Champions League</label>
+                        <label><input type="checkbox" value="Europa League"> Europa League</label>
+                        <label><input type="checkbox" value="Conference League"> Conference League</label>
+                        <hr>
+                        <label><input type="checkbox" value="FA Cup"> FA Cup</label>
+                        <label><input type="checkbox" value="League Cup"> League Cup</label>
+                        <label><input type="checkbox" value="Coppa Italia"> Coppa Italia</label>
+                        <label><input type="checkbox" value="DFB Pokal"> DFB Pokal</label>
+                        <label><input type="checkbox" value="Copa del Rey"> Copa del Rey</label>
+                        <label><input type="checkbox" value="KNVB Beker"> KNVB Beker</label>
+                        <hr>
+                        <label><input type="checkbox" value="WK"> WK</label>
+                        <label><input type="checkbox" value="EK"> EK</label>
+                        <label><input type="checkbox" value="Nations League"> Nations League</label>
+                        <label><input type="checkbox" value="WK Kwalificatie"> WK Kwalificatie</label>
+                        <label><input type="checkbox" value="EK Kwalificatie"> EK Kwalificatie</label>
+                        <hr>
+                        <label><input type="checkbox" value="WK Vrouwen"> WK Vrouwen</label>
+                        <label><input type="checkbox" value="EK Vrouwen"> EK Vrouwen</label>
+                    </div>
                 </div>
+                <input type="text" class="filter-input" id="filter-clubs" placeholder="Clubs...">
+                <button class="reset-btn" id="reset-filters" title="Reset">↻</button>
             </div>
-            <input type="text" class="filter-input" id="filter-clubs" placeholder="Clubs...">
-            <button class="reset-btn" id="reset-filters" title="Reset">↻</button>
-            <div class="toggle-group">
-                <label class="toggle-pill" id="past-toggle-wrapper" title="Toon afgelopen 3 dagen">
+            <div class="filters-toggles">
+                <label class="toggle-pill" id="past-toggle-wrapper" title="Toon verleden">
                     <input type="checkbox" id="toggle-past">
                     <span class="toggle-label">Verleden</span>
                 </label>
@@ -1458,6 +1491,19 @@
                 <button class="close-menu-btn" id="close-menu-btn">×</button>
             </div>
             <div class="side-menu-content">
+                <!-- Sport knoppen -->
+                <div class="standings-sport-buttons">
+                    <button class="standings-sport-btn active" data-standings-sport="voetbal">
+                        <span class="sport-icon">⚽</span> Voetbal
+                    </button>
+                    <button class="standings-sport-btn" data-standings-sport="darts">
+                        <span class="sport-icon">🎯</span> Darts
+                    </button>
+                    <button class="standings-sport-btn" data-standings-sport="f1">
+                        <span class="sport-icon">🏎️</span> F1
+                    </button>
+                </div>
+                <!-- Standen content -->
                 <div class="standings-tabs" id="standings-tabs-menu"></div>
                 <div id="standings-content-menu"></div>
             </div>
@@ -1472,7 +1518,7 @@
             <div class="api-status" id="api-status">
                 <span class="live-dot"></span> <span class="status-text">Laden...</span>
             </div>
-            <p class="version-footer">v1.4.0</p>
+            <p class="version-footer">v2.0.0</p>
         </footer>
     </div>
 
@@ -1690,6 +1736,7 @@
         // STATE
         // ============================================
         let currentSport = 'voetbal';
+        let standingsSport = 'voetbal'; // Which sport to show in standings menu
         let showScores = false;
         let showPast = false;
         // Load filters from localStorage (with error handling)
@@ -2612,83 +2659,72 @@
 
         async function renderEvents() {
             const container = document.getElementById('events-container');
-            container.className = `events-container sport-${currentSport}${showScores ? ' show-scores' : ''}`;
+            container.className = `events-container${showScores ? ' show-scores' : ''}`;
 
             showLoading();
 
-            let allEvents = [];
             const today = new Date();
             today.setHours(0, 0, 0, 0);
+            const futureDays = 30; // 30 days ahead for all sports
 
             try {
-                if (currentSport === 'f1') {
-                    if (!cachedData.f1) {
-                        cachedData.f1 = await fetchF1Sessions();
-                    }
-                    allEvents = cachedData.f1;
-                } else if (currentSport === 'voetbal') {
-                    if (!cachedData.voetbal) {
-                        cachedData.voetbal = await fetchFootballMatches();
-                    }
-                    // Make sure we have an array
-                    const matches = cachedData.voetbal || [];
-                    console.log(`Totaal ${matches.length} wedstrijden opgehaald`);
-                    console.log('Actieve filters:', filters);
+                // Fetch ALL sports in parallel
+                const [footballData, dartsData, f1Data] = await Promise.all([
+                    cachedData.voetbal || fetchFootballMatches(),
+                    cachedData.darts || Promise.resolve(getStaticDartsEvents()),
+                    cachedData.f1 || fetchF1Sessions()
+                ]);
 
-                    allEvents = matches.filter(e => {
-                        // Filter by competitions (if any selected)
-                        if (filters.competitions && filters.competitions.length > 0) {
-                            if (!filters.competitions.includes(e.competition)) return false;
-                        }
+                // Cache the data
+                cachedData.voetbal = footballData || [];
+                cachedData.darts = dartsData || [];
+                cachedData.f1 = f1Data || [];
 
-                        // Filter by clubs (if any specified)
-                        if (filters.clubs && filters.clubs.length > 0) {
-                            const homeMatch = filters.clubs.some(club =>
-                                e.home && e.home.toLowerCase().includes(club.toLowerCase()));
-                            const awayMatch = filters.clubs.some(club =>
-                                e.away && e.away.toLowerCase().includes(club.toLowerCase()));
-                            if (!homeMatch && !awayMatch) return false;
-                        }
+                // Add sportType to each event
+                cachedData.voetbal.forEach(e => e.sportType = 'voetbal');
+                cachedData.darts.forEach(e => e.sportType = 'darts');
+                cachedData.f1.forEach(e => e.sportType = 'f1');
 
-                        return true;
-                    });
-                    console.log(`Na filtering: ${allEvents.length} wedstrijden`);
-                } else if (currentSport === 'darts') {
-                    // Use static calendar (TheSportsDB returns incorrect data)
-                    if (!cachedData.darts) {
-                        cachedData.darts = getStaticDartsEvents();
-                    }
-                    allEvents = cachedData.darts;
-                }
             } catch (error) {
+                console.error('Fetch error:', error);
                 showError('Kon data niet ophalen. Probeer het later opnieuw.');
                 return;
             }
 
-            // Update API status
-            const statusEl = document.getElementById('api-status');
-            const source = localStorage.getItem('footballSource') || 'api';
-            if (currentSport === 'voetbal') {
-                if (allEvents.length === 0) {
-                    statusEl.innerHTML = '<span class="live-dot" style="background: #e10600;"></span> Geen data beschikbaar';
-                } else if (source === 'static') {
-                    statusEl.innerHTML = '<span class="live-dot" style="background: #ff9800;"></span> Fallback data (API limiet)';
-                } else if (source === 'cache') {
-                    statusEl.innerHTML = '<span class="live-dot" style="background: #ff9800;"></span> Gecachede data';
-                } else {
-                    statusEl.innerHTML = '<span class="live-dot"></span> API-Football';
-                }
-            } else if (currentSport === 'f1') {
-                statusEl.innerHTML = '<span class="live-dot"></span> OpenF1';
-            } else if (currentSport === 'darts') {
-                statusEl.innerHTML = '<span class="live-dot" style="background: #ff9800;"></span> PDC Kalender';
+            // Combine all events
+            let allEvents = [];
+
+            // Football: apply competition/club filters
+            let footballEvents = [...cachedData.voetbal];
+            if (filters.competitions && filters.competitions.length > 0) {
+                footballEvents = footballEvents.filter(e =>
+                    filters.competitions.includes(e.competition)
+                );
+            }
+            if (filters.clubs && filters.clubs.length > 0) {
+                footballEvents = footballEvents.filter(e => {
+                    const homeMatch = filters.clubs.some(club =>
+                        e.home && e.home.toLowerCase().includes(club.toLowerCase()));
+                    const awayMatch = filters.clubs.some(club =>
+                        e.away && e.away.toLowerCase().includes(club.toLowerCase()));
+                    return homeMatch || awayMatch;
+                });
             }
 
-            // Filter events based on date range (different per sport)
-            const pastDays = currentSport === 'voetbal' ? 3 : 7; // 3 days for football, 7 for darts/F1
-            const futureDays = currentSport === 'voetbal' ? 7 : 28; // 1 week for football, 4 weeks for darts/F1
-            const pastDate = new Date(today);
-            pastDate.setDate(pastDate.getDate() - pastDays);
+            // Darts and F1: always visible (no filters)
+            allEvents = [...footballEvents, ...cachedData.darts, ...cachedData.f1];
+
+            // Update API status
+            const statusEl = document.getElementById('api-status');
+            const sources = [];
+            if (cachedData.voetbal.length > 0) sources.push('Voetbal');
+            if (cachedData.darts.length > 0) sources.push('Darts');
+            if (cachedData.f1.length > 0) sources.push('F1');
+            statusEl.innerHTML = sources.length > 0
+                ? `<span class="live-dot"></span> ${sources.join(' + ')}`
+                : '<span class="live-dot" style="background: #e10600;"></span> Geen data';
+
+            // Filter events based on date range (different past days per sport)
             const futureLimit = new Date(today);
             futureLimit.setDate(futureLimit.getDate() + futureDays);
 
@@ -2696,11 +2732,16 @@
                 const eventDate = new Date(e.date);
                 eventDate.setHours(0, 0, 0, 0);
 
-                // Show future events (1 week for football, 4 weeks for darts/F1)
+                // Future events: up to 30 days
                 if (eventDate >= today && eventDate <= futureLimit) return true;
 
-                // Show past events only if toggle is active
-                if (showPast && eventDate >= pastDate) return true;
+                // Past events: sport-specific days
+                if (showPast) {
+                    const pastDays = e.sportType === 'voetbal' ? 3 : 7;
+                    const pastDate = new Date(today);
+                    pastDate.setDate(pastDate.getDate() - pastDays);
+                    if (eventDate >= pastDate && eventDate < today) return true;
+                }
 
                 return false;
             });
@@ -2719,17 +2760,25 @@
             const sortedDates = Object.keys(eventsByDate).sort();
 
             if (sortedDates.length === 0) {
-                const sportNames = { voetbal: 'voetbal', darts: 'darts', f1: 'Formule 1' };
-                const icons = { voetbal: '&#9917;', darts: '&#127919;', f1: '&#127959;' };
                 container.innerHTML = `
                     <div class="no-events">
-                        <div class="icon">${icons[currentSport]}</div>
-                        <h3>Geen ${sportNames[currentSport]} gevonden</h3>
+                        <div class="icon">📺</div>
+                        <h3>Geen sport gevonden</h3>
                         <p>Er zijn geen uitzendingen gevonden voor de komende periode.</p>
                     </div>
                 `;
                 return;
             }
+
+            // Sport badge helper
+            const getSportBadge = (sportType) => {
+                const badges = {
+                    voetbal: '<span class="sport-badge sport-badge-voetbal">⚽ Voetbal</span>',
+                    darts: '<span class="sport-badge sport-badge-darts">🎯 Darts</span>',
+                    f1: '<span class="sport-badge sport-badge-f1">🏎️ F1</span>'
+                };
+                return badges[sportType] || '';
+            };
 
             let html = '';
             let todayAnchorSet = false;
@@ -2754,8 +2803,9 @@
                     const channelHtml = channelLogo
                         ? `<img src="${channelLogo}" class="channel-logo${needsDarkBg ? ' needs-dark-bg' : ''}" onerror="this.outerHTML='<span class=\\'channel-text\\'>${event.channel}</span>'" alt="${event.channel}">`
                         : `<span class="channel-text">${event.channel}</span>`;
+                    const sportBadge = getSportBadge(event.sportType);
 
-                    if (currentSport === 'voetbal') {
+                    if (event.sportType === 'voetbal') {
                         // Voetbal: aparte team rows voor mobile
                         const homeLogoSrc = event.homeCrest || CONFIG.CLUB_LOGOS[event.home];
                         const awayLogoSrc = event.awayCrest || CONFIG.CLUB_LOGOS[event.away];
@@ -2767,6 +2817,7 @@
                             <div class="event-wrapper ${isPast ? 'past-event' : ''}">
                                 <div class="match-header">
                                     <span class="match-time">${event.time}</span>
+                                    ${sportBadge}
                                     <span class="competition-badge">${event.competition}</span>
                                     ${liveHtml}
                                 </div>
@@ -2789,14 +2840,14 @@
                         let titleHtml = '';
                         let competitionName = '';
 
-                        if (currentSport === 'f1') {
+                        if (event.sportType === 'f1') {
                             // F1: Header shows "GP Country", card shows "Session - Circuit"
                             competitionName = event.competition;
                             titleHtml = event.title;
                             if (event.circuit) {
                                 titleHtml += ` <span style="color:var(--text-secondary);font-size:0.9em;">- ${event.circuit}</span>`;
                             }
-                        } else if (currentSport === 'darts') {
+                        } else if (event.sportType === 'darts') {
                             // Darts: Header shows "Premier League", card shows "Avond X - Location"
                             competitionName = 'Premier League';
                             // Extract short name (e.g., "Avond 3" from "Premier League Darts - Avond 3")
@@ -2834,6 +2885,7 @@
                             <div class="event-wrapper ${isPast ? 'past-event' : ''}">
                                 <div class="match-header">
                                     <span class="match-time">${event.time}</span>
+                                    ${sportBadge}
                                     <span class="competition-badge">${competitionName}</span>
                                     ${liveHtml}
                                 </div>
@@ -2890,7 +2942,7 @@
             const tabsContainer = document.getElementById(tabsId);
             const contentContainer = document.getElementById(contentId);
 
-            if (currentSport === 'voetbal') {
+            if (standingsSport === 'voetbal') {
                 // Football standings - show tabs for each league
                 const leagues = [
                     { id: 88, name: 'Eredivisie' },
@@ -2926,11 +2978,11 @@
                     });
                 });
 
-            } else if (currentSport === 'darts') {
+            } else if (standingsSport === 'darts') {
                 tabsContainer.innerHTML = '<button class="standings-tab active">Premier League</button>';
                 contentContainer.innerHTML = renderDartsStandings();
 
-            } else if (currentSport === 'f1') {
+            } else if (standingsSport === 'f1') {
                 tabsContainer.innerHTML = `
                     <button class="standings-tab active" data-type="drivers">Coureurs</button>
                     <button class="standings-tab" data-type="constructors">Constructeurs</button>
@@ -3073,39 +3125,6 @@
         // EVENT LISTENERS
         // ============================================
 
-        function updateFilterVisibility() {
-            const filtersRow = document.getElementById('filters-row');
-            const compDropdown = document.getElementById('comp-dropdown');
-            const clubInput = document.getElementById('filter-clubs');
-            const resetBtn = document.getElementById('reset-filters');
-            const scoresToggle = document.getElementById('scores-toggle-wrapper');
-
-            if (currentSport === 'voetbal') {
-                filtersRow.style.display = 'flex';
-                compDropdown.style.display = 'block';
-                clubInput.style.display = 'block';
-                resetBtn.style.display = 'block';
-                scoresToggle.style.display = 'flex';
-            } else {
-                // Hide filters and scores toggle for darts and F1
-                filtersRow.style.display = 'flex';
-                compDropdown.style.display = 'none';
-                clubInput.style.display = 'none';
-                resetBtn.style.display = 'none';
-                scoresToggle.style.display = 'none';
-            }
-        }
-
-        document.querySelectorAll('.sport-tab').forEach(tab => {
-            tab.addEventListener('click', () => {
-                document.querySelectorAll('.sport-tab').forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-                currentSport = tab.dataset.sport;
-                updateFilterVisibility();
-                renderEvents();
-            });
-        });
-
         // Hamburger Menu
         const hamburgerBtn = document.getElementById('hamburger-btn');
         const sideMenu = document.getElementById('side-menu');
@@ -3130,6 +3149,16 @@
         hamburgerBtn.addEventListener('click', openMenu);
         closeMenuBtn.addEventListener('click', closeMenu);
         menuOverlay.addEventListener('click', closeMenu);
+
+        // Standings sport buttons
+        document.querySelectorAll('.standings-sport-btn').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                document.querySelectorAll('.standings-sport-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                standingsSport = btn.dataset.standingsSport;
+                await renderStandingsInMenu();
+            });
+        });
 
         document.getElementById('toggle-past').addEventListener('change', function() {
             showPast = this.checked;
@@ -3235,7 +3264,7 @@
         // ============================================
         // INITIALIZATION
         // ============================================
-        updateFilterVisibility();
+        window.scrollTo(0, 0); // Always start at top
         renderEvents();
 
         // Auto-refresh every 5 minutes
