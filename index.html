@@ -1520,7 +1520,7 @@
             <div class="api-status" id="api-status">
                 <span class="live-dot"></span> <span class="status-text">Laden...</span>
             </div>
-            <p class="version-footer">v2.0.3</p>
+            <p class="version-footer">v2.0.4</p>
         </footer>
     </div>
 
@@ -1546,7 +1546,7 @@
         // ============================================
         const CONFIG = {
             // Cache version - increment to force cache clear after config changes
-            CACHE_VERSION: '2.0.3',
+            CACHE_VERSION: '2.0.4',
 
             // API-Football key (gratis 100 requests/dag op api-football.com)
             API_FOOTBALL_KEY: '6299b9b25468371fa7878f188ca297c0',
@@ -1925,10 +1925,14 @@
             }
         }
 
-        // Static football data (iservoetbalvanavond.nl fallback)
+        // Static football data - BELANGRIJK:
+        // API-Football gratis plan ondersteunt ALLEEN seizoen 2022-2024!
+        // Seizoen 2025-2026 data komt NIET van de API.
+        // Deze fallback data komt van ESPN.com en moet handmatig worden bijgewerkt.
+        // Bron: https://www.espn.com/soccer/schedule/_/league/ned.1
         function getStaticFootballMatches() {
             const matches = [
-                // VERLEDEN - met echte uitslagen (feb 2026)
+                // VERLEDEN - uitslagen handmatig bijwerken na wedstrijden
                 // 2 feb 2026
                 { date: '2026-02-02', time: '18:45', home: 'Ajax', away: 'PSV', score: '1-2', competition: 'Eredivisie', channel: 'ESPN' },
                 { date: '2026-02-02', time: '21:00', home: 'Feyenoord', away: 'AZ', score: '3-1', competition: 'Eredivisie', channel: 'ESPN' },
@@ -1977,7 +1981,7 @@
                 // 15 feb 2026
                 { date: '2026-02-15', time: '12:15', home: 'Feyenoord', away: 'Go Ahead Eagles', competition: 'Eredivisie', channel: 'ESPN' },
                 { date: '2026-02-15', time: '14:30', home: 'sc Heerenveen', away: 'PEC Zwolle', competition: 'Eredivisie', channel: 'ESPN' },
-                { date: '2026-02-15', time: '14:30', home: 'Telstar', away: 'FC Twente', competition: 'Eredivisie', channel: 'ESPN' },
+                { date: '2026-02-15', time: '14:30', home: 'FC Twente', away: 'Telstar', competition: 'Eredivisie', channel: 'ESPN' },
                 { date: '2026-02-15', time: '16:45', home: 'Sparta Rotterdam', away: 'NEC', competition: 'Eredivisie', channel: 'ESPN' },
                 { date: '2026-02-15', time: '13:30', home: 'Manchester City', away: 'Chelsea', competition: 'Premier League', channel: 'Viaplay' },
                 { date: '2026-02-15', time: '16:00', home: 'Liverpool', away: 'Arsenal', competition: 'Premier League', channel: 'Viaplay' },
