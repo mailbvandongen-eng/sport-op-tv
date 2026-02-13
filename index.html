@@ -130,6 +130,12 @@
             height: 20px;
         }
 
+        /* Theme toggle sun/moon icons */
+        .icon-btn .sun-icon { display: none; }
+        .icon-btn .moon-icon { display: block; }
+        [data-theme="dark"] .icon-btn .sun-icon { display: block; }
+        [data-theme="dark"] .icon-btn .moon-icon { display: none; }
+
         /* Hide old header styles */
         header {
             display: none;
@@ -341,19 +347,14 @@
             transform: rotate(-45deg) translate(4px, -4px);
         }
 
-        /* Side Menu */
+        /* Side Menu - Full Screen */
         .side-menu {
             position: fixed;
             top: 0;
-            right: -350px;
-            width: 350px;
-            max-width: 90vw;
+            right: -100%;
+            width: 100%;
             height: 100vh;
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-left: 1px solid var(--card-border);
-            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.2);
+            background: var(--bg);
             z-index: 1000;
             transition: right 0.3s ease;
             overflow-y: auto;
@@ -1382,7 +1383,8 @@
             <h1>Sport op TV</h1>
             <div class="title-bar-icons">
                 <button class="icon-btn" id="theme-toggle" title="Thema wisselen">
-                    <i data-lucide="settings"></i>
+                    <i data-lucide="sun" class="sun-icon"></i>
+                    <i data-lucide="moon" class="moon-icon"></i>
                 </button>
                 <button class="icon-btn" id="hamburger-btn" title="Menu">
                     <i data-lucide="menu"></i>
