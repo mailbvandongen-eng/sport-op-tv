@@ -1437,6 +1437,7 @@
                     <button class="dropdown-btn" id="comp-btn">Competities ▾</button>
                     <div class="dropdown-content" id="comp-content">
                         <label><input type="checkbox" value="Eredivisie"> Eredivisie</label>
+                        <label><input type="checkbox" value="Keuken Kampioen Divisie"> Keuken Kampioen Divisie</label>
                         <label><input type="checkbox" value="Premier League"> Premier League</label>
                         <label><input type="checkbox" value="Bundesliga"> Bundesliga</label>
                         <label><input type="checkbox" value="La Liga"> La Liga</label>
@@ -1452,6 +1453,7 @@
                         <label><input type="checkbox" value="Coppa Italia"> Coppa Italia</label>
                         <label><input type="checkbox" value="DFB Pokal"> DFB Pokal</label>
                         <label><input type="checkbox" value="Copa del Rey"> Copa del Rey</label>
+                        <label><input type="checkbox" value="Coupe de France"> Coupe de France</label>
                         <label><input type="checkbox" value="KNVB Beker"> KNVB Beker</label>
                         <hr>
                         <label><input type="checkbox" value="WK"> WK</label>
@@ -1543,6 +1545,9 @@
         // CONFIGURATION
         // ============================================
         const CONFIG = {
+            // Cache version - increment to force cache clear after config changes
+            CACHE_VERSION: '2.0.1',
+
             // API-Football key (gratis 100 requests/dag op api-football.com)
             API_FOOTBALL_KEY: '6299b9b25468371fa7878f188ca297c0',
             API_FOOTBALL_URL: 'https://v3.football.api-sports.io',
@@ -1551,8 +1556,10 @@
 
             // API-Football league IDs voor relevante competities
             API_FOOTBALL_LEAGUES: [
-                // Leagues
+                // Nederlandse competities
                 { id: 88, name: 'Eredivisie', channel: 'ESPN' },
+                { id: 89, name: 'Keuken Kampioen Divisie', channel: 'ESPN' },
+                // Buitenlandse topcompetities
                 { id: 39, name: 'Premier League', channel: 'Viaplay' },
                 { id: 78, name: 'Bundesliga', channel: 'Viaplay' },
                 { id: 140, name: 'La Liga', channel: 'Ziggo Sport' },
@@ -2060,7 +2067,7 @@
                 if (rateLimited) break;
 
                 try {
-                    const apiUrl = `${CONFIG.API_FOOTBALL_URL}/fixtures?league=${league.id}&season=${season}&from=${getDateStr(-7)}&to=${getDateStr(14)}`;
+                    const apiUrl = `${CONFIG.API_FOOTBALL_URL}/fixtures?league=${league.id}&season=${season}&from=${getDateStr(-7)}&to=${getDateStr(30)}`;
                     const response = await fetch(
                         `${CONFIG.CORS_PROXY}${encodeURIComponent(apiUrl)}`,
                         { headers: { 'x-apisports-key': CONFIG.API_FOOTBALL_KEY } }
@@ -3264,6 +3271,22 @@
         // ============================================
         // INITIALIZATION
         // ============================================
+        // Clear cache if version changed (forces fresh data after updates)
+        const storedVersion = localStorage.getItem('cacheVersion');
+        if (storedVersion !== CONFIG.CACHE_VERSION) {
+            console.log(`Cache version changed (${storedVersion} → ${CONFIG.CACHE_VERSION}), clearing cache...`);
+            localStorage.removeItem('footballCache');
+            localStorage.removeItem('footballCacheTime');
+            localStorage.removeItem('footballSource');
+            // Clear all standings caches
+            Object.keys(localStorage).forEach(key => {
+                if (key.startsWith('standings_')) {
+                    localStorage.removeItem(key);
+                }
+            });
+            localStorage.setItem('cacheVersion', CONFIG.CACHE_VERSION);
+        }
+
         window.scrollTo(0, 0); // Always start at top
         renderEvents();
 
