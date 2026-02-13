@@ -80,139 +80,128 @@
             padding: 20px;
         }
 
-        header {
+        /* Header Section (all 3 rows) */
+        .header-section {
+            background: #1a1a2e;
+            margin-bottom: 16px;
+        }
+
+        /* Title Bar - Row 1 */
+        .title-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 16px 24px;
-            margin-bottom: 24px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: var(--radius);
-            border: 1px solid var(--card-border);
-            box-shadow: var(--shadow);
+            padding: 12px 16px;
         }
 
-        header h1 {
-            font-size: clamp(1.4rem, 4vw, 1.8rem);
-            font-weight: 800;
-            background: var(--bg-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .title-bar h1 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 0;
         }
 
-        [data-theme="dark"] header h1 {
-            background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-        }
-
-
-        .theme-toggle {
+        .title-bar-icons {
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 8px 12px;
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 50px;
+            gap: 12px;
+        }
+
+        .icon-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: transparent;
+            border: none;
             cursor: pointer;
-            transition: all 0.2s ease;
+            color: rgba(255, 255, 255, 0.7);
+            transition: color 0.2s ease;
+            padding: 0;
         }
 
-        .theme-toggle:hover {
-            transform: scale(1.05);
+        .icon-btn:hover {
+            color: #ffffff;
         }
 
-        .theme-toggle svg {
-            width: 18px;
-            height: 18px;
-            color: var(--text-secondary);
-            transition: color 0.2s;
+        .icon-btn svg {
+            width: 20px;
+            height: 20px;
         }
 
-        [data-theme="dark"] .theme-toggle .sun-icon { display: block; }
-        [data-theme="dark"] .theme-toggle .moon-icon { display: none; }
-        .theme-toggle .sun-icon { display: none; }
-        .theme-toggle .moon-icon { display: block; }
+        /* Hide old header styles */
+        header {
+            display: none;
+        }
 
-        /* Sport Tabs */
+        .theme-toggle {
+            display: none;
+        }
+
+        /* Sport Tabs - Row 2 */
         .sport-tabs {
             display: flex;
-            gap: 12px;
-            justify-content: center;
-            margin-bottom: 28px;
-            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: flex-start;
+            padding: 10px 16px;
         }
 
         .sport-tab {
-            padding: 14px 32px;
+            padding: 8px 16px;
             border: none;
-            border-radius: 50px;
-            font-size: 0.95rem;
-            font-weight: 600;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            color: var(--text-secondary);
-            box-shadow: var(--shadow);
-            border: 1px solid var(--card-border);
+            transition: all 0.2s ease;
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
 
         .sport-tab svg {
-            width: 18px;
-            height: 18px;
-            transition: transform 0.3s ease;
+            display: none;
         }
 
         .sport-tab:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-hover);
+            background: rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 0.8);
         }
 
-        .sport-tab:hover svg {
-            transform: scale(1.1);
-        }
-
-        .sport-tab.active[data-sport="voetbal"] {
-            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+        .sport-tab.active {
+            background: #22c55e;
             color: white;
-            box-shadow: 0 8px 25px var(--football-glow);
-            border-color: transparent;
         }
 
-        .sport-tab.active[data-sport="darts"] {
-            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
-            color: white;
-            box-shadow: 0 8px 25px var(--darts-glow);
-            border-color: transparent;
+        .sport-tab.active::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: white;
+            border-radius: 50%;
+            margin-right: 2px;
         }
 
+        /* Remove sport-specific colors - now all use green for active */
+        .sport-tab.active[data-sport="voetbal"],
+        .sport-tab.active[data-sport="darts"],
         .sport-tab.active[data-sport="f1"] {
-            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            background: #22c55e;
             color: white;
-            box-shadow: 0 8px 25px var(--f1-glow);
+            box-shadow: none;
             border-color: transparent;
         }
 
-        /* Filters Row - Modern */
+        /* Filters Row - Row 3 */
         .filters-row {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            gap: 8px;
-            margin-bottom: 12px;
-            padding: 10px 12px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            border-radius: var(--radius);
-            border: 1px solid var(--card-border);
+            gap: 6px;
+            padding: 8px 16px 12px 16px;
+            flex-wrap: wrap;
         }
 
         /* Dropdown */
@@ -222,14 +211,14 @@
 
         .dropdown-btn {
             padding: 6px 10px;
-            border: 1px solid var(--border);
-            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 6px;
             font-size: 0.75rem;
             font-weight: 500;
-            background: var(--card-bg);
-            color: var(--text);
+            background: rgba(255, 255, 255, 0.08);
+            color: rgba(255, 255, 255, 0.8);
             cursor: pointer;
-            min-width: 100px;
+            min-width: 90px;
             text-align: left;
             transition: all 0.2s ease;
             display: flex;
@@ -238,8 +227,8 @@
         }
 
         .dropdown-btn:hover {
-            border-color: var(--primary-light);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.25);
         }
 
         .dropdown-content {
@@ -247,11 +236,10 @@
             position: absolute;
             top: calc(100% + 8px);
             left: 0;
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--card-border);
-            border-radius: var(--radius-sm);
-            box-shadow: var(--shadow-hover);
+            background: #252542;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
             z-index: 100;
             min-width: 200px;
             max-height: 350px;
@@ -274,40 +262,41 @@
             padding: 10px 14px;
             cursor: pointer;
             font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.8);
             transition: background 0.15s ease;
         }
 
         .dropdown-content label:hover {
-            background: var(--border);
+            background: rgba(255, 255, 255, 0.1);
         }
 
         .dropdown-content input[type="checkbox"] {
             margin-right: 10px;
-            accent-color: var(--primary);
+            accent-color: #22c55e;
             width: 16px;
             height: 16px;
         }
 
         .dropdown-content hr {
             border: none;
-            border-top: 1px solid var(--border);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             margin: 6px 0;
         }
 
         .reset-btn {
-            padding: 5px 8px;
-            border: 1px solid var(--border);
-            border-radius: 4px;
-            background: var(--card-bg);
-            color: var(--text-secondary);
+            padding: 6px 8px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.08);
+            color: rgba(255, 255, 255, 0.6);
             cursor: pointer;
             font-size: 0.75rem;
             transition: all 0.2s ease;
         }
 
         .reset-btn:hover {
-            background: var(--border);
-            color: var(--text);
+            background: rgba(255, 255, 255, 0.12);
+            color: rgba(255, 255, 255, 0.9);
         }
 
         /* Hamburger Menu */
@@ -657,90 +646,97 @@
 
         .filter-input {
             padding: 6px 10px;
-            border: 1px solid var(--border);
-            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 6px;
             font-size: 0.75rem;
             font-weight: 500;
-            width: 100px;
-            background: var(--card-bg);
-            color: var(--text);
+            width: 80px;
+            background: rgba(255, 255, 255, 0.08);
+            color: rgba(255, 255, 255, 0.8);
             transition: all 0.2s ease;
         }
 
         .filter-input:focus {
             outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.25);
         }
 
         .filter-input::placeholder {
-            color: var(--text-secondary);
+            color: rgba(255, 255, 255, 0.4);
         }
 
-        /* Toggle Group */
+        /* Toggle Group - Pills */
         .toggle-group {
             display: flex;
-            gap: 12px;
+            gap: 6px;
             align-items: center;
             margin-left: auto;
         }
 
-        .mini-toggle {
+        .toggle-pill {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
+            padding: 6px 12px;
+            border-radius: 20px;
             cursor: pointer;
             user-select: none;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.2s ease;
         }
 
-        .mini-toggle input {
+        .toggle-pill input {
             display: none;
         }
 
+        .toggle-pill .toggle-label {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.6);
+            transition: color 0.2s ease;
+        }
+
+        .toggle-pill:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .toggle-pill.active {
+            background: #22c55e;
+            border-color: #22c55e;
+        }
+
+        .toggle-pill.active .toggle-label {
+            color: white;
+        }
+
+        /* Hide old toggle slider */
         .toggle-slider {
-            width: 28px;
-            height: 16px;
-            background: var(--border);
-            border-radius: 8px;
-            position: relative;
-            transition: background 0.2s ease;
+            display: none;
         }
 
-        .toggle-slider::after {
-            content: '';
-            position: absolute;
-            width: 12px;
-            height: 12px;
-            background: white;
-            border-radius: 50%;
-            top: 2px;
-            left: 2px;
-            transition: transform 0.2s ease;
-        }
-
-        .mini-toggle input:checked + .toggle-slider {
-            background: var(--primary);
-        }
-
-        .mini-toggle input:checked + .toggle-slider::after {
-            transform: translateX(12px);
-        }
-
-        .toggle-label {
-            font-size: 0.7rem;
-            color: var(--text-secondary);
+        /* Legacy mini-toggle support */
+        .mini-toggle {
+            display: none;
         }
 
         @media (max-width: 600px) {
             .filters-row {
-                flex-wrap: wrap;
                 gap: 6px;
-                padding: 8px;
+                padding: 8px 12px;
             }
 
             .filter-input {
-                flex: 1;
-                min-width: 60px;
+                width: 70px;
+            }
+
+            .toggle-pill {
+                padding: 5px 10px;
+            }
+
+            .toggle-pill .toggle-label {
+                font-size: 0.7rem;
             }
         }
 
@@ -1379,54 +1375,29 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
+    <!-- Header Section (dark) -->
+    <div class="header-section">
+        <!-- Row 1: Title Bar -->
+        <div class="title-bar">
             <h1>Sport op TV</h1>
-            <div style="display: flex; align-items: center; gap: 10px;">
-                <button class="theme-toggle" id="theme-toggle" title="Toggle dark mode">
-                    <i data-lucide="sun" class="sun-icon"></i>
-                    <i data-lucide="moon" class="moon-icon"></i>
+            <div class="title-bar-icons">
+                <button class="icon-btn" id="theme-toggle" title="Thema wisselen">
+                    <i data-lucide="settings"></i>
                 </button>
-                <button class="hamburger-btn" id="hamburger-btn" title="Menu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                <button class="icon-btn" id="hamburger-btn" title="Menu">
+                    <i data-lucide="menu"></i>
                 </button>
-            </div>
-        </header>
-
-        <!-- Side Menu Overlay -->
-        <div class="menu-overlay" id="menu-overlay"></div>
-
-        <!-- Side Menu -->
-        <div class="side-menu" id="side-menu">
-            <div class="side-menu-header">
-                <h2>Standen</h2>
-                <button class="close-menu-btn" id="close-menu-btn">×</button>
-            </div>
-            <div class="side-menu-content">
-                <div class="standings-tabs" id="standings-tabs-menu"></div>
-                <div id="standings-content-menu"></div>
             </div>
         </div>
 
-        <!-- Sport Tabs -->
+        <!-- Row 2: Sport Tabs -->
         <div class="sport-tabs">
-            <button class="sport-tab active" data-sport="voetbal">
-                <i data-lucide="circle-dot"></i>
-                Voetbal
-            </button>
-            <button class="sport-tab" data-sport="darts">
-                <i data-lucide="target"></i>
-                Darts
-            </button>
-            <button class="sport-tab" data-sport="f1">
-                <i data-lucide="flag"></i>
-                Formule 1
-            </button>
+            <button class="sport-tab active" data-sport="voetbal">Voetbal</button>
+            <button class="sport-tab" data-sport="darts">Darts</button>
+            <button class="sport-tab" data-sport="f1">Formule 1</button>
         </div>
 
-        <!-- Filters Panel -->
+        <!-- Row 3: Filters -->
         <div class="filters-row" id="filters-row">
             <div class="dropdown" id="comp-dropdown">
                 <button class="dropdown-btn" id="comp-btn">Competities ▾</button>
@@ -1462,16 +1433,31 @@
             <input type="text" class="filter-input" id="filter-clubs" placeholder="Clubs...">
             <button class="reset-btn" id="reset-filters" title="Reset">↻</button>
             <div class="toggle-group">
-                <label class="mini-toggle" title="Toon afgelopen 3 dagen">
+                <label class="toggle-pill" id="past-toggle-wrapper" title="Toon afgelopen 3 dagen">
                     <input type="checkbox" id="toggle-past">
-                    <span class="toggle-slider"></span>
                     <span class="toggle-label">Verleden</span>
                 </label>
-                <label class="mini-toggle" id="scores-toggle-wrapper" title="Toon uitslagen">
+                <label class="toggle-pill" id="scores-toggle-wrapper" title="Toon uitslagen">
                     <input type="checkbox" id="toggle-scores">
-                    <span class="toggle-slider"></span>
                     <span class="toggle-label">Uitslagen</span>
                 </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Side Menu Overlay -->
+        <div class="menu-overlay" id="menu-overlay"></div>
+
+        <!-- Side Menu -->
+        <div class="side-menu" id="side-menu">
+            <div class="side-menu-header">
+                <h2>Standen</h2>
+                <button class="close-menu-btn" id="close-menu-btn">×</button>
+            </div>
+            <div class="side-menu-content">
+                <div class="standings-tabs" id="standings-tabs-menu"></div>
+                <div id="standings-content-menu"></div>
             </div>
         </div>
 
@@ -1484,7 +1470,7 @@
             <div class="api-status" id="api-status">
                 <span class="live-dot"></span> <span class="status-text">Laden...</span>
             </div>
-            <p class="version-footer">v1.3.0</p>
+            <p class="version-footer">v1.4.0</p>
         </footer>
     </div>
 
@@ -3145,11 +3131,13 @@
 
         document.getElementById('toggle-past').addEventListener('change', function() {
             showPast = this.checked;
+            document.getElementById('past-toggle-wrapper').classList.toggle('active', this.checked);
             renderEvents();
         });
 
         document.getElementById('toggle-scores').addEventListener('change', function() {
             showScores = this.checked;
+            document.getElementById('scores-toggle-wrapper').classList.toggle('active', this.checked);
             document.getElementById('events-container').classList.toggle('show-scores', showScores);
         });
 
@@ -3232,6 +3220,8 @@
             // Reset toggles
             document.getElementById('toggle-past').checked = false;
             document.getElementById('toggle-scores').checked = false;
+            document.getElementById('past-toggle-wrapper').classList.remove('active');
+            document.getElementById('scores-toggle-wrapper').classList.remove('active');
             showPast = false;
             showScores = false;
             document.getElementById('events-container').classList.remove('show-scores');
