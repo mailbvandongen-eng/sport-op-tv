@@ -797,13 +797,37 @@
             align-items: center;
         }
 
-        .match-header {
+        .event-wrapper {
+            margin-bottom: 16px;
+        }
+
+        .event-wrapper .match-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 6px;
+            padding-left: 4px;
+        }
+
+        .event-wrapper .match-time {
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .event-wrapper .competition-badge {
+            font-size: 0.75rem;
+        }
+
+        /* Desktop card header (inside card) */
+        .event-card .match-header {
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .match-time {
+        .event-card .match-time {
             font-size: 1rem;
             font-weight: 700;
             color: var(--primary);
@@ -1177,31 +1201,38 @@
                 font-size: 0.6rem;
             }
 
+            /* Event wrapper - Mobile */
+            .event-wrapper {
+                margin-bottom: 12px;
+            }
+
+            .event-wrapper .match-header {
+                margin-bottom: 4px;
+                padding-left: 2px;
+            }
+
+            .event-wrapper .match-time {
+                font-size: 0.8rem;
+            }
+
+            .event-wrapper .competition-badge {
+                font-size: 0.65rem;
+                padding: 2px 6px;
+            }
+
             /* Football Card - Mobile: grid layout */
             .event-card-football {
                 display: grid;
                 grid-template-columns: 1fr auto;
-                grid-template-rows: auto auto auto;
-                gap: 4px 12px;
-                padding: 12px;
+                grid-template-rows: auto auto;
+                gap: 2px 12px;
+                padding: 10px 12px;
                 align-items: center;
-            }
-
-            .event-card-football .match-header {
-                grid-column: 1 / -1;
-                grid-row: 1;
-                display: flex;
-                align-items: center;
-                gap: 8px;
-            }
-
-            .event-card-football .match-time {
-                font-size: 0.85rem;
             }
 
             .event-card-football .match-teams {
                 grid-column: 1;
-                grid-row: 2 / 4;
+                grid-row: 1 / 3;
                 display: flex;
                 flex-direction: column;
                 gap: 2px;
@@ -1230,7 +1261,7 @@
 
             .event-card-football .match-channel {
                 grid-column: 2;
-                grid-row: 2 / 4;
+                grid-row: 1 / 3;
                 justify-content: flex-end;
                 align-self: center;
             }
@@ -2742,22 +2773,24 @@
                         const scoreText = event.score || '-';
 
                         html += `
-                            <div class="event-card event-card-football ${isPast ? 'past-event' : ''}">
+                            <div class="event-wrapper ${isPast ? 'past-event' : ''}">
                                 <div class="match-header">
                                     <span class="match-time">${event.time}</span>
                                     <span class="competition-badge">${event.competition}</span>
                                     ${liveHtml}
                                 </div>
-                                <div class="match-teams">
-                                    <div class="team-row home-team">
-                                        ${homeCrest}<span class="team-name">${event.home}</span>
+                                <div class="event-card event-card-football">
+                                    <div class="match-teams">
+                                        <div class="team-row home-team">
+                                            ${homeCrest}<span class="team-name">${event.home}</span>
+                                        </div>
+                                        <div class="team-row away-team">
+                                            ${awayCrest}<span class="team-name">${event.away}</span>
+                                        </div>
                                     </div>
-                                    <div class="team-row away-team">
-                                        ${awayCrest}<span class="team-name">${event.away}</span>
-                                    </div>
+                                    <div class="match-score ${event.score ? '' : 'no-score'}">${scoreText}</div>
+                                    <div class="match-channel">${channelHtml}</div>
                                 </div>
-                                <div class="match-score ${event.score ? '' : 'no-score'}">${scoreText}</div>
-                                <div class="match-channel">${channelHtml}</div>
                             </div>
                         `;
                     } else {
