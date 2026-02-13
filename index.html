@@ -812,8 +812,12 @@
         .event-wrapper .match-time {
             font-size: 0.85rem;
             font-weight: 400;
-            color: var(--text-secondary);
+            color: rgba(255, 255, 255, 0.75);
             font-variant-numeric: tabular-nums;
+        }
+
+        [data-theme="light"] .event-wrapper .match-time {
+            color: rgba(0, 0, 0, 0.5);
         }
 
         .event-wrapper .competition-badge {
@@ -2826,16 +2830,18 @@
                         }
 
                         html += `
-                            <div class="event-card ${isPast ? 'past-event' : ''} ${hasMatches ? 'has-matches' : ''}">
+                            <div class="event-wrapper ${isPast ? 'past-event' : ''}">
                                 <div class="match-header">
                                     <span class="match-time">${event.time}</span>
                                     <span class="competition-badge">${event.competition}</span>
-                                    ${event.circuit ? `<span>${event.circuit}</span>` : ''}
+                                    ${event.circuit ? `<span class="circuit-badge">${event.circuit}</span>` : ''}
                                     ${liveHtml}
                                 </div>
-                                <div class="event-title">${titleHtml}</div>
-                                <div class="match-channel">${channelHtml}</div>
-                                ${matchesHtml}
+                                <div class="event-card ${hasMatches ? 'has-matches' : ''}">
+                                    <div class="event-title">${titleHtml}</div>
+                                    <div class="match-channel">${channelHtml}</div>
+                                    ${matchesHtml}
+                                </div>
                             </div>
                         `;
                     }
