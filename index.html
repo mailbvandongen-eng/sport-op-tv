@@ -1520,7 +1520,7 @@
             <div class="api-status" id="api-status">
                 <span class="live-dot"></span> <span class="status-text">Laden...</span>
             </div>
-            <p class="version-footer">v2.0.4</p>
+            <p class="version-footer">v2.0.5</p>
         </footer>
     </div>
 
@@ -1546,7 +1546,7 @@
         // ============================================
         const CONFIG = {
             // Cache version - increment to force cache clear after config changes
-            CACHE_VERSION: '2.0.4',
+            CACHE_VERSION: '2.0.5',
 
             // API-Football key (gratis 100 requests/dag op api-football.com)
             API_FOOTBALL_KEY: '6299b9b25468371fa7878f188ca297c0',
@@ -1932,99 +1932,108 @@
         // Bron: https://www.espn.com/soccer/schedule/_/league/ned.1
         function getStaticFootballMatches() {
             const matches = [
-                // VERLEDEN - uitslagen handmatig bijwerken na wedstrijden
-                // 2 feb 2026
-                { date: '2026-02-02', time: '18:45', home: 'Ajax', away: 'PSV', score: '1-2', competition: 'Eredivisie', channel: 'ESPN' },
-                { date: '2026-02-02', time: '21:00', home: 'Feyenoord', away: 'AZ', score: '3-1', competition: 'Eredivisie', channel: 'ESPN' },
-                // 3 feb 2026
-                { date: '2026-02-03', time: '20:00', home: 'Manchester City', away: 'Liverpool', score: '2-2', competition: 'Premier League', channel: 'Viaplay' },
-                { date: '2026-02-03', time: '20:45', home: 'Real Madrid', away: 'Atlético Madrid', score: '2-1', competition: 'La Liga', channel: 'Ziggo Sport' },
-                // 5 feb 2026
-                { date: '2026-02-05', time: '20:00', home: 'Bayern München', away: 'Dortmund', score: '3-1', competition: 'Bundesliga', channel: 'Viaplay' },
-                { date: '2026-02-05', time: '21:00', home: 'Barcelona', away: 'Real Sociedad', score: '2-0', competition: 'La Liga', channel: 'Ziggo Sport' },
-                // 7 feb 2026
-                { date: '2026-02-07', time: '20:00', home: 'FC Twente', away: 'Feyenoord', score: '1-1', competition: 'Eredivisie', channel: 'ESPN' },
-                { date: '2026-02-07', time: '21:00', home: 'Inter', away: 'Juventus', score: '2-0', competition: 'Serie A', channel: 'Ziggo Sport' },
-                // 8 feb 2026
-                { date: '2026-02-08', time: '13:30', home: 'Arsenal', away: 'Chelsea', score: '2-1', competition: 'Premier League', channel: 'Viaplay' },
-                { date: '2026-02-08', time: '16:00', home: 'PSV', away: 'NEC', score: '3-0', competition: 'Eredivisie', channel: 'ESPN' },
-                { date: '2026-02-08', time: '18:30', home: 'Napoli', away: 'AC Milan', score: '2-2', competition: 'Serie A', channel: 'Ziggo Sport' },
-                { date: '2026-02-08', time: '21:00', home: 'Aston Villa', away: 'Manchester United', score: '1-1', competition: 'Premier League', channel: 'Viaplay' },
-                // 10 feb 2026
-                { date: '2026-02-10', time: '19:30', home: 'Tottenham', away: 'Newcastle', score: '1-2', competition: 'Premier League', channel: 'Viaplay' },
-                { date: '2026-02-10', time: '19:30', home: 'Chelsea', away: 'Leeds United', score: '2-2', competition: 'Premier League', channel: 'Viaplay' },
-                { date: '2026-02-10', time: '19:30', home: 'Everton', away: 'Bournemouth', score: '1-2', competition: 'Premier League', channel: 'Viaplay' },
-                { date: '2026-02-10', time: '20:15', home: 'West Ham', away: 'Manchester United', score: '1-1', competition: 'Premier League', channel: 'Viaplay' },
-                // TOEKOMST
-                // 11 feb 2026
-                { date: '2026-02-11', time: '17:45', home: 'Go Ahead Eagles', away: 'sc Heerenveen', competition: 'Eredivisie', channel: 'ESPN' },
-                { date: '2026-02-11', time: '19:30', home: 'Nottingham Forest', away: 'Wolverhampton', competition: 'Premier League', channel: 'Viaplay' },
-                { date: '2026-02-11', time: '19:30', home: 'Aston Villa', away: 'Brighton', competition: 'Premier League', channel: 'Viaplay' },
-                { date: '2026-02-11', time: '19:30', home: 'Crystal Palace', away: 'Burnley', competition: 'Premier League', channel: 'Viaplay' },
-                { date: '2026-02-11', time: '19:30', home: 'Manchester City', away: 'Fulham', competition: 'Premier League', channel: 'Viaplay' },
-                { date: '2026-02-11', time: '19:45', home: 'Bayern München', away: 'RB Leipzig', competition: 'DFB Pokal', channel: 'Ziggo Sport' },
-                { date: '2026-02-11', time: '20:00', home: 'NEC', away: 'FC Utrecht', competition: 'Eredivisie', channel: 'ESPN' },
-                { date: '2026-02-11', time: '20:00', home: 'Athletic Bilbao', away: 'Real Sociedad', competition: 'Copa del Rey', channel: 'Ziggo Sport' },
-                { date: '2026-02-11', time: '20:15', home: 'Sunderland', away: 'Liverpool', competition: 'Premier League', channel: 'Viaplay' },
-                // 12 feb 2026
-                { date: '2026-02-12', time: '20:00', home: 'Atlético Madrid', away: 'Barcelona', competition: 'Copa del Rey', channel: 'Ziggo Sport' },
-                { date: '2026-02-12', time: '21:00', home: 'Inter', away: 'AC Milan', competition: 'Serie A', channel: 'Ziggo Sport' },
-                // 13 feb 2026
+                // ============================================
+                // ALLE DATA HIERONDER KOMT VAN ESPN.COM
+                // Verzonnen data is verwijderd.
+                // Uitslagen worden niet bijgehouden in fallback.
+                // ============================================
+                // ============================================
+                // 13 feb 2026 - Bron: ESPN.com
+                // ============================================
                 { date: '2026-02-13', time: '20:00', home: 'FC Volendam', away: 'PSV', competition: 'Eredivisie', channel: 'ESPN' },
-                // 14 feb 2026
+                { date: '2026-02-13', time: '20:30', home: 'Mainz', away: 'Borussia Dortmund', competition: 'Bundesliga', channel: 'Viaplay' },
+                { date: '2026-02-13', time: '20:45', home: 'AC Milan', away: 'Pisa', competition: 'Serie A', channel: 'Ziggo Sport' },
+
+                // ============================================
+                // 14 feb 2026 - Bron: ESPN.com
+                // ============================================
+                // Eredivisie
                 { date: '2026-02-14', time: '16:30', home: 'Heracles Almelo', away: 'NAC Breda', competition: 'Eredivisie', channel: 'ESPN' },
                 { date: '2026-02-14', time: '18:45', home: 'Excelsior', away: 'AZ', competition: 'Eredivisie', channel: 'ESPN' },
                 { date: '2026-02-14', time: '20:00', home: 'Ajax', away: 'Fortuna Sittard', competition: 'Eredivisie', channel: 'ESPN' },
                 { date: '2026-02-14', time: '21:00', home: 'FC Groningen', away: 'FC Utrecht', competition: 'Eredivisie', channel: 'ESPN' },
-                { date: '2026-02-14', time: '20:30', home: 'Bayern München', away: 'Bayer Leverkusen', competition: 'Bundesliga', channel: 'Viaplay' },
-                { date: '2026-02-14', time: '21:00', home: 'Napoli', away: 'Juventus', competition: 'Serie A', channel: 'Ziggo Sport' },
-                // 15 feb 2026
+                // Bundesliga
+                { date: '2026-02-14', time: '15:30', home: 'St. Pauli', away: 'Bayer Leverkusen', competition: 'Bundesliga', channel: 'Viaplay' },
+                { date: '2026-02-14', time: '15:30', home: 'Borussia Mönchengladbach', away: 'Eintracht Frankfurt', competition: 'Bundesliga', channel: 'Viaplay' },
+                { date: '2026-02-14', time: '15:30', home: 'Union Berlin', away: 'Hamburger SV', competition: 'Bundesliga', channel: 'Viaplay' },
+                { date: '2026-02-14', time: '15:30', home: 'SC Freiburg', away: 'TSG Hoffenheim', competition: 'Bundesliga', channel: 'Viaplay' },
+                { date: '2026-02-14', time: '15:30', home: 'Werder Bremen', away: 'Bayern München', competition: 'Bundesliga', channel: 'Viaplay' },
+                { date: '2026-02-14', time: '18:30', home: 'FC Köln', away: 'VfB Stuttgart', competition: 'Bundesliga', channel: 'Viaplay' },
+                // La Liga
+                { date: '2026-02-14', time: '16:15', home: 'Getafe', away: 'Villarreal', competition: 'La Liga', channel: 'Ziggo Sport' },
+                { date: '2026-02-14', time: '18:30', home: 'Sevilla', away: 'Alavés', competition: 'La Liga', channel: 'Ziggo Sport' },
+                { date: '2026-02-14', time: '21:00', home: 'Real Madrid', away: 'Real Sociedad', competition: 'La Liga', channel: 'Ziggo Sport' },
+                // Serie A
+                { date: '2026-02-14', time: '15:00', home: 'Como', away: 'Fiorentina', competition: 'Serie A', channel: 'Ziggo Sport' },
+                { date: '2026-02-14', time: '18:00', home: 'Lazio', away: 'Atalanta', competition: 'Serie A', channel: 'Ziggo Sport' },
+                { date: '2026-02-14', time: '20:45', home: 'Inter', away: 'Juventus', competition: 'Serie A', channel: 'Ziggo Sport' },
+                // Ligue 1
+                { date: '2026-02-14', time: '17:00', home: 'Marseille', away: 'Strasbourg', competition: 'Ligue 1', channel: 'Ziggo Sport' },
+                { date: '2026-02-14', time: '19:00', home: 'Lille', away: 'Brest', competition: 'Ligue 1', channel: 'Ziggo Sport' },
+                { date: '2026-02-14', time: '21:05', home: 'Paris FC', away: 'Lens', competition: 'Ligue 1', channel: 'Ziggo Sport' },
+
+                // ============================================
+                // 15 feb 2026 - Bron: ESPN.com
+                // ============================================
+                // Eredivisie
                 { date: '2026-02-15', time: '12:15', home: 'Feyenoord', away: 'Go Ahead Eagles', competition: 'Eredivisie', channel: 'ESPN' },
                 { date: '2026-02-15', time: '14:30', home: 'sc Heerenveen', away: 'PEC Zwolle', competition: 'Eredivisie', channel: 'ESPN' },
                 { date: '2026-02-15', time: '14:30', home: 'FC Twente', away: 'Telstar', competition: 'Eredivisie', channel: 'ESPN' },
                 { date: '2026-02-15', time: '16:45', home: 'Sparta Rotterdam', away: 'NEC', competition: 'Eredivisie', channel: 'ESPN' },
-                { date: '2026-02-15', time: '13:30', home: 'Manchester City', away: 'Chelsea', competition: 'Premier League', channel: 'Viaplay' },
-                { date: '2026-02-15', time: '16:00', home: 'Liverpool', away: 'Arsenal', competition: 'Premier League', channel: 'Viaplay' },
-                { date: '2026-02-15', time: '18:30', home: 'Tottenham', away: 'Manchester United', competition: 'Premier League', channel: 'Viaplay' },
-                // 16 feb 2026
-                { date: '2026-02-16', time: '15:00', home: 'Newcastle', away: 'West Ham', competition: 'Premier League', channel: 'Viaplay' },
-                { date: '2026-02-16', time: '15:30', home: 'Borussia Dortmund', away: 'RB Leipzig', competition: 'Bundesliga', channel: 'Viaplay' },
-                { date: '2026-02-16', time: '17:30', home: 'Brighton', away: 'Everton', competition: 'Premier League', channel: 'Viaplay' },
-                { date: '2026-02-16', time: '20:45', home: 'Roma', away: 'Lazio', competition: 'Serie A', channel: 'Ziggo Sport' },
-                // 17 feb 2026
-                { date: '2026-02-17', time: '21:00', home: 'Paris Saint-Germain', away: 'Marseille', competition: 'Ligue 1', channel: 'Ziggo Sport' },
-                // 18 feb 2026 - Champions League
-                { date: '2026-02-18', time: '21:00', home: 'Real Madrid', away: 'Manchester City', competition: 'Champions League', channel: 'Ziggo Sport' },
-                { date: '2026-02-18', time: '21:00', home: 'Paris Saint-Germain', away: 'Liverpool', competition: 'Champions League', channel: 'Ziggo Sport' },
-                // 19 feb 2026 - Champions League
-                { date: '2026-02-19', time: '21:00', home: 'Bayern München', away: 'Arsenal', competition: 'Champions League', channel: 'Ziggo Sport' },
-                { date: '2026-02-19', time: '21:00', home: 'Inter', away: 'Barcelona', competition: 'Champions League', channel: 'Ziggo Sport' },
+                // Bundesliga
+                { date: '2026-02-15', time: '15:30', home: 'Heidenheim', away: 'FC Augsburg', competition: 'Bundesliga', channel: 'Viaplay' },
+                { date: '2026-02-15', time: '17:30', home: 'VfL Wolfsburg', away: 'RB Leipzig', competition: 'Bundesliga', channel: 'Viaplay' },
+                // La Liga
+                { date: '2026-02-15', time: '14:00', home: 'Real Oviedo', away: 'Athletic Club', competition: 'La Liga', channel: 'Ziggo Sport' },
+                { date: '2026-02-15', time: '16:15', home: 'Rayo Vallecano', away: 'Atlético Madrid', competition: 'La Liga', channel: 'Ziggo Sport' },
+                { date: '2026-02-15', time: '18:30', home: 'Levante', away: 'Valencia', competition: 'La Liga', channel: 'Ziggo Sport' },
+                { date: '2026-02-15', time: '21:00', home: 'Mallorca', away: 'Real Betis', competition: 'La Liga', channel: 'Ziggo Sport' },
+                // Serie A
+                { date: '2026-02-15', time: '12:30', home: 'Udinese', away: 'Sassuolo', competition: 'Serie A', channel: 'Ziggo Sport' },
+                { date: '2026-02-15', time: '15:00', home: 'Cremonese', away: 'Genoa', competition: 'Serie A', channel: 'Ziggo Sport' },
+                { date: '2026-02-15', time: '15:00', home: 'Parma', away: 'Hellas Verona', competition: 'Serie A', channel: 'Ziggo Sport' },
+                { date: '2026-02-15', time: '18:00', home: 'Torino', away: 'Bologna', competition: 'Serie A', channel: 'Ziggo Sport' },
+                { date: '2026-02-15', time: '20:45', home: 'Napoli', away: 'AS Roma', competition: 'Serie A', channel: 'Ziggo Sport' },
+                // Ligue 1
+                { date: '2026-02-15', time: '15:00', home: 'Le Havre', away: 'Toulouse', competition: 'Ligue 1', channel: 'Ziggo Sport' },
+                { date: '2026-02-15', time: '17:15', home: 'Lorient', away: 'Angers', competition: 'Ligue 1', channel: 'Ziggo Sport' },
+                { date: '2026-02-15', time: '17:15', home: 'Metz', away: 'AJ Auxerre', competition: 'Ligue 1', channel: 'Ziggo Sport' },
+                { date: '2026-02-15', time: '20:45', home: 'Lyon', away: 'Nice', competition: 'Ligue 1', channel: 'Ziggo Sport' },
 
                 // ============================================
-                // Keuken Kampioen Divisie (KKD)
+                // 16 feb 2026 - Bron: ESPN.com
                 // ============================================
-                { date: '2026-02-14', time: '20:00', home: 'FC Eindhoven', away: 'De Graafschap', competition: 'Keuken Kampioen Divisie', channel: 'ESPN' },
-                { date: '2026-02-14', time: '20:00', home: 'Roda JC', away: 'MVV', competition: 'Keuken Kampioen Divisie', channel: 'ESPN' },
-                { date: '2026-02-15', time: '14:30', home: 'ADO Den Haag', away: 'FC Emmen', competition: 'Keuken Kampioen Divisie', channel: 'ESPN' },
-                { date: '2026-02-15', time: '16:30', home: 'NAC Breda', away: 'Telstar', competition: 'Keuken Kampioen Divisie', channel: 'ESPN' },
-                { date: '2026-02-16', time: '12:15', home: 'FC Dordrecht', away: 'TOP Oss', competition: 'Keuken Kampioen Divisie', channel: 'ESPN' },
+                // Serie A
+                { date: '2026-02-16', time: '20:45', home: 'Cagliari', away: 'Lecce', competition: 'Serie A', channel: 'Ziggo Sport' },
+                // La Liga
+                { date: '2026-02-16', time: '21:00', home: 'Girona', away: 'Barcelona', competition: 'La Liga', channel: 'Ziggo Sport' },
 
                 // ============================================
-                // FA Cup / League Cup / KNVB Beker / Coppa Italia
+                // 17 feb 2026 - Champions League Playoff - Bron: ESPN.com
                 // ============================================
-                { date: '2026-02-14', time: '15:00', home: 'Manchester United', away: 'West Ham', competition: 'FA Cup', channel: 'Viaplay' },
-                { date: '2026-02-15', time: '17:30', home: 'Arsenal', away: 'Newcastle', competition: 'FA Cup', channel: 'Viaplay' },
-                { date: '2026-02-17', time: '21:00', home: 'Inter', away: 'Fiorentina', competition: 'Coppa Italia', channel: 'Ziggo Sport' },
-                { date: '2026-02-18', time: '20:00', home: 'Ajax', away: 'AZ', competition: 'KNVB Beker', channel: 'ESPN' },
-                { date: '2026-02-18', time: '21:00', home: 'Juventus', away: 'AC Milan', competition: 'Coppa Italia', channel: 'Ziggo Sport' },
-                { date: '2026-02-19', time: '20:00', home: 'PSV', away: 'Feyenoord', competition: 'KNVB Beker', channel: 'ESPN' },
+                { date: '2026-02-17', time: '18:45', home: 'Galatasaray', away: 'Juventus', competition: 'Champions League', channel: 'Ziggo Sport' },
+                { date: '2026-02-17', time: '21:00', home: 'AS Monaco', away: 'Paris Saint-Germain', competition: 'Champions League', channel: 'Ziggo Sport' },
+                { date: '2026-02-17', time: '21:00', home: 'Benfica', away: 'Real Madrid', competition: 'Champions League', channel: 'Ziggo Sport' },
+                { date: '2026-02-17', time: '21:00', home: 'Borussia Dortmund', away: 'Atalanta', competition: 'Champions League', channel: 'Ziggo Sport' },
 
                 // ============================================
-                // Europa League / Conference League
+                // 18 feb 2026 - Champions League Playoff - Bron: ESPN.com
                 // ============================================
-                { date: '2026-02-20', time: '18:45', home: 'AZ', away: 'AS Roma', competition: 'Europa League', channel: 'Ziggo Sport' },
-                { date: '2026-02-20', time: '21:00', home: 'Ajax', away: 'Lazio', competition: 'Europa League', channel: 'Ziggo Sport' },
-                { date: '2026-02-20', time: '21:00', home: 'Feyenoord', away: 'Fenerbahçe', competition: 'Conference League', channel: 'Ziggo Sport' },
+                { date: '2026-02-18', time: '18:45', home: 'FK Qarabag', away: 'Newcastle United', competition: 'Champions League', channel: 'Ziggo Sport' },
+                { date: '2026-02-18', time: '21:00', home: 'Bodø/Glimt', away: 'Inter', competition: 'Champions League', channel: 'Ziggo Sport' },
+                { date: '2026-02-18', time: '21:00', home: 'Club Brugge', away: 'Atlético Madrid', competition: 'Champions League', channel: 'Ziggo Sport' },
+                { date: '2026-02-18', time: '21:00', home: 'Olympiacos', away: 'Bayer Leverkusen', competition: 'Champions League', channel: 'Ziggo Sport' },
+
+                // ============================================
+                // 20 feb 2026 - Ligue 1 - Bron: ESPN.com
+                // ============================================
+                { date: '2026-02-20', time: '20:45', home: 'Brest', away: 'Marseille', competition: 'Ligue 1', channel: 'Ziggo Sport' },
+
+                // ============================================
+                // NOTE: Cup competities (FA Cup, KNVB Beker, etc.) en Europa League
+                // zijn afhankelijk van eerdere rondes en nog niet bekend voor feb 2026.
+                // Voeg toe zodra ESPN.com de wedstrijden publiceert.
+                // ============================================
 
                 // ============================================
                 // WK 2026 - Nederland wedstrijden
