@@ -1,8 +1,15 @@
 # Sport op TV - Claude Project Notes
 
-## Current Version: 1.2.7
+## Current Version: 2.0.6
 
 ## Changelog
+
+### v2.0.6 (2026-02-20)
+- Fixed: Fallback data aangevuld met echte wedstrijden 20-25 feb 2026
+  - Eredivisie, Premier League, Bundesliga, La Liga, Serie A, Ligue 1
+  - Champions League playoff return legs (24-25 feb)
+- Fixed: CACHE_VERSION verhoogd om oude cache te wissen
+- Bron: voetbalprimeur.nl, ESPN, diverse bronnen
 
 ### v1.2.7 (2026-02-12)
 - Added: 35 club logo's gedownload van Wikipedia (SVG formaat)
