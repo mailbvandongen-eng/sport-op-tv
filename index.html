@@ -3385,6 +3385,18 @@
                     scrollToDate(selectedDate);
                 });
             });
+
+            // Scroll "Vandaag" tab to center
+            const todayTab = tabsContainer.querySelector(`[data-date="${todayStr}"]`);
+            if (todayTab) {
+                const container = document.getElementById('date-tabs-container');
+                setTimeout(() => {
+                    const tabRect = todayTab.getBoundingClientRect();
+                    const containerRect = container.getBoundingClientRect();
+                    const scrollLeft = todayTab.offsetLeft - (containerRect.width / 2) + (tabRect.width / 2);
+                    container.scrollLeft = scrollLeft;
+                }, 50);
+            }
         }
 
         // Scroll to specific date
