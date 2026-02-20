@@ -269,7 +269,6 @@
         .sport-filters {
             display: flex;
             gap: 6px;
-            margin-left: auto;
         }
 
         .sport-filter-btn {
@@ -1627,6 +1626,11 @@
         <!-- Row 1: Title Bar -->
         <div class="title-bar">
             <h1>Sport op TV</h1>
+            <div class="sport-filters">
+                <button class="sport-filter-btn" data-sport="voetbal">Voetbal</button>
+                <button class="sport-filter-btn" data-sport="darts">Darts</button>
+                <button class="sport-filter-btn" data-sport="f1">F1</button>
+            </div>
             <div class="title-bar-icons">
                 <button class="icon-btn" id="theme-toggle" title="Thema wisselen">
                     <i data-lucide="sun" class="sun-icon"></i>
@@ -1689,11 +1693,6 @@
                     <input type="checkbox" id="toggle-scores">
                     <span class="toggle-label">Uitslagen</span>
                 </label>
-            </div>
-            <div class="sport-filters">
-                <button class="sport-filter-btn" data-sport="voetbal">Voetbal</button>
-                <button class="sport-filter-btn" data-sport="darts">Darts</button>
-                <button class="sport-filter-btn" data-sport="f1">F1</button>
             </div>
         </div>
 
