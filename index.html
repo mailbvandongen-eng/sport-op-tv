@@ -1687,7 +1687,7 @@
 
         <!-- Row 2: Sport Buttons -->
         <div class="sport-buttons-row">
-            <button class="sport-filter-btn" data-sport="voetbal">Voetbal</button>
+            <button class="sport-filter-btn active" data-sport="voetbal">Voetbal</button>
             <button class="sport-filter-btn" data-sport="darts">Darts</button>
             <button class="sport-filter-btn" data-sport="f1">F1</button>
         </div>
@@ -3187,7 +3187,7 @@
         }
 
         // Current sport filter (null = all sports)
-        let currentSportFilter = null;
+        let currentSportFilter = 'voetbal'; // Start with voetbal active
 
         async function renderEvents() {
             const container = document.getElementById('events-container');
@@ -3404,10 +3404,8 @@
             const dayNames = ['ZO', 'MA', 'DI', 'WO', 'DO', 'VR', 'ZA'];
             const monthNames = ['JAN', 'FEB', 'MRT', 'APR', 'MEI', 'JUN', 'JUL', 'AUG', 'SEP', 'OKT', 'NOV', 'DEC'];
 
-            // Use dates that have events, but always include today
-            const dateSet = new Set(dates);
-            dateSet.add(todayStr);
-            const sortedAllDates = [...dateSet].sort();
+            // Use dates that have events (today is included if it has events)
+            const sortedAllDates = [...dates].sort();
 
             let html = '';
             sortedAllDates.forEach(dateStr => {
