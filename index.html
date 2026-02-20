@@ -3405,14 +3405,10 @@
             const dayNames = ['ZO', 'MA', 'DI', 'WO', 'DO', 'VR', 'ZA'];
             const monthNames = ['JAN', 'FEB', 'MRT', 'APR', 'MEI', 'JUN', 'JUL', 'AUG', 'SEP', 'OKT', 'NOV', 'DEC'];
 
-            // Get unique dates from events, add some buffer days
-            const allDates = new Set(dates);
-            for (let i = -3; i <= 7; i++) {
-                const d = new Date(today);
-                d.setDate(d.getDate() + i);
-                allDates.add(d.toISOString().split('T')[0]);
-            }
-            const sortedAllDates = [...allDates].sort();
+            // Use dates that have events, but always include today
+            const dateSet = new Set(dates);
+            dateSet.add(todayStr);
+            const sortedAllDates = [...dateSet].sort();
 
             let html = '';
             sortedAllDates.forEach(dateStr => {
@@ -3452,9 +3448,23 @@
             }
         }
 
-        // Scroll to specific date
+        // Scroll to specific date (or nearest date if no events for that day)
         function scrollToDate(dateStr) {
-            const section = document.querySelector(`.day-section[data-date="${dateStr}"]`);
+            let section = document.querySelector(`.day-section[data-date="${dateStr}"]`);
+            if (!section) {
+                // Find nearest future date section
+                const allSections = document.querySelectorAll('.day-section[data-date]');
+                for (const s of allSections) {
+                    if (s.dataset.date >= dateStr) {
+                        section = s;
+                        break;
+                    }
+                }
+                // If no future section, get the last one
+                if (!section && allSections.length > 0) {
+                    section = allSections[allSections.length - 1];
+                }
+            }
             if (section) {
                 section.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
