@@ -1,8 +1,27 @@
 # Sport op TV - Claude Project Notes
 
-## Current Version: 2.0.6
+## Current Version: 3.0.0
 
 ## Changelog
+
+### v3.0.0 (2026-02-20)
+- **MAJOR REDESIGN**: BeSoccer-style layout
+  - Competitie headers: lichtgrijs met landvlag links, zender rechts
+  - Match rows: horizontaal (club - logo - tijd - logo - club)
+  - Datum tabs bovenaan (horizontaal scrollbaar)
+  - Sport filter knoppen (Voetbal/Darts/F1) rechts in header
+- **Light mode standaard** (was dark mode)
+- **Paarse gradient verwijderd** voor schonere look
+- **Landvlaggen**: SVG vlaggen voor alle competities (NL, EN, DE, ES, IT, FR, EU, World)
+- **Darts toernooien 2026 uitgebreid**:
+  - Bahrain Darts Masters, Saudi Arabia Darts Masters
+  - Winmau World Masters, UK Open, Nordic Darts Masters
+  - World Cup of Darts, US Darts Masters
+  - World Matchplay, NZ Darts Masters, Australian Darts Masters
+  - World Series Finals, World Grand Prix, European Championship
+  - Grand Slam of Darts, Players Championship Finals, World Championship
+- **Vrouwen competities toegevoegd**:
+  - WK Kwalificatie Vrouwen, EK Kwalificatie Vrouwen, Nations League Vrouwen
 
 ### v2.0.6 (2026-02-20)
 - Fixed: Fallback data aangevuld met echte wedstrijden 20-25 feb 2026

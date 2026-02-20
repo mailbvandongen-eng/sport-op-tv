@@ -16,41 +16,45 @@
         }
 
         :root {
-            --primary: #6366f1;
-            --primary-light: #818cf8;
-            --primary-dark: #4f46e5;
-            --bg: #f8fafc;
-            --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --card-bg: rgba(255, 255, 255, 0.8);
-            --card-border: rgba(255, 255, 255, 0.5);
-            --glass-bg: rgba(255, 255, 255, 0.7);
-            --text: #1e293b;
-            --text-secondary: #64748b;
-            --border: rgba(0, 0, 0, 0.08);
+            --primary: #22c55e;
+            --primary-light: #4ade80;
+            --primary-dark: #16a34a;
+            --bg: #ffffff;
+            --bg-secondary: #f5f5f5;
+            --header-bg: #1a472a;
+            --card-bg: #ffffff;
+            --card-border: #e5e5e5;
+            --glass-bg: rgba(255, 255, 255, 0.9);
+            --text: #1a1a1a;
+            --text-secondary: #666666;
+            --border: #e5e5e5;
             --success: #10b981;
             --football: #22c55e;
-            --football-glow: rgba(34, 197, 94, 0.4);
+            --football-glow: rgba(34, 197, 94, 0.3);
             --darts: #f97316;
-            --darts-glow: rgba(249, 115, 22, 0.4);
+            --darts-glow: rgba(249, 115, 22, 0.3);
             --f1: #ef4444;
-            --f1-glow: rgba(239, 68, 68, 0.4);
-            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
-            --radius: 16px;
-            --radius-sm: 10px;
+            --f1-glow: rgba(239, 68, 68, 0.3);
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.1);
+            --radius: 12px;
+            --radius-sm: 8px;
+            --comp-header-bg: #f5f5f5;
         }
 
         [data-theme="dark"] {
             --bg: #0f172a;
-            --bg-gradient: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
-            --card-bg: rgba(30, 41, 59, 0.8);
-            --card-border: rgba(255, 255, 255, 0.1);
-            --glass-bg: rgba(30, 41, 59, 0.7);
+            --bg-secondary: #1e293b;
+            --header-bg: #0f172a;
+            --card-bg: #1e293b;
+            --card-border: #334155;
+            --glass-bg: rgba(30, 41, 59, 0.9);
             --text: #f1f5f9;
             --text-secondary: #94a3b8;
-            --border: rgba(255, 255, 255, 0.08);
-            --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.4);
+            --border: #334155;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.4);
+            --comp-header-bg: #1e293b;
         }
 
         body {
@@ -63,15 +67,7 @@
         }
 
         body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 300px;
-            background: var(--bg-gradient);
-            z-index: -1;
-            opacity: 0.15;
+            display: none; /* Verwijderd: paarse gradient achtergrond */
         }
 
         .container {
@@ -80,10 +76,17 @@
             padding: 20px;
         }
 
-        /* Header Section (all 3 rows) */
+        /* Header Section (BeSoccer style) */
         .header-section {
-            background: #1a1a2e;
-            margin-bottom: 16px;
+            background: var(--header-bg);
+            margin-bottom: 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        [data-theme="light"] .header-section {
+            background: #1a472a;
         }
 
         /* Title Bar - Row 1 */
@@ -260,6 +263,104 @@
         .reset-btn:hover {
             background: rgba(255, 255, 255, 0.12);
             color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Sport Filter Buttons (rechts in filter balk) */
+        .sport-filters {
+            display: flex;
+            gap: 6px;
+            margin-left: auto;
+        }
+
+        .sport-filter-btn {
+            padding: 6px 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.08);
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .sport-filter-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .sport-filter-btn.active {
+            color: white;
+        }
+
+        .sport-filter-btn[data-sport="voetbal"].active {
+            background: var(--football);
+            border-color: var(--football);
+        }
+
+        .sport-filter-btn[data-sport="darts"].active {
+            background: var(--darts);
+            border-color: var(--darts);
+        }
+
+        .sport-filter-btn[data-sport="f1"].active {
+            background: var(--f1);
+            border-color: var(--f1);
+        }
+
+        /* Date Tabs (BeSoccer style) */
+        .date-tabs-container {
+            background: #2d5a3d;
+            padding: 8px 0;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .date-tabs-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        [data-theme="dark"] .date-tabs-container {
+            background: #1e293b;
+        }
+
+        .date-tabs {
+            display: flex;
+            gap: 4px;
+            padding: 0 16px;
+            min-width: max-content;
+        }
+
+        .date-tab {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .date-tab:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .date-tab.active {
+            background: white;
+            color: #1a472a;
+        }
+
+        [data-theme="dark"] .date-tab.active {
+            background: var(--primary);
+            color: white;
         }
 
         /* Hamburger Menu */
@@ -765,84 +866,220 @@
             }
         }
 
-        /* Event Cards */
+        /* Events Container - BeSoccer Style */
         .events-container {
-            margin-top: 24px;
+            margin-top: 0;
+            background: var(--bg);
         }
 
-        .day-section {
-            margin-bottom: 36px;
+        /* Competition Group - groups all matches of same competition */
+        .competition-group {
+            margin-bottom: 2px;
         }
 
-        .day-header {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--text-secondary);
-            margin-bottom: 18px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid var(--border);
+        /* Competition Header - grey bar with flag and channel */
+        .competition-header {
             display: flex;
             align-items: center;
             gap: 10px;
+            padding: 10px 16px;
+            background: var(--comp-header-bg);
+            border-bottom: 1px solid var(--border);
         }
 
-        .day-header svg {
+        .competition-header .country-flag {
             width: 20px;
-            height: 20px;
-            opacity: 0.6;
+            height: 15px;
+            object-fit: cover;
+            border-radius: 2px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
         }
 
-        /* Event Card - Base */
-        .event-card {
+        .competition-header .competition-name {
+            flex: 1;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--text);
+            letter-spacing: 0.5px;
+        }
+
+        .competition-header .channel-badge {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            padding: 2px 8px;
             background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--card-border);
-            border-radius: var(--radius);
-            padding: 14px 18px;
-            margin-bottom: 10px;
-            box-shadow: var(--shadow);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 4px;
         }
 
-        .event-card:hover {
-            box-shadow: var(--shadow-hover);
-            transform: translateY(-2px);
-            border-color: var(--primary-light);
+        .competition-header .channel-logo {
+            height: 18px;
+            max-width: 50px;
+            object-fit: contain;
         }
 
-        /* Football Card - Desktop: single row */
-        .event-card-football {
+        /* Match Row - white background, horizontal layout */
+        .match-row {
             display: grid;
-            grid-template-columns: auto 1fr auto auto;
-            gap: 16px;
+            grid-template-columns: 1fr auto 60px auto 1fr;
             align-items: center;
+            gap: 8px;
+            padding: 12px 16px;
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border);
+            transition: background 0.15s ease;
         }
 
-        .event-wrapper {
-            margin-bottom: 16px;
+        .match-row:hover {
+            background: var(--bg-secondary);
         }
 
-        .event-wrapper .match-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 6px;
-            padding-left: 4px;
+        .match-row:last-child {
+            border-bottom: none;
         }
 
-        .event-wrapper .match-time {
+        .match-row .team {
             font-size: 0.85rem;
-            font-weight: 400;
-            color: rgba(255, 255, 255, 0.75);
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .match-row .team.home {
+            text-align: right;
+        }
+
+        .match-row .team.away {
+            text-align: left;
+        }
+
+        .match-row .team-logo {
+            width: 22px;
+            height: 22px;
+            object-fit: contain;
+        }
+
+        .match-row .match-time {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text);
+            text-align: center;
             font-variant-numeric: tabular-nums;
         }
 
-        [data-theme="light"] .event-wrapper .match-time {
-            color: rgba(0, 0, 0, 0.5);
+        .match-row .match-score {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text);
+            text-align: center;
         }
 
-        .event-wrapper .competition-badge {
+        .match-row.live .match-time,
+        .match-row.live .match-score {
+            color: var(--f1);
+        }
+
+        .match-row.finished {
+            opacity: 0.7;
+        }
+
+        /* Hide scores by default */
+        .match-row .match-score {
+            display: none;
+        }
+
+        .show-scores .match-row .match-score {
+            display: block;
+        }
+
+        .show-scores .match-row.has-score .match-time {
+            display: none;
+        }
+
+        /* Day Section Header */
+        .day-section {
+            margin-bottom: 0;
+        }
+
+        .day-header {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text);
+            padding: 12px 16px;
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: sticky;
+            top: 120px;
+            z-index: 10;
+        }
+
+        .day-header svg {
+            width: 18px;
+            height: 18px;
+            opacity: 0.6;
+        }
+
+        /* Darts/F1 specific rows */
+        .match-row.darts-row,
+        .match-row.f1-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .match-row .event-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .match-row .event-info .match-time {
+            font-weight: 600;
+            min-width: 45px;
+        }
+
+        .match-row .event-title {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .match-row .event-location {
             font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        /* Mobile responsive for match rows */
+        @media (max-width: 600px) {
+            .match-row {
+                grid-template-columns: 1fr auto 50px auto 1fr;
+                gap: 4px;
+                padding: 10px 12px;
+            }
+
+            .match-row .team {
+                font-size: 0.8rem;
+            }
+
+            .match-row .team-logo {
+                width: 18px;
+                height: 18px;
+            }
+
+            .match-row .match-time {
+                font-size: 0.85rem;
+            }
+
+            .competition-header {
+                padding: 8px 12px;
+            }
+
+            .competition-header .competition-name {
+                font-size: 0.75rem;
+            }
         }
 
         /* Sport badges */
@@ -1464,6 +1701,9 @@
                         <hr>
                         <label><input type="checkbox" value="WK Vrouwen"> WK Vrouwen</label>
                         <label><input type="checkbox" value="EK Vrouwen"> EK Vrouwen</label>
+                        <label><input type="checkbox" value="WK Kwalificatie Vrouwen"> WK Kwalificatie Vrouwen</label>
+                        <label><input type="checkbox" value="EK Kwalificatie Vrouwen"> EK Kwalificatie Vrouwen</label>
+                        <label><input type="checkbox" value="Nations League Vrouwen"> Nations League Vrouwen</label>
                     </div>
                 </div>
                 <input type="text" class="filter-input" id="filter-clubs" placeholder="Clubs...">
@@ -1478,6 +1718,18 @@
                     <input type="checkbox" id="toggle-scores">
                     <span class="toggle-label">Uitslagen</span>
                 </label>
+            </div>
+            <div class="sport-filters">
+                <button class="sport-filter-btn" data-sport="voetbal">⚽ Voetbal</button>
+                <button class="sport-filter-btn" data-sport="darts">🎯 Darts</button>
+                <button class="sport-filter-btn" data-sport="f1">🏎️ F1</button>
+            </div>
+        </div>
+
+        <!-- Date Tabs -->
+        <div class="date-tabs-container" id="date-tabs-container">
+            <div class="date-tabs" id="date-tabs">
+                <!-- Generated by JavaScript -->
             </div>
         </div>
     </div>
@@ -1530,7 +1782,7 @@
 
         // Dark mode toggle
         const themeToggle = document.getElementById('theme-toggle');
-        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const savedTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', savedTheme);
 
         themeToggle.addEventListener('click', () => {
@@ -1546,7 +1798,7 @@
         // ============================================
         const CONFIG = {
             // Cache version - increment to force cache clear after config changes
-            CACHE_VERSION: '2.0.6',
+            CACHE_VERSION: '3.0.0',
 
             // API-Football key (gratis 100 requests/dag op api-football.com)
             API_FOOTBALL_KEY: '6299b9b25468371fa7878f188ca297c0',
@@ -1643,6 +1895,47 @@
                 'Veronica': 'logos/Veronica_TV_logo_2024.svg.png',
                 'SBS6': 'logos/SBS6_Logo.svg.png',
                 'SBS 6': 'logos/SBS6_Logo.svg.png'
+            },
+
+            // Landvlaggen per competitie
+            COUNTRY_FLAGS: {
+                'Eredivisie': 'nl',
+                'Keuken Kampioen Divisie': 'nl',
+                'KNVB Beker': 'nl',
+                'Premier League': 'en',
+                'FA Cup': 'en',
+                'League Cup': 'en',
+                'Bundesliga': 'de',
+                'DFB Pokal': 'de',
+                'La Liga': 'es',
+                'Copa del Rey': 'es',
+                'Serie A': 'it',
+                'Coppa Italia': 'it',
+                'Ligue 1': 'fr',
+                'Coupe de France': 'fr',
+                'Champions League': 'eu',
+                'Europa League': 'eu',
+                'Conference League': 'eu',
+                'Nations League': 'eu',
+                'WK': 'world',
+                'EK': 'eu',
+                'WK Kwalificatie': 'world',
+                'EK Kwalificatie': 'eu',
+                'WK Vrouwen': 'world',
+                'EK Vrouwen': 'eu',
+                'WK Kwalificatie Vrouwen': 'world',
+                'EK Kwalificatie Vrouwen': 'eu',
+                'Nations League Vrouwen': 'eu',
+                'Premier League Darts': 'world',
+                'UK Open': 'en',
+                'World Matchplay': 'en',
+                'World Grand Prix': 'en',
+                'Grand Slam of Darts': 'en',
+                'World Championship': 'en',
+                'European Championship': 'eu',
+                'World Cup of Darts': 'world',
+                'Formula 1': 'world',
+                'F1': 'world'
             },
 
             // Competitie logo's
@@ -1884,28 +2177,94 @@
                 {time: '21:00', home: 'Halve Finale 2', away: ''},
                 {time: '22:00', home: 'Finale', away: ''}
             ]},
+            // Bahrain Darts Masters 2026
+            { date: '2026-01-15', time: '18:00', event: 'Bahrain Darts Masters', location: 'Bahrain', channel: 'Viaplay' },
+            { date: '2026-01-16', time: '18:00', event: 'Bahrain Darts Masters - Finale', location: 'Bahrain', channel: 'Viaplay' },
+            // Saudi Arabia Darts Masters 2026
+            { date: '2026-01-19', time: '18:00', event: 'Saudi Arabia Darts Masters', location: 'Riyadh', channel: 'Viaplay' },
+            { date: '2026-01-20', time: '18:00', event: 'Saudi Arabia Darts Masters - Finale', location: 'Riyadh', channel: 'Viaplay' },
+            // Winmau World Masters 2026
+            { date: '2026-01-28', time: '13:00', event: 'Winmau World Masters', location: 'Milton Keynes', channel: 'Viaplay' },
+            { date: '2026-01-29', time: '13:00', event: 'Winmau World Masters', location: 'Milton Keynes', channel: 'Viaplay' },
+            { date: '2026-01-30', time: '13:00', event: 'Winmau World Masters', location: 'Milton Keynes', channel: 'Viaplay' },
+            { date: '2026-01-31', time: '13:00', event: 'Winmau World Masters', location: 'Milton Keynes', channel: 'Viaplay' },
+            { date: '2026-02-01', time: '19:00', event: 'Winmau World Masters - Finale', location: 'Milton Keynes', channel: 'Viaplay' },
             // UK Open 2026
-            { date: '2026-02-27', time: '13:00', event: 'UK Open', location: 'Minehead', channel: 'Viaplay' },
-            { date: '2026-02-28', time: '13:00', event: 'UK Open', location: 'Minehead', channel: 'Viaplay' },
-            { date: '2026-03-01', time: '13:00', event: 'UK Open - Finale', location: 'Minehead', channel: 'Viaplay' },
+            { date: '2026-03-06', time: '13:00', event: 'UK Open', location: 'Minehead', channel: 'Viaplay' },
+            { date: '2026-03-07', time: '13:00', event: 'UK Open', location: 'Minehead', channel: 'Viaplay' },
+            { date: '2026-03-08', time: '13:00', event: 'UK Open - Finale', location: 'Minehead', channel: 'Viaplay' },
+            // Nordic Darts Masters 2026
+            { date: '2026-06-05', time: '19:00', event: 'Nordic Darts Masters', location: 'Copenhagen', channel: 'Viaplay' },
+            { date: '2026-06-06', time: '19:00', event: 'Nordic Darts Masters - Finale', location: 'Copenhagen', channel: 'Viaplay' },
+            // World Cup of Darts 2026
+            { date: '2026-06-11', time: '13:00', event: 'World Cup of Darts', location: 'Frankfurt', channel: 'RTL7' },
+            { date: '2026-06-12', time: '13:00', event: 'World Cup of Darts', location: 'Frankfurt', channel: 'RTL7' },
+            { date: '2026-06-13', time: '19:00', event: 'World Cup of Darts', location: 'Frankfurt', channel: 'RTL7' },
+            { date: '2026-06-14', time: '19:00', event: 'World Cup of Darts - Finale', location: 'Frankfurt', channel: 'RTL7' },
+            // US Darts Masters 2026
+            { date: '2026-06-26', time: '02:00', event: 'US Darts Masters', location: 'New York', channel: 'Viaplay' },
+            { date: '2026-06-27', time: '02:00', event: 'US Darts Masters - Finale', location: 'New York', channel: 'Viaplay' },
             // World Matchplay 2026
             { date: '2026-07-18', time: '13:00', event: 'World Matchplay', location: 'Blackpool', channel: 'Viaplay' },
             { date: '2026-07-19', time: '19:00', event: 'World Matchplay', location: 'Blackpool', channel: 'Viaplay' },
+            { date: '2026-07-20', time: '19:00', event: 'World Matchplay', location: 'Blackpool', channel: 'Viaplay' },
+            { date: '2026-07-21', time: '19:00', event: 'World Matchplay', location: 'Blackpool', channel: 'Viaplay' },
+            { date: '2026-07-22', time: '19:00', event: 'World Matchplay', location: 'Blackpool', channel: 'Viaplay' },
+            { date: '2026-07-23', time: '19:00', event: 'World Matchplay', location: 'Blackpool', channel: 'Viaplay' },
+            { date: '2026-07-24', time: '19:00', event: 'World Matchplay', location: 'Blackpool', channel: 'Viaplay' },
             { date: '2026-07-25', time: '19:00', event: 'World Matchplay', location: 'Blackpool', channel: 'Viaplay' },
             { date: '2026-07-26', time: '19:00', event: 'World Matchplay - Finale', location: 'Blackpool', channel: 'Viaplay' },
+            // New Zealand Darts Masters 2026
+            { date: '2026-08-14', time: '08:00', event: 'New Zealand Darts Masters', location: 'Hamilton', channel: 'Viaplay' },
+            { date: '2026-08-15', time: '08:00', event: 'New Zealand Darts Masters - Finale', location: 'Hamilton', channel: 'Viaplay' },
+            // Australian Darts Masters 2026
+            { date: '2026-08-21', time: '10:00', event: 'Australian Darts Masters', location: 'Wollongong', channel: 'Viaplay' },
+            { date: '2026-08-22', time: '10:00', event: 'Australian Darts Masters - Finale', location: 'Wollongong', channel: 'Viaplay' },
+            // World Series Finals 2026
+            { date: '2026-09-17', time: '19:00', event: 'World Series Finals', location: 'Amsterdam', channel: 'Viaplay' },
+            { date: '2026-09-18', time: '19:00', event: 'World Series Finals', location: 'Amsterdam', channel: 'Viaplay' },
+            { date: '2026-09-19', time: '19:00', event: 'World Series Finals', location: 'Amsterdam', channel: 'Viaplay' },
+            { date: '2026-09-20', time: '19:00', event: 'World Series Finals - Finale', location: 'Amsterdam', channel: 'Viaplay' },
             // World Grand Prix 2026
-            { date: '2026-10-04', time: '19:00', event: 'World Grand Prix', location: 'Leicester', channel: 'Viaplay' },
-            { date: '2026-10-10', time: '19:00', event: 'World Grand Prix - Finale', location: 'Leicester', channel: 'Viaplay' },
+            { date: '2026-09-28', time: '19:00', event: 'World Grand Prix', location: 'Leicester', channel: 'Viaplay' },
+            { date: '2026-09-29', time: '19:00', event: 'World Grand Prix', location: 'Leicester', channel: 'Viaplay' },
+            { date: '2026-09-30', time: '19:00', event: 'World Grand Prix', location: 'Leicester', channel: 'Viaplay' },
+            { date: '2026-10-01', time: '19:00', event: 'World Grand Prix', location: 'Leicester', channel: 'Viaplay' },
+            { date: '2026-10-02', time: '19:00', event: 'World Grand Prix', location: 'Leicester', channel: 'Viaplay' },
+            { date: '2026-10-03', time: '19:00', event: 'World Grand Prix', location: 'Leicester', channel: 'Viaplay' },
+            { date: '2026-10-04', time: '19:00', event: 'World Grand Prix - Finale', location: 'Leicester', channel: 'Viaplay' },
+            // European Championship 2026
+            { date: '2026-10-22', time: '19:00', event: 'European Championship', location: 'Dortmund', channel: 'Viaplay' },
+            { date: '2026-10-23', time: '19:00', event: 'European Championship', location: 'Dortmund', channel: 'Viaplay' },
+            { date: '2026-10-24', time: '19:00', event: 'European Championship', location: 'Dortmund', channel: 'Viaplay' },
+            { date: '2026-10-25', time: '19:00', event: 'European Championship - Finale', location: 'Dortmund', channel: 'Viaplay' },
             // Grand Slam of Darts 2026
-            { date: '2026-11-07', time: '13:00', event: 'Grand Slam of Darts', location: 'Wolverhampton', channel: 'Viaplay' },
-            { date: '2026-11-15', time: '19:00', event: 'Grand Slam of Darts - Finale', location: 'Wolverhampton', channel: 'Viaplay' },
+            { date: '2026-11-14', time: '13:00', event: 'Grand Slam of Darts', location: 'Wolverhampton', channel: 'Viaplay' },
+            { date: '2026-11-15', time: '13:00', event: 'Grand Slam of Darts', location: 'Wolverhampton', channel: 'Viaplay' },
+            { date: '2026-11-16', time: '19:00', event: 'Grand Slam of Darts', location: 'Wolverhampton', channel: 'Viaplay' },
+            { date: '2026-11-17', time: '19:00', event: 'Grand Slam of Darts', location: 'Wolverhampton', channel: 'Viaplay' },
+            { date: '2026-11-18', time: '19:00', event: 'Grand Slam of Darts', location: 'Wolverhampton', channel: 'Viaplay' },
+            { date: '2026-11-19', time: '19:00', event: 'Grand Slam of Darts', location: 'Wolverhampton', channel: 'Viaplay' },
+            { date: '2026-11-20', time: '19:00', event: 'Grand Slam of Darts', location: 'Wolverhampton', channel: 'Viaplay' },
+            { date: '2026-11-21', time: '19:00', event: 'Grand Slam of Darts', location: 'Wolverhampton', channel: 'Viaplay' },
+            { date: '2026-11-22', time: '19:00', event: 'Grand Slam of Darts - Finale', location: 'Wolverhampton', channel: 'Viaplay' },
             // Players Championship Finals 2026
             { date: '2026-11-27', time: '13:00', event: 'Players Championship Finals', location: 'Minehead', channel: 'Viaplay' },
+            { date: '2026-11-28', time: '13:00', event: 'Players Championship Finals', location: 'Minehead', channel: 'Viaplay' },
             { date: '2026-11-29', time: '19:00', event: 'Players Championship Finals - Finale', location: 'Minehead', channel: 'Viaplay' },
             // World Championship 2026/2027
             { date: '2026-12-15', time: '19:00', event: 'World Championship', location: 'Alexandra Palace', channel: 'Viaplay' },
+            { date: '2026-12-16', time: '13:00', event: 'World Championship', location: 'Alexandra Palace', channel: 'Viaplay' },
+            { date: '2026-12-17', time: '13:00', event: 'World Championship', location: 'Alexandra Palace', channel: 'Viaplay' },
+            { date: '2026-12-18', time: '13:00', event: 'World Championship', location: 'Alexandra Palace', channel: 'Viaplay' },
+            { date: '2026-12-19', time: '13:00', event: 'World Championship', location: 'Alexandra Palace', channel: 'Viaplay' },
+            { date: '2026-12-20', time: '13:00', event: 'World Championship', location: 'Alexandra Palace', channel: 'Viaplay' },
+            { date: '2026-12-21', time: '13:00', event: 'World Championship', location: 'Alexandra Palace', channel: 'Viaplay' },
             { date: '2026-12-22', time: '19:00', event: 'World Championship', location: 'Alexandra Palace', channel: 'Viaplay' },
+            { date: '2026-12-27', time: '13:00', event: 'World Championship', location: 'Alexandra Palace', channel: 'Viaplay' },
+            { date: '2026-12-28', time: '13:00', event: 'World Championship', location: 'Alexandra Palace', channel: 'Viaplay' },
             { date: '2026-12-29', time: '19:00', event: 'World Championship', location: 'Alexandra Palace', channel: 'Viaplay' },
+            { date: '2026-12-30', time: '19:00', event: 'World Championship', location: 'Alexandra Palace', channel: 'Viaplay' },
         ];
 
         // ============================================
@@ -2805,6 +3164,9 @@
             `;
         }
 
+        // Current sport filter (null = all sports)
+        let currentSportFilter = null;
+
         async function renderEvents() {
             const container = document.getElementById('events-container');
             container.className = `events-container${showScores ? ' show-scores' : ''}`;
@@ -2813,22 +3175,19 @@
 
             const today = new Date();
             today.setHours(0, 0, 0, 0);
-            const futureDays = 30; // 30 days ahead for all sports
+            const futureDays = 30;
 
             try {
-                // Fetch ALL sports in parallel
                 const [footballData, dartsData, f1Data] = await Promise.all([
                     cachedData.voetbal || fetchFootballMatches(),
                     cachedData.darts || Promise.resolve(getStaticDartsEvents()),
                     cachedData.f1 || fetchF1Sessions()
                 ]);
 
-                // Cache the data
                 cachedData.voetbal = footballData || [];
                 cachedData.darts = dartsData || [];
                 cachedData.f1 = f1Data || [];
 
-                // Add sportType to each event
                 cachedData.voetbal.forEach(e => e.sportType = 'voetbal');
                 cachedData.darts.forEach(e => e.sportType = 'darts');
                 cachedData.f1.forEach(e => e.sportType = 'f1');
@@ -2839,28 +3198,24 @@
                 return;
             }
 
-            // Combine all events
-            let allEvents = [];
+            // Apply sport filter
+            let footballEvents = currentSportFilter === null || currentSportFilter === 'voetbal' ? [...cachedData.voetbal] : [];
+            let dartsEvents = currentSportFilter === null || currentSportFilter === 'darts' ? [...cachedData.darts] : [];
+            let f1Events = currentSportFilter === null || currentSportFilter === 'f1' ? [...cachedData.f1] : [];
 
             // Football: apply competition/club filters
-            let footballEvents = [...cachedData.voetbal];
             if (filters.competitions && filters.competitions.length > 0) {
-                footballEvents = footballEvents.filter(e =>
-                    filters.competitions.includes(e.competition)
-                );
+                footballEvents = footballEvents.filter(e => filters.competitions.includes(e.competition));
             }
             if (filters.clubs && filters.clubs.length > 0) {
                 footballEvents = footballEvents.filter(e => {
-                    const homeMatch = filters.clubs.some(club =>
-                        e.home && e.home.toLowerCase().includes(club.toLowerCase()));
-                    const awayMatch = filters.clubs.some(club =>
-                        e.away && e.away.toLowerCase().includes(club.toLowerCase()));
+                    const homeMatch = filters.clubs.some(club => e.home && e.home.toLowerCase().includes(club.toLowerCase()));
+                    const awayMatch = filters.clubs.some(club => e.away && e.away.toLowerCase().includes(club.toLowerCase()));
                     return homeMatch || awayMatch;
                 });
             }
 
-            // Darts and F1: always visible (no filters)
-            allEvents = [...footballEvents, ...cachedData.darts, ...cachedData.f1];
+            let allEvents = [...footballEvents, ...dartsEvents, ...f1Events];
 
             // Update API status
             const statusEl = document.getElementById('api-status');
@@ -2872,40 +3227,35 @@
                 ? `<span class="live-dot"></span> ${sources.join(' + ')}`
                 : '<span class="live-dot" style="background: #e10600;"></span> Geen data';
 
-            // Filter events based on date range (different past days per sport)
+            // Filter by date range
             const futureLimit = new Date(today);
             futureLimit.setDate(futureLimit.getDate() + futureDays);
 
             const filteredEvents = allEvents.filter(e => {
                 const eventDate = new Date(e.date);
                 eventDate.setHours(0, 0, 0, 0);
-
-                // Future events: up to 30 days
                 if (eventDate >= today && eventDate <= futureLimit) return true;
-
-                // Past events: sport-specific days
                 if (showPast) {
                     const pastDays = e.sportType === 'voetbal' ? 3 : 7;
                     const pastDate = new Date(today);
                     pastDate.setDate(pastDate.getDate() - pastDays);
                     if (eventDate >= pastDate && eventDate < today) return true;
                 }
-
                 return false;
             });
 
-            // Group events by date
+            // Group by date, then by competition
             const eventsByDate = {};
             filteredEvents.forEach(event => {
                 const dateKey = event.date.toISOString().split('T')[0];
-                if (!eventsByDate[dateKey]) {
-                    eventsByDate[dateKey] = [];
-                }
+                if (!eventsByDate[dateKey]) eventsByDate[dateKey] = [];
                 eventsByDate[dateKey].push(event);
             });
 
-            // Sort dates
             const sortedDates = Object.keys(eventsByDate).sort();
+
+            // Generate date tabs
+            generateDateTabs(sortedDates, today);
 
             if (sortedDates.length === 0) {
                 container.innerHTML = `
@@ -2918,18 +3268,27 @@
                 return;
             }
 
-            // Sport badge helper
-            const getSportBadge = (sportType) => {
-                const badges = {
-                    voetbal: '<span class="sport-badge sport-badge-voetbal">⚽ Voetbal</span>',
-                    darts: '<span class="sport-badge sport-badge-darts">🎯 Darts</span>',
-                    f1: '<span class="sport-badge sport-badge-f1">🏎️ F1</span>'
-                };
-                return badges[sportType] || '';
+            // Helper: get flag image
+            const getFlagImg = (competition) => {
+                const flagCode = CONFIG.COUNTRY_FLAGS[competition];
+                if (flagCode) {
+                    return `<img src="logos/flags/${flagCode}.svg" class="country-flag" onerror="this.style.display='none'" alt="">`;
+                }
+                return '';
+            };
+
+            // Helper: get channel HTML
+            const getChannelHtml = (channel) => {
+                if (!channel) return '';
+                const logo = CONFIG.CHANNEL_LOGOS[channel];
+                const needsDarkBg = channel.includes('Viaplay');
+                if (logo) {
+                    return `<img src="${logo}" class="channel-logo${needsDarkBg ? ' needs-dark-bg' : ''}" onerror="this.outerHTML='<span class=\\'channel-badge\\'>${channel}</span>'" alt="${channel}">`;
+                }
+                return `<span class="channel-badge">${channel}</span>`;
             };
 
             let html = '';
-            let todayAnchorSet = false;
 
             sortedDates.forEach(dateKey => {
                 const events = eventsByDate[dateKey];
@@ -2937,117 +3296,76 @@
                 const isToday = isSameDay(eventDate, today);
                 const isPast = eventDate < today;
 
-                // Add anchor for today
-                const todayAnchor = isToday && !todayAnchorSet ? 'id="today-anchor"' : '';
-                if (isToday) todayAnchorSet = true;
-
-                html += `<div class="day-section ${isPast ? 'past-day' : ''}" ${todayAnchor}>
-                    <h2 class="day-header">${isToday ? 'Vandaag' : formatDate(eventDate)}</h2>`;
-
-                events.sort((a, b) => a.time.localeCompare(b.time)).forEach(event => {
-                    const liveHtml = event.live ? `<span class="live-badge">LIVE</span>` : '';
-                    const channelLogo = CONFIG.CHANNEL_LOGOS[event.channel];
-                    const needsDarkBg = event.channel && event.channel.includes('Viaplay');
-                    const channelHtml = channelLogo
-                        ? `<img src="${channelLogo}" class="channel-logo${needsDarkBg ? ' needs-dark-bg' : ''}" onerror="this.outerHTML='<span class=\\'channel-text\\'>${event.channel}</span>'" alt="${event.channel}">`
-                        : `<span class="channel-text">${event.channel}</span>`;
-                    const sportBadge = getSportBadge(event.sportType);
-
-                    if (event.sportType === 'voetbal') {
-                        // Voetbal: aparte team rows voor mobile
-                        const homeLogoSrc = event.homeCrest || CONFIG.CLUB_LOGOS[event.home];
-                        const awayLogoSrc = event.awayCrest || CONFIG.CLUB_LOGOS[event.away];
-                        const homeCrest = homeLogoSrc ? `<img src="${homeLogoSrc}" class="club-logo" onerror="this.style.display='none'" alt="">` : '';
-                        const awayCrest = awayLogoSrc ? `<img src="${awayLogoSrc}" class="club-logo" onerror="this.style.display='none'" alt="">` : '';
-                        const scoreText = event.score || '-';
-
-                        html += `
-                            <div class="event-wrapper ${isPast ? 'past-event' : ''}">
-                                <div class="match-header">
-                                    <span class="match-time">${event.time}</span>
-                                    ${sportBadge}
-                                    <span class="competition-badge">${event.competition}</span>
-                                    ${liveHtml}
-                                </div>
-                                <div class="event-card event-card-football">
-                                    <div class="match-teams">
-                                        <div class="team-row home-team">
-                                            ${homeCrest}<span class="team-name">${event.home}</span>
-                                        </div>
-                                        <div class="team-row away-team">
-                                            ${awayCrest}<span class="team-name">${event.away}</span>
-                                        </div>
-                                    </div>
-                                    <div class="match-score ${event.score ? '' : 'no-score'}">${scoreText}</div>
-                                    <div class="match-channel">${channelHtml}</div>
-                                </div>
-                            </div>
-                        `;
-                    } else {
-                        // Darts & F1
-                        let titleHtml = '';
-                        let competitionName = '';
-
-                        if (event.sportType === 'f1') {
-                            // F1: Header shows "GP Country", card shows "Session - Circuit"
-                            competitionName = event.competition;
-                            titleHtml = event.title;
-                            if (event.circuit) {
-                                titleHtml += ` <span style="color:var(--text-secondary);font-size:0.9em;">- ${event.circuit}</span>`;
-                            }
-                        } else if (event.sportType === 'darts') {
-                            // Darts: Header shows "Premier League", card shows "Avond X - Location"
-                            competitionName = 'Premier League';
-                            // Extract short name (e.g., "Avond 3" from "Premier League Darts - Avond 3")
-                            let shortTitle = event.title;
-                            if (event.title.includes(' - ')) {
-                                shortTitle = event.title.split(' - ').slice(1).join(' - ');
-                            }
-                            titleHtml = shortTitle;
-                            if (event.location) {
-                                titleHtml += ` <span style="color:var(--text-secondary);font-size:0.9em;">- ${event.location}</span>`;
-                            }
-                            if (event.matches && event.matches.length > 0) {
-                                titleHtml += `<span class="expand-icon">▼</span>`;
-                            }
-                        }
-
-                        const hasMatches = event.matches && event.matches.length > 0;
-                        let matchesHtml = '';
-                        if (hasMatches) {
-                            matchesHtml = '<div class="matches-list">';
-                            event.matches.forEach(m => {
-                                const homePlayer = dartsPlayers[m.home] || {name: m.home};
-                                const awayPlayer = dartsPlayers[m.away] || {name: m.away};
-                                const timeStr = m.time ? `<span class="match-time">${m.time}</span>` : '';
-                                if (m.away) {
-                                    matchesHtml += `<div class="match-item">${timeStr}${homePlayer.name}<span class="vs">-</span>${awayPlayer.name}</div>`;
-                                } else {
-                                    matchesHtml += `<div class="match-item">${timeStr}${homePlayer.name}</div>`;
-                                }
-                            });
-                            matchesHtml += '</div>';
-                        }
-
-                        html += `
-                            <div class="event-wrapper ${isPast ? 'past-event' : ''}">
-                                <div class="match-header">
-                                    <span class="match-time">${event.time}</span>
-                                    ${sportBadge}
-                                    <span class="competition-badge">${competitionName}</span>
-                                    ${liveHtml}
-                                </div>
-                                <div class="event-card event-card-other ${hasMatches ? 'has-matches' : ''}">
-                                    <div class="event-title">${titleHtml}</div>
-                                    <div class="match-channel">${channelHtml}</div>
-                                    ${matchesHtml}
-                                </div>
-                            </div>
-                        `;
-                    }
+                // Group events by competition within this day
+                const byCompetition = {};
+                events.forEach(e => {
+                    const comp = e.competition || (e.sportType === 'darts' ? 'Premier League Darts' : 'Formula 1');
+                    if (!byCompetition[comp]) byCompetition[comp] = { events: [], channel: e.channel, sportType: e.sportType };
+                    byCompetition[comp].events.push(e);
                 });
 
-                html += '</div>';
+                html += `<div class="day-section${isPast ? ' past-day' : ''}" data-date="${dateKey}" ${isToday ? 'id="today-anchor"' : ''}>`;
+                html += `<div class="day-header">${isToday ? 'Vandaag' : formatDate(eventDate)}</div>`;
+
+                // Sort competitions: voetbal first, then darts, then f1
+                const sortedComps = Object.keys(byCompetition).sort((a, b) => {
+                    const typeA = byCompetition[a].sportType;
+                    const typeB = byCompetition[b].sportType;
+                    const order = { voetbal: 0, darts: 1, f1: 2 };
+                    return (order[typeA] || 3) - (order[typeB] || 3);
+                });
+
+                sortedComps.forEach(comp => {
+                    const { events: compEvents, channel, sportType } = byCompetition[comp];
+                    compEvents.sort((a, b) => a.time.localeCompare(b.time));
+
+                    // Competition header
+                    html += `<div class="competition-group">`;
+                    html += `<div class="competition-header">`;
+                    html += getFlagImg(comp);
+                    html += `<span class="competition-name">${comp.toUpperCase()}</span>`;
+                    html += getChannelHtml(channel);
+                    html += `</div>`;
+
+                    // Match rows
+                    compEvents.forEach(event => {
+                        if (sportType === 'voetbal') {
+                            const homeLogoSrc = event.homeCrest || CONFIG.CLUB_LOGOS[event.home];
+                            const awayLogoSrc = event.awayCrest || CONFIG.CLUB_LOGOS[event.away];
+                            const homeLogo = homeLogoSrc ? `<img src="${homeLogoSrc}" class="team-logo" onerror="this.style.display='none'" alt="">` : '<span class="team-logo-placeholder"></span>';
+                            const awayLogo = awayLogoSrc ? `<img src="${awayLogoSrc}" class="team-logo" onerror="this.style.display='none'" alt="">` : '<span class="team-logo-placeholder"></span>';
+                            const hasScore = event.score && event.score !== '-';
+                            const timeOrScore = hasScore ? event.score : event.time;
+                            const rowClass = `match-row${event.live ? ' live' : ''}${hasScore ? ' has-score finished' : ''}${isPast ? ' past' : ''}`;
+
+                            html += `<div class="${rowClass}">`;
+                            html += `<span class="team home">${event.home}</span>`;
+                            html += homeLogo;
+                            html += `<span class="match-time">${event.time}</span>`;
+                            html += `<span class="match-score">${event.score || '-'}</span>`;
+                            html += awayLogo;
+                            html += `<span class="team away">${event.away}</span>`;
+                            html += `</div>`;
+                        } else {
+                            // Darts & F1: single row with title
+                            let title = event.title || '';
+                            if (event.location) title += ` - ${event.location}`;
+                            if (event.circuit) title += ` - ${event.circuit}`;
+
+                            html += `<div class="match-row ${sportType}-row">`;
+                            html += `<div class="event-info">`;
+                            html += `<span class="match-time">${event.time}</span>`;
+                            html += `<span class="event-title">${title}</span>`;
+                            html += `</div>`;
+                            html += getChannelHtml(event.channel);
+                            html += `</div>`;
+                        }
+                    });
+
+                    html += `</div>`; // competition-group
+                });
+
+                html += `</div>`; // day-section
             });
 
             container.innerHTML = html;
@@ -3056,29 +3374,69 @@
                 container.classList.add('show-scores');
             }
 
-            // Scroll to today if showing past events
-            if (showPast) {
-                const todayEl = document.getElementById('today-anchor');
-                if (todayEl) {
-                    todayEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            }
+            // Scroll to selected date or today
+            scrollToDate(selectedDate || getTodayStr());
+        }
 
-            // Add click handlers for expandable darts cards (accordion behavior)
-            container.querySelectorAll('.event-card.has-matches').forEach(card => {
-                card.addEventListener('click', () => {
-                    const wasExpanded = card.classList.contains('expanded');
-                    // Close all other expanded cards
-                    container.querySelectorAll('.event-card.expanded').forEach(c => {
-                        c.classList.remove('expanded');
-                    });
-                    // Toggle clicked card (if it was closed, open it)
-                    if (!wasExpanded) {
-                        card.classList.add('expanded');
-                    }
+        // Generate date tabs
+        function generateDateTabs(dates, today) {
+            const tabsContainer = document.getElementById('date-tabs');
+            if (!tabsContainer) return;
+
+            const todayStr = today.toISOString().split('T')[0];
+            const dayNames = ['ZO', 'MA', 'DI', 'WO', 'DO', 'VR', 'ZA'];
+            const monthNames = ['JAN', 'FEB', 'MRT', 'APR', 'MEI', 'JUN', 'JUL', 'AUG', 'SEP', 'OKT', 'NOV', 'DEC'];
+
+            // Get unique dates from events, add some buffer days
+            const allDates = new Set(dates);
+            for (let i = -3; i <= 7; i++) {
+                const d = new Date(today);
+                d.setDate(d.getDate() + i);
+                allDates.add(d.toISOString().split('T')[0]);
+            }
+            const sortedAllDates = [...allDates].sort();
+
+            let html = '';
+            sortedAllDates.forEach(dateStr => {
+                const d = new Date(dateStr + 'T12:00:00');
+                const isToday = dateStr === todayStr;
+                const dayName = dayNames[d.getDay()];
+                const dayNum = d.getDate();
+                const monthName = monthNames[d.getMonth()];
+                const label = isToday ? 'VANDAAG' : `${dayName} ${dayNum} ${monthName}`;
+                const isActive = dateStr === (selectedDate || todayStr);
+
+                html += `<button class="date-tab${isActive ? ' active' : ''}" data-date="${dateStr}">${label}</button>`;
+            });
+
+            tabsContainer.innerHTML = html;
+
+            // Add click handlers
+            tabsContainer.querySelectorAll('.date-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    selectedDate = tab.dataset.date;
+                    tabsContainer.querySelectorAll('.date-tab').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    scrollToDate(selectedDate);
                 });
             });
         }
+
+        // Scroll to specific date
+        function scrollToDate(dateStr) {
+            const section = document.querySelector(`.day-section[data-date="${dateStr}"]`);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // Get today's date string
+        function getTodayStr() {
+            return new Date().toISOString().split('T')[0];
+        }
+
+        // Selected date for tabs
+        let selectedDate = null;
 
         // Render standings in menu
         async function renderStandingsInMenu() {
@@ -3320,6 +3678,27 @@
             document.getElementById('events-container').classList.toggle('show-scores', showScores);
         });
 
+        // Sport filter buttons
+        document.querySelectorAll('.sport-filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const sport = btn.dataset.sport;
+                const wasActive = btn.classList.contains('active');
+
+                // Remove active from all
+                document.querySelectorAll('.sport-filter-btn').forEach(b => b.classList.remove('active'));
+
+                if (wasActive) {
+                    // Was active, now show all sports
+                    currentSportFilter = null;
+                } else {
+                    // Activate this sport filter
+                    btn.classList.add('active');
+                    currentSportFilter = sport;
+                }
+
+                renderEvents();
+            });
+        });
 
         // Competition dropdown
         const compBtn = document.getElementById('comp-btn');
