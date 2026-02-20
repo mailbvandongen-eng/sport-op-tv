@@ -1,8 +1,18 @@
 # Sport op TV - Claude Project Notes
 
-## Current Version: 3.0.1
+## Current Version: 3.1.0
 
 ## Changelog
+
+### v3.1.0 (2026-02-20)
+- **Hamburger menu uitgebreid**:
+  - Verleden en Uitslagen toggles verplaatst naar menu
+  - Nieuwe toggle switch styling
+  - Standen per sport (Voetbal/Darts/F1)
+  - Ververs standen knop (wist cache en herlaadt data)
+- **Sport knoppen verplaatst** naar title bar naast "Sport op TV"
+- **Datum tabs**: "Vandaag" scrollt automatisch naar midden
+- **Opgeschoond**: Ongebruikte CSS verwijderd
 
 ### v3.0.1 (2026-02-20)
 - **Sport filter knoppen**: Emoji's verwijderd (⚽🎯🏎️)
