@@ -3391,8 +3391,8 @@
                 container.classList.add('show-scores');
             }
 
-            // Scroll to selected date or today
-            scrollToDate(selectedDate || getTodayStr());
+            // Scroll to top on initial load
+            window.scrollTo(0, 0);
         }
 
         // Generate date tabs
@@ -3400,7 +3400,8 @@
             const tabsContainer = document.getElementById('date-tabs');
             if (!tabsContainer) return;
 
-            const todayStr = today.toISOString().split('T')[0];
+            // Use local date format (not UTC)
+            const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
             const dayNames = ['ZO', 'MA', 'DI', 'WO', 'DO', 'VR', 'ZA'];
             const monthNames = ['JAN', 'FEB', 'MRT', 'APR', 'MEI', 'JUN', 'JUL', 'AUG', 'SEP', 'OKT', 'NOV', 'DEC'];
 
@@ -3469,7 +3470,8 @@
 
         // Get today's date string
         function getTodayStr() {
-            return new Date().toISOString().split('T')[0];
+            const d = new Date();
+            return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
         }
 
         // Selected date for tabs
