@@ -1,8 +1,15 @@
 # Sport op TV - Claude Project Notes
 
-## Current Version: 3.0.0
+## Current Version: 3.0.1
 
 ## Changelog
+
+### v3.0.1 (2026-02-20)
+- **Sport filter knoppen**: Emoji's verwijderd (⚽🎯🏎️)
+  - Nu subtiele achtergrondkleuren (groen/oranje/rood) voor elke sport
+- **Zenders als tekst**: Geen logo's meer, zelfde stijl als competitienamen
+  - Zwarte tekst in light mode, witte tekst in dark mode
+  - Uppercase, bold, net als competitienamen
 
 ### v3.0.0 (2026-02-20)
 - **MAJOR REDESIGN**: BeSoccer-style layout
