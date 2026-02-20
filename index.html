@@ -1755,11 +1755,6 @@
                 <div class="menu-section">
                     <h3 class="menu-section-title">Weergave</h3>
                     <div class="menu-toggles">
-                        <label class="menu-toggle" id="menu-past-toggle">
-                            <span class="toggle-text">Verleden</span>
-                            <input type="checkbox" id="toggle-past">
-                            <span class="toggle-switch"></span>
-                        </label>
                         <label class="menu-toggle" id="menu-scores-toggle">
                             <span class="toggle-text">Uitslagen</span>
                             <input type="checkbox" id="toggle-scores">
@@ -2072,7 +2067,7 @@
         let currentSport = 'voetbal';
         let standingsSport = 'voetbal'; // Which sport to show in standings menu
         let showScores = false;
-        let showPast = false;
+        let showPast = true; // Always show past events
         // Load filters from localStorage (with error handling)
         let filters = { competitions: [], clubs: [] };
         try {
@@ -3706,11 +3701,6 @@
             });
         });
 
-        document.getElementById('toggle-past').addEventListener('change', function() {
-            showPast = this.checked;
-            renderEvents();
-        });
-
         document.getElementById('toggle-scores').addEventListener('change', function() {
             showScores = this.checked;
             document.getElementById('events-container').classList.toggle('show-scores', showScores);
@@ -3834,9 +3824,7 @@
             localStorage.removeItem('selectedClubs');
 
             // Reset toggles
-            document.getElementById('toggle-past').checked = false;
             document.getElementById('toggle-scores').checked = false;
-            showPast = false;
             showScores = false;
             document.getElementById('events-container').classList.remove('show-scores');
 
