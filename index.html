@@ -3406,6 +3406,9 @@
                 container.classList.add('show-scores');
             }
 
+            // Setup scroll sync between content and date tabs
+            setupScrollSync();
+
             // Scroll to top on initial load
             window.scrollTo(0, 0);
         }
@@ -3486,7 +3489,53 @@
                 }
             }
             if (section) {
-                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                // Scroll section to top (accounting for sticky header)
+                const headerHeight = document.querySelector('.header-section')?.offsetHeight || 0;
+                const y = section.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                window.scrollTo({ top: y, behavior: 'smooth' });
+            }
+        }
+
+        // Update active date tab based on scroll position
+        function setupScrollSync() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && entry.intersectionRatio > 0.1) {
+                        const dateStr = entry.target.dataset.date;
+                        if (dateStr) {
+                            updateActiveTab(dateStr);
+                        }
+                    }
+                });
+            }, {
+                rootMargin: '-120px 0px -70% 0px', // Trigger when section is near top
+                threshold: [0.1]
+            });
+
+            // Observe all day sections
+            document.querySelectorAll('.day-section[data-date]').forEach(section => {
+                observer.observe(section);
+            });
+        }
+
+        // Update active tab and scroll it into view
+        function updateActiveTab(dateStr) {
+            const tabsContainer = document.getElementById('date-tabs');
+            if (!tabsContainer) return;
+
+            // Update active class
+            tabsContainer.querySelectorAll('.date-tab').forEach(tab => {
+                tab.classList.toggle('active', tab.dataset.date === dateStr);
+            });
+
+            // Scroll active tab into view
+            const activeTab = tabsContainer.querySelector(`[data-date="${dateStr}"]`);
+            if (activeTab) {
+                const container = document.getElementById('date-tabs-container');
+                const tabRect = activeTab.getBoundingClientRect();
+                const containerRect = container.getBoundingClientRect();
+                const scrollLeft = activeTab.offsetLeft - (containerRect.width / 2) + (tabRect.width / 2);
+                container.scrollTo({ left: scrollLeft, behavior: 'smooth' });
             }
         }
 
