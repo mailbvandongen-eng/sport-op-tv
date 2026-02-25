@@ -1902,11 +1902,12 @@
             FOOTBALL_DATA_KEY: '6324c5852d2c44e685625b598d9380ce',
             FOOTBALL_DATA_URL: 'https://api.football-data.org/v4',
 
-            // Football-Data.org competities (Europese cups)
+            // Football-Data.org competities (gratis tier)
+            // Beschikbaar: CL, PL, BL1, SA, FL1, PD, DED, ELC, EC, WC
+            // NIET beschikbaar: EL, Conference League (betaald)
             FOOTBALL_DATA_COMPETITIONS: [
                 { code: 'CL', name: 'Champions League', channel: 'Ziggo Sport' },
-                { code: 'EL', name: 'Europa League', channel: 'Ziggo Sport' },
-                { code: 'CLI', name: 'Conference League', channel: 'Ziggo Sport' },
+                // EL en Conference League zijn niet beschikbaar op gratis tier
             ],
 
             // Backup: API-Football (alleen seizoen 2022-2024 op gratis plan!)
