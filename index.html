@@ -868,10 +868,58 @@
         }
 
         .expand-icon {
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             color: var(--text-secondary);
             margin-left: 8px;
             transition: transform 0.3s ease;
+        }
+
+        .darts-expandable {
+            cursor: pointer;
+        }
+
+        .darts-expandable:hover {
+            background: var(--bg-secondary);
+        }
+
+        .darts-expandable.expanded .expand-icon {
+            transform: rotate(180deg);
+        }
+
+        .darts-matches-list {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            padding: 8px 16px 12px 16px;
+        }
+
+        .darts-match-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 0;
+            font-size: 0.85rem;
+            color: var(--text);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .darts-match-item:last-child {
+            border-bottom: none;
+        }
+
+        .darts-match-time {
+            min-width: 50px;
+            color: var(--darts);
+            font-weight: 700;
+            margin-right: 12px;
+        }
+
+        .darts-match-players {
+            flex: 1;
+        }
+
+        .darts-match-players .vs {
+            color: var(--text-secondary);
+            margin: 0 8px;
+            font-weight: 400;
         }
 
         .event-card.expanded .expand-icon {
@@ -1794,7 +1842,7 @@
             <div class="api-status" id="api-status">
                 <span class="live-dot"></span> <span class="status-text">Laden...</span>
             </div>
-            <p class="version-footer">v3.2.0</p>
+            <p class="version-footer">v3.5.1</p>
         </footer>
     </div>
 
@@ -1820,64 +1868,40 @@
         // ============================================
         const CONFIG = {
             // Cache version - increment to force cache clear after config changes
-            CACHE_VERSION: '3.2.0',
+            CACHE_VERSION: '3.5.1',
 
-            // API-Football key (gratis 100 requests/dag op api-football.com)
-            API_FOOTBALL_KEY: '6299b9b25468371fa7878f188ca297c0',
-            API_FOOTBALL_URL: 'https://v3.football.api-sports.io',
-            // CORS proxy voor GitHub Pages (browser CORS bypass)
-            CORS_PROXY: 'https://corsproxy.io/?',
+            // OpenFootball API (gratis, geen key nodig!)
+            // https://github.com/openfootball/football.json
+            OPENFOOTBALL_BASE: 'https://raw.githubusercontent.com/openfootball/football.json/master/2025-26',
 
-            // API-Football league IDs voor relevante competities
-            API_FOOTBALL_LEAGUES: [
-                // Nederlandse competities
-                { id: 88, name: 'Eredivisie', channel: 'ESPN' },
-                { id: 89, name: 'Keuken Kampioen Divisie', channel: 'ESPN' },
-                // Buitenlandse topcompetities
-                { id: 39, name: 'Premier League', channel: 'Viaplay' },
-                { id: 78, name: 'Bundesliga', channel: 'Viaplay' },
-                { id: 140, name: 'La Liga', channel: 'Ziggo Sport' },
-                { id: 135, name: 'Serie A', channel: 'Ziggo Sport' },
-                { id: 61, name: 'Ligue 1', channel: 'Ziggo Sport' },
-                // Cups
-                { id: 45, name: 'FA Cup', channel: 'Viaplay' },
-                { id: 48, name: 'League Cup', channel: 'Viaplay' },
-                { id: 137, name: 'Coppa Italia', channel: 'Ziggo Sport' },
-                { id: 81, name: 'DFB Pokal', channel: 'Viaplay' },
-                { id: 143, name: 'Copa del Rey', channel: 'Ziggo Sport' },
-                { id: 66, name: 'Coupe de France', channel: 'Ziggo Sport' },
-                { id: 102, name: 'KNVB Beker', channel: 'ESPN' },
-                // European clubs
-                { id: 2, name: 'Champions League', channel: 'Ziggo Sport' },
-                { id: 3, name: 'Europa League', channel: 'Ziggo Sport' },
-                { id: 848, name: 'Conference League', channel: 'Ziggo Sport' },
-                // Internationaal
-                { id: 1, name: 'WK', channel: 'NPO/NOS' },
-                { id: 4, name: 'EK', channel: 'NPO/NOS' },
-                { id: 5, name: 'Nations League', channel: 'NPO/NOS' },
-                { id: 32, name: 'WK Kwalificatie', channel: 'Ziggo Sport' },
-                { id: 960, name: 'EK Kwalificatie', channel: 'Ziggo Sport' },
-                // Vrouwen internationaal
-                { id: 23, name: 'WK Vrouwen', channel: 'NPO/NOS' },
-                { id: 62, name: 'EK Vrouwen', channel: 'NPO/NOS' }
-            ],
-
-            // OpenF1 API (gratis, geen key nodig)
-            F1_API_URL: 'https://api.openf1.org/v1',
-
-            // TheSportsDB API (gratis, geen key nodig - key 3 is free tier)
-            THESPORTSDB_URL: 'https://www.thesportsdb.com/api/v1/json/3',
-            DARTS_LEAGUE_ID: '4554', // PDC Darts
-
-            // Competities voor OpenFootball
-            LEAGUES: [
+            // Competities van OpenFootball
+            OPENFOOTBALL_LEAGUES: [
                 { file: 'nl.1.json', name: 'Eredivisie', channel: 'ESPN' },
                 { file: 'en.1.json', name: 'Premier League', channel: 'Viaplay' },
                 { file: 'de.1.json', name: 'Bundesliga', channel: 'Viaplay' },
                 { file: 'es.1.json', name: 'La Liga', channel: 'Ziggo Sport' },
                 { file: 'it.1.json', name: 'Serie A', channel: 'Ziggo Sport' },
-                { file: 'fr.1.json', name: 'Ligue 1', channel: 'Ziggo Sport' }
+                { file: 'fr.1.json', name: 'Ligue 1', channel: 'Ziggo Sport' },
             ],
+
+            // Backup: API-Football (alleen seizoen 2022-2024 op gratis plan!)
+            API_FOOTBALL_KEY: '6299b9b25468371fa7878f188ca297c0',
+            API_FOOTBALL_URL: 'https://v3.football.api-sports.io',
+            CORS_PROXY: 'https://corsproxy.io/?',
+
+            // API-Football league IDs (voor standen, werkt wel voor huidig seizoen)
+            API_FOOTBALL_LEAGUES: [
+                { id: 88, name: 'Eredivisie', channel: 'ESPN' },
+                { id: 39, name: 'Premier League', channel: 'Viaplay' },
+                { id: 78, name: 'Bundesliga', channel: 'Viaplay' },
+                { id: 140, name: 'La Liga', channel: 'Ziggo Sport' },
+                { id: 135, name: 'Serie A', channel: 'Ziggo Sport' },
+                { id: 61, name: 'Ligue 1', channel: 'Ziggo Sport' },
+                { id: 2, name: 'Champions League', channel: 'Ziggo Sport' },
+            ],
+
+            // OpenF1 API (gratis, geen key nodig)
+            F1_API_URL: 'https://api.openf1.org/v1',
 
             // Nederlandse TV zenders mapping
             TV_CHANNELS: {
@@ -2322,220 +2346,13 @@
         // Seizoen 2025-2026 data komt NIET van de API.
         // Deze fallback data komt van ESPN.com en moet handmatig worden bijgewerkt.
         // Bron: https://www.espn.com/soccer/schedule/_/league/ned.1
+        // GEEN STATIC FALLBACK DATA VOOR VOETBAL!
+        // Alle data moet van de API komen.
+        // Deze functie geeft alleen WK 2026 terug (kan niet van API komen, is toekomst)
         function getStaticFootballMatches() {
             const matches = [
                 // ============================================
-                // ALLE DATA HIERONDER KOMT VAN ESPN.COM
-                // Verzonnen data is verwijderd.
-                // Uitslagen worden niet bijgehouden in fallback.
-                // ============================================
-                // ============================================
-                // 13 feb 2026 - Bron: ESPN.com
-                // ============================================
-                { date: '2026-02-13', time: '20:00', home: 'FC Volendam', away: 'PSV', competition: 'Eredivisie', channel: 'ESPN' },
-                { date: '2026-02-13', time: '20:30', home: 'Mainz', away: 'Borussia Dortmund', competition: 'Bundesliga', channel: 'Viaplay' },
-                { date: '2026-02-13', time: '20:45', home: 'AC Milan', away: 'Pisa', competition: 'Serie A', channel: 'Ziggo Sport' },
-
-                // ============================================
-                // 14 feb 2026 - Bron: ESPN.com
-                // ============================================
-                // Eredivisie
-                { date: '2026-02-14', time: '16:30', home: 'Heracles Almelo', away: 'NAC Breda', competition: 'Eredivisie', channel: 'ESPN' },
-                { date: '2026-02-14', time: '18:45', home: 'Excelsior', away: 'AZ', competition: 'Eredivisie', channel: 'ESPN' },
-                { date: '2026-02-14', time: '20:00', home: 'Ajax', away: 'Fortuna Sittard', competition: 'Eredivisie', channel: 'ESPN' },
-                { date: '2026-02-14', time: '21:00', home: 'FC Groningen', away: 'FC Utrecht', competition: 'Eredivisie', channel: 'ESPN' },
-                // Bundesliga
-                { date: '2026-02-14', time: '15:30', home: 'St. Pauli', away: 'Bayer Leverkusen', competition: 'Bundesliga', channel: 'Viaplay' },
-                { date: '2026-02-14', time: '15:30', home: 'Borussia Mönchengladbach', away: 'Eintracht Frankfurt', competition: 'Bundesliga', channel: 'Viaplay' },
-                { date: '2026-02-14', time: '15:30', home: 'Union Berlin', away: 'Hamburger SV', competition: 'Bundesliga', channel: 'Viaplay' },
-                { date: '2026-02-14', time: '15:30', home: 'SC Freiburg', away: 'TSG Hoffenheim', competition: 'Bundesliga', channel: 'Viaplay' },
-                { date: '2026-02-14', time: '15:30', home: 'Werder Bremen', away: 'Bayern München', competition: 'Bundesliga', channel: 'Viaplay' },
-                { date: '2026-02-14', time: '18:30', home: 'FC Köln', away: 'VfB Stuttgart', competition: 'Bundesliga', channel: 'Viaplay' },
-                // La Liga
-                { date: '2026-02-14', time: '16:15', home: 'Getafe', away: 'Villarreal', competition: 'La Liga', channel: 'Ziggo Sport' },
-                { date: '2026-02-14', time: '18:30', home: 'Sevilla', away: 'Alavés', competition: 'La Liga', channel: 'Ziggo Sport' },
-                { date: '2026-02-14', time: '21:00', home: 'Real Madrid', away: 'Real Sociedad', competition: 'La Liga', channel: 'Ziggo Sport' },
-                // Serie A
-                { date: '2026-02-14', time: '15:00', home: 'Como', away: 'Fiorentina', competition: 'Serie A', channel: 'Ziggo Sport' },
-                { date: '2026-02-14', time: '18:00', home: 'Lazio', away: 'Atalanta', competition: 'Serie A', channel: 'Ziggo Sport' },
-                { date: '2026-02-14', time: '20:45', home: 'Inter', away: 'Juventus', competition: 'Serie A', channel: 'Ziggo Sport' },
-                // Ligue 1
-                { date: '2026-02-14', time: '17:00', home: 'Marseille', away: 'Strasbourg', competition: 'Ligue 1', channel: 'Ziggo Sport' },
-                { date: '2026-02-14', time: '19:00', home: 'Lille', away: 'Brest', competition: 'Ligue 1', channel: 'Ziggo Sport' },
-                { date: '2026-02-14', time: '21:05', home: 'Paris FC', away: 'Lens', competition: 'Ligue 1', channel: 'Ziggo Sport' },
-
-                // ============================================
-                // 15 feb 2026 - Bron: ESPN.com
-                // ============================================
-                // Eredivisie
-                { date: '2026-02-15', time: '12:15', home: 'Feyenoord', away: 'Go Ahead Eagles', competition: 'Eredivisie', channel: 'ESPN' },
-                { date: '2026-02-15', time: '14:30', home: 'sc Heerenveen', away: 'PEC Zwolle', competition: 'Eredivisie', channel: 'ESPN' },
-                { date: '2026-02-15', time: '14:30', home: 'FC Twente', away: 'Telstar', competition: 'Eredivisie', channel: 'ESPN' },
-                { date: '2026-02-15', time: '16:45', home: 'Sparta Rotterdam', away: 'NEC', competition: 'Eredivisie', channel: 'ESPN' },
-                // Bundesliga
-                { date: '2026-02-15', time: '15:30', home: 'Heidenheim', away: 'FC Augsburg', competition: 'Bundesliga', channel: 'Viaplay' },
-                { date: '2026-02-15', time: '17:30', home: 'VfL Wolfsburg', away: 'RB Leipzig', competition: 'Bundesliga', channel: 'Viaplay' },
-                // La Liga
-                { date: '2026-02-15', time: '14:00', home: 'Real Oviedo', away: 'Athletic Club', competition: 'La Liga', channel: 'Ziggo Sport' },
-                { date: '2026-02-15', time: '16:15', home: 'Rayo Vallecano', away: 'Atlético Madrid', competition: 'La Liga', channel: 'Ziggo Sport' },
-                { date: '2026-02-15', time: '18:30', home: 'Levante', away: 'Valencia', competition: 'La Liga', channel: 'Ziggo Sport' },
-                { date: '2026-02-15', time: '21:00', home: 'Mallorca', away: 'Real Betis', competition: 'La Liga', channel: 'Ziggo Sport' },
-                // Serie A
-                { date: '2026-02-15', time: '12:30', home: 'Udinese', away: 'Sassuolo', competition: 'Serie A', channel: 'Ziggo Sport' },
-                { date: '2026-02-15', time: '15:00', home: 'Cremonese', away: 'Genoa', competition: 'Serie A', channel: 'Ziggo Sport' },
-                { date: '2026-02-15', time: '15:00', home: 'Parma', away: 'Hellas Verona', competition: 'Serie A', channel: 'Ziggo Sport' },
-                { date: '2026-02-15', time: '18:00', home: 'Torino', away: 'Bologna', competition: 'Serie A', channel: 'Ziggo Sport' },
-                { date: '2026-02-15', time: '20:45', home: 'Napoli', away: 'AS Roma', competition: 'Serie A', channel: 'Ziggo Sport' },
-                // Ligue 1
-                { date: '2026-02-15', time: '15:00', home: 'Le Havre', away: 'Toulouse', competition: 'Ligue 1', channel: 'Ziggo Sport' },
-                { date: '2026-02-15', time: '17:15', home: 'Lorient', away: 'Angers', competition: 'Ligue 1', channel: 'Ziggo Sport' },
-                { date: '2026-02-15', time: '17:15', home: 'Metz', away: 'AJ Auxerre', competition: 'Ligue 1', channel: 'Ziggo Sport' },
-                { date: '2026-02-15', time: '20:45', home: 'Lyon', away: 'Nice', competition: 'Ligue 1', channel: 'Ziggo Sport' },
-
-                // ============================================
-                // 16 feb 2026 - Bron: ESPN.com
-                // ============================================
-                // Serie A
-                { date: '2026-02-16', time: '20:45', home: 'Cagliari', away: 'Lecce', competition: 'Serie A', channel: 'Ziggo Sport' },
-                // La Liga
-                { date: '2026-02-16', time: '21:00', home: 'Girona', away: 'Barcelona', competition: 'La Liga', channel: 'Ziggo Sport' },
-
-                // ============================================
-                // 17 feb 2026 - Champions League Playoff - Bron: ESPN.com
-                // ============================================
-                { date: '2026-02-17', time: '18:45', home: 'Galatasaray', away: 'Juventus', competition: 'Champions League', channel: 'Ziggo Sport' },
-                { date: '2026-02-17', time: '21:00', home: 'AS Monaco', away: 'Paris Saint-Germain', competition: 'Champions League', channel: 'Ziggo Sport' },
-                { date: '2026-02-17', time: '21:00', home: 'Benfica', away: 'Real Madrid', competition: 'Champions League', channel: 'Ziggo Sport' },
-                { date: '2026-02-17', time: '21:00', home: 'Borussia Dortmund', away: 'Atalanta', competition: 'Champions League', channel: 'Ziggo Sport' },
-
-                // ============================================
-                // 18 feb 2026 - Champions League Playoff - Bron: ESPN.com
-                // ============================================
-                { date: '2026-02-18', time: '18:45', home: 'FK Qarabag', away: 'Newcastle United', competition: 'Champions League', channel: 'Ziggo Sport' },
-                { date: '2026-02-18', time: '21:00', home: 'Bodø/Glimt', away: 'Inter', competition: 'Champions League', channel: 'Ziggo Sport' },
-                { date: '2026-02-18', time: '21:00', home: 'Club Brugge', away: 'Atlético Madrid', competition: 'Champions League', channel: 'Ziggo Sport' },
-                { date: '2026-02-18', time: '21:00', home: 'Olympiacos', away: 'Bayer Leverkusen', competition: 'Champions League', channel: 'Ziggo Sport' },
-
-                // ============================================
-                // 19 feb 2026 (DO) - Bron: iservoetbalvanavond.nl
-                // ============================================
-                // 2. Bundesliga
-                { date: '2026-02-19', time: '18:30', home: 'SpVgg Greuther Fürth', away: 'DSC Arminia Bielefeld', competition: 'Bundesliga', channel: 'Viaplay' },
-                { date: '2026-02-19', time: '18:30', home: 'VfL Bochum', away: '1. FC Nürnberg', competition: 'Bundesliga', channel: 'Viaplay' },
-                // Eredivisie
-                { date: '2026-02-19', time: '20:00', home: 'Fortuna Sittard', away: 'Excelsior', competition: 'Eredivisie', channel: 'ESPN 2' },
-                // Keuken Kampioen Divisie
-                { date: '2026-02-19', time: '20:00', home: 'Helmond Sport', away: 'ADO Den Haag', competition: 'Keuken Kampioen Divisie', channel: 'ESPN 3' },
-                { date: '2026-02-19', time: '20:00', home: 'FC Dordrecht', away: 'Jong Ajax', competition: 'Keuken Kampioen Divisie', channel: 'ESPN 4' },
-                { date: '2026-02-19', time: '20:00', home: 'SC Cambuur', away: 'RKC Waalwijk', competition: 'Keuken Kampioen Divisie', channel: 'ESPN' },
-                // Bundesliga
-                { date: '2026-02-19', time: '20:30', home: '1. FSV Mainz 05', away: 'Hamburger SV', competition: 'Bundesliga', channel: 'Viaplay' },
-
-                // ============================================
-                // 20 feb 2026 - Bron: voetbalprimeur.nl
-                // ============================================
-                // Eredivisie
-                { date: '2026-02-20', time: '20:00', home: 'Fortuna Sittard', away: 'Excelsior', competition: 'Eredivisie', channel: 'ESPN' },
-                // Bundesliga
-                { date: '2026-02-20', time: '19:30', home: 'Mainz 05', away: 'Hamburger SV', competition: 'Bundesliga', channel: 'Viaplay' },
-                // La Liga
-                { date: '2026-02-20', time: '21:00', home: 'Athletic Bilbao', away: 'Elche', competition: 'La Liga', channel: 'Ziggo Sport' },
-                // Serie A
-                { date: '2026-02-20', time: '19:45', home: 'Sassuolo', away: 'Hellas Verona', competition: 'Serie A', channel: 'Ziggo Sport' },
-                // Ligue 1
-                { date: '2026-02-20', time: '19:45', home: 'Brest', away: 'Marseille', competition: 'Ligue 1', channel: 'Ziggo Sport' },
-
-                // ============================================
-                // 21 feb 2026 - Bron: diverse bronnen
-                // ============================================
-                // Eredivisie
-                { date: '2026-02-21', time: '18:45', home: 'PSV', away: 'sc Heerenveen', competition: 'Eredivisie', channel: 'ESPN' },
-                { date: '2026-02-21', time: '20:00', home: 'NAC Breda', away: 'FC Volendam', competition: 'Eredivisie', channel: 'ESPN' },
-                { date: '2026-02-21', time: '21:00', home: 'Ajax', away: 'NEC', competition: 'Eredivisie', channel: 'ESPN' },
-                // Premier League
-                { date: '2026-02-21', time: '13:30', home: 'Manchester City', away: 'Newcastle United', competition: 'Premier League', channel: 'Viaplay' },
-                { date: '2026-02-21', time: '16:00', home: 'Aston Villa', away: 'Leeds United', competition: 'Premier League', channel: 'Viaplay' },
-                { date: '2026-02-21', time: '16:00', home: 'Brentford', away: 'Brighton', competition: 'Premier League', channel: 'Viaplay' },
-                { date: '2026-02-21', time: '16:00', home: 'Chelsea', away: 'Burnley', competition: 'Premier League', channel: 'Viaplay' },
-                { date: '2026-02-21', time: '16:00', home: 'Crystal Palace', away: 'Wolverhampton', competition: 'Premier League', channel: 'Viaplay' },
-                { date: '2026-02-21', time: '16:00', home: 'Nottingham Forest', away: 'Liverpool', competition: 'Premier League', channel: 'Viaplay' },
-                { date: '2026-02-21', time: '18:30', home: 'West Ham United', away: 'Bournemouth', competition: 'Premier League', channel: 'Viaplay' },
-                // Bundesliga
-                { date: '2026-02-21', time: '15:30', home: 'Bayern München', away: 'Eintracht Frankfurt', competition: 'Bundesliga', channel: 'Viaplay' },
-                { date: '2026-02-21', time: '15:30', home: 'VfL Wolfsburg', away: 'FC Augsburg', competition: 'Bundesliga', channel: 'Viaplay' },
-                { date: '2026-02-21', time: '15:30', home: 'Union Berlin', away: 'Bayer Leverkusen', competition: 'Bundesliga', channel: 'Viaplay' },
-                { date: '2026-02-21', time: '15:30', home: 'FC Köln', away: 'TSG Hoffenheim', competition: 'Bundesliga', channel: 'Viaplay' },
-                { date: '2026-02-21', time: '18:30', home: 'RB Leipzig', away: 'Borussia Dortmund', competition: 'Bundesliga', channel: 'Viaplay' },
-                // La Liga
-                { date: '2026-02-21', time: '14:00', home: 'Real Sociedad', away: 'Real Oviedo', competition: 'La Liga', channel: 'Ziggo Sport' },
-                { date: '2026-02-21', time: '16:15', home: 'Real Betis', away: 'Rayo Vallecano', competition: 'La Liga', channel: 'Ziggo Sport' },
-                { date: '2026-02-21', time: '18:30', home: 'Osasuna', away: 'Real Madrid', competition: 'La Liga', channel: 'Ziggo Sport' },
-                { date: '2026-02-21', time: '21:00', home: 'Atlético Madrid', away: 'Espanyol', competition: 'La Liga', channel: 'Ziggo Sport' },
-                // Serie A
-                { date: '2026-02-21', time: '15:00', home: 'Juventus', away: 'Como', competition: 'Serie A', channel: 'Ziggo Sport' },
-                { date: '2026-02-21', time: '18:00', home: 'Lecce', away: 'Inter', competition: 'Serie A', channel: 'Ziggo Sport' },
-                { date: '2026-02-21', time: '20:45', home: 'Cagliari', away: 'Lazio', competition: 'Serie A', channel: 'Ziggo Sport' },
-
-                // ============================================
-                // 22 feb 2026 - Bron: diverse bronnen
-                // ============================================
-                // Eredivisie
-                { date: '2026-02-22', time: '12:15', home: 'FC Twente', away: 'FC Groningen', competition: 'Eredivisie', channel: 'ESPN' },
-                { date: '2026-02-22', time: '14:30', home: 'Go Ahead Eagles', away: 'Heracles Almelo', competition: 'Eredivisie', channel: 'ESPN' },
-                { date: '2026-02-22', time: '14:30', home: 'FC Utrecht', away: 'PEC Zwolle', competition: 'Eredivisie', channel: 'ESPN' },
-                { date: '2026-02-22', time: '16:45', home: 'AZ', away: 'Sparta Rotterdam', competition: 'Eredivisie', channel: 'ESPN' },
-                { date: '2026-02-22', time: '20:00', home: 'Feyenoord', away: 'Telstar', competition: 'Eredivisie', channel: 'ESPN' },
-                // Premier League
-                { date: '2026-02-22', time: '15:00', home: 'Sunderland', away: 'Fulham', competition: 'Premier League', channel: 'Viaplay' },
-                { date: '2026-02-22', time: '17:30', home: 'Tottenham Hotspur', away: 'Arsenal', competition: 'Premier League', channel: 'Viaplay' },
-                // Bundesliga
-                { date: '2026-02-22', time: '15:30', home: 'SC Freiburg', away: 'Borussia Mönchengladbach', competition: 'Bundesliga', channel: 'Viaplay' },
-                { date: '2026-02-22', time: '17:30', home: 'FC St. Pauli', away: 'Werder Bremen', competition: 'Bundesliga', channel: 'Viaplay' },
-                { date: '2026-02-22', time: '19:30', home: 'FC Heidenheim', away: 'VfB Stuttgart', competition: 'Bundesliga', channel: 'Viaplay' },
-                // La Liga
-                { date: '2026-02-22', time: '14:00', home: 'Getafe', away: 'Sevilla', competition: 'La Liga', channel: 'Ziggo Sport' },
-                { date: '2026-02-22', time: '16:15', home: 'Barcelona', away: 'Levante', competition: 'La Liga', channel: 'Ziggo Sport' },
-                { date: '2026-02-22', time: '18:30', home: 'Celta Vigo', away: 'Mallorca', competition: 'La Liga', channel: 'Ziggo Sport' },
-                { date: '2026-02-22', time: '21:00', home: 'Villarreal', away: 'Valencia', competition: 'La Liga', channel: 'Ziggo Sport' },
-                // Serie A
-                { date: '2026-02-22', time: '12:30', home: 'Genoa', away: 'Torino', competition: 'Serie A', channel: 'Ziggo Sport' },
-                { date: '2026-02-22', time: '15:00', home: 'Atalanta', away: 'Napoli', competition: 'Serie A', channel: 'Ziggo Sport' },
-                { date: '2026-02-22', time: '18:00', home: 'AC Milan', away: 'Parma', competition: 'Serie A', channel: 'Ziggo Sport' },
-                { date: '2026-02-22', time: '20:45', home: 'AS Roma', away: 'Cremonese', competition: 'Serie A', channel: 'Ziggo Sport' },
-
-                // ============================================
-                // 23 feb 2026 - Bron: diverse bronnen
-                // ============================================
-                // Premier League
-                { date: '2026-02-23', time: '21:00', home: 'Everton', away: 'Manchester United', competition: 'Premier League', channel: 'Viaplay' },
-                // La Liga
-                { date: '2026-02-23', time: '21:00', home: 'Alavés', away: 'Girona', competition: 'La Liga', channel: 'Ziggo Sport' },
-                // Serie A
-                { date: '2026-02-23', time: '18:30', home: 'Fiorentina', away: 'Pisa', competition: 'Serie A', channel: 'Ziggo Sport' },
-                { date: '2026-02-23', time: '20:45', home: 'Bologna', away: 'Udinese', competition: 'Serie A', channel: 'Ziggo Sport' },
-
-                // ============================================
-                // 24 feb 2026 - Champions League Return Legs
-                // ============================================
-                { date: '2026-02-24', time: '18:45', home: 'Atlético Madrid', away: 'Club Brugge', competition: 'Champions League', channel: 'Ziggo Sport' },
-                { date: '2026-02-24', time: '21:00', home: 'Bayer Leverkusen', away: 'Olympiacos', competition: 'Champions League', channel: 'Ziggo Sport' },
-                { date: '2026-02-24', time: '21:00', home: 'Inter', away: 'Bodø/Glimt', competition: 'Champions League', channel: 'Ziggo Sport' },
-                { date: '2026-02-24', time: '21:00', home: 'Newcastle United', away: 'FK Qarabag', competition: 'Champions League', channel: 'Ziggo Sport' },
-
-                // ============================================
-                // 25 feb 2026 - Champions League Return Legs
-                // ============================================
-                { date: '2026-02-25', time: '18:45', home: 'Atalanta', away: 'Borussia Dortmund', competition: 'Champions League', channel: 'Ziggo Sport' },
-                { date: '2026-02-25', time: '21:00', home: 'Juventus', away: 'Galatasaray', competition: 'Champions League', channel: 'Ziggo Sport' },
-                { date: '2026-02-25', time: '21:00', home: 'Paris Saint-Germain', away: 'AS Monaco', competition: 'Champions League', channel: 'Ziggo Sport' },
-                { date: '2026-02-25', time: '21:00', home: 'Real Madrid', away: 'Benfica', competition: 'Champions League', channel: 'Ziggo Sport' },
-
-                // ============================================
-                // NOTE: Voeg meer wedstrijden toe zodra bekend
-                // ============================================
-
-                // ============================================
-                // WK 2026 - Nederland wedstrijden
+                // WK 2026 - Nederland wedstrijden (kan niet van API)
                 // ============================================
                 { date: '2026-06-14', time: '21:00', home: 'Nederland', away: 'Japan', competition: 'WK', channel: 'NPO 1' },
                 { date: '2026-06-20', time: '18:00', home: 'Nederland', away: 'UEFA PO B', competition: 'WK', channel: 'NPO 1' },
@@ -2579,82 +2396,79 @@
         }
 
         // Fetch football matches - try API-Football first, fall back to cache
+        // Fetch football matches from OpenFootball (gratis, geen API key!)
         async function fetchFootballMatches() {
-            console.log('Fetching football matches...');
+            console.log('Fetching football matches from OpenFootball...');
 
-            // Check localStorage cache first (valid for 6 hours)
+            // Check localStorage cache first (valid for 1 hour)
             const cached = localStorage.getItem('footballCache');
             const cacheTime = localStorage.getItem('footballCacheTime');
-            const cacheValid = cached && cacheTime && (Date.now() - parseInt(cacheTime)) < 6 * 60 * 60 * 1000;
+            const cacheValid = cached && cacheTime && (Date.now() - parseInt(cacheTime)) < 1 * 60 * 60 * 1000;
 
             if (cacheValid) {
-                console.log('Using cached football data (cache valid for 6 hours)');
+                console.log('Using cached football data');
                 const data = JSON.parse(cached);
                 return data.map(m => ({ ...m, date: new Date(m.date) }));
             }
 
-            // Try API-Football
             const allMatches = [];
-            const today = new Date();
-            const season = today.getMonth() >= 7 ? today.getFullYear() : today.getFullYear() - 1;
-            let apiErrors = 0;
-            let rateLimited = false;
 
-            for (const league of CONFIG.API_FOOTBALL_LEAGUES) {
-                if (rateLimited) break;
-
+            // Fetch all leagues in parallel from OpenFootball
+            const leaguePromises = CONFIG.OPENFOOTBALL_LEAGUES.map(async (league) => {
                 try {
-                    const apiUrl = `${CONFIG.API_FOOTBALL_URL}/fixtures?league=${league.id}&season=${season}&from=${getDateStr(-7)}&to=${getDateStr(30)}`;
-                    const response = await fetch(
-                        `${CONFIG.CORS_PROXY}${encodeURIComponent(apiUrl)}`,
-                        { headers: { 'x-apisports-key': CONFIG.API_FOOTBALL_KEY } }
-                    );
+                    const url = `${CONFIG.OPENFOOTBALL_BASE}/${league.file}`;
+                    console.log(`Fetching ${league.name} from ${url}`);
+                    const response = await fetch(url);
 
                     if (!response.ok) {
-                        apiErrors++;
-                        continue;
+                        console.warn(`Failed to fetch ${league.name}: ${response.status}`);
+                        return [];
                     }
 
                     const data = await response.json();
+                    const matches = [];
 
-                    if (data.errors && data.errors.requests) {
-                        console.warn('API rate limit reached');
-                        rateLimited = true;
-                        break;
-                    }
+                    if (data.matches && Array.isArray(data.matches)) {
+                        data.matches.forEach(match => {
+                            const matchDate = new Date(match.date + 'T' + (match.time || '15:00'));
+                            const hasScore = match.score && match.score.ft;
 
-                    if (data.response && data.response.length > 0) {
-                        data.response.forEach(match => {
-                            const matchDate = new Date(match.fixture.date);
-                            allMatches.push({
+                            matches.push({
                                 date: matchDate,
-                                time: matchDate.toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' }),
-                                home: match.teams.home.name,
-                                away: match.teams.away.name,
-                                homeCrest: match.teams.home.logo,
-                                awayCrest: match.teams.away.logo,
+                                time: match.time || '15:00',
+                                home: match.team1.replace(' FC', '').replace(' AFC', ''),
+                                away: match.team2.replace(' FC', '').replace(' AFC', ''),
                                 competition: league.name,
                                 channel: league.channel,
-                                score: match.goals.home !== null ? `${match.goals.home}-${match.goals.away}` : null,
-                                live: ['1H', '2H', 'HT', 'ET', 'P'].includes(match.fixture.status.short),
-                                status: match.fixture.status.short
+                                score: hasScore ? `${match.score.ft[0]}-${match.score.ft[1]}` : null,
+                                live: false,
+                                status: hasScore ? 'FINISHED' : 'SCHEDULED'
                             });
                         });
                     }
-                } catch (error) {
-                    apiErrors++;
-                }
-            }
 
-            // If we got fresh data, cache it
+                    console.log(`Loaded ${matches.length} matches from ${league.name}`);
+                    return matches;
+                } catch (error) {
+                    console.error(`Error fetching ${league.name}:`, error);
+                    return [];
+                }
+            });
+
+            const results = await Promise.all(leaguePromises);
+            results.forEach(matches => allMatches.push(...matches));
+
+            console.log(`Total matches loaded: ${allMatches.length}`);
+
+            // Cache the results
             if (allMatches.length > 0) {
                 localStorage.setItem('footballCache', JSON.stringify(allMatches));
                 localStorage.setItem('footballCacheTime', Date.now().toString());
-                localStorage.setItem('footballSource', 'api');
+                localStorage.setItem('footballSource', 'openfootball');
                 return allMatches;
             }
 
-            // API failed - use old cache if available (regardless of age)
+            // API failed - use old cache if available
             if (cached) {
                 console.log('API unavailable, using cached data');
                 localStorage.setItem('footballSource', 'cache');
@@ -2982,140 +2796,7 @@
             return html;
         }
 
-        // Fetch from OpenFootball GitHub (historical data, updated daily)
-        async function fetchFromOpenFootball() {
-            const allMatches = [];
-
-            // Fetch all leagues in parallel
-            const leaguePromises = CONFIG.LEAGUES.map(async (league) => {
-                try {
-                    const response = await fetch(`${CONFIG.OPENFOOTBALL_URL}/${league.file}`);
-                    if (!response.ok) {
-                        console.warn(`Failed to fetch ${league.name}`);
-                        return [];
-                    }
-
-                    const data = await response.json();
-                    const matches = [];
-
-                    // Parse matches - structure is { matches: [...] }
-                    if (data.matches && Array.isArray(data.matches)) {
-                        data.matches.forEach(match => {
-                            const matchDate = new Date(match.date + 'T' + (match.time || '15:00'));
-                            const hasScore = match.score && match.score.ft;
-
-                            matches.push({
-                                date: matchDate,
-                                time: match.time || '15:00',
-                                home: match.team1,
-                                away: match.team2,
-                                competition: league.name,
-                                channel: league.channel,
-                                score: hasScore ? `${match.score.ft[0]}-${match.score.ft[1]}` : null,
-                                live: false,
-                                status: hasScore ? 'FINISHED' : 'SCHEDULED'
-                            });
-                        });
-                    }
-
-                    console.log(`Loaded ${matches.length} matches from ${league.name}`);
-                    return matches;
-                } catch (error) {
-                    console.error(`Error fetching ${league.name}:`, error);
-                    return [];
-                }
-            });
-
-            const results = await Promise.all(leaguePromises);
-            results.forEach(matches => allMatches.push(...matches));
-
-            console.log(`Total matches loaded: ${allMatches.length}`);
-
-            // Filter to show only matches within 2 weeks range
-            const today = new Date();
-            const twoWeeksAgo = new Date(today);
-            twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
-            const twoWeeksAhead = new Date(today);
-            twoWeeksAhead.setDate(twoWeeksAhead.getDate() + 14);
-
-            const filtered = allMatches.filter(match =>
-                match.date >= twoWeeksAgo && match.date <= twoWeeksAhead
-            );
-
-            console.log(`Matches in date range: ${filtered.length}`);
-            return filtered;
-        }
-
-        // Fetch darts events from TheSportsDB
-        async function fetchDartsEvents() {
-            console.log('Fetching darts events from TheSportsDB...');
-            const allEvents = [];
-
-            try {
-                // Fetch next 15 events for PDC Darts
-                const nextResponse = await fetch(`${CONFIG.THESPORTSDB_URL}/eventsnextleague.php?id=${CONFIG.DARTS_LEAGUE_ID}`);
-                if (nextResponse.ok) {
-                    const nextData = await nextResponse.json();
-                    if (nextData.events) {
-                        nextData.events.forEach(event => {
-                            const eventDate = new Date(event.dateEvent + 'T' + (event.strTime || '19:30:00'));
-                            allEvents.push({
-                                date: eventDate,
-                                time: event.strTime ? event.strTime.substring(0, 5) : '19:30',
-                                title: event.strEvent,
-                                location: event.strVenue || event.strCountry || '',
-                                competition: event.strLeague || 'PDC Darts',
-                                channel: 'Viaplay',
-                                homePlayer: event.strHomeTeam,
-                                awayPlayer: event.strAwayTeam,
-                                homeBadge: event.strHomeTeamBadge,
-                                awayBadge: event.strAwayTeamBadge,
-                                score: null,
-                                live: false,
-                                status: 'SCHEDULED'
-                            });
-                        });
-                    }
-                }
-
-                // Fetch last 15 events (past results)
-                const pastResponse = await fetch(`${CONFIG.THESPORTSDB_URL}/eventspastleague.php?id=${CONFIG.DARTS_LEAGUE_ID}`);
-                if (pastResponse.ok) {
-                    const pastData = await pastResponse.json();
-                    if (pastData.events) {
-                        pastData.events.forEach(event => {
-                            const eventDate = new Date(event.dateEvent + 'T' + (event.strTime || '19:30:00'));
-                            const hasScore = event.intHomeScore !== null && event.intAwayScore !== null;
-                            allEvents.push({
-                                date: eventDate,
-                                time: event.strTime ? event.strTime.substring(0, 5) : '19:30',
-                                title: event.strEvent,
-                                location: event.strVenue || event.strCountry || '',
-                                competition: event.strLeague || 'PDC Darts',
-                                channel: 'Viaplay',
-                                homePlayer: event.strHomeTeam,
-                                awayPlayer: event.strAwayTeam,
-                                homeBadge: event.strHomeTeamBadge,
-                                awayBadge: event.strAwayTeamBadge,
-                                score: hasScore ? `${event.intHomeScore}-${event.intAwayScore}` : null,
-                                live: false,
-                                status: hasScore ? 'FINISHED' : 'SCHEDULED'
-                            });
-                        });
-                    }
-                }
-
-                console.log(`Got ${allEvents.length} darts events from TheSportsDB`);
-                return allEvents;
-
-            } catch (error) {
-                console.error('TheSportsDB Darts API failed:', error);
-                // Fallback to static calendar
-                return getStaticDartsEvents();
-            }
-        }
-
-        // Get static darts events as fallback
+        // Get static darts events
         function getStaticDartsEvents() {
             const events = [];
             const today = new Date();
@@ -3378,8 +3059,34 @@
                             html += awayLogo;
                             html += `<span class="team away">${event.away}</span>`;
                             html += `</div>`;
+                        } else if (sportType === 'darts' && event.matches && event.matches.length > 0) {
+                            // Darts with matches: expandable accordion
+                            const eventId = `darts-${dateKey}-${compEvents.indexOf(event)}`;
+                            let title = event.title || '';
+                            if (event.location) title += ` - ${event.location}`;
+
+                            html += `<div class="match-row darts-row darts-expandable" data-event-id="${eventId}">`;
+                            html += `<div class="event-info">`;
+                            html += `<span class="match-time">${event.time}</span>`;
+                            html += `<span class="event-title">${title}</span>`;
+                            html += `<span class="expand-icon">▼</span>`;
+                            html += `</div>`;
+                            html += getChannelHtml(event.channel);
+                            html += `</div>`;
+
+                            // Hidden matches list
+                            html += `<div class="darts-matches-list" id="${eventId}" style="display:none;">`;
+                            event.matches.forEach(m => {
+                                const homeName = dartsPlayers[m.home]?.name || m.home;
+                                const awayName = dartsPlayers[m.away]?.name || m.away;
+                                html += `<div class="darts-match-item">`;
+                                html += `<span class="darts-match-time">${m.time}</span>`;
+                                html += `<span class="darts-match-players">${homeName} <span class="vs">vs</span> ${awayName}</span>`;
+                                html += `</div>`;
+                            });
+                            html += `</div>`;
                         } else {
-                            // Darts & F1: single row with title
+                            // Darts without matches & F1: single row with title
                             let title = event.title || '';
                             if (event.location) title += ` - ${event.location}`;
                             if (event.circuit) title += ` - ${event.circuit}`;
@@ -3409,8 +3116,41 @@
             // Setup scroll sync between content and date tabs
             setupScrollSync();
 
-            // Scroll to top on initial load
-            window.scrollTo(0, 0);
+            // Setup darts accordion click handlers
+            setupDartsAccordion();
+
+            // Scroll to "Vandaag" or nearest future date on initial load
+            setTimeout(() => {
+                scrollToTodayOrNearest();
+            }, 100);
+        }
+
+        // Scroll to today's section, or the nearest future section if today has no events
+        function scrollToTodayOrNearest() {
+            const today = new Date();
+            const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+
+            // First try to find today's section
+            let targetSection = document.querySelector(`.day-section[data-date="${todayStr}"]`);
+
+            // If no today section, find the first future section
+            if (!targetSection) {
+                const allSections = document.querySelectorAll('.day-section[data-date]');
+                for (const section of allSections) {
+                    if (section.dataset.date >= todayStr) {
+                        targetSection = section;
+                        break;
+                    }
+                }
+            }
+
+            if (targetSection) {
+                const headerHeight = document.querySelector('.header-section')?.offsetHeight || 0;
+                const y = targetSection.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                window.scrollTo({ top: y, behavior: 'auto' });
+            } else {
+                window.scrollTo(0, 0);
+            }
         }
 
         // Generate date tabs
@@ -3537,6 +3277,39 @@
                 const scrollLeft = activeTab.offsetLeft - (containerRect.width / 2) + (tabRect.width / 2);
                 container.scrollTo({ left: scrollLeft, behavior: 'smooth' });
             }
+        }
+
+        // Setup darts accordion click handlers
+        function setupDartsAccordion() {
+            document.querySelectorAll('.darts-expandable').forEach(row => {
+                row.addEventListener('click', () => {
+                    const eventId = row.dataset.eventId;
+                    const matchesList = document.getElementById(eventId);
+
+                    if (matchesList) {
+                        const isExpanded = row.classList.contains('expanded');
+
+                        // Close all other expanded darts accordions
+                        document.querySelectorAll('.darts-expandable.expanded').forEach(other => {
+                            if (other !== row) {
+                                other.classList.remove('expanded');
+                                const otherId = other.dataset.eventId;
+                                const otherList = document.getElementById(otherId);
+                                if (otherList) otherList.style.display = 'none';
+                            }
+                        });
+
+                        // Toggle current
+                        if (isExpanded) {
+                            row.classList.remove('expanded');
+                            matchesList.style.display = 'none';
+                        } else {
+                            row.classList.add('expanded');
+                            matchesList.style.display = 'block';
+                        }
+                    }
+                });
+            });
         }
 
         // Get today's date string
@@ -3784,20 +3557,13 @@
         // Refresh standings button
         document.getElementById('refresh-standings').addEventListener('click', async function() {
             this.classList.add('loading');
-            // Clear standings cache
-            localStorage.removeItem('standings_eredivisie');
-            localStorage.removeItem('standings_premier_league');
-            localStorage.removeItem('standings_bundesliga');
-            localStorage.removeItem('standings_la_liga');
-            localStorage.removeItem('standings_serie_a');
-            localStorage.removeItem('standings_ligue_1');
-            localStorage.removeItem('standings_champions_league');
+            // Clear all standings caches (use correct league ID keys)
+            [88, 39, 78, 140, 135, 61, 2, 3, 848].forEach(id => {
+                localStorage.removeItem(`standings_${id}`);
+                localStorage.removeItem(`standings_${id}_time`);
+            });
             // Re-render current standings
-            const activeSportBtn = document.querySelector('.standings-sport-btn.active');
-            if (activeSportBtn) {
-                const sport = activeSportBtn.dataset.standingsSport;
-                await renderStandingsForSport(sport);
-            }
+            await renderStandingsInMenu();
             this.classList.remove('loading');
         });
 
@@ -3819,7 +3585,9 @@
                     currentSportFilter = sport;
                 }
 
-                renderEvents();
+                renderEvents().then(() => {
+                    setTimeout(() => scrollToTodayOrNearest(), 150);
+                });
             });
         });
 

@@ -1,8 +1,50 @@
 # Sport op TV - Claude Project Notes
 
-## Current Version: 3.1.0
+## Current Version: 3.4.0
+
+---
+## BELANGRIJKE REGELS - ALTIJD VOLGEN!
+
+### GEEN FAKE DATA!
+- **NOOIT** handmatig wedstrijddata toevoegen of verzinnen
+- **ALLEEN** de OpenFootball API gebruiken voor voetbalwedstrijden
+- OpenFootball: https://github.com/openfootball/football.json
+- Gratis, geen API key nodig, hele seizoen 2025-26 beschikbaar
+- Cache: 1 uur
+
+### Darts & F1
+- Darts: Gebruik de statische `dartsCalendar` (handmatig bijgehouden PDC schema)
+- F1: Gebruik OpenF1 API voor sessions
+
+---
 
 ## Changelog
+
+### v3.5.0 (2026-02-25)
+- **NIEUWE API: OpenFootball** (was API-Football)
+- API-Football gratis plan ondersteunt ALLEEN 2022-2024!
+- OpenFootball: gratis, geen key, hele seizoen 2025-26
+- URL: https://github.com/openfootball/football.json
+- Competities: Eredivisie, Premier League, Bundesliga, La Liga, Serie A, Ligue 1
+
+### v3.4.0 (2026-02-25)
+- **ALLE FAKE/HANDMATIGE VOETBALDATA VERWIJDERD**
+- CLAUDE.md heeft nu BELANGRIJKE REGELS sectie
+
+### v3.3.0 (2026-02-25)
+- **Bug fixes**:
+  - Fixed: "Ververs standen" knop werkte niet (verkeerde functie aanroep)
+  - Fixed: Cache keys voor standen waren incorrect (nu league IDs)
+  - Fixed: Duplicaat wedstrijd Fortuna Sittard vs Excelsior verwijderd
+- **Dode code verwijderd**:
+  - `fetchFromOpenFootball()` - werd nergens aangeroepen
+  - `fetchDartsEvents()` - werd nergens gebruikt
+  - `CONFIG.LEAGUES` en `CONFIG.THESPORTSDB_URL` - ongebruikt
+- **"Vandaag" scroll fix**: App opent nu bij Vandaag, niet 3 dagen terug
+- **Premier League Darts accordion terug**:
+  - Klik op een PL Darts avond om het schema te zien
+  - Toont wie speelt tegen wie en hoe laat
+  - Andere accordions sluiten automatisch
 
 ### v3.1.0 (2026-02-20)
 - **Hamburger menu uitgebreid**:
