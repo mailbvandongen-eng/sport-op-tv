@@ -1429,6 +1429,18 @@
             font-weight: 600;
         }
 
+        .no-events-day {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        .today-section {
+            border-left: 3px solid var(--primary);
+        }
+
         /* API Status */
         .api-status {
             font-size: 0.7rem;
@@ -1842,7 +1854,7 @@
             <div class="api-status" id="api-status">
                 <span class="live-dot"></span> <span class="status-text">Laden...</span>
             </div>
-            <p class="version-footer">v3.5.1</p>
+            <p class="version-footer">v3.6.0</p>
         </footer>
     </div>
 
@@ -1868,7 +1880,7 @@
         // ============================================
         const CONFIG = {
             // Cache version - increment to force cache clear after config changes
-            CACHE_VERSION: '3.5.1',
+            CACHE_VERSION: '3.6.0',
 
             // OpenFootball API (gratis, geen key nodig!)
             // https://github.com/openfootball/football.json
@@ -2970,6 +2982,12 @@
                 eventsByDate[dateKey].push(event);
             });
 
+            // Always include today even if no events
+            const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+            if (!eventsByDate[todayStr]) {
+                eventsByDate[todayStr] = []; // Empty array for today
+            }
+
             const sortedDates = Object.keys(eventsByDate).sort();
 
             // Generate date tabs
@@ -3009,6 +3027,16 @@
                 const isToday = isSameDay(eventDate, today);
                 const isPast = eventDate < today;
 
+                html += `<div class="day-section${isPast ? ' past-day' : ''}${isToday ? ' today-section' : ''}" data-date="${dateKey}" ${isToday ? 'id="today-anchor"' : ''}>`;
+                html += `<div class="day-header">${isToday ? 'Vandaag' : formatDate(eventDate)}</div>`;
+
+                // Handle empty days (no events)
+                if (events.length === 0) {
+                    html += `<div class="no-events-day"><p>Geen uitzendingen${currentSportFilter ? ` (${currentSportFilter})` : ''}</p></div>`;
+                    html += `</div>`; // Close day-section
+                    return; // Continue to next date
+                }
+
                 // Group events by competition within this day
                 const byCompetition = {};
                 events.forEach(e => {
@@ -3016,9 +3044,6 @@
                     if (!byCompetition[comp]) byCompetition[comp] = { events: [], channel: e.channel, sportType: e.sportType };
                     byCompetition[comp].events.push(e);
                 });
-
-                html += `<div class="day-section${isPast ? ' past-day' : ''}" data-date="${dateKey}" ${isToday ? 'id="today-anchor"' : ''}>`;
-                html += `<div class="day-header">${isToday ? 'Vandaag' : formatDate(eventDate)}</div>`;
 
                 // Sort competitions: voetbal first, then darts, then f1
                 const sortedComps = Object.keys(byCompetition).sort((a, b) => {
@@ -3130,10 +3155,10 @@
             const today = new Date();
             const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
 
-            // First try to find today's section
+            // Find today's section (should always exist now)
             let targetSection = document.querySelector(`.day-section[data-date="${todayStr}"]`);
 
-            // If no today section, find the first future section
+            // Fallback: find first section >= today
             if (!targetSection) {
                 const allSections = document.querySelectorAll('.day-section[data-date]');
                 for (const section of allSections) {
@@ -3144,12 +3169,33 @@
                 }
             }
 
-            if (targetSection) {
-                const headerHeight = document.querySelector('.header-section')?.offsetHeight || 0;
-                const y = targetSection.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-                window.scrollTo({ top: y, behavior: 'auto' });
-            } else {
+            // Last resort: scroll to top
+            if (!targetSection) {
                 window.scrollTo(0, 0);
+                return;
+            }
+
+            const headerHeight = document.querySelector('.header-section')?.offsetHeight || 0;
+            const y = targetSection.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+            window.scrollTo({ top: y, behavior: 'auto' });
+
+            // Update active tab to today
+            const tabsContainer = document.getElementById('date-tabs');
+            if (tabsContainer) {
+                tabsContainer.querySelectorAll('.date-tab').forEach(tab => {
+                    tab.classList.toggle('active', tab.dataset.date === todayStr);
+                });
+                // Scroll tab into center view
+                const todayTab = tabsContainer.querySelector(`[data-date="${todayStr}"]`);
+                if (todayTab) {
+                    const container = document.getElementById('date-tabs-container');
+                    if (container) {
+                        const tabRect = todayTab.getBoundingClientRect();
+                        const containerRect = container.getBoundingClientRect();
+                        const scrollLeft = todayTab.offsetLeft - (containerRect.width / 2) + (tabRect.width / 2);
+                        container.scrollLeft = scrollLeft;
+                    }
+                }
             }
         }
 
@@ -3198,9 +3244,13 @@
                 });
             });
 
-            // Scroll "Vandaag" tab to center
+            // Scroll "Vandaag" tab to center and make it active
             const todayTab = tabsContainer.querySelector(`[data-date="${todayStr}"]`);
-            if (todayTab) {
+            if (todayTab && !selectedDate) {
+                // Make sure VANDAAG is active on initial load
+                tabsContainer.querySelectorAll('.date-tab').forEach(t => t.classList.remove('active'));
+                todayTab.classList.add('active');
+
                 const container = document.getElementById('date-tabs-container');
                 setTimeout(() => {
                     const tabRect = todayTab.getBoundingClientRect();
@@ -3318,8 +3368,8 @@
             return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
         }
 
-        // Selected date for tabs
-        let selectedDate = null;
+        // Selected date for tabs - always start with today
+        let selectedDate = null; // null means "today"
 
         // Render standings in menu
         async function renderStandingsInMenu() {
@@ -3584,6 +3634,9 @@
                     btn.classList.add('active');
                     currentSportFilter = sport;
                 }
+
+                // Reset selected date to today when switching sports
+                selectedDate = null;
 
                 renderEvents().then(() => {
                     setTimeout(() => scrollToTodayOrNearest(), 150);

@@ -1,6 +1,6 @@
 # Sport op TV - Claude Project Notes
 
-## Current Version: 3.4.0
+## Current Version: 3.6.0
 
 ---
 ## BELANGRIJKE REGELS - ALTIJD VOLGEN!
@@ -19,6 +19,15 @@
 ---
 
 ## Changelog
+
+### v3.6.0 (2026-02-25)
+- **ALTIJD "Vandaag" sectie tonen** - ook als er geen wedstrijden zijn
+  - Toont "Geen uitzendingen (voetbal)" als er geen events zijn
+  - Groene rand links voor Vandaag sectie
+- **Scroll fix**: App start nu ALTIJD bij Vandaag
+  - Tab "VANDAAG" wordt actief gemaakt
+  - Tab scrollt naar het midden van de tab-balk
+- **Cache versie verhoogd** om verse OpenFootball data te laden
 
 ### v3.5.0 (2026-02-25)
 - **NIEUWE API: OpenFootball** (was API-Football)
