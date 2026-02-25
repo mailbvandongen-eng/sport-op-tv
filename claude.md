@@ -1,6 +1,6 @@
 # Sport op TV - Claude Project Notes
 
-## Current Version: 3.6.0
+## Current Version: 3.7.0
 
 ---
 ## BELANGRIJKE REGELS - ALTIJD VOLGEN!
@@ -19,6 +19,13 @@
 ---
 
 ## Changelog
+
+### v3.7.0 (2026-02-25)
+- **Football-data.org API integratie** voor Champions League, Europa League, Conference League
+  - Gratis met registratie: https://www.football-data.org/client/register
+  - Vul je API key in bij `CONFIG.FOOTBALL_DATA_KEY`
+  - Wordt gecombineerd met OpenFootball (nationale competities)
+- Als geen API key ingevuld: alleen nationale competities (OpenFootball)
 
 ### v3.6.0 (2026-02-25)
 - **ALTIJD "Vandaag" sectie tonen** - ook als er geen wedstrijden zijn

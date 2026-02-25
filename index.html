@@ -1854,7 +1854,7 @@
             <div class="api-status" id="api-status">
                 <span class="live-dot"></span> <span class="status-text">Laden...</span>
             </div>
-            <p class="version-footer">v3.6.0</p>
+            <p class="version-footer">v3.7.0</p>
         </footer>
     </div>
 
@@ -1880,13 +1880,13 @@
         // ============================================
         const CONFIG = {
             // Cache version - increment to force cache clear after config changes
-            CACHE_VERSION: '3.6.0',
+            CACHE_VERSION: '3.7.0',
 
             // OpenFootball API (gratis, geen key nodig!)
             // https://github.com/openfootball/football.json
             OPENFOOTBALL_BASE: 'https://raw.githubusercontent.com/openfootball/football.json/master/2025-26',
 
-            // Competities van OpenFootball
+            // Competities van OpenFootball (nationale competities)
             OPENFOOTBALL_LEAGUES: [
                 { file: 'nl.1.json', name: 'Eredivisie', channel: 'ESPN' },
                 { file: 'en.1.json', name: 'Premier League', channel: 'Viaplay' },
@@ -1894,6 +1894,19 @@
                 { file: 'es.1.json', name: 'La Liga', channel: 'Ziggo Sport' },
                 { file: 'it.1.json', name: 'Serie A', channel: 'Ziggo Sport' },
                 { file: 'fr.1.json', name: 'Ligue 1', channel: 'Ziggo Sport' },
+            ],
+
+            // Football-Data.org API (gratis met registratie!)
+            // Registreer op: https://www.football-data.org/client/register
+            // Vul hieronder je API key in:
+            FOOTBALL_DATA_KEY: '', // <-- VUL HIER JE API KEY IN
+            FOOTBALL_DATA_URL: 'https://api.football-data.org/v4',
+
+            // Football-Data.org competities (Europese cups)
+            FOOTBALL_DATA_COMPETITIONS: [
+                { code: 'CL', name: 'Champions League', channel: 'Ziggo Sport' },
+                { code: 'EL', name: 'Europa League', channel: 'Ziggo Sport' },
+                { code: 'CLI', name: 'Conference League', channel: 'Ziggo Sport' },
             ],
 
             // Backup: API-Football (alleen seizoen 2022-2024 op gratis plan!)
@@ -2470,13 +2483,24 @@
             const results = await Promise.all(leaguePromises);
             results.forEach(matches => allMatches.push(...matches));
 
+            console.log(`OpenFootball matches loaded: ${allMatches.length}`);
+
+            // Also fetch European cups from football-data.org (if API key configured)
+            try {
+                const europeanMatches = await fetchFootballDataMatches();
+                allMatches.push(...europeanMatches);
+                console.log(`Added ${europeanMatches.length} European cup matches`);
+            } catch (e) {
+                console.warn('Could not fetch European cup matches:', e);
+            }
+
             console.log(`Total matches loaded: ${allMatches.length}`);
 
             // Cache the results
             if (allMatches.length > 0) {
                 localStorage.setItem('footballCache', JSON.stringify(allMatches));
                 localStorage.setItem('footballCacheTime', Date.now().toString());
-                localStorage.setItem('footballSource', 'openfootball');
+                localStorage.setItem('footballSource', 'openfootball' + (CONFIG.FOOTBALL_DATA_KEY ? '+football-data' : ''));
                 return allMatches;
             }
 
@@ -2499,6 +2523,67 @@
             const d = new Date();
             d.setDate(d.getDate() + daysFromNow);
             return d.toISOString().split('T')[0];
+        }
+
+        // Fetch European cup matches from football-data.org
+        async function fetchFootballDataMatches() {
+            // Check if API key is configured
+            if (!CONFIG.FOOTBALL_DATA_KEY) {
+                console.log('Football-data.org API key not configured - skipping CL/EL/Conference');
+                return [];
+            }
+
+            console.log('Fetching CL/EL/Conference from football-data.org...');
+            const allMatches = [];
+
+            // Calculate date range: 7 days back, 30 days forward
+            const fromDate = getDateStr(-7);
+            const toDate = getDateStr(30);
+
+            // Fetch each competition
+            for (const comp of CONFIG.FOOTBALL_DATA_COMPETITIONS) {
+                try {
+                    const url = `${CONFIG.FOOTBALL_DATA_URL}/competitions/${comp.code}/matches?dateFrom=${fromDate}&dateTo=${toDate}`;
+                    console.log(`Fetching ${comp.name}...`);
+
+                    const response = await fetch(url, {
+                        headers: { 'X-Auth-Token': CONFIG.FOOTBALL_DATA_KEY }
+                    });
+
+                    if (!response.ok) {
+                        console.warn(`Football-data.org ${comp.name}: ${response.status}`);
+                        continue;
+                    }
+
+                    const data = await response.json();
+
+                    if (data.matches && Array.isArray(data.matches)) {
+                        data.matches.forEach(match => {
+                            const matchDate = new Date(match.utcDate);
+                            const hasScore = match.score?.fullTime?.home !== null;
+
+                            allMatches.push({
+                                date: matchDate,
+                                time: matchDate.toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' }),
+                                home: match.homeTeam.shortName || match.homeTeam.name,
+                                away: match.awayTeam.shortName || match.awayTeam.name,
+                                homeCrest: match.homeTeam.crest,
+                                awayCrest: match.awayTeam.crest,
+                                competition: comp.name,
+                                channel: comp.channel,
+                                score: hasScore ? `${match.score.fullTime.home}-${match.score.fullTime.away}` : null,
+                                live: match.status === 'IN_PLAY' || match.status === 'PAUSED',
+                                status: match.status
+                            });
+                        });
+                        console.log(`Loaded ${data.matches.length} ${comp.name} matches`);
+                    }
+                } catch (error) {
+                    console.error(`Error fetching ${comp.name}:`, error);
+                }
+            }
+
+            return allMatches;
         }
 
         // Fetch football standings with caching
