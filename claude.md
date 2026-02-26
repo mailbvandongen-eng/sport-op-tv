@@ -1,15 +1,16 @@
 # Sport op TV - Claude Project Notes
 
-## Current Version: 3.7.0
+## Current Version: 3.8.0
 
 ---
 ## BELANGRIJKE REGELS - ALTIJD VOLGEN!
 
 ### GEEN FAKE DATA!
 - **NOOIT** handmatig wedstrijddata toevoegen of verzinnen
-- **ALLEEN** de OpenFootball API gebruiken voor voetbalwedstrijden
-- OpenFootball: https://github.com/openfootball/football.json
-- Gratis, geen API key nodig, hele seizoen 2025-26 beschikbaar
+- **ALLEEN** de API's gebruiken voor wedstrijddata:
+  - OpenFootball: Eredivisie, Premier League, Bundesliga, La Liga, Serie A, Ligue 1
+  - Football-data.org: Champions League
+  - ESPN API: Europa League, Conference League, nationale bekers
 - Cache: 1 uur
 
 ### Darts & F1
@@ -20,12 +21,30 @@
 
 ## Changelog
 
+### v3.8.0 (2026-02-26)
+- **ESPN API integratie** voor Europa League, Conference League en nationale bekers
+  - Gratis, geen API key nodig!
+  - Competities:
+    - Europa League
+    - Conference League
+    - KNVB Beker
+    - FA Cup
+    - DFB Pokal
+    - Copa del Rey
+    - Coppa Italia
+    - Coupe de France
+    - League Cup
+  - Wedstrijden worden opgehaald van: `site.api.espn.com`
+- OpenFootball voor nationale competities (Eredivisie, PL, Bundesliga, etc.)
+- Football-data.org voor Champions League
+- **ALLE data komt nu van API's** - geen fake/handmatige data meer!
+
 ### v3.7.0 (2026-02-25)
-- **Football-data.org API integratie** voor Champions League, Europa League, Conference League
+- **Football-data.org API integratie** voor Champions League
   - Gratis met registratie: https://www.football-data.org/client/register
   - Vul je API key in bij `CONFIG.FOOTBALL_DATA_KEY`
   - Wordt gecombineerd met OpenFootball (nationale competities)
-- Als geen API key ingevuld: alleen nationale competities (OpenFootball)
+- EL en Conference League zijn NIET beschikbaar in football-data.org gratis tier
 
 ### v3.6.0 (2026-02-25)
 - **ALTIJD "Vandaag" sectie tonen** - ook als er geen wedstrijden zijn
