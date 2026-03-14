@@ -922,6 +922,14 @@
             font-weight: 400;
         }
 
+        .darts-fallback-note {
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px dashed var(--border);
+            font-size: 0.74rem;
+            color: var(--text-secondary);
+        }
+
         .event-card.expanded .expand-icon {
             transform: rotate(180deg);
         }
@@ -1927,7 +1935,7 @@
         // ============================================
         const CONFIG = {
             // Cache version - increment to force cache clear after config changes
-            CACHE_VERSION: '3.9.0',
+            CACHE_VERSION: '3.9.1',
 
             // OpenFootball API (gratis, geen key nodig!)
             // https://github.com/openfootball/football.json
@@ -3740,7 +3748,8 @@
                             html += `</div>`;
                         } else if (sportType === 'darts' && event.matches && event.matches.length > 0) {
                             // Darts with matches: expandable accordion
-                            const eventId = `darts-${dateKey}-${compEvents.indexOf(event)}`;
+                            const compSlug = comp.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+                            const eventId = `darts-${dateKey}-${compSlug}-${compEvents.indexOf(event)}`;
                             let title = event.title || '';
                             if (event.location) title += ` - ${event.location}`;
 
@@ -3770,6 +3779,9 @@
                                 }
                                 html += `</div>`;
                             });
+                            if (event.matches.some(m => m.label)) {
+                                html += `<div class="darts-fallback-note">Confirmed fallback: sessieschema is bevestigd, exacte partijen volgen zodra loting of order of play beschikbaar is.</div>`;
+                            }
                             html += `</div>`;
                         } else {
                             // Darts without matches & F1: single row with title
