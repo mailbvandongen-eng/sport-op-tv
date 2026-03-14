@@ -1068,6 +1068,14 @@
             font-variant-numeric: tabular-nums;
         }
 
+        .match-row .match-meta {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            min-width: 60px;
+        }
+
         .match-row .match-score {
             font-size: 1rem;
             font-weight: 700;
@@ -1162,6 +1170,31 @@
             color: var(--text-secondary);
         }
 
+        .source-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2px 6px;
+            border-radius: 999px;
+            font-size: 0.58rem;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .source-badge-live {
+            color: #22c55e;
+            background: rgba(34, 197, 94, 0.12);
+            border: 1px solid rgba(34, 197, 94, 0.25);
+        }
+
+        .source-badge-fallback {
+            color: #f59e0b;
+            background: rgba(245, 158, 11, 0.12);
+            border: 1px solid rgba(245, 158, 11, 0.25);
+        }
+
         /* Mobile responsive for match rows */
         @media (max-width: 600px) {
             .match-row {
@@ -1181,6 +1214,11 @@
 
             .match-row .match-time {
                 font-size: 0.85rem;
+            }
+
+            .source-badge {
+                font-size: 0.52rem;
+                padding: 2px 5px;
             }
 
             .competition-header {
@@ -3425,6 +3463,13 @@
                 return `<span class="channel-badge">${channel}</span>`;
             };
 
+            const getSourceBadgeHtml = (event) => {
+                const isFallback = event.isFallbackConfirmed || event.isStatic || event.sportType === 'darts';
+                const label = isFallback ? 'Confirmed fallback' : 'Live bron';
+                const className = isFallback ? 'source-badge source-badge-fallback' : 'source-badge source-badge-live';
+                return `<span class="${className}">${label}</span>`;
+            };
+
             let html = '';
 
             sortedDates.forEach(dateKey => {
@@ -3479,14 +3524,13 @@
                             const homeLogo = homeLogoSrc ? `<img src="${homeLogoSrc}" class="team-logo" onerror="this.style.display='none'" alt="">` : '<span class="team-logo-placeholder"></span>';
                             const awayLogo = awayLogoSrc ? `<img src="${awayLogoSrc}" class="team-logo" onerror="this.style.display='none'" alt="">` : '<span class="team-logo-placeholder"></span>';
                             const hasScore = event.score && event.score !== '-';
-                            const timeOrScore = hasScore ? event.score : event.time;
                             const rowClass = `match-row${event.live ? ' live' : ''}${hasScore ? ' has-score finished' : ''}${isPast ? ' past' : ''}`;
 
                             html += `<div class="${rowClass}">`;
                             html += `<span class="team home">${event.home}</span>`;
                             html += homeLogo;
-                            html += `<span class="match-time">${event.time}</span>`;
-                            html += `<span class="match-score">${event.score || '-'}</span>`;
+                            html += `<div class="match-meta"><span class="match-time">${event.time}</span>${getSourceBadgeHtml(event)}</div>`;
+                            html += `<div class="match-meta"><span class="match-score">${event.score || '-'}</span></div>`;
                             html += awayLogo;
                             html += `<span class="team away">${event.away}</span>`;
                             html += `</div>`;
@@ -3500,6 +3544,7 @@
                             html += `<div class="event-info">`;
                             html += `<span class="match-time">${event.time}</span>`;
                             html += `<span class="event-title">${title}</span>`;
+                            html += getSourceBadgeHtml(event);
                             html += `<span class="expand-icon">▼</span>`;
                             html += `</div>`;
                             html += getChannelHtml(event.channel);
@@ -3530,6 +3575,7 @@
                             html += `<div class="event-info">`;
                             html += `<span class="match-time">${event.time}</span>`;
                             html += `<span class="event-title">${title}</span>`;
+                            html += getSourceBadgeHtml(event);
                             html += `</div>`;
                             html += getChannelHtml(event.channel);
                             html += `</div>`;
