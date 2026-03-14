@@ -1880,7 +1880,7 @@
         // ============================================
         const CONFIG = {
             // Cache version - increment to force cache clear after config changes
-            CACHE_VERSION: '3.8.0',
+            CACHE_VERSION: '3.9.0',
 
             // OpenFootball API (gratis, geen key nodig!)
             // https://github.com/openfootball/football.json
@@ -1915,9 +1915,15 @@
 
             // ESPN competities - EL, Conference League en nationale bekers
             ESPN_COMPETITIONS: [
+                // UEFA top competitions
+                { slug: 'uefa.champions', name: 'Champions League', channel: 'Ziggo Sport' },
                 // UEFA Cups
                 { slug: 'uefa.europa', name: 'Europa League', channel: 'Ziggo Sport' },
                 { slug: 'uefa.europa.conf', name: 'Conference League', channel: 'Ziggo Sport' },
+                // Women's international competitions
+                { slug: 'fifa.wworldq.uefa', name: 'WK Kwalificatie Vrouwen', channel: 'NPO 3 / ESPN' },
+                { slug: 'uefa.w.nations', name: 'Nations League Vrouwen', channel: 'NPO 3 / ESPN' },
+                { slug: 'fifa.friendly.w', name: 'Vriendschappelijk Internationaal Vrouwen', channel: 'NPO 3 / ESPN' },
                 // Nationale bekers
                 { slug: 'ned.cup', name: 'KNVB Beker', channel: 'ESPN' },
                 { slug: 'eng.fa', name: 'FA Cup', channel: 'Viaplay' },
@@ -2017,6 +2023,7 @@
                 'WK Kwalificatie Vrouwen': 'world',
                 'EK Kwalificatie Vrouwen': 'eu',
                 'Nations League Vrouwen': 'eu',
+                'Vriendschappelijk Internationaal Vrouwen': 'world',
                 'Premier League Darts': 'world',
                 'UK Open': 'en',
                 'World Matchplay': 'en',
@@ -2177,6 +2184,8 @@
             'Van Veen': {name: 'Gian van Veen'}
         };
 
+        const dartsSession = (time, label) => ({ time, label });
+
         const dartsCalendar = [
             // Premier League Darts 2026 - Echte schema's met tijden
             { date: '2026-02-05', time: '20:00', event: 'Premier League Darts - Avond 1', location: 'Belfast', channel: 'Viaplay', matches: [
@@ -2269,93 +2278,254 @@
                 {time: '22:00', home: 'Finale', away: ''}
             ]},
             // Bahrain Darts Masters 2026
-            { date: '2026-01-15', time: '18:00', event: 'Bahrain Darts Masters', location: 'Bahrain', channel: 'Viaplay' },
-            { date: '2026-01-16', time: '18:00', event: 'Bahrain Darts Masters - Finale', location: 'Bahrain', channel: 'Viaplay' },
+            { date: '2026-01-15', time: '18:00', event: 'Bahrain Darts Masters', location: 'Bahrain', channel: 'Viaplay', matches: [
+                dartsSession('18:00', 'Kwartfinales')
+            ]},
+            { date: '2026-01-16', time: '18:00', event: 'Bahrain Darts Masters - Finale', location: 'Bahrain', channel: 'Viaplay', matches: [
+                dartsSession('18:00', 'Halve finales + finale')
+            ]},
             // Saudi Arabia Darts Masters 2026
-            { date: '2026-01-19', time: '18:00', event: 'Saudi Arabia Darts Masters', location: 'Riyadh', channel: 'Viaplay' },
-            { date: '2026-01-20', time: '18:00', event: 'Saudi Arabia Darts Masters - Finale', location: 'Riyadh', channel: 'Viaplay' },
+            { date: '2026-01-19', time: '18:00', event: 'Saudi Arabia Darts Masters', location: 'Riyadh', channel: 'Viaplay', matches: [
+                dartsSession('18:00', 'Kwartfinales')
+            ]},
+            { date: '2026-01-20', time: '18:00', event: 'Saudi Arabia Darts Masters - Finale', location: 'Riyadh', channel: 'Viaplay', matches: [
+                dartsSession('18:00', 'Halve finales + finale')
+            ]},
             // Winmau World Masters 2026
-            { date: '2026-01-28', time: '13:00', event: 'Winmau World Masters', location: 'Milton Keynes', channel: 'Viaplay' },
-            { date: '2026-01-29', time: '13:00', event: 'Winmau World Masters', location: 'Milton Keynes', channel: 'Viaplay' },
-            { date: '2026-01-30', time: '13:00', event: 'Winmau World Masters', location: 'Milton Keynes', channel: 'Viaplay' },
-            { date: '2026-01-31', time: '13:00', event: 'Winmau World Masters', location: 'Milton Keynes', channel: 'Viaplay' },
-            { date: '2026-02-01', time: '19:00', event: 'Winmau World Masters - Finale', location: 'Milton Keynes', channel: 'Viaplay' },
+            { date: '2026-01-28', time: '13:00', event: 'Winmau World Masters', location: 'Milton Keynes', channel: 'Viaplay', matches: [
+                dartsSession('13:00', 'Openingsdag')
+            ]},
+            { date: '2026-01-29', time: '13:00', event: 'Winmau World Masters', location: 'Milton Keynes', channel: 'Viaplay', matches: [
+                dartsSession('13:00', 'Vervolg hoofdschema')
+            ]},
+            { date: '2026-01-30', time: '13:00', event: 'Winmau World Masters', location: 'Milton Keynes', channel: 'Viaplay', matches: [
+                dartsSession('13:00', 'Laatste 32 / Laatste 16')
+            ]},
+            { date: '2026-01-31', time: '13:00', event: 'Winmau World Masters', location: 'Milton Keynes', channel: 'Viaplay', matches: [
+                dartsSession('13:00', 'Kwartfinaledag')
+            ]},
+            { date: '2026-02-01', time: '19:00', event: 'Winmau World Masters - Finale', location: 'Milton Keynes', channel: 'Viaplay', matches: [
+                dartsSession('19:00', 'Halve finales + finale')
+            ]},
             // UK Open 2026
-            { date: '2026-03-06', time: '13:00', event: 'UK Open', location: 'Minehead', channel: 'Viaplay' },
-            { date: '2026-03-07', time: '13:00', event: 'UK Open', location: 'Minehead', channel: 'Viaplay' },
-            { date: '2026-03-08', time: '13:00', event: 'UK Open - Finale', location: 'Minehead', channel: 'Viaplay' },
+            { date: '2026-03-06', time: '13:00', event: 'UK Open', location: 'Minehead', channel: 'Viaplay', matches: [
+                dartsSession('13:00', 'Middagsessie - Ronde 1 t/m 3'),
+                dartsSession('19:00', 'Avondsessie - Ronde 4')
+            ]},
+            { date: '2026-03-07', time: '13:00', event: 'UK Open', location: 'Minehead', channel: 'Viaplay', matches: [
+                dartsSession('13:00', 'Middagsessie - Ronde 5'),
+                dartsSession('19:00', 'Avondsessie - Ronde 6 / kwartfinales')
+            ]},
+            { date: '2026-03-08', time: '13:00', event: 'UK Open - Finale', location: 'Minehead', channel: 'Viaplay', matches: [
+                dartsSession('13:00', 'Middagsessie - Halve finales'),
+                dartsSession('19:00', 'Avondsessie - Finale')
+            ]},
             // Nordic Darts Masters 2026
-            { date: '2026-06-05', time: '19:00', event: 'Nordic Darts Masters', location: 'Copenhagen', channel: 'Viaplay' },
-            { date: '2026-06-06', time: '19:00', event: 'Nordic Darts Masters - Finale', location: 'Copenhagen', channel: 'Viaplay' },
+            { date: '2026-06-05', time: '19:00', event: 'Nordic Darts Masters', location: 'Copenhagen', channel: 'Viaplay', matches: [
+                dartsSession('19:00', 'Kwartfinales')
+            ]},
+            { date: '2026-06-06', time: '19:00', event: 'Nordic Darts Masters - Finale', location: 'Copenhagen', channel: 'Viaplay', matches: [
+                dartsSession('19:00', 'Halve finales + finale')
+            ]},
             // World Cup of Darts 2026
-            { date: '2026-06-11', time: '13:00', event: 'World Cup of Darts', location: 'Frankfurt', channel: 'RTL7' },
-            { date: '2026-06-12', time: '13:00', event: 'World Cup of Darts', location: 'Frankfurt', channel: 'RTL7' },
-            { date: '2026-06-13', time: '19:00', event: 'World Cup of Darts', location: 'Frankfurt', channel: 'RTL7' },
-            { date: '2026-06-14', time: '19:00', event: 'World Cup of Darts - Finale', location: 'Frankfurt', channel: 'RTL7' },
+            { date: '2026-06-11', time: '13:00', event: 'World Cup of Darts', location: 'Frankfurt', channel: 'RTL7', matches: [
+                dartsSession('13:00', 'Groepsfase')
+            ]},
+            { date: '2026-06-12', time: '13:00', event: 'World Cup of Darts', location: 'Frankfurt', channel: 'RTL7', matches: [
+                dartsSession('13:00', 'Groepsfase / laatste 16')
+            ]},
+            { date: '2026-06-13', time: '19:00', event: 'World Cup of Darts', location: 'Frankfurt', channel: 'RTL7', matches: [
+                dartsSession('19:00', 'Kwartfinales')
+            ]},
+            { date: '2026-06-14', time: '19:00', event: 'World Cup of Darts - Finale', location: 'Frankfurt', channel: 'RTL7', matches: [
+                dartsSession('19:00', 'Halve finales + finale')
+            ]},
             // US Darts Masters 2026
-            { date: '2026-06-26', time: '02:00', event: 'US Darts Masters', location: 'New York', channel: 'Viaplay' },
-            { date: '2026-06-27', time: '02:00', event: 'US Darts Masters - Finale', location: 'New York', channel: 'Viaplay' },
+            { date: '2026-06-26', time: '02:00', event: 'US Darts Masters', location: 'New York', channel: 'Viaplay', matches: [
+                dartsSession('02:00', 'Kwartfinales')
+            ]},
+            { date: '2026-06-27', time: '02:00', event: 'US Darts Masters - Finale', location: 'New York', channel: 'Viaplay', matches: [
+                dartsSession('02:00', 'Halve finales + finale')
+            ]},
             // World Matchplay 2026
-            { date: '2026-07-18', time: '13:00', event: 'World Matchplay', location: 'Blackpool', channel: 'Viaplay' },
-            { date: '2026-07-19', time: '19:00', event: 'World Matchplay', location: 'Blackpool', channel: 'Viaplay' },
-            { date: '2026-07-20', time: '19:00', event: 'World Matchplay', location: 'Blackpool', channel: 'Viaplay' },
-            { date: '2026-07-21', time: '19:00', event: 'World Matchplay', location: 'Blackpool', channel: 'Viaplay' },
-            { date: '2026-07-22', time: '19:00', event: 'World Matchplay', location: 'Blackpool', channel: 'Viaplay' },
-            { date: '2026-07-23', time: '19:00', event: 'World Matchplay', location: 'Blackpool', channel: 'Viaplay' },
-            { date: '2026-07-24', time: '19:00', event: 'World Matchplay', location: 'Blackpool', channel: 'Viaplay' },
-            { date: '2026-07-25', time: '19:00', event: 'World Matchplay', location: 'Blackpool', channel: 'Viaplay' },
-            { date: '2026-07-26', time: '19:00', event: 'World Matchplay - Finale', location: 'Blackpool', channel: 'Viaplay' },
+            { date: '2026-07-18', time: '13:00', event: 'World Matchplay', location: 'Blackpool', channel: 'Viaplay', matches: [
+                dartsSession('13:00', 'Middagsessie - Eerste ronde'),
+                dartsSession('19:00', 'Avondsessie - Eerste ronde')
+            ]},
+            { date: '2026-07-19', time: '19:00', event: 'World Matchplay', location: 'Blackpool', channel: 'Viaplay', matches: [
+                dartsSession('13:00', 'Middagsessie - Eerste ronde'),
+                dartsSession('19:00', 'Avondsessie - Eerste ronde')
+            ]},
+            { date: '2026-07-20', time: '19:00', event: 'World Matchplay', location: 'Blackpool', channel: 'Viaplay', matches: [
+                dartsSession('19:00', 'Avondsessie - Eerste ronde')
+            ]},
+            { date: '2026-07-21', time: '19:00', event: 'World Matchplay', location: 'Blackpool', channel: 'Viaplay', matches: [
+                dartsSession('19:00', 'Avondsessie - Eerste ronde')
+            ]},
+            { date: '2026-07-22', time: '19:00', event: 'World Matchplay', location: 'Blackpool', channel: 'Viaplay', matches: [
+                dartsSession('19:00', 'Avondsessie - Tweede ronde')
+            ]},
+            { date: '2026-07-23', time: '19:00', event: 'World Matchplay', location: 'Blackpool', channel: 'Viaplay', matches: [
+                dartsSession('19:00', 'Avondsessie - Tweede ronde')
+            ]},
+            { date: '2026-07-24', time: '19:00', event: 'World Matchplay', location: 'Blackpool', channel: 'Viaplay', matches: [
+                dartsSession('19:00', 'Kwartfinales')
+            ]},
+            { date: '2026-07-25', time: '19:00', event: 'World Matchplay', location: 'Blackpool', channel: 'Viaplay', matches: [
+                dartsSession('19:00', 'Halve finales')
+            ]},
+            { date: '2026-07-26', time: '19:00', event: 'World Matchplay - Finale', location: 'Blackpool', channel: 'Viaplay', matches: [
+                dartsSession('19:00', 'Finale')
+            ]},
             // New Zealand Darts Masters 2026
-            { date: '2026-08-14', time: '08:00', event: 'New Zealand Darts Masters', location: 'Hamilton', channel: 'Viaplay' },
-            { date: '2026-08-15', time: '08:00', event: 'New Zealand Darts Masters - Finale', location: 'Hamilton', channel: 'Viaplay' },
+            { date: '2026-08-14', time: '08:00', event: 'New Zealand Darts Masters', location: 'Hamilton', channel: 'Viaplay', matches: [
+                dartsSession('08:00', 'Kwartfinales')
+            ]},
+            { date: '2026-08-15', time: '08:00', event: 'New Zealand Darts Masters - Finale', location: 'Hamilton', channel: 'Viaplay', matches: [
+                dartsSession('08:00', 'Halve finales + finale')
+            ]},
             // Australian Darts Masters 2026
-            { date: '2026-08-21', time: '10:00', event: 'Australian Darts Masters', location: 'Wollongong', channel: 'Viaplay' },
-            { date: '2026-08-22', time: '10:00', event: 'Australian Darts Masters - Finale', location: 'Wollongong', channel: 'Viaplay' },
+            { date: '2026-08-21', time: '10:00', event: 'Australian Darts Masters', location: 'Wollongong', channel: 'Viaplay', matches: [
+                dartsSession('10:00', 'Kwartfinales')
+            ]},
+            { date: '2026-08-22', time: '10:00', event: 'Australian Darts Masters - Finale', location: 'Wollongong', channel: 'Viaplay', matches: [
+                dartsSession('10:00', 'Halve finales + finale')
+            ]},
             // World Series Finals 2026
-            { date: '2026-09-17', time: '19:00', event: 'World Series Finals', location: 'Amsterdam', channel: 'Viaplay' },
-            { date: '2026-09-18', time: '19:00', event: 'World Series Finals', location: 'Amsterdam', channel: 'Viaplay' },
-            { date: '2026-09-19', time: '19:00', event: 'World Series Finals', location: 'Amsterdam', channel: 'Viaplay' },
-            { date: '2026-09-20', time: '19:00', event: 'World Series Finals - Finale', location: 'Amsterdam', channel: 'Viaplay' },
+            { date: '2026-09-17', time: '19:00', event: 'World Series Finals', location: 'Amsterdam', channel: 'Viaplay', matches: [
+                dartsSession('19:00', 'Openingsronde')
+            ]},
+            { date: '2026-09-18', time: '19:00', event: 'World Series Finals', location: 'Amsterdam', channel: 'Viaplay', matches: [
+                dartsSession('19:00', 'Laatste 16')
+            ]},
+            { date: '2026-09-19', time: '19:00', event: 'World Series Finals', location: 'Amsterdam', channel: 'Viaplay', matches: [
+                dartsSession('19:00', 'Kwartfinales')
+            ]},
+            { date: '2026-09-20', time: '19:00', event: 'World Series Finals - Finale', location: 'Amsterdam', channel: 'Viaplay', matches: [
+                dartsSession('19:00', 'Halve finales + finale')
+            ]},
             // World Grand Prix 2026
-            { date: '2026-09-28', time: '19:00', event: 'World Grand Prix', location: 'Leicester', channel: 'Viaplay' },
-            { date: '2026-09-29', time: '19:00', event: 'World Grand Prix', location: 'Leicester', channel: 'Viaplay' },
-            { date: '2026-09-30', time: '19:00', event: 'World Grand Prix', location: 'Leicester', channel: 'Viaplay' },
-            { date: '2026-10-01', time: '19:00', event: 'World Grand Prix', location: 'Leicester', channel: 'Viaplay' },
-            { date: '2026-10-02', time: '19:00', event: 'World Grand Prix', location: 'Leicester', channel: 'Viaplay' },
-            { date: '2026-10-03', time: '19:00', event: 'World Grand Prix', location: 'Leicester', channel: 'Viaplay' },
-            { date: '2026-10-04', time: '19:00', event: 'World Grand Prix - Finale', location: 'Leicester', channel: 'Viaplay' },
+            { date: '2026-09-28', time: '19:00', event: 'World Grand Prix', location: 'Leicester', channel: 'Viaplay', matches: [
+                dartsSession('19:00', 'Eerste ronde')
+            ]},
+            { date: '2026-09-29', time: '19:00', event: 'World Grand Prix', location: 'Leicester', channel: 'Viaplay', matches: [
+                dartsSession('19:00', 'Eerste ronde')
+            ]},
+            { date: '2026-09-30', time: '19:00', event: 'World Grand Prix', location: 'Leicester', channel: 'Viaplay', matches: [
+                dartsSession('19:00', 'Eerste ronde')
+            ]},
+            { date: '2026-10-01', time: '19:00', event: 'World Grand Prix', location: 'Leicester', channel: 'Viaplay', matches: [
+                dartsSession('19:00', 'Tweede ronde')
+            ]},
+            { date: '2026-10-02', time: '19:00', event: 'World Grand Prix', location: 'Leicester', channel: 'Viaplay', matches: [
+                dartsSession('19:00', 'Kwartfinales')
+            ]},
+            { date: '2026-10-03', time: '19:00', event: 'World Grand Prix', location: 'Leicester', channel: 'Viaplay', matches: [
+                dartsSession('19:00', 'Halve finales')
+            ]},
+            { date: '2026-10-04', time: '19:00', event: 'World Grand Prix - Finale', location: 'Leicester', channel: 'Viaplay', matches: [
+                dartsSession('19:00', 'Finale')
+            ]},
             // European Championship 2026
-            { date: '2026-10-22', time: '19:00', event: 'European Championship', location: 'Dortmund', channel: 'Viaplay' },
-            { date: '2026-10-23', time: '19:00', event: 'European Championship', location: 'Dortmund', channel: 'Viaplay' },
-            { date: '2026-10-24', time: '19:00', event: 'European Championship', location: 'Dortmund', channel: 'Viaplay' },
-            { date: '2026-10-25', time: '19:00', event: 'European Championship - Finale', location: 'Dortmund', channel: 'Viaplay' },
+            { date: '2026-10-22', time: '19:00', event: 'European Championship', location: 'Dortmund', channel: 'Viaplay', matches: [
+                dartsSession('19:00', 'Openingsronde')
+            ]},
+            { date: '2026-10-23', time: '19:00', event: 'European Championship', location: 'Dortmund', channel: 'Viaplay', matches: [
+                dartsSession('19:00', 'Laatste 16')
+            ]},
+            { date: '2026-10-24', time: '19:00', event: 'European Championship', location: 'Dortmund', channel: 'Viaplay', matches: [
+                dartsSession('19:00', 'Kwartfinales')
+            ]},
+            { date: '2026-10-25', time: '19:00', event: 'European Championship - Finale', location: 'Dortmund', channel: 'Viaplay', matches: [
+                dartsSession('19:00', 'Halve finales + finale')
+            ]},
             // Grand Slam of Darts 2026
-            { date: '2026-11-14', time: '13:00', event: 'Grand Slam of Darts', location: 'Wolverhampton', channel: 'Viaplay' },
-            { date: '2026-11-15', time: '13:00', event: 'Grand Slam of Darts', location: 'Wolverhampton', channel: 'Viaplay' },
-            { date: '2026-11-16', time: '19:00', event: 'Grand Slam of Darts', location: 'Wolverhampton', channel: 'Viaplay' },
-            { date: '2026-11-17', time: '19:00', event: 'Grand Slam of Darts', location: 'Wolverhampton', channel: 'Viaplay' },
-            { date: '2026-11-18', time: '19:00', event: 'Grand Slam of Darts', location: 'Wolverhampton', channel: 'Viaplay' },
-            { date: '2026-11-19', time: '19:00', event: 'Grand Slam of Darts', location: 'Wolverhampton', channel: 'Viaplay' },
-            { date: '2026-11-20', time: '19:00', event: 'Grand Slam of Darts', location: 'Wolverhampton', channel: 'Viaplay' },
-            { date: '2026-11-21', time: '19:00', event: 'Grand Slam of Darts', location: 'Wolverhampton', channel: 'Viaplay' },
-            { date: '2026-11-22', time: '19:00', event: 'Grand Slam of Darts - Finale', location: 'Wolverhampton', channel: 'Viaplay' },
+            { date: '2026-11-14', time: '13:00', event: 'Grand Slam of Darts', location: 'Wolverhampton', channel: 'Viaplay', matches: [
+                dartsSession('13:00', 'Groepsfase - Sessie 1'),
+                dartsSession('19:00', 'Groepsfase - Sessie 2')
+            ]},
+            { date: '2026-11-15', time: '13:00', event: 'Grand Slam of Darts', location: 'Wolverhampton', channel: 'Viaplay', matches: [
+                dartsSession('13:00', 'Groepsfase - Sessie 3'),
+                dartsSession('19:00', 'Groepsfase - Sessie 4')
+            ]},
+            { date: '2026-11-16', time: '19:00', event: 'Grand Slam of Darts', location: 'Wolverhampton', channel: 'Viaplay', matches: [
+                dartsSession('19:00', 'Groepsfase')
+            ]},
+            { date: '2026-11-17', time: '19:00', event: 'Grand Slam of Darts', location: 'Wolverhampton', channel: 'Viaplay', matches: [
+                dartsSession('19:00', 'Groepsfase')
+            ]},
+            { date: '2026-11-18', time: '19:00', event: 'Grand Slam of Darts', location: 'Wolverhampton', channel: 'Viaplay', matches: [
+                dartsSession('19:00', 'Groepsfase')
+            ]},
+            { date: '2026-11-19', time: '19:00', event: 'Grand Slam of Darts', location: 'Wolverhampton', channel: 'Viaplay', matches: [
+                dartsSession('19:00', 'Laatste 16')
+            ]},
+            { date: '2026-11-20', time: '19:00', event: 'Grand Slam of Darts', location: 'Wolverhampton', channel: 'Viaplay', matches: [
+                dartsSession('19:00', 'Laatste 16')
+            ]},
+            { date: '2026-11-21', time: '19:00', event: 'Grand Slam of Darts', location: 'Wolverhampton', channel: 'Viaplay', matches: [
+                dartsSession('19:00', 'Kwartfinales')
+            ]},
+            { date: '2026-11-22', time: '19:00', event: 'Grand Slam of Darts - Finale', location: 'Wolverhampton', channel: 'Viaplay', matches: [
+                dartsSession('19:00', 'Halve finales + finale')
+            ]},
             // Players Championship Finals 2026
-            { date: '2026-11-27', time: '13:00', event: 'Players Championship Finals', location: 'Minehead', channel: 'Viaplay' },
-            { date: '2026-11-28', time: '13:00', event: 'Players Championship Finals', location: 'Minehead', channel: 'Viaplay' },
-            { date: '2026-11-29', time: '19:00', event: 'Players Championship Finals - Finale', location: 'Minehead', channel: 'Viaplay' },
+            { date: '2026-11-27', time: '13:00', event: 'Players Championship Finals', location: 'Minehead', channel: 'Viaplay', matches: [
+                dartsSession('13:00', 'Openingsdag')
+            ]},
+            { date: '2026-11-28', time: '13:00', event: 'Players Championship Finals', location: 'Minehead', channel: 'Viaplay', matches: [
+                dartsSession('13:00', 'Laatste 16 / kwartfinales')
+            ]},
+            { date: '2026-11-29', time: '19:00', event: 'Players Championship Finals - Finale', location: 'Minehead', channel: 'Viaplay', matches: [
+                dartsSession('19:00', 'Halve finales + finale')
+            ]},
             // World Championship 2026/2027
-            { date: '2026-12-15', time: '19:00', event: 'World Championship', location: 'Alexandra Palace', channel: 'Viaplay' },
-            { date: '2026-12-16', time: '13:00', event: 'World Championship', location: 'Alexandra Palace', channel: 'Viaplay' },
-            { date: '2026-12-17', time: '13:00', event: 'World Championship', location: 'Alexandra Palace', channel: 'Viaplay' },
-            { date: '2026-12-18', time: '13:00', event: 'World Championship', location: 'Alexandra Palace', channel: 'Viaplay' },
-            { date: '2026-12-19', time: '13:00', event: 'World Championship', location: 'Alexandra Palace', channel: 'Viaplay' },
-            { date: '2026-12-20', time: '13:00', event: 'World Championship', location: 'Alexandra Palace', channel: 'Viaplay' },
-            { date: '2026-12-21', time: '13:00', event: 'World Championship', location: 'Alexandra Palace', channel: 'Viaplay' },
-            { date: '2026-12-22', time: '19:00', event: 'World Championship', location: 'Alexandra Palace', channel: 'Viaplay' },
-            { date: '2026-12-27', time: '13:00', event: 'World Championship', location: 'Alexandra Palace', channel: 'Viaplay' },
-            { date: '2026-12-28', time: '13:00', event: 'World Championship', location: 'Alexandra Palace', channel: 'Viaplay' },
-            { date: '2026-12-29', time: '19:00', event: 'World Championship', location: 'Alexandra Palace', channel: 'Viaplay' },
-            { date: '2026-12-30', time: '19:00', event: 'World Championship', location: 'Alexandra Palace', channel: 'Viaplay' },
+            { date: '2026-12-15', time: '19:00', event: 'World Championship', location: 'Alexandra Palace', channel: 'Viaplay', matches: [
+                dartsSession('19:00', 'Openingsavond - Eerste ronde')
+            ]},
+            { date: '2026-12-16', time: '13:00', event: 'World Championship', location: 'Alexandra Palace', channel: 'Viaplay', matches: [
+                dartsSession('13:00', 'Middagsessie - Eerste ronde'),
+                dartsSession('19:00', 'Avondsessie - Eerste ronde')
+            ]},
+            { date: '2026-12-17', time: '13:00', event: 'World Championship', location: 'Alexandra Palace', channel: 'Viaplay', matches: [
+                dartsSession('13:00', 'Middagsessie - Eerste ronde'),
+                dartsSession('19:00', 'Avondsessie - Eerste ronde')
+            ]},
+            { date: '2026-12-18', time: '13:00', event: 'World Championship', location: 'Alexandra Palace', channel: 'Viaplay', matches: [
+                dartsSession('13:00', 'Middagsessie - Eerste / tweede ronde'),
+                dartsSession('19:00', 'Avondsessie - Tweede ronde')
+            ]},
+            { date: '2026-12-19', time: '13:00', event: 'World Championship', location: 'Alexandra Palace', channel: 'Viaplay', matches: [
+                dartsSession('13:00', 'Middagsessie - Tweede ronde'),
+                dartsSession('19:00', 'Avondsessie - Tweede ronde')
+            ]},
+            { date: '2026-12-20', time: '13:00', event: 'World Championship', location: 'Alexandra Palace', channel: 'Viaplay', matches: [
+                dartsSession('13:00', 'Middagsessie - Tweede ronde'),
+                dartsSession('19:00', 'Avondsessie - Tweede ronde')
+            ]},
+            { date: '2026-12-21', time: '13:00', event: 'World Championship', location: 'Alexandra Palace', channel: 'Viaplay', matches: [
+                dartsSession('13:00', 'Middagsessie - Tweede ronde'),
+                dartsSession('19:00', 'Avondsessie - Tweede ronde')
+            ]},
+            { date: '2026-12-22', time: '19:00', event: 'World Championship', location: 'Alexandra Palace', channel: 'Viaplay', matches: [
+                dartsSession('19:00', 'Tweede ronde')
+            ]},
+            { date: '2026-12-27', time: '13:00', event: 'World Championship', location: 'Alexandra Palace', channel: 'Viaplay', matches: [
+                dartsSession('13:00', 'Derde ronde'),
+                dartsSession('19:00', 'Derde ronde')
+            ]},
+            { date: '2026-12-28', time: '13:00', event: 'World Championship', location: 'Alexandra Palace', channel: 'Viaplay', matches: [
+                dartsSession('13:00', 'Derde ronde'),
+                dartsSession('19:00', 'Derde ronde')
+            ]},
+            { date: '2026-12-29', time: '19:00', event: 'World Championship', location: 'Alexandra Palace', channel: 'Viaplay', matches: [
+                dartsSession('13:00', 'Vierde ronde'),
+                dartsSession('19:00', 'Vierde ronde')
+            ]},
+            { date: '2026-12-30', time: '19:00', event: 'World Championship', location: 'Alexandra Palace', channel: 'Viaplay', matches: [
+                dartsSession('13:00', 'Vierde ronde'),
+                dartsSession('19:00', 'Vierde ronde')
+            ]},
         ];
 
         // ============================================
@@ -2438,6 +2608,47 @@
                 status: m.score ? 'FINISHED' : 'SCHEDULED',
                 isStatic: true
             }));
+        }
+
+        function getConfirmedFootballFallbackMatches() {
+            const matches = [
+                // Oranje Leeuwinnen - confirmed upcoming qualifiers / internationals
+                { date: '2026-04-14', time: 'TBD', home: 'Nederland', away: 'Frankrijk', competition: 'WK Kwalificatie Vrouwen', channel: 'NPO 3 / ESPN' },
+                { date: '2026-04-18', time: 'TBD', home: 'Frankrijk', away: 'Nederland', competition: 'WK Kwalificatie Vrouwen', channel: 'NPO 3 / ESPN' },
+                { date: '2026-06-05', time: 'TBD', home: 'Ierland', away: 'Nederland', competition: 'WK Kwalificatie Vrouwen', channel: 'NPO 3 / ESPN' },
+                { date: '2026-06-09', time: 'TBD', home: 'Nederland', away: 'Polen', competition: 'WK Kwalificatie Vrouwen', channel: 'NPO 3 / ESPN' },
+            ];
+
+            return matches.map(m => ({
+                date: new Date(`${m.date}T12:00:00`),
+                time: m.time,
+                home: m.home,
+                away: m.away,
+                competition: m.competition,
+                channel: m.channel,
+                score: null,
+                live: false,
+                status: 'SCHEDULED',
+                isFallbackConfirmed: true
+            }));
+        }
+
+        function dedupeFootballMatches(matches) {
+            const seen = new Set();
+
+            return matches.filter(match => {
+                const dateStr = new Date(match.date).toISOString().split('T')[0];
+                const key = [
+                    dateStr,
+                    (match.competition || '').toLowerCase().trim(),
+                    (match.home || '').toLowerCase().trim(),
+                    (match.away || '').toLowerCase().trim()
+                ].join('|');
+
+                if (seen.has(key)) return false;
+                seen.add(key);
+                return true;
+            });
         }
 
         // Fetch football matches - try API-Football first, fall back to cache
@@ -2523,14 +2734,20 @@
                 console.warn('Could not fetch ESPN matches:', e);
             }
 
-            console.log(`Total matches loaded: ${allMatches.length}`);
+            const confirmedFallbackMatches = getConfirmedFootballFallbackMatches();
+            allMatches.push(...confirmedFallbackMatches);
+            console.log(`Added ${confirmedFallbackMatches.length} confirmed football fallback matches`);
+
+            const dedupedMatches = dedupeFootballMatches(allMatches);
+
+            console.log(`Total matches loaded: ${dedupedMatches.length}`);
 
             // Cache the results
-            if (allMatches.length > 0) {
-                localStorage.setItem('footballCache', JSON.stringify(allMatches));
+            if (dedupedMatches.length > 0) {
+                localStorage.setItem('footballCache', JSON.stringify(dedupedMatches));
                 localStorage.setItem('footballCacheTime', Date.now().toString());
-                localStorage.setItem('footballSource', 'openfootball+espn' + (CONFIG.FOOTBALL_DATA_KEY ? '+football-data' : ''));
-                return allMatches;
+                localStorage.setItem('footballSource', 'openfootball+espn+confirmed-fallback' + (CONFIG.FOOTBALL_DATA_KEY ? '+football-data' : ''));
+                return dedupedMatches;
             }
 
             // API failed - use old cache if available
@@ -3291,11 +3508,15 @@
                             // Hidden matches list
                             html += `<div class="darts-matches-list" id="${eventId}" style="display:none;">`;
                             event.matches.forEach(m => {
-                                const homeName = dartsPlayers[m.home]?.name || m.home;
-                                const awayName = dartsPlayers[m.away]?.name || m.away;
                                 html += `<div class="darts-match-item">`;
                                 html += `<span class="darts-match-time">${m.time}</span>`;
-                                html += `<span class="darts-match-players">${homeName} <span class="vs">vs</span> ${awayName}</span>`;
+                                if (m.label) {
+                                    html += `<span class="darts-match-players">${m.label}</span>`;
+                                } else {
+                                    const homeName = dartsPlayers[m.home]?.name || m.home;
+                                    const awayName = dartsPlayers[m.away]?.name || m.away;
+                                    html += `<span class="darts-match-players">${homeName} <span class="vs">vs</span> ${awayName}</span>`;
+                                }
                                 html += `</div>`;
                             });
                             html += `</div>`;
