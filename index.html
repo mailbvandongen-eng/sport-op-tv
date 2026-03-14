@@ -922,6 +922,20 @@
             font-weight: 400;
         }
 
+        .darts-session-details {
+            margin-top: 6px;
+            padding-left: 62px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .darts-session-detail {
+            font-size: 0.76rem;
+            color: var(--text-secondary);
+            line-height: 1.35;
+        }
+
         .darts-fallback-note {
             margin-top: 8px;
             padding-top: 8px;
@@ -1935,7 +1949,7 @@
         // ============================================
         const CONFIG = {
             // Cache version - increment to force cache clear after config changes
-            CACHE_VERSION: '3.9.1',
+            CACHE_VERSION: '3.9.2',
 
             // OpenFootball API (gratis, geen key nodig!)
             // https://github.com/openfootball/football.json
@@ -2240,6 +2254,39 @@
         };
 
         const dartsSession = (time, label) => ({ time, label });
+
+        const europeanTourEvents = new Set([
+            'Poland Darts Open',
+            'Poland Darts Open - Finale',
+            'European Darts Trophy',
+            'European Darts Trophy - Finale',
+            'Belgian Darts Open',
+            'Belgian Darts Open - Finale',
+            'German Darts Grand Prix',
+            'German Darts Grand Prix - Finale',
+            'European Darts Grand Prix',
+            'European Darts Grand Prix - Finale',
+            'Austrian Darts Open',
+            'Austrian Darts Open - Finale',
+            'International Darts Open',
+            'International Darts Open - Finale',
+            'Baltic Sea Darts Open',
+            'Baltic Sea Darts Open - Finale',
+            'Slovak Darts Open',
+            'Slovak Darts Open - Finale',
+            'European Darts Open',
+            'European Darts Open - Finale',
+            'Hungarian Darts Trophy',
+            'Hungarian Darts Trophy - Finale',
+            'Czech Darts Open',
+            'Czech Darts Open - Finale',
+            'Flanders Darts Trophy',
+            'Flanders Darts Trophy - Finale',
+            'Swiss Darts Trophy',
+            'Swiss Darts Trophy - Finale',
+            'Dutch Darts Championship',
+            'Dutch Darts Championship - Finale'
+        ]);
 
         const dartsCalendar = [
             // Premier League Darts 2026 - Echte schema's met tijden
@@ -3495,6 +3542,52 @@
             return events;
         }
 
+        function getDartsFallbackItems(eventTitle, sessionLabel) {
+            if (europeanTourEvents.has(eventTitle)) {
+                if (sessionLabel.includes('Eerste ronde') && sessionLabel.includes('Middagsessie')) {
+                    return ['Wedstrijd 1', 'Wedstrijd 2', 'Wedstrijd 3', 'Wedstrijd 4', 'Wedstrijd 5', 'Wedstrijd 6', 'Wedstrijd 7', 'Wedstrijd 8'];
+                }
+                if (sessionLabel.includes('Eerste ronde') && sessionLabel.includes('Avondsessie')) {
+                    return ['Wedstrijd 9', 'Wedstrijd 10', 'Wedstrijd 11', 'Wedstrijd 12', 'Wedstrijd 13', 'Wedstrijd 14', 'Wedstrijd 15', 'Wedstrijd 16'];
+                }
+                if (sessionLabel.includes('Tweede ronde') && sessionLabel.includes('Middagsessie')) {
+                    return ['Tweede ronde 1', 'Tweede ronde 2', 'Tweede ronde 3', 'Tweede ronde 4', 'Tweede ronde 5', 'Tweede ronde 6', 'Tweede ronde 7', 'Tweede ronde 8'];
+                }
+                if (sessionLabel.includes('Tweede ronde') && sessionLabel.includes('Avondsessie')) {
+                    return ['Tweede ronde 9', 'Tweede ronde 10', 'Tweede ronde 11', 'Tweede ronde 12', 'Tweede ronde 13', 'Tweede ronde 14', 'Tweede ronde 15', 'Tweede ronde 16'];
+                }
+                if (sessionLabel.includes('Laatste 16')) {
+                    return ['Laatste 16 - Wedstrijd 1', 'Laatste 16 - Wedstrijd 2', 'Laatste 16 - Wedstrijd 3', 'Laatste 16 - Wedstrijd 4', 'Laatste 16 - Wedstrijd 5', 'Laatste 16 - Wedstrijd 6', 'Laatste 16 - Wedstrijd 7', 'Laatste 16 - Wedstrijd 8'];
+                }
+                if (sessionLabel.includes('Kwartfinales / halve finales / finale')) {
+                    return ['Kwartfinale 1', 'Kwartfinale 2', 'Kwartfinale 3', 'Kwartfinale 4', 'Halve finale 1', 'Halve finale 2', 'Finale'];
+                }
+            }
+
+            if (eventTitle === 'UK Open' || eventTitle === 'UK Open - Finale') {
+                if (sessionLabel.includes('Ronde 1 t/m 3')) {
+                    return ['Hoofdpodium en buitenbanen - rondes 1 t/m 3'];
+                }
+                if (sessionLabel.includes('Ronde 4')) {
+                    return ['Ronde 4 - avondsessie'];
+                }
+                if (sessionLabel.includes('Ronde 5')) {
+                    return ['Ronde 5 - middagsessie'];
+                }
+                if (sessionLabel.includes('Ronde 6 / kwartfinales')) {
+                    return ['Ronde 6', 'Kwartfinales'];
+                }
+                if (sessionLabel.includes('Halve finales')) {
+                    return ['Halve finale 1', 'Halve finale 2'];
+                }
+                if (sessionLabel.includes('Finale')) {
+                    return ['Finale'];
+                }
+            }
+
+            return [];
+        }
+
         // Check if event is live now
         function isLiveNow(startTime, endTime, durationHours = 2) {
             const now = new Date();
@@ -3768,6 +3861,7 @@
                             // Hidden matches list
                             html += `<div class="darts-matches-list" id="${eventId}" style="display:none;">`;
                             event.matches.forEach(m => {
+                                const fallbackItems = m.label ? getDartsFallbackItems(event.title || event.event || '', m.label) : [];
                                 html += `<div class="darts-match-item">`;
                                 html += `<span class="darts-match-time">${m.time}</span>`;
                                 if (m.label) {
@@ -3778,6 +3872,13 @@
                                     html += `<span class="darts-match-players">${homeName} <span class="vs">vs</span> ${awayName}</span>`;
                                 }
                                 html += `</div>`;
+                                if (fallbackItems.length > 0) {
+                                    html += `<div class="darts-session-details">`;
+                                    fallbackItems.forEach(item => {
+                                        html += `<div class="darts-session-detail">${item}</div>`;
+                                    });
+                                    html += `</div>`;
+                                }
                             });
                             if (event.matches.some(m => m.label)) {
                                 html += `<div class="darts-fallback-note">Confirmed fallback: sessieschema is bevestigd, exacte partijen volgen zodra loting of order of play beschikbaar is.</div>`;
