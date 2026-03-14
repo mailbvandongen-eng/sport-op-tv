@@ -1145,6 +1145,14 @@
             gap: 12px;
         }
 
+        .match-row .event-copy {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 4px;
+            min-width: 0;
+        }
+
         .match-row .event-info .match-time {
             font-weight: 600;
             min-width: 45px;
@@ -1154,6 +1162,7 @@
             font-size: 0.85rem;
             font-weight: 500;
             color: var(--text);
+            line-height: 1.3;
         }
 
         /* Channel badge in match rows (darts/F1) */
@@ -2358,6 +2367,32 @@
                 dartsSession('13:00', 'Middagsessie - Halve finales'),
                 dartsSession('19:00', 'Avondsessie - Finale')
             ]},
+            // European Tour 2 - European Darts Trophy 2026
+            { date: '2026-03-13', time: '13:00', event: 'European Darts Trophy', location: 'Göttingen', channel: 'Viaplay', matches: [
+                dartsSession('13:00', 'Middagsessie - Eerste ronde'),
+                dartsSession('19:00', 'Avondsessie - Eerste ronde')
+            ]},
+            { date: '2026-03-14', time: '13:00', event: 'European Darts Trophy', location: 'Göttingen', channel: 'Viaplay', matches: [
+                dartsSession('13:00', 'Middagsessie - Tweede ronde'),
+                dartsSession('19:00', 'Avondsessie - Tweede ronde')
+            ]},
+            { date: '2026-03-15', time: '13:00', event: 'European Darts Trophy - Finale', location: 'Göttingen', channel: 'Viaplay', matches: [
+                dartsSession('13:00', 'Middagsessie - Laatste 16'),
+                dartsSession('19:00', 'Avondsessie - Kwartfinales / halve finales / finale')
+            ]},
+            // European Tour 3 - Belgian Darts Open 2026
+            { date: '2026-03-20', time: '13:00', event: 'Belgian Darts Open', location: 'Wieze', channel: 'Viaplay', matches: [
+                dartsSession('13:00', 'Middagsessie - Eerste ronde'),
+                dartsSession('19:00', 'Avondsessie - Eerste ronde')
+            ]},
+            { date: '2026-03-21', time: '13:00', event: 'Belgian Darts Open', location: 'Wieze', channel: 'Viaplay', matches: [
+                dartsSession('13:00', 'Middagsessie - Tweede ronde'),
+                dartsSession('19:00', 'Avondsessie - Tweede ronde')
+            ]},
+            { date: '2026-03-22', time: '13:00', event: 'Belgian Darts Open - Finale', location: 'Wieze', channel: 'Viaplay', matches: [
+                dartsSession('13:00', 'Middagsessie - Laatste 16'),
+                dartsSession('19:00', 'Avondsessie - Kwartfinales / halve finales / finale')
+            ]},
             // Nordic Darts Masters 2026
             { date: '2026-06-05', time: '19:00', event: 'Nordic Darts Masters', location: 'Copenhagen', channel: 'Viaplay', matches: [
                 dartsSession('19:00', 'Kwartfinales')
@@ -3543,8 +3578,10 @@
                             html += `<div class="match-row darts-row darts-expandable" data-event-id="${eventId}">`;
                             html += `<div class="event-info">`;
                             html += `<span class="match-time">${event.time}</span>`;
+                            html += `<div class="event-copy">`;
                             html += `<span class="event-title">${title}</span>`;
                             html += getSourceBadgeHtml(event);
+                            html += `</div>`;
                             html += `<span class="expand-icon">▼</span>`;
                             html += `</div>`;
                             html += getChannelHtml(event.channel);
@@ -3574,8 +3611,10 @@
                             html += `<div class="match-row ${sportType}-row">`;
                             html += `<div class="event-info">`;
                             html += `<span class="match-time">${event.time}</span>`;
+                            html += `<div class="event-copy">`;
                             html += `<span class="event-title">${title}</span>`;
                             html += getSourceBadgeHtml(event);
+                            html += `</div>`;
                             html += `</div>`;
                             html += getChannelHtml(event.channel);
                             html += `</div>`;
