@@ -1052,6 +1052,7 @@
             background: var(--card-bg);
             border-bottom: 1px solid var(--border);
             transition: background 0.15s ease;
+            position: relative;
         }
 
         .match-row:hover {
@@ -1201,29 +1202,31 @@
             color: var(--text-secondary);
         }
 
-        .source-badge {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 2px 6px;
+        .source-dot {
+            width: 8px;
+            height: 8px;
             border-radius: 999px;
-            font-size: 0.58rem;
-            font-weight: 800;
-            letter-spacing: 0.02em;
-            text-transform: uppercase;
-            white-space: nowrap;
+            display: inline-block;
+            flex-shrink: 0;
+            box-shadow: 0 0 0 2px var(--card-bg);
         }
 
-        .source-badge-live {
-            color: #22c55e;
-            background: rgba(34, 197, 94, 0.12);
-            border: 1px solid rgba(34, 197, 94, 0.25);
+        .source-dot-live {
+            background: #22c55e;
         }
 
-        .source-badge-fallback {
-            color: #f59e0b;
-            background: rgba(245, 158, 11, 0.12);
-            border: 1px solid rgba(245, 158, 11, 0.25);
+        .source-dot-fallback {
+            background: #f59e0b;
+        }
+
+        .match-row > .source-dot {
+            position: absolute;
+            top: 9px;
+            right: 10px;
+        }
+
+        .source-dot-inline {
+            position: static;
         }
 
         /* Mobile responsive for match rows */
@@ -1247,9 +1250,9 @@
                 font-size: 0.85rem;
             }
 
-            .source-badge {
-                font-size: 0.52rem;
-                padding: 2px 5px;
+            .match-row > .source-dot {
+                top: 8px;
+                right: 8px;
             }
 
             .competition-header {
@@ -1852,12 +1855,14 @@
                         <label><input type="checkbox" value="Nations League"> Nations League</label>
                         <label><input type="checkbox" value="WK Kwalificatie"> WK Kwalificatie</label>
                         <label><input type="checkbox" value="EK Kwalificatie"> EK Kwalificatie</label>
+                        <label><input type="checkbox" value="Vriendschappelijk Internationaal"> Oefenwedstrijden</label>
                         <hr>
                         <label><input type="checkbox" value="WK Vrouwen"> WK Vrouwen</label>
                         <label><input type="checkbox" value="EK Vrouwen"> EK Vrouwen</label>
                         <label><input type="checkbox" value="WK Kwalificatie Vrouwen"> WK Kwalificatie Vrouwen</label>
                         <label><input type="checkbox" value="EK Kwalificatie Vrouwen"> EK Kwalificatie Vrouwen</label>
                         <label><input type="checkbox" value="Nations League Vrouwen"> Nations League Vrouwen</label>
+                        <label><input type="checkbox" value="Vriendschappelijk Internationaal Vrouwen"> Oefenwedstrijden Vrouwen</label>
                     </div>
                 </div>
                 <input type="text" class="filter-input" id="filter-clubs" placeholder="Clubs...">
@@ -1923,7 +1928,7 @@
             <div class="api-status" id="api-status">
                 <span class="live-dot"></span> <span class="status-text">Laden...</span>
             </div>
-            <p class="version-footer">v3.7.0</p>
+            <p class="version-footer">v3.7.1</p>
         </footer>
     </div>
 
@@ -1949,7 +1954,7 @@
         // ============================================
         const CONFIG = {
             // Cache version - increment to force cache clear after config changes
-            CACHE_VERSION: '3.9.2',
+            CACHE_VERSION: '3.9.3',
 
             // OpenFootball API (gratis, geen key nodig!)
             // https://github.com/openfootball/football.json
@@ -1989,8 +1994,18 @@
                 // UEFA Cups
                 { slug: 'uefa.europa', name: 'Europa League', channel: 'Ziggo Sport' },
                 { slug: 'uefa.europa.conf', name: 'Conference League', channel: 'Ziggo Sport' },
+                // Men's international competitions
+                { slug: 'fifa.world', name: 'WK', channel: 'NPO 1 / ESPN' },
+                { slug: 'uefa.euro', name: 'EK', channel: 'NPO 1 / ESPN' },
+                { slug: 'uefa.nations', name: 'Nations League', channel: 'NPO 1 / ESPN' },
+                { slug: 'fifa.worldq.uefa', name: 'WK Kwalificatie', channel: 'NPO 1 / ESPN' },
+                { slug: 'uefa.euroq', name: 'EK Kwalificatie', channel: 'NPO 1 / ESPN' },
+                { slug: 'fifa.friendly', name: 'Vriendschappelijk Internationaal', channel: 'NPO 1 / ESPN' },
                 // Women's international competitions
+                { slug: 'fifa.wwc', name: 'WK Vrouwen', channel: 'NPO 3 / ESPN' },
+                { slug: 'uefa.weuro', name: 'EK Vrouwen', channel: 'NPO 3 / ESPN' },
                 { slug: 'fifa.wworldq.uefa', name: 'WK Kwalificatie Vrouwen', channel: 'NPO 3 / ESPN' },
+                { slug: 'uefa.w.euroq', name: 'EK Kwalificatie Vrouwen', channel: 'NPO 3 / ESPN' },
                 { slug: 'uefa.w.nations', name: 'Nations League Vrouwen', channel: 'NPO 3 / ESPN' },
                 { slug: 'fifa.friendly.w', name: 'Vriendschappelijk Internationaal Vrouwen', channel: 'NPO 3 / ESPN' },
                 // Nationale bekers
@@ -2087,6 +2102,7 @@
                 'EK': 'eu',
                 'WK Kwalificatie': 'world',
                 'EK Kwalificatie': 'eu',
+                'Vriendschappelijk Internationaal': 'world',
                 'WK Vrouwen': 'world',
                 'EK Vrouwen': 'eu',
                 'WK Kwalificatie Vrouwen': 'world',
@@ -3768,11 +3784,11 @@
                 return `<span class="channel-badge">${channel}</span>`;
             };
 
-            const getSourceBadgeHtml = (event) => {
+            const getSourceBadgeHtml = (event, inline = false) => {
                 const isFallback = event.isFallbackConfirmed || event.isStatic || event.sportType === 'darts';
-                const label = isFallback ? 'Confirmed fallback' : 'Live bron';
-                const className = isFallback ? 'source-badge source-badge-fallback' : 'source-badge source-badge-live';
-                return `<span class="${className}">${label}</span>`;
+                const label = isFallback ? 'Fallback bron' : 'Live bron';
+                const className = isFallback ? 'source-dot source-dot-fallback' : 'source-dot source-dot-live';
+                return `<span class="${className}${inline ? ' source-dot-inline' : ''}" title="${label}" aria-label="${label}"></span>`;
             };
 
             let html = '';
@@ -3832,9 +3848,10 @@
                             const rowClass = `match-row${event.live ? ' live' : ''}${hasScore ? ' has-score finished' : ''}${isPast ? ' past' : ''}`;
 
                             html += `<div class="${rowClass}">`;
+                            html += getSourceBadgeHtml(event);
                             html += `<span class="team home">${event.home}</span>`;
                             html += homeLogo;
-                            html += `<div class="match-meta"><span class="match-time">${event.time}</span>${getSourceBadgeHtml(event)}</div>`;
+                            html += `<div class="match-meta"><span class="match-time">${event.time}</span></div>`;
                             html += `<div class="match-meta"><span class="match-score">${event.score || '-'}</span></div>`;
                             html += awayLogo;
                             html += `<span class="team away">${event.away}</span>`;
@@ -3851,7 +3868,7 @@
                             html += `<span class="match-time">${event.time}</span>`;
                             html += `<div class="event-copy">`;
                             html += `<span class="event-title">${title}</span>`;
-                            html += getSourceBadgeHtml(event);
+                            html += getSourceBadgeHtml(event, true);
                             html += `</div>`;
                             html += `<span class="expand-icon">▼</span>`;
                             html += `</div>`;
