@@ -1343,7 +1343,9 @@
         /* Mobile responsive for match rows */
         @media (max-width: 600px) {
             .header-section {
-                position: static;
+                position: sticky;
+                top: 0;
+                z-index: 100;
             }
 
             .title-bar {
@@ -1447,6 +1449,10 @@
                 display: none;
             }
 
+            .football-row .match-side-meta .match-competition-inline {
+                display: none;
+            }
+
             .football-row .teams-line {
                 grid-area: teams;
                 gap: 6px;
@@ -1472,12 +1478,7 @@
             }
 
             .football-row .match-meta-mobile {
-                display: block;
-                margin-top: 2px;
-                font-size: 0.68rem;
-                line-height: 1.15;
-                color: var(--text-secondary);
-                grid-column: 1 / -1;
+                display: none;
             }
 
             .match-row .match-time {
@@ -4164,8 +4165,22 @@
                     .sort((a, b) => a.time.localeCompare(b.time) || (a.competition || '').localeCompare(b.competition || '') || (a.home || '').localeCompare(b.home || ''));
 
                 if (footballEventsForDay.length > 0) {
-                    html += `<div class="football-day-list">`;
+                    const footballByCompetition = {};
                     footballEventsForDay.forEach(event => {
+                        const comp = event.competition || 'Voetbal';
+                        if (!footballByCompetition[comp]) footballByCompetition[comp] = [];
+                        footballByCompetition[comp].push(event);
+                    });
+
+                    Object.keys(footballByCompetition).sort().forEach(comp => {
+                        const compEvents = footballByCompetition[comp];
+                        html += `<div class="competition-group football-competition-group">`;
+                        html += `<div class="competition-header">`;
+                        html += getFlagImg(comp);
+                        html += `<span class="competition-name">${comp.toUpperCase()}</span>`;
+                        html += `</div>`;
+                        html += `<div class="football-day-list">`;
+                        compEvents.forEach(event => {
                         const homeLogoSrc = event.homeCrest || CONFIG.CLUB_LOGOS[event.home];
                         const awayLogoSrc = event.awayCrest || CONFIG.CLUB_LOGOS[event.away];
                         const homeLogo = homeLogoSrc ? `<img src="${homeLogoSrc}" class="team-logo" onerror="this.style.display='none'" alt="">` : '<span class="team-logo-placeholder"></span>';
@@ -4185,8 +4200,10 @@
                         html += `<div class="match-side-meta"><span class="match-competition-inline">${event.competition || ''}</span>${getChannelHtml(event.channel)}</div>`;
                         html += `<div class="match-meta-mobile">${event.competition || ''}${event.channel ? ` - ${event.channel}` : ''}</div>`;
                         html += `</div>`;
+                        });
+                        html += `</div>`;
+                        html += `</div>`;
                     });
-                    html += `</div>`;
                 }
 
                 // Group remaining events by competition within this day
@@ -4223,8 +4240,7 @@
                             // Darts with matches: expandable accordion
                             const compSlug = comp.toLowerCase().replace(/[^a-z0-9]+/g, '-');
                             const eventId = `darts-${dateKey}-${compSlug}-${compEvents.indexOf(event)}`;
-                            let title = event.title || '';
-                            if (event.location) title += ` - ${event.location}`;
+                            let title = event.title || event.event || '';
 
                             html += `<div class="match-row darts-row darts-expandable" data-event-id="${eventId}">`;
                             html += `<div class="event-info">`;
@@ -4266,9 +4282,7 @@
                             html += `</div>`;
                         } else {
                             // Darts without matches & F1: single row with title
-                            let title = event.title || '';
-                            if (event.location) title += ` - ${event.location}`;
-                            if (event.circuit) title += ` - ${event.circuit}`;
+                            let title = event.title || event.event || '';
 
                             html += `<div class="match-row ${sportType}-row">`;
                             html += `<div class="event-info">`;
