@@ -164,6 +164,11 @@
             flex: 1;
         }
 
+        body[data-sport-view="darts"] .filters-row,
+        body[data-sport-view="f1"] .filters-row {
+            display: none;
+        }
+
         /* Dropdown */
         .dropdown {
             position: relative;
@@ -1168,6 +1173,10 @@
             max-width: 100%;
         }
 
+        .football-row .match-meta-mobile {
+            display: none;
+        }
+
         .football-row .channel-badge {
             font-size: 0.84rem;
             font-weight: 600;
@@ -1295,6 +1304,10 @@
             letter-spacing: 0.3px;
         }
 
+        .competition-group.compact-group .competition-header {
+            display: none;
+        }
+
         .match-row .event-location {
             font-size: 0.75rem;
             color: var(--text-secondary);
@@ -1329,6 +1342,64 @@
 
         /* Mobile responsive for match rows */
         @media (max-width: 600px) {
+            .header-section {
+                position: static;
+            }
+
+            .title-bar {
+                padding: 10px 12px 8px;
+            }
+
+            .title-bar h1 {
+                font-size: 1rem;
+            }
+
+            .title-bar-icons {
+                gap: 8px;
+            }
+
+            .icon-btn {
+                width: 28px;
+                height: 28px;
+            }
+
+            .icon-btn svg {
+                width: 18px;
+                height: 18px;
+            }
+
+            .sport-buttons-row {
+                justify-content: flex-start;
+                gap: 6px;
+                padding: 0 12px 8px;
+                overflow-x: auto;
+                scrollbar-width: none;
+            }
+
+            .sport-buttons-row::-webkit-scrollbar {
+                display: none;
+            }
+
+            .sport-filter-btn {
+                padding: 5px 10px;
+                font-size: 0.72rem;
+                white-space: nowrap;
+            }
+
+            .date-tabs-container {
+                padding: 6px 0;
+            }
+
+            .date-tabs {
+                gap: 2px;
+                padding: 0 12px;
+            }
+
+            .date-tab {
+                padding: 7px 10px;
+                font-size: 0.68rem;
+            }
+
             .match-row {
                 grid-template-columns: 1fr auto 50px auto 1fr;
                 gap: 4px;
@@ -1350,44 +1421,63 @@
             }
 
             .football-row {
-                grid-template-columns: 58px minmax(0, 1fr);
+                grid-template-columns: 54px minmax(0, 1fr);
                 grid-template-areas:
                     "time meta"
                     "teams teams";
-                gap: 8px 12px;
-                padding-top: 12px;
-                padding-bottom: 12px;
+                gap: 6px 10px;
+                padding-top: 10px;
+                padding-bottom: 10px;
             }
 
             .football-row .match-time-col {
                 grid-area: time;
-                font-size: 0.95rem;
+                font-size: 0.9rem;
             }
 
             .football-row .match-side-meta {
                 grid-area: meta;
-                padding-right: 16px;
-                gap: 2px;
+                align-items: flex-end;
+                justify-content: center;
+                padding-right: 12px;
+                gap: 0;
+            }
+
+            .football-row .match-side-meta .channel-badge {
+                display: none;
             }
 
             .football-row .teams-line {
                 grid-area: teams;
-                gap: 8px;
+                gap: 6px;
             }
 
             .football-row .team-chip {
-                gap: 8px;
+                gap: 6px;
             }
 
             .football-row .team-chip .team-name {
-                font-size: 0.88rem;
+                font-size: 0.84rem;
                 white-space: normal;
-                line-height: 1.25;
+                line-height: 1.2;
             }
 
-            .football-row .match-competition-inline,
-            .football-row .channel-badge {
-                font-size: 0.76rem;
+            .football-row .match-separator {
+                font-size: 0.92rem;
+            }
+
+            .football-row .match-competition-inline {
+                font-size: 0.7rem;
+                line-height: 1.1;
+            }
+
+            .football-row .match-meta-mobile {
+                display: block;
+                margin-top: 2px;
+                font-size: 0.68rem;
+                line-height: 1.15;
+                color: var(--text-secondary);
+                grid-column: 1 / -1;
             }
 
             .match-row .match-time {
@@ -1399,12 +1489,47 @@
                 right: 8px;
             }
 
+            .match-row > .source-dot,
+            .source-dot-inline {
+                display: none;
+            }
+
             .competition-header {
                 padding: 8px 12px;
             }
 
             .competition-header .competition-name {
-                font-size: 0.75rem;
+                font-size: 0.72rem;
+            }
+
+            .day-header {
+                position: static;
+                top: auto;
+                padding: 10px 12px 8px;
+                font-size: 0.78rem;
+            }
+
+            .match-row.darts-row,
+            .match-row.f1-row {
+                align-items: flex-start;
+            }
+
+            .match-row .event-info {
+                gap: 8px;
+                min-width: 0;
+            }
+
+            .match-row .event-copy {
+                gap: 2px;
+            }
+
+            .match-row .event-title {
+                font-size: 0.82rem;
+                line-height: 1.25;
+            }
+
+            .match-row .channel-badge {
+                font-size: 0.66rem;
             }
         }
 
@@ -1704,7 +1829,7 @@
         /* Responsive */
         @media (max-width: 600px) {
             .container {
-                padding: 8px;
+                padding: 0;
             }
 
             header {
@@ -1727,27 +1852,38 @@
 
             /* Compact filters for mobile */
             .filters-row {
-                padding: 8px;
-                margin-bottom: 6px;
+                padding: 0 12px 10px;
+                margin-bottom: 0;
                 gap: 6px;
                 flex-wrap: wrap;
             }
 
+            .filters-primary {
+                gap: 6px;
+            }
+
+            .filters-primary .dropdown {
+                flex: 1 1 100%;
+            }
+
             .dropdown-btn {
-                padding: 6px 10px;
-                font-size: 0.75rem;
-                min-width: auto;
+                width: 100%;
+                padding: 8px 10px;
+                font-size: 0.74rem;
+                min-width: 0;
             }
 
             .filter-input {
-                padding: 6px 8px;
-                font-size: 0.75rem;
-                width: 100px;
+                flex: 1 1 auto;
+                min-width: 0;
+                padding: 8px 10px;
+                font-size: 0.74rem;
+                width: auto;
             }
 
             .reset-btn {
-                padding: 4px 6px;
-                font-size: 0.7rem;
+                padding: 8px 10px;
+                font-size: 0.74rem;
             }
 
             .toggle-group {
@@ -3040,6 +3176,8 @@
         // Alle data moet van de API komen.
         // Deze functie geeft alleen WK 2026 terug (kan niet van API komen, is toekomst)
         function getStaticFootballMatches() {
+            return [];
+
             const matches = [
                 // ============================================
                 // WK 2026 - Nederland wedstrijden (kan niet van API)
@@ -3086,6 +3224,8 @@
         }
 
         function getConfirmedFootballFallbackMatches() {
+            return [];
+
             const matches = [
                 // Oranje Leeuwinnen - confirmed upcoming qualifiers / internationals
                 { date: '2026-04-14', time: 'TBD', home: 'Nederland', away: 'Frankrijk', competition: 'WK Kwalificatie Vrouwen', channel: 'NPO 3 / ESPN' },
@@ -3150,6 +3290,21 @@
             }
 
             return isUefaNationalTeam(homeTeam) || isUefaNationalTeam(awayTeam);
+        }
+
+        function hasConcreteFootballParticipants(match) {
+            const blockedValues = ['tbd', 'to be announced', 'winner', 'loser', 'uefa po', 'play-off winner', 'playoff winner'];
+            const home = (match.home || '').toLowerCase();
+            const away = (match.away || '').toLowerCase();
+            return !blockedValues.some(value => home.includes(value) || away.includes(value));
+        }
+
+        function filterReliableFootballMatches(matches) {
+            return matches.filter(match => {
+                if (!match || !match.home || !match.away || !match.date) return false;
+                if (!hasConcreteFootballParticipants(match)) return false;
+                return isRelevantInternationalMatch(match.competition, match.home, match.away);
+            });
         }
 
         // Fetch football matches - try API-Football first, fall back to cache
@@ -3859,6 +4014,7 @@
         async function renderEvents() {
             const container = document.getElementById('events-container');
             container.className = `events-container${showScores ? ' show-scores' : ''}`;
+            document.body.dataset.sportView = currentSportFilter || 'all';
 
             showLoading();
 
@@ -3873,7 +4029,7 @@
                     cachedData.f1 || fetchF1Sessions()
                 ]);
 
-                cachedData.voetbal = footballData || [];
+                cachedData.voetbal = filterReliableFootballMatches(footballData || []);
                 cachedData.darts = dartsData || [];
                 cachedData.f1 = f1Data || [];
 
@@ -4027,6 +4183,7 @@
                         html += `<div class="team-chip away">${awayLogo}<span class="team-name">${event.away}</span></div>`;
                         html += `</div>`;
                         html += `<div class="match-side-meta"><span class="match-competition-inline">${event.competition || ''}</span>${getChannelHtml(event.channel)}</div>`;
+                        html += `<div class="match-meta-mobile">${event.competition || ''}${event.channel ? ` - ${event.channel}` : ''}</div>`;
                         html += `</div>`;
                     });
                     html += `</div>`;
@@ -4052,7 +4209,8 @@
                     compEvents.sort((a, b) => a.time.localeCompare(b.time));
 
                     // Competition header
-                    html += `<div class="competition-group">`;
+                    const compactGroupClass = (currentSportFilter === 'darts' || currentSportFilter === 'f1') ? ' compact-group' : '';
+                    html += `<div class="competition-group${compactGroupClass}">`;
                     html += `<div class="competition-header">`;
                     html += getFlagImg(comp);
                     html += `<span class="competition-name">${comp.toUpperCase()}</span>`;
