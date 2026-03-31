@@ -1005,6 +1005,12 @@
             margin-bottom: 2px;
         }
 
+        .football-day-list {
+            background: var(--card-bg);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
         /* Competition Header - grey bar with flag and channel */
         .competition-header {
             display: flex;
@@ -1083,6 +1089,93 @@
             object-fit: contain;
         }
 
+        .team-logo-placeholder {
+            width: 22px;
+            height: 22px;
+            display: inline-block;
+            flex-shrink: 0;
+        }
+
+        .football-row {
+            grid-template-columns: 72px minmax(0, 1fr) 190px;
+            gap: 16px;
+        }
+
+        .football-row .match-time-col {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .football-row .teams-line {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
+        }
+
+        .football-row .team-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 0;
+        }
+
+        .football-row .team-chip.home {
+            justify-content: flex-end;
+        }
+
+        .football-row .team-chip.away {
+            justify-content: flex-start;
+        }
+
+        .football-row .team-chip .team-name {
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .football-row .match-separator {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            letter-spacing: 0.08em;
+        }
+
+        .football-row .match-side-meta {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 4px;
+            min-width: 0;
+            text-align: right;
+            padding-right: 14px;
+        }
+
+        .football-row .match-competition-inline {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+        }
+
+        .football-row .channel-badge {
+            font-size: 0.84rem;
+            font-weight: 600;
+            letter-spacing: 0;
+            text-transform: none;
+            color: var(--text);
+        }
+
         .match-row .match-time {
             font-size: 1rem;
             font-weight: 700;
@@ -1108,6 +1201,11 @@
 
         .match-row.live .match-time,
         .match-row.live .match-score {
+            color: var(--f1);
+        }
+
+        .football-row.live .match-time-col,
+        .football-row.live .match-separator {
             color: var(--f1);
         }
 
@@ -1244,6 +1342,52 @@
             .match-row .team-logo {
                 width: 18px;
                 height: 18px;
+            }
+
+            .team-logo-placeholder {
+                width: 18px;
+                height: 18px;
+            }
+
+            .football-row {
+                grid-template-columns: 58px minmax(0, 1fr);
+                grid-template-areas:
+                    "time meta"
+                    "teams teams";
+                gap: 8px 12px;
+                padding-top: 12px;
+                padding-bottom: 12px;
+            }
+
+            .football-row .match-time-col {
+                grid-area: time;
+                font-size: 0.95rem;
+            }
+
+            .football-row .match-side-meta {
+                grid-area: meta;
+                padding-right: 16px;
+                gap: 2px;
+            }
+
+            .football-row .teams-line {
+                grid-area: teams;
+                gap: 8px;
+            }
+
+            .football-row .team-chip {
+                gap: 8px;
+            }
+
+            .football-row .team-chip .team-name {
+                font-size: 0.88rem;
+                white-space: normal;
+                line-height: 1.25;
+            }
+
+            .football-row .match-competition-inline,
+            .football-row .channel-badge {
+                font-size: 0.76rem;
             }
 
             .match-row .match-time {
@@ -1928,7 +2072,7 @@
             <div class="api-status" id="api-status">
                 <span class="live-dot"></span> <span class="status-text">Laden...</span>
             </div>
-            <p class="version-footer">v3.7.1</p>
+            <p class="version-footer">v3.7.2</p>
         </footer>
     </div>
 
@@ -1954,7 +2098,7 @@
         // ============================================
         const CONFIG = {
             // Cache version - increment to force cache clear after config changes
-            CACHE_VERSION: '3.9.3',
+            CACHE_VERSION: '3.9.4',
 
             // OpenFootball API (gratis, geen key nodig!)
             // https://github.com/openfootball/football.json
@@ -1995,12 +2139,12 @@
                 { slug: 'uefa.europa', name: 'Europa League', channel: 'Ziggo Sport' },
                 { slug: 'uefa.europa.conf', name: 'Conference League', channel: 'Ziggo Sport' },
                 // Men's international competitions
-                { slug: 'fifa.world', name: 'WK', channel: 'NPO 1 / ESPN' },
-                { slug: 'uefa.euro', name: 'EK', channel: 'NPO 1 / ESPN' },
-                { slug: 'uefa.nations', name: 'Nations League', channel: 'NPO 1 / ESPN' },
-                { slug: 'fifa.worldq.uefa', name: 'WK Kwalificatie', channel: 'NPO 1 / ESPN' },
-                { slug: 'uefa.euroq', name: 'EK Kwalificatie', channel: 'NPO 1 / ESPN' },
-                { slug: 'fifa.friendly', name: 'Vriendschappelijk Internationaal', channel: 'NPO 1 / ESPN' },
+                { slug: 'fifa.world', name: 'WK', channel: 'NPO / ESPN' },
+                { slug: 'uefa.euro', name: 'EK', channel: 'NPO / ESPN' },
+                { slug: 'uefa.nations', name: 'Nations League', channel: 'NPO / Ziggo Sport' },
+                { slug: 'fifa.worldq.uefa', name: 'WK Kwalificatie', channel: 'Ziggo Sport' },
+                { slug: 'uefa.euroq', name: 'EK Kwalificatie', channel: 'Ziggo Sport' },
+                { slug: 'fifa.friendly', name: 'Vriendschappelijk Internationaal', channel: 'ESPN / Ziggo Sport' },
                 // Women's international competitions
                 { slug: 'fifa.wwc', name: 'WK Vrouwen', channel: 'NPO 3 / ESPN' },
                 { slug: 'uefa.weuro', name: 'EK Vrouwen', channel: 'NPO 3 / ESPN' },
@@ -2133,6 +2277,24 @@
                 'EFL Cup': 'logos/england_efl-cup.football-logos.cc.svg',
                 'KNVB Beker': 'logos/netherlands_knvb-cup.football-logos.cc.svg'
             },
+
+            UEFA_NATIONAL_TEAMS: [
+                'Albanië', 'Albania', 'Andorra', 'Armenia', 'Armenië', 'Austria', 'Oostenrijk',
+                'Azerbaijan', 'Azerbeidzjan', 'Belarus', 'Wit-Rusland', 'Belgium', 'België',
+                'Bosnia and Herzegovina', 'Bosnia-Herzegovina', 'Bosnië-Herzegovina',
+                'Bulgaria', 'Bulgarije', 'Croatia', 'Kroatië', 'Cyprus', 'Czech Republic', 'Czechia',
+                'Tsjechië', 'Denmark', 'Denemarken', 'England', 'Engeland', 'Estonia', 'Estland',
+                'Faroe Islands', 'Faeröer', 'Finland', 'France', 'Frankrijk', 'Georgia', 'Georgië',
+                'Germany', 'Duitsland', 'Gibraltar', 'Greece', 'Griekenland', 'Hungary', 'Hongarije',
+                'Iceland', 'IJsland', 'Israel', 'Israël', 'Italy', 'Italië', 'Kazakhstan', 'Kazachstan',
+                'Kosovo', 'Latvia', 'Letland', 'Liechtenstein', 'Lithuania', 'Litouwen', 'Luxembourg',
+                'Luxemburg', 'Malta', 'Moldova', 'Moldavië', 'Montenegro', 'Netherlands', 'Nederland',
+                'North Macedonia', 'Noord-Macedonië', 'Northern Ireland', 'Noord-Ierland', 'Norway',
+                'Noorwegen', 'Poland', 'Polen', 'Portugal', 'Republic of Ireland', 'Ierland', 'Romania',
+                'Roemenië', 'San Marino', 'Scotland', 'Schotland', 'Serbia', 'Servië', 'Slovakia',
+                'Slowakije', 'Slovenia', 'Slovenië', 'Spain', 'Spanje', 'Sweden', 'Zweden', 'Switzerland',
+                'Zwitserland', 'Turkey', 'Türkiye', 'Turkije', 'Ukraine', 'Oekraïne', 'Wales'
+            ],
 
             // Club logo's - lokale bestanden in /logos/ map
             CLUB_LOGOS: {
@@ -2964,6 +3126,32 @@
             });
         }
 
+        function normalizeInternationalTeamName(name = '') {
+            return name
+                .replace(/\s*\(w\)$/i, '')
+                .replace(/\s+women$/i, '')
+                .replace(/\s+women'?s national team$/i, '')
+                .replace(/\s+wnt$/i, '')
+                .replace(/\s+national team$/i, '')
+                .trim();
+        }
+
+        function isUefaNationalTeam(name) {
+            const normalized = normalizeInternationalTeamName(name);
+            return CONFIG.UEFA_NATIONAL_TEAMS.includes(normalized);
+        }
+
+        function isRelevantInternationalMatch(competitionName, homeTeam, awayTeam) {
+            const isFriendly = competitionName === 'Vriendschappelijk Internationaal' || competitionName === 'Vriendschappelijk Internationaal Vrouwen';
+            const isWorldTournament = competitionName === 'WK' || competitionName === 'WK Vrouwen';
+
+            if (!isFriendly && !isWorldTournament) {
+                return true;
+            }
+
+            return isUefaNationalTeam(homeTeam) || isUefaNationalTeam(awayTeam);
+        }
+
         // Fetch football matches - try API-Football first, fall back to cache
         // Fetch football matches from OpenFootball (gratis, geen API key!)
         async function fetchFootballMatches() {
@@ -3192,12 +3380,18 @@
                             const awayScore = awayTeam.score;
                             const isFinished = competition.status?.type?.completed;
                             const isLive = competition.status?.type?.state === 'in';
+                            const homeName = homeTeam.team?.shortDisplayName || homeTeam.team?.displayName || 'TBD';
+                            const awayName = awayTeam.team?.shortDisplayName || awayTeam.team?.displayName || 'TBD';
+
+                            if (!isRelevantInternationalMatch(comp.name, homeName, awayName)) {
+                                return;
+                            }
 
                             allMatches.push({
                                 date: matchDate,
                                 time: matchDate.toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' }),
-                                home: homeTeam.team?.shortDisplayName || homeTeam.team?.displayName || 'TBD',
-                                away: awayTeam.team?.shortDisplayName || awayTeam.team?.displayName || 'TBD',
+                                home: homeName,
+                                away: awayName,
                                 homeCrest: homeTeam.team?.logo,
                                 awayCrest: awayTeam.team?.logo,
                                 competition: comp.name,
@@ -3809,19 +4003,47 @@
                     return; // Continue to next date
                 }
 
-                // Group events by competition within this day
+                const footballEventsForDay = events
+                    .filter(e => e.sportType === 'voetbal')
+                    .sort((a, b) => a.time.localeCompare(b.time) || (a.competition || '').localeCompare(b.competition || '') || (a.home || '').localeCompare(b.home || ''));
+
+                if (footballEventsForDay.length > 0) {
+                    html += `<div class="football-day-list">`;
+                    footballEventsForDay.forEach(event => {
+                        const homeLogoSrc = event.homeCrest || CONFIG.CLUB_LOGOS[event.home];
+                        const awayLogoSrc = event.awayCrest || CONFIG.CLUB_LOGOS[event.away];
+                        const homeLogo = homeLogoSrc ? `<img src="${homeLogoSrc}" class="team-logo" onerror="this.style.display='none'" alt="">` : '<span class="team-logo-placeholder"></span>';
+                        const awayLogo = awayLogoSrc ? `<img src="${awayLogoSrc}" class="team-logo" onerror="this.style.display='none'" alt="">` : '<span class="team-logo-placeholder"></span>';
+                        const hasScore = event.score && event.score !== '-';
+                        const rowClass = `match-row football-row${event.live ? ' live' : ''}${hasScore ? ' has-score finished' : ''}${isPast ? ' past' : ''}`;
+                        const separator = showScores && hasScore ? event.score : '-';
+
+                        html += `<div class="${rowClass}">`;
+                        html += getSourceBadgeHtml(event);
+                        html += `<div class="match-time-col">${event.time}</div>`;
+                        html += `<div class="teams-line">`;
+                        html += `<div class="team-chip home"><span class="team-name">${event.home}</span>${homeLogo}</div>`;
+                        html += `<span class="match-separator">${separator}</span>`;
+                        html += `<div class="team-chip away">${awayLogo}<span class="team-name">${event.away}</span></div>`;
+                        html += `</div>`;
+                        html += `<div class="match-side-meta"><span class="match-competition-inline">${event.competition || ''}</span>${getChannelHtml(event.channel)}</div>`;
+                        html += `</div>`;
+                    });
+                    html += `</div>`;
+                }
+
+                // Group remaining events by competition within this day
                 const byCompetition = {};
-                events.forEach(e => {
+                events.filter(e => e.sportType !== 'voetbal').forEach(e => {
                     const comp = e.competition || (e.sportType === 'darts' ? 'Premier League Darts' : 'Formula 1');
                     if (!byCompetition[comp]) byCompetition[comp] = { events: [], channel: e.channel, sportType: e.sportType };
                     byCompetition[comp].events.push(e);
                 });
 
-                // Sort competitions: voetbal first, then darts, then f1
                 const sortedComps = Object.keys(byCompetition).sort((a, b) => {
                     const typeA = byCompetition[a].sportType;
                     const typeB = byCompetition[b].sportType;
-                    const order = { voetbal: 0, darts: 1, f1: 2 };
+                    const order = { darts: 1, f1: 2 };
                     return (order[typeA] || 3) - (order[typeB] || 3);
                 });
 
@@ -3839,24 +4061,7 @@
 
                     // Match rows
                     compEvents.forEach(event => {
-                        if (sportType === 'voetbal') {
-                            const homeLogoSrc = event.homeCrest || CONFIG.CLUB_LOGOS[event.home];
-                            const awayLogoSrc = event.awayCrest || CONFIG.CLUB_LOGOS[event.away];
-                            const homeLogo = homeLogoSrc ? `<img src="${homeLogoSrc}" class="team-logo" onerror="this.style.display='none'" alt="">` : '<span class="team-logo-placeholder"></span>';
-                            const awayLogo = awayLogoSrc ? `<img src="${awayLogoSrc}" class="team-logo" onerror="this.style.display='none'" alt="">` : '<span class="team-logo-placeholder"></span>';
-                            const hasScore = event.score && event.score !== '-';
-                            const rowClass = `match-row${event.live ? ' live' : ''}${hasScore ? ' has-score finished' : ''}${isPast ? ' past' : ''}`;
-
-                            html += `<div class="${rowClass}">`;
-                            html += getSourceBadgeHtml(event);
-                            html += `<span class="team home">${event.home}</span>`;
-                            html += homeLogo;
-                            html += `<div class="match-meta"><span class="match-time">${event.time}</span></div>`;
-                            html += `<div class="match-meta"><span class="match-score">${event.score || '-'}</span></div>`;
-                            html += awayLogo;
-                            html += `<span class="team away">${event.away}</span>`;
-                            html += `</div>`;
-                        } else if (sportType === 'darts' && event.matches && event.matches.length > 0) {
+                        if (sportType === 'darts' && event.matches && event.matches.length > 0) {
                             // Darts with matches: expandable accordion
                             const compSlug = comp.toLowerCase().replace(/[^a-z0-9]+/g, '-');
                             const eventId = `darts-${dateKey}-${compSlug}-${compEvents.indexOf(event)}`;
