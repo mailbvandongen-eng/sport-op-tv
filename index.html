@@ -152,16 +152,17 @@
         .filters-row {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             padding: 8px 16px 12px 16px;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
         }
 
         .filters-primary {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             flex: 1;
+            min-width: 0;
         }
 
         body[data-sport-view="darts"] .filters-row,
@@ -172,6 +173,8 @@
         /* Dropdown */
         .dropdown {
             position: relative;
+            flex: 0 1 220px;
+            min-width: 0;
         }
 
         .dropdown-btn {
@@ -183,12 +186,17 @@
             background: rgba(255, 255, 255, 0.08);
             color: rgba(255, 255, 255, 0.8);
             cursor: pointer;
-            min-width: 90px;
+            min-width: 150px;
             text-align: left;
             transition: all 0.2s ease;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            width: 100%;
+            gap: 10px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .dropdown-btn:hover {
@@ -257,6 +265,7 @@
             cursor: pointer;
             font-size: 0.75rem;
             transition: all 0.2s ease;
+            flex: 0 0 auto;
         }
 
         .reset-btn:hover {
@@ -959,7 +968,9 @@
             border-radius: 6px;
             font-size: 0.75rem;
             font-weight: 500;
-            width: 80px;
+            width: 180px;
+            flex: 1 1 180px;
+            min-width: 150px;
             background: rgba(255, 255, 255, 0.08);
             color: rgba(255, 255, 255, 0.8);
             transition: all 0.2s ease;
@@ -977,25 +988,34 @@
 
         @media (max-width: 600px) {
             .filters-row {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 8px;
-                padding: 8px 12px;
+                padding: 8px 12px 10px;
             }
 
             .filters-primary {
                 width: 100%;
-                gap: 6px;
+                display: grid;
+                grid-template-columns: minmax(0, 1fr) 44px;
+                grid-template-areas:
+                    "competition competition"
+                    "clubs reset";
+                gap: 8px;
             }
 
             .filters-primary .dropdown {
-                flex: 1;
+                grid-area: competition;
+                min-width: 0;
             }
 
             .filters-primary .filter-input {
-                flex: 1;
-                width: auto;
+                grid-area: clubs;
+                width: 100%;
                 min-width: 0;
+            }
+
+            .filters-primary .reset-btn {
+                grid-area: reset;
+                width: 44px;
+                justify-self: stretch;
             }
         }
 
@@ -1014,6 +1034,124 @@
             background: var(--card-bg);
             border-top: 1px solid var(--border);
             border-bottom: 1px solid var(--border);
+        }
+
+        .football-slot {
+            padding: 12px 16px 10px;
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .football-slot:last-child {
+            border-bottom: none;
+        }
+
+        .football-slot-header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 12px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .football-slot-header.live .match-time-col,
+        .football-slot-header.live .football-slot-competition {
+            color: var(--f1);
+        }
+
+        .football-slot-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 0;
+        }
+
+        .football-slot-competition {
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-size: 0.92rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .football-slot-header .channel-badge {
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-transform: none;
+            letter-spacing: 0;
+            color: var(--text);
+        }
+
+        .football-slot-matches {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding-top: 10px;
+        }
+
+        .football-slot-match {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .football-slot-match.finished {
+            opacity: 0.7;
+        }
+
+        .football-slot-teams {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .football-team-line {
+            display: grid;
+            grid-template-columns: 26px 12px minmax(0, 1fr);
+            align-items: center;
+            gap: 8px;
+            min-width: 0;
+        }
+
+        .football-team-line .team-logo,
+        .football-team-line .team-logo-placeholder {
+            width: 24px;
+            height: 24px;
+        }
+
+        .football-team-separator {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+
+        .football-team-name {
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .football-slot-meta {
+            min-width: 54px;
+            text-align: right;
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .football-slot-match.live .football-slot-meta {
+            color: var(--f1);
         }
 
         /* Competition Header - grey bar with flag and channel */
@@ -1422,68 +1560,65 @@
                 height: 18px;
             }
 
-            .football-row {
-                grid-template-columns: 54px minmax(0, 1fr);
-                grid-template-areas:
-                    "time meta"
-                    "teams teams";
-                gap: 6px 10px;
-                padding-top: 10px;
-                padding-bottom: 10px;
+            .football-slot {
+                padding: 10px 12px 8px;
             }
 
-            .football-row .match-time-col {
-                grid-area: time;
+            .football-slot-header {
+                align-items: center;
+                gap: 8px;
+                padding-bottom: 8px;
+            }
+
+            .football-slot-title {
+                gap: 8px;
+            }
+
+            .football-slot .match-time-col {
                 font-size: 0.9rem;
             }
 
-            .football-row .match-side-meta {
-                grid-area: meta;
-                align-items: flex-end;
-                justify-content: center;
-                padding-right: 12px;
-                gap: 0;
+            .football-slot-competition {
+                font-size: 0.8rem;
             }
 
-            .football-row .match-side-meta .match-competition-inline {
-                display: none;
+            .football-slot-header .channel-badge {
+                font-size: 0.8rem;
             }
 
-            .football-row .match-side-meta .channel-badge {
-                display: inline-flex;
-                align-items: center;
-                justify-content: flex-end;
-                font-size: 0.68rem;
-                line-height: 1;
-                color: var(--text-secondary);
+            .football-slot-matches {
+                gap: 6px;
+                padding-top: 8px;
             }
 
-            .football-row .teams-line {
-                grid-area: teams;
+            .football-slot-match {
+                gap: 8px;
+            }
+
+            .football-slot-teams {
                 gap: 6px;
             }
 
-            .football-row .team-chip {
+            .football-team-line {
+                grid-template-columns: 22px 10px minmax(0, 1fr);
                 gap: 6px;
             }
 
-            .football-row .team-chip .team-name {
-                font-size: 0.84rem;
+            .football-team-line .team-logo,
+            .football-team-line .team-logo-placeholder {
+                width: 20px;
+                height: 20px;
+            }
+
+            .football-team-name {
                 white-space: normal;
                 line-height: 1.2;
+                font-size: 0.84rem;
             }
 
-            .football-row .match-separator {
-                font-size: 0.92rem;
-            }
-
-            .football-row .match-competition-inline {
-                font-size: 0.7rem;
-                line-height: 1.1;
-            }
-
-            .football-row .match-meta-mobile {
-                display: none;
+            .football-slot-meta {
+                min-width: 40px;
+                font-size: 0.74rem;
             }
 
             .match-row .match-time {
@@ -1858,18 +1993,19 @@
 
             /* Compact filters for mobile */
             .filters-row {
-                padding: 0 12px 10px;
+                padding: 8px 12px 10px;
                 margin-bottom: 0;
-                gap: 6px;
-                flex-wrap: wrap;
+                gap: 8px;
+                flex-wrap: nowrap;
             }
 
             .filters-primary {
-                gap: 6px;
-            }
-
-            .filters-primary .dropdown {
-                flex: 1 1 100%;
+                display: grid;
+                grid-template-columns: minmax(0, 1fr) 44px;
+                grid-template-areas:
+                    "competition competition"
+                    "clubs reset";
+                gap: 8px;
             }
 
             .dropdown-btn {
@@ -1880,11 +2016,10 @@
             }
 
             .filter-input {
-                flex: 1 1 auto;
-                min-width: 0;
                 padding: 8px 10px;
                 font-size: 0.74rem;
-                width: auto;
+                width: 100%;
+                min-width: 0;
             }
 
             .reset-btn {
@@ -2214,7 +2349,7 @@
             <div class="api-status" id="api-status">
                 <span class="live-dot"></span> <span class="status-text">Laden...</span>
             </div>
-            <p class="version-footer">v3.7.2</p>
+            <p class="version-footer">v3.9.5</p>
         </footer>
     </div>
 
@@ -2240,7 +2375,7 @@
         // ============================================
         const CONFIG = {
             // Cache version - increment to force cache clear after config changes
-            CACHE_VERSION: '3.9.4',
+            CACHE_VERSION: '3.9.5',
 
             // OpenFootball API (gratis, geen key nodig!)
             // https://github.com/openfootball/football.json
@@ -3305,12 +3440,29 @@
             return !blockedValues.some(value => home.includes(value) || away.includes(value));
         }
 
-        function filterReliableFootballMatches(matches) {
+        function sanitizeFootballMatches(matches) {
             return matches.filter(match => {
                 if (!match || !match.home || !match.away || !match.date) return false;
                 if (!hasConcreteFootballParticipants(match)) return false;
+                return true;
+            });
+        }
+
+        function filterReliableFootballMatches(matches) {
+            return sanitizeFootballMatches(matches).filter(match => {
                 return isRelevantInternationalMatch(match.competition, match.home, match.away);
             });
+        }
+
+        function countUpcomingFootballMatches(matches, today, maxDays = 2) {
+            const limit = new Date(today);
+            limit.setDate(limit.getDate() + maxDays);
+
+            return matches.filter(match => {
+                const matchDate = new Date(match.date);
+                matchDate.setHours(0, 0, 0, 0);
+                return matchDate >= today && matchDate <= limit;
+            }).length;
         }
 
         // Fetch football matches - try API-Football first, fall back to cache
@@ -4035,7 +4187,14 @@
                     cachedData.f1 || fetchF1Sessions()
                 ]);
 
-                cachedData.voetbal = filterReliableFootballMatches(footballData || []);
+                const sanitizedFootballData = sanitizeFootballMatches(footballData || []);
+                const reliableFootballData = filterReliableFootballMatches(sanitizedFootballData);
+                const sanitizedUpcomingCount = countUpcomingFootballMatches(sanitizedFootballData, today);
+                const reliableUpcomingCount = countUpcomingFootballMatches(reliableFootballData, today);
+
+                cachedData.voetbal = sanitizedUpcomingCount > reliableUpcomingCount
+                    ? sanitizedFootballData
+                    : reliableFootballData;
                 cachedData.darts = dartsData || [];
                 cachedData.f1 = f1Data || [];
 
@@ -4170,45 +4329,65 @@
                     .sort((a, b) => a.time.localeCompare(b.time) || (a.competition || '').localeCompare(b.competition || '') || (a.home || '').localeCompare(b.home || ''));
 
                 if (footballEventsForDay.length > 0) {
-                    const footballByCompetition = {};
+                    const footballSlots = [];
+                    const footballSlotsMap = new Map();
+
                     footballEventsForDay.forEach(event => {
-                        const comp = event.competition || 'Voetbal';
-                        if (!footballByCompetition[comp]) footballByCompetition[comp] = [];
-                        footballByCompetition[comp].push(event);
+                        const competition = event.competition || 'Voetbal';
+                        const slotKey = [event.time || '', competition, event.channel || ''].join('|');
+
+                        if (!footballSlotsMap.has(slotKey)) {
+                            footballSlotsMap.set(slotKey, {
+                                time: event.time || '',
+                                competition,
+                                channel: event.channel || '',
+                                live: false,
+                                matches: []
+                            });
+                        }
+
+                        const slot = footballSlotsMap.get(slotKey);
+                        slot.live = slot.live || !!event.live;
+                        slot.matches.push(event);
                     });
 
-                    Object.keys(footballByCompetition).sort().forEach(comp => {
-                        const compEvents = footballByCompetition[comp];
-                        html += `<div class="competition-group football-competition-group">`;
-                        html += `<div class="competition-header">`;
-                        html += getFlagImg(comp);
-                        html += `<span class="competition-name">${comp.toUpperCase()}</span>`;
-                        html += `</div>`;
-                        html += `<div class="football-day-list">`;
-                        compEvents.forEach(event => {
-                        const homeLogoSrc = event.homeCrest || CONFIG.CLUB_LOGOS[event.home];
-                        const awayLogoSrc = event.awayCrest || CONFIG.CLUB_LOGOS[event.away];
-                        const homeLogo = homeLogoSrc ? `<img src="${homeLogoSrc}" class="team-logo" onerror="this.style.display='none'" alt="">` : '<span class="team-logo-placeholder"></span>';
-                        const awayLogo = awayLogoSrc ? `<img src="${awayLogoSrc}" class="team-logo" onerror="this.style.display='none'" alt="">` : '<span class="team-logo-placeholder"></span>';
-                        const hasScore = event.score && event.score !== '-';
-                        const rowClass = `match-row football-row${event.live ? ' live' : ''}${hasScore ? ' has-score finished' : ''}${isPast ? ' past' : ''}`;
-                        const separator = showScores && hasScore ? event.score : '-';
+                    footballSlotsMap.forEach(slot => footballSlots.push(slot));
 
-                        html += `<div class="${rowClass}">`;
-                        html += getSourceBadgeHtml(event);
-                        html += `<div class="match-time-col">${event.time}</div>`;
-                        html += `<div class="teams-line">`;
-                        html += `<div class="team-chip home"><span class="team-name">${event.home}</span>${homeLogo}</div>`;
-                        html += `<span class="match-separator">${separator}</span>`;
-                        html += `<div class="team-chip away">${awayLogo}<span class="team-name">${event.away}</span></div>`;
+                    html += `<div class="football-day-list">`;
+                    footballSlots.forEach(slot => {
+                        html += `<div class="football-slot">`;
+                        html += `<div class="football-slot-header${slot.live ? ' live' : ''}">`;
+                        html += `<div class="football-slot-title">`;
+                        html += `<span class="match-time-col">${slot.time}</span>`;
+                        html += `<span class="football-slot-competition">${slot.competition}</span>`;
+                        html += getSourceBadgeHtml(slot.matches[0], true);
                         html += `</div>`;
-                        html += `<div class="match-side-meta"><span class="match-competition-inline">${event.competition || ''}</span>${getChannelHtml(event.channel)}</div>`;
-                        html += `<div class="match-meta-mobile">${event.competition || ''}${event.channel ? ` - ${event.channel}` : ''}</div>`;
+                        html += getChannelHtml(slot.channel);
                         html += `</div>`;
+                        html += `<div class="football-slot-matches">`;
+
+                        slot.matches.forEach(event => {
+                            const homeLogoSrc = event.homeCrest || CONFIG.CLUB_LOGOS[event.home];
+                            const awayLogoSrc = event.awayCrest || CONFIG.CLUB_LOGOS[event.away];
+                            const homeLogo = homeLogoSrc ? `<img src="${homeLogoSrc}" class="team-logo" onerror="this.style.display='none'" alt="">` : '<span class="team-logo-placeholder"></span>';
+                            const awayLogo = awayLogoSrc ? `<img src="${awayLogoSrc}" class="team-logo" onerror="this.style.display='none'" alt="">` : '<span class="team-logo-placeholder"></span>';
+                            const hasScore = event.score && event.score !== '-';
+                            const matchMeta = showScores && hasScore ? event.score : (event.live ? 'LIVE' : '');
+                            const matchClass = `football-slot-match${event.live ? ' live' : ''}${hasScore ? ' finished' : ''}`;
+
+                            html += `<div class="${matchClass}">`;
+                            html += `<div class="football-slot-teams">`;
+                            html += `<div class="football-team-line">${homeLogo}<span class="football-team-separator">-</span><span class="football-team-name">${event.home}</span></div>`;
+                            html += `<div class="football-team-line">${awayLogo}<span class="football-team-separator">-</span><span class="football-team-name">${event.away}</span></div>`;
+                            html += `</div>`;
+                            html += `<div class="football-slot-meta">${matchMeta}</div>`;
+                            html += `</div>`;
                         });
+
                         html += `</div>`;
                         html += `</div>`;
                     });
+                    html += `</div>`;
                 }
 
                 // Group remaining events by competition within this day
