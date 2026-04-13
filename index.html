@@ -1104,31 +1104,41 @@
         }
 
         .football-slot-teams {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+            align-items: center;
+            gap: 10px;
             flex: 1;
             min-width: 0;
         }
 
-        .football-team-line {
-            display: grid;
-            grid-template-columns: 26px 12px minmax(0, 1fr);
+        .football-team {
+            display: flex;
             align-items: center;
             gap: 8px;
             min-width: 0;
         }
 
-        .football-team-line .team-logo,
-        .football-team-line .team-logo-placeholder {
+        .football-team.home {
+            justify-content: flex-start;
+        }
+
+        .football-team.away {
+            justify-content: flex-end;
+        }
+
+        .football-team .team-logo,
+        .football-team .team-logo-placeholder {
             width: 24px;
             height: 24px;
+            flex: 0 0 24px;
         }
 
         .football-team-separator {
             font-size: 0.95rem;
             color: var(--text-secondary);
             text-align: center;
+            font-weight: 700;
         }
 
         .football-team-name {
@@ -1139,6 +1149,10 @@
             font-size: 0.95rem;
             font-weight: 500;
             color: var(--text);
+        }
+
+        .football-team.away .football-team-name {
+            text-align: right;
         }
 
         .football-slot-meta {
@@ -1599,20 +1613,14 @@
                 gap: 6px;
             }
 
-            .football-team-line {
-                grid-template-columns: 22px 10px minmax(0, 1fr);
-                gap: 6px;
-            }
-
-            .football-team-line .team-logo,
-            .football-team-line .team-logo-placeholder {
+            .football-team .team-logo,
+            .football-team .team-logo-placeholder {
                 width: 20px;
                 height: 20px;
+                flex-basis: 20px;
             }
 
             .football-team-name {
-                white-space: normal;
-                line-height: 1.2;
                 font-size: 0.84rem;
             }
 
@@ -4377,8 +4385,9 @@
 
                             html += `<div class="${matchClass}">`;
                             html += `<div class="football-slot-teams">`;
-                            html += `<div class="football-team-line">${homeLogo}<span class="football-team-separator">-</span><span class="football-team-name">${event.home}</span></div>`;
-                            html += `<div class="football-team-line">${awayLogo}<span class="football-team-separator">-</span><span class="football-team-name">${event.away}</span></div>`;
+                            html += `<div class="football-team home">${homeLogo}<span class="football-team-name">${event.home}</span></div>`;
+                            html += `<span class="football-team-separator">-</span>`;
+                            html += `<div class="football-team away"><span class="football-team-name">${event.away}</span>${awayLogo}</div>`;
                             html += `</div>`;
                             html += `<div class="football-slot-meta">${matchMeta}</div>`;
                             html += `</div>`;
