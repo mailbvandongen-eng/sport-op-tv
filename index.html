@@ -1048,8 +1048,7 @@
 
         .football-slot-header {
             display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
+            align-items: center;
             gap: 12px;
             padding-bottom: 10px;
             border-bottom: 1px solid var(--border);
@@ -1088,15 +1087,15 @@
         .football-slot-matches {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 14px;
             padding-top: 10px;
         }
 
         .football-slot-match {
-            display: flex;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
             align-items: center;
-            justify-content: space-between;
-            gap: 12px;
+            gap: 16px;
         }
 
         .football-slot-match.finished {
@@ -1104,31 +1103,25 @@
         }
 
         .football-slot-teams {
-            display: grid;
-            grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-            align-items: center;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
             gap: 10px;
             flex: 1;
             min-width: 0;
         }
 
-        .football-team {
-            display: flex;
+        .football-team-line {
+            display: grid;
+            grid-template-columns: 24px 14px minmax(0, 1fr);
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             min-width: 0;
+            width: 100%;
         }
 
-        .football-team.home {
-            justify-content: flex-start;
-        }
-
-        .football-team.away {
-            justify-content: flex-end;
-        }
-
-        .football-team .team-logo,
-        .football-team .team-logo-placeholder {
+        .football-team-line .team-logo,
+        .football-team-line .team-logo-placeholder {
             width: 24px;
             height: 24px;
             flex: 0 0 24px;
@@ -1151,15 +1144,34 @@
             color: var(--text);
         }
 
-        .football-team.away .football-team-name {
+        .football-slot-side {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 4px;
+            min-width: 116px;
             text-align: right;
         }
 
+        .football-slot-channels {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 2px;
+        }
+
+        .football-slot-channel {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text);
+            line-height: 1.25;
+            white-space: nowrap;
+        }
+
         .football-slot-meta {
-            min-width: 54px;
-            text-align: right;
-            font-size: 0.92rem;
             font-weight: 700;
+            font-size: 0.82rem;
             color: var(--text-secondary);
             font-variant-numeric: tabular-nums;
         }
@@ -1601,7 +1613,7 @@
             }
 
             .football-slot-matches {
-                gap: 6px;
+                gap: 12px;
                 padding-top: 8px;
             }
 
@@ -1610,11 +1622,16 @@
             }
 
             .football-slot-teams {
-                gap: 6px;
+                gap: 8px;
             }
 
-            .football-team .team-logo,
-            .football-team .team-logo-placeholder {
+            .football-team-line {
+                grid-template-columns: 20px 12px minmax(0, 1fr);
+                gap: 8px;
+            }
+
+            .football-team-line .team-logo,
+            .football-team-line .team-logo-placeholder {
                 width: 20px;
                 height: 20px;
                 flex-basis: 20px;
@@ -1624,8 +1641,15 @@
                 font-size: 0.84rem;
             }
 
+            .football-slot-side {
+                min-width: 96px;
+            }
+
+            .football-slot-channel {
+                font-size: 0.82rem;
+            }
+
             .football-slot-meta {
-                min-width: 40px;
                 font-size: 0.74rem;
             }
 
@@ -4307,6 +4331,22 @@
                 return `<span class="channel-badge">${channel}</span>`;
             };
 
+            const getChannelLines = (channel) => {
+                if (!channel) return [];
+                return [...new Set(
+                    channel
+                        .split(/\s*(?:\/|\||,|;|\n)\s*/g)
+                        .map(item => item.trim())
+                        .filter(Boolean)
+                )];
+            };
+
+            const getFootballChannelHtml = (channel) => {
+                const channels = getChannelLines(channel);
+                if (channels.length === 0) return '';
+                return `<div class="football-slot-channels">${channels.map(item => `<span class="football-slot-channel">${item}</span>`).join('')}</div>`;
+            };
+
             const getSourceBadgeHtml = (event, inline = false) => {
                 const isFallback = event.isFallbackConfirmed || event.isStatic || event.sportType === 'darts';
                 const label = isFallback ? 'Fallback bron' : 'Live bron';
@@ -4341,14 +4381,11 @@
                     const footballSlotsMap = new Map();
 
                     footballEventsForDay.forEach(event => {
-                        const competition = event.competition || 'Voetbal';
-                        const slotKey = [event.time || '', competition, event.channel || ''].join('|');
+                        const slotKey = event.time || '';
 
                         if (!footballSlotsMap.has(slotKey)) {
                             footballSlotsMap.set(slotKey, {
                                 time: event.time || '',
-                                competition,
-                                channel: event.channel || '',
                                 live: false,
                                 matches: []
                             });
@@ -4367,10 +4404,7 @@
                         html += `<div class="football-slot-header${slot.live ? ' live' : ''}">`;
                         html += `<div class="football-slot-title">`;
                         html += `<span class="match-time-col">${slot.time}</span>`;
-                        html += `<span class="football-slot-competition">${slot.competition}</span>`;
-                        html += getSourceBadgeHtml(slot.matches[0], true);
                         html += `</div>`;
-                        html += getChannelHtml(slot.channel);
                         html += `</div>`;
                         html += `<div class="football-slot-matches">`;
 
@@ -4385,11 +4419,15 @@
 
                             html += `<div class="${matchClass}">`;
                             html += `<div class="football-slot-teams">`;
-                            html += `<div class="football-team home">${homeLogo}<span class="football-team-name">${event.home}</span></div>`;
-                            html += `<span class="football-team-separator">-</span>`;
-                            html += `<div class="football-team away"><span class="football-team-name">${event.away}</span>${awayLogo}</div>`;
+                            html += `<div class="football-team-line">${homeLogo}<span class="football-team-separator">-</span><span class="football-team-name">${event.home}</span></div>`;
+                            html += `<div class="football-team-line">${awayLogo}<span class="football-team-separator">-</span><span class="football-team-name">${event.away}</span></div>`;
                             html += `</div>`;
-                            html += `<div class="football-slot-meta">${matchMeta}</div>`;
+                            html += `<div class="football-slot-side">`;
+                            if (matchMeta) {
+                                html += `<div class="football-slot-meta">${matchMeta}</div>`;
+                            }
+                            html += getFootballChannelHtml(event.channel);
+                            html += `</div>`;
                             html += `</div>`;
                         });
 
