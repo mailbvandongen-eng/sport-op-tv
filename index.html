@@ -1098,6 +1098,15 @@
             gap: 16px;
         }
 
+        .football-slot-match + .football-slot-match {
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
+            padding-top: 12px;
+        }
+
+        [data-theme="dark"] .football-slot-match + .football-slot-match {
+            border-top-color: rgba(255, 255, 255, 0.12);
+        }
+
         .football-slot-match.finished {
             opacity: 0.7;
         }
@@ -1152,13 +1161,6 @@
             gap: 4px;
             min-width: 116px;
             text-align: right;
-        }
-
-        .football-slot-channels {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            gap: 2px;
         }
 
         .football-slot-channel {
@@ -1619,6 +1621,10 @@
 
             .football-slot-match {
                 gap: 8px;
+            }
+
+            .football-slot-match + .football-slot-match {
+                padding-top: 10px;
             }
 
             .football-slot-teams {
@@ -4331,20 +4337,11 @@
                 return `<span class="channel-badge">${channel}</span>`;
             };
 
-            const getChannelLines = (channel) => {
-                if (!channel) return [];
-                return [...new Set(
-                    channel
-                        .split(/\s*(?:\/|\||,|;|\n)\s*/g)
-                        .map(item => item.trim())
-                        .filter(Boolean)
-                )];
-            };
-
             const getFootballChannelHtml = (channel) => {
-                const channels = getChannelLines(channel);
-                if (channels.length === 0) return '';
-                return `<div class="football-slot-channels">${channels.map(item => `<span class="football-slot-channel">${item}</span>`).join('')}</div>`;
+                if (!channel) return '';
+                const primaryChannel = channel.trim();
+                if (!primaryChannel) return '';
+                return `<span class="football-slot-channel">${primaryChannel}</span>`;
             };
 
             const getSourceBadgeHtml = (event, inline = false) => {
