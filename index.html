@@ -4339,7 +4339,10 @@
 
             const getFootballChannelHtml = (channel) => {
                 if (!channel) return '';
-                const primaryChannel = channel.trim();
+                const primaryChannel = channel
+                    .split(/\s*(?:\/|\||,|;|\n)\s*/g)
+                    .map(item => item.trim())
+                    .find(Boolean);
                 if (!primaryChannel) return '';
                 return `<span class="football-slot-channel">${primaryChannel}</span>`;
             };
