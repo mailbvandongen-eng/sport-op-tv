@@ -1120,6 +1120,15 @@
             min-width: 0;
         }
 
+        .football-match-competition {
+            font-size: 0.76rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            line-height: 1.2;
+        }
+
         .football-team-line {
             display: grid;
             grid-template-columns: 24px 14px minmax(0, 1fr);
@@ -1449,6 +1458,15 @@
             min-width: 0;
         }
 
+        .match-row .event-competition {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            line-height: 1.2;
+        }
+
         .match-row .event-info .match-time {
             font-weight: 600;
             min-width: 45px;
@@ -1647,6 +1665,10 @@
                 font-size: 0.84rem;
             }
 
+            .football-match-competition {
+                font-size: 0.68rem;
+            }
+
             .football-slot-side {
                 min-width: 96px;
             }
@@ -1705,6 +1727,10 @@
             .match-row .event-title {
                 font-size: 0.82rem;
                 line-height: 1.25;
+            }
+
+            .match-row .event-competition {
+                font-size: 0.64rem;
             }
 
             .match-row .channel-badge {
@@ -4347,6 +4373,17 @@
                 return `<span class="football-slot-channel">${primaryChannel}</span>`;
             };
 
+            const getEventPrimaryTitle = (event, fallbackCompetition = '') => {
+                return event.title || event.event || event.stage || fallbackCompetition || '';
+            };
+
+            const getEventCompetitionLabel = (event, fallbackCompetition = '') => {
+                const competition = (event.competition || fallbackCompetition || '').trim();
+                const title = getEventPrimaryTitle(event, fallbackCompetition).trim();
+                if (!competition) return '';
+                return competition.toLowerCase() === title.toLowerCase() ? '' : competition;
+            };
+
             const getSourceBadgeHtml = (event, inline = false) => {
                 const isFallback = event.isFallbackConfirmed || event.isStatic || event.sportType === 'darts';
                 const label = isFallback ? 'Fallback bron' : 'Live bron';
@@ -4413,12 +4450,16 @@
                             const awayLogoSrc = event.awayCrest || CONFIG.CLUB_LOGOS[event.away];
                             const homeLogo = homeLogoSrc ? `<img src="${homeLogoSrc}" class="team-logo" onerror="this.style.display='none'" alt="">` : '<span class="team-logo-placeholder"></span>';
                             const awayLogo = awayLogoSrc ? `<img src="${awayLogoSrc}" class="team-logo" onerror="this.style.display='none'" alt="">` : '<span class="team-logo-placeholder"></span>';
+                            const competitionLabel = getEventCompetitionLabel(event);
                             const hasScore = event.score && event.score !== '-';
                             const matchMeta = showScores && hasScore ? event.score : (event.live ? 'LIVE' : '');
                             const matchClass = `football-slot-match${event.live ? ' live' : ''}${hasScore ? ' finished' : ''}`;
 
                             html += `<div class="${matchClass}">`;
                             html += `<div class="football-slot-teams">`;
+                            if (competitionLabel) {
+                                html += `<div class="football-match-competition">${competitionLabel}</div>`;
+                            }
                             html += `<div class="football-team-line">${homeLogo}<span class="football-team-separator">-</span><span class="football-team-name">${event.home}</span></div>`;
                             html += `<div class="football-team-line">${awayLogo}<span class="football-team-separator">-</span><span class="football-team-name">${event.away}</span></div>`;
                             html += `</div>`;
@@ -4471,12 +4512,16 @@
                             // Darts with matches: expandable accordion
                             const compSlug = comp.toLowerCase().replace(/[^a-z0-9]+/g, '-');
                             const eventId = `darts-${dateKey}-${compSlug}-${compEvents.indexOf(event)}`;
-                            let title = event.title || event.event || '';
+                            const title = getEventPrimaryTitle(event, comp);
+                            const competitionLabel = getEventCompetitionLabel(event, comp);
 
                             html += `<div class="match-row darts-row darts-expandable" data-event-id="${eventId}">`;
                             html += `<div class="event-info">`;
                             html += `<span class="match-time">${event.time}</span>`;
                             html += `<div class="event-copy">`;
+                            if (competitionLabel) {
+                                html += `<span class="event-competition">${competitionLabel}</span>`;
+                            }
                             html += `<span class="event-title">${title}</span>`;
                             html += getSourceBadgeHtml(event, true);
                             html += `</div>`;
@@ -4513,12 +4558,16 @@
                             html += `</div>`;
                         } else {
                             // Darts without matches & F1: single row with title
-                            let title = event.title || event.event || '';
+                            const title = getEventPrimaryTitle(event, comp);
+                            const competitionLabel = getEventCompetitionLabel(event, comp);
 
                             html += `<div class="match-row ${sportType}-row">`;
                             html += `<div class="event-info">`;
                             html += `<span class="match-time">${event.time}</span>`;
                             html += `<div class="event-copy">`;
+                            if (competitionLabel) {
+                                html += `<span class="event-competition">${competitionLabel}</span>`;
+                            }
                             html += `<span class="event-title">${title}</span>`;
                             html += getSourceBadgeHtml(event);
                             html += `</div>`;
