@@ -2413,7 +2413,7 @@
             <div class="api-status" id="api-status">
                 <span class="live-dot"></span> <span class="status-text">Laden...</span>
             </div>
-            <p class="version-footer">v3.9.5</p>
+            <p class="version-footer">v3.9.7</p>
         </footer>
     </div>
 
@@ -2439,7 +2439,7 @@
         // ============================================
         const CONFIG = {
             // Cache version - increment to force cache clear after config changes
-            CACHE_VERSION: '3.9.6',
+            CACHE_VERSION: '3.9.7',
 
             // OpenFootball API (gratis, geen key nodig!)
             // https://github.com/openfootball/football.json
@@ -2543,7 +2543,7 @@
                 'Europa League': 'Ziggo Sport',
                 'Conference League': 'Ziggo Sport',
                 'Formula 1': 'Viaplay',
-                'Darts': 'Viaplay / RTL7'
+                'Darts': 'Viaplay'
             },
 
             // TV kanaal logo's - lokale bestanden in /logos/ map
@@ -3053,16 +3053,16 @@
                 dartsSession('19:00', 'Halve finales + finale')
             ]},
             // World Cup of Darts 2026
-            { date: '2026-06-11', time: '13:00', event: 'World Cup of Darts', location: 'Frankfurt', channel: 'RTL7', matches: [
+            { date: '2026-06-11', time: '13:00', event: 'World Cup of Darts', location: 'Frankfurt', channel: 'Viaplay', matches: [
                 dartsSession('13:00', 'Groepsfase')
             ]},
-            { date: '2026-06-12', time: '13:00', event: 'World Cup of Darts', location: 'Frankfurt', channel: 'RTL7', matches: [
+            { date: '2026-06-12', time: '13:00', event: 'World Cup of Darts', location: 'Frankfurt', channel: 'Viaplay', matches: [
                 dartsSession('13:00', 'Groepsfase / laatste 16')
             ]},
-            { date: '2026-06-13', time: '19:00', event: 'World Cup of Darts', location: 'Frankfurt', channel: 'RTL7', matches: [
+            { date: '2026-06-13', time: '19:00', event: 'World Cup of Darts', location: 'Frankfurt', channel: 'Viaplay', matches: [
                 dartsSession('19:00', 'Kwartfinales')
             ]},
-            { date: '2026-06-14', time: '19:00', event: 'World Cup of Darts - Finale', location: 'Frankfurt', channel: 'RTL7', matches: [
+            { date: '2026-06-14', time: '19:00', event: 'World Cup of Darts - Finale', location: 'Frankfurt', channel: 'Viaplay', matches: [
                 dartsSession('19:00', 'Halve finales + finale')
             ]},
             // US Darts Masters 2026
@@ -3486,7 +3486,11 @@
             const isFriendly = competitionName === 'Vriendschappelijk Internationaal' || competitionName === 'Vriendschappelijk Internationaal Vrouwen';
             const isWorldTournament = competitionName === 'WK' || competitionName === 'WK Vrouwen';
 
-            if (!isFriendly && !isWorldTournament) {
+            if (isWorldTournament) {
+                return true;
+            }
+
+            if (!isFriendly) {
                 return true;
             }
 
@@ -3607,6 +3611,10 @@
             } catch (e) {
                 console.warn('Could not fetch ESPN matches:', e);
             }
+
+            const staticFallbackMatches = getStaticFootballMatches();
+            allMatches.push(...staticFallbackMatches);
+            console.log(`Added ${staticFallbackMatches.length} static football fallback matches`);
 
             const confirmedFallbackMatches = getConfirmedFootballFallbackMatches();
             allMatches.push(...confirmedFallbackMatches);
