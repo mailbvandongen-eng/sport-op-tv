@@ -4535,10 +4535,7 @@
                     // Match rows
                     compEvents.forEach(event => {
                         const hasDartsMatches = sportType === 'darts' && event.matches && event.matches.length > 0;
-                        const hasDartsDetails = hasDartsMatches && event.matches.some(m => {
-                            if (!m.label) return true;
-                            return getDartsFallbackItems(event.title || event.event || '', m.label).length > 0;
-                        });
+                        const hasDartsDetails = hasDartsMatches;
 
                         if (hasDartsDetails) {
                             // Darts with matches: expandable accordion
