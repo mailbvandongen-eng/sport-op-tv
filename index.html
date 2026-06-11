@@ -3450,9 +3450,28 @@
         }
 
         function dedupeFootballMatches(matches) {
-            const seen = new Set();
+            const channelSpecificityScore = (channel = '') => {
+                if (!channel) return 0;
+                const normalized = channel.trim().toLowerCase();
+                if (normalized.includes('/')) return 1;
+                if (normalized === 'npo' || normalized === 'espn' || normalized === 'ziggo sport') return 2;
+                return 3;
+            };
 
-            return matches.filter(match => {
+            const footballMatchReliabilityScore = (match) => {
+                let score = 0;
+                if (match.isFallbackConfirmed) score += 100;
+                if (match.isStatic) score += 80;
+                if (match.status === 'FINISHED') score += 20;
+                if (match.live) score += 10;
+                score += channelSpecificityScore(match.channel);
+                if (match.time && match.time !== 'TBD') score += 2;
+                return score;
+            };
+
+            const deduped = new Map();
+
+            matches.forEach(match => {
                 const dateStr = new Date(match.date).toISOString().split('T')[0];
                 const key = [
                     dateStr,
@@ -3461,10 +3480,13 @@
                     (match.away || '').toLowerCase().trim()
                 ].join('|');
 
-                if (seen.has(key)) return false;
-                seen.add(key);
-                return true;
+                const existing = deduped.get(key);
+                if (!existing || footballMatchReliabilityScore(match) > footballMatchReliabilityScore(existing)) {
+                    deduped.set(key, match);
+                }
             });
+
+            return [...deduped.values()];
         }
 
         function normalizeInternationalTeamName(name = '') {
