@@ -2439,7 +2439,7 @@
         // ============================================
         const CONFIG = {
             // Cache version - increment to force cache clear after config changes
-            CACHE_VERSION: '3.9.5',
+            CACHE_VERSION: '3.9.6',
 
             // OpenFootball API (gratis, geen key nodig!)
             // https://github.com/openfootball/football.json
@@ -3381,8 +3381,6 @@
         // Alle data moet van de API komen.
         // Deze functie geeft alleen WK 2026 terug (kan niet van API komen, is toekomst)
         function getStaticFootballMatches() {
-            return [];
-
             const matches = [
                 // ============================================
                 // WK 2026 - Nederland wedstrijden (kan niet van API)
@@ -3429,8 +3427,6 @@
         }
 
         function getConfirmedFootballFallbackMatches() {
-            return [];
-
             const matches = [
                 // Oranje Leeuwinnen - confirmed upcoming qualifiers / internationals
                 { date: '2026-04-14', time: 'TBD', home: 'Nederland', away: 'Frankrijk', competition: 'WK Kwalificatie Vrouwen', channel: 'NPO 3 / ESPN' },
