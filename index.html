@@ -2606,6 +2606,158 @@
                 'F1': 'world'
             },
 
+            TEAM_FLAG_CODES: {
+                'albania': 'al',
+                'albanie': 'al',
+                'algeria': 'dz',
+                'algerije': 'dz',
+                'andorra': 'ad',
+                'argentina': 'ar',
+                'armenia': 'am',
+                'armenie': 'am',
+                'australia': 'au',
+                'australie': 'au',
+                'austria': 'at',
+                'oostenrijk': 'at',
+                'azerbaijan': 'az',
+                'azerbeidzjan': 'az',
+                'belarus': 'by',
+                'wit rusland': 'by',
+                'belgium': 'be',
+                'belgie': 'be',
+                'bosnia and herzegovina': 'ba',
+                'bosnia herzegovina': 'ba',
+                'bosnie herzegovina': 'ba',
+                'brazil': 'br',
+                'brazilie': 'br',
+                'bulgaria': 'bg',
+                'bulgarije': 'bg',
+                'canada': 'ca',
+                'cape verde': 'cv',
+                'kaapverdie': 'cv',
+                'colombia': 'co',
+                'croatia': 'hr',
+                'kroatie': 'hr',
+                'curacao': 'cw',
+                'cyprus': 'cy',
+                'czech republic': 'cz',
+                'czechia': 'cz',
+                'tsjechie': 'cz',
+                'denmark': 'dk',
+                'denemarken': 'dk',
+                'ecuador': 'ec',
+                'egypt': 'eg',
+                'egypte': 'eg',
+                'england': 'gb-eng',
+                'engeland': 'gb-eng',
+                'estonia': 'ee',
+                'estland': 'ee',
+                'faroe islands': 'fo',
+                'faeroer': 'fo',
+                'finland': 'fi',
+                'france': 'fr',
+                'frankrijk': 'fr',
+                'georgia': 'ge',
+                'georgie': 'ge',
+                'germany': 'de',
+                'duitsland': 'de',
+                'germany w': 'de',
+                'ghana': 'gh',
+                'gibraltar': 'gi',
+                'greece': 'gr',
+                'griekenland': 'gr',
+                'haiti': 'ht',
+                'hongary': 'hu',
+                'hungary': 'hu',
+                'hongarije': 'hu',
+                'iceland': 'is',
+                'ijsland': 'is',
+                'iran': 'ir',
+                'ireland': 'ie',
+                'ierland': 'ie',
+                'israel': 'il',
+                'israeli': 'il',
+                'italy': 'it',
+                'italie': 'it',
+                'ivory coast': 'ci',
+                'ivoorkust': 'ci',
+                'japan': 'jp',
+                'jordan': 'jo',
+                'jordanie': 'jo',
+                'kazakhstan': 'kz',
+                'kazachstan': 'kz',
+                'kosovo': 'xk',
+                'latvia': 'lv',
+                'letland': 'lv',
+                'liechtenstein': 'li',
+                'lithuania': 'lt',
+                'litouwen': 'lt',
+                'luxembourg': 'lu',
+                'luxemburg': 'lu',
+                'malta': 'mt',
+                'mexico': 'mx',
+                'moldova': 'md',
+                'moldavie': 'md',
+                'montenegro': 'me',
+                'morocco': 'ma',
+                'marokko': 'ma',
+                'netherlands': 'nl',
+                'nederland': 'nl',
+                'new zealand': 'nz',
+                'nieuw zeeland': 'nz',
+                'north macedonia': 'mk',
+                'noord macedonie': 'mk',
+                'northern ireland': 'gb-nir',
+                'noord ierland': 'gb-nir',
+                'norway': 'no',
+                'noorwegen': 'no',
+                'panama': 'pa',
+                'paraguay': 'py',
+                'poland': 'pl',
+                'polen': 'pl',
+                'portugal': 'pt',
+                'qatar': 'qa',
+                'republic of ireland': 'ie',
+                'romania': 'ro',
+                'roemenie': 'ro',
+                'saudi arabia': 'sa',
+                'saoedi arabie': 'sa',
+                'san marino': 'sm',
+                'scotland': 'gb-sct',
+                'schotland': 'gb-sct',
+                'senegal': 'sn',
+                'serbia': 'rs',
+                'servie': 'rs',
+                'slovakia': 'sk',
+                'slowakije': 'sk',
+                'slovenia': 'si',
+                'slovenie': 'si',
+                'south africa': 'za',
+                'zuid afrika': 'za',
+                'south korea': 'kr',
+                'zuid korea': 'kr',
+                'spain': 'es',
+                'spanje': 'es',
+                'sweden': 'se',
+                'zweden': 'se',
+                'switzerland': 'ch',
+                'zwitserland': 'ch',
+                'tunisia': 'tn',
+                'tunesie': 'tn',
+                'turkey': 'tr',
+                'turkiye': 'tr',
+                'turkije': 'tr',
+                'ukraine': 'ua',
+                'oekraine': 'ua',
+                'united states': 'us',
+                'verenigde staten': 'us',
+                'uruguay': 'uy',
+                'uzbekistan': 'uz',
+                'oezbekistan': 'uz',
+                'wales': 'gb-wls',
+                'zuid afrika women': 'za'
+            },
+
             // Competitie logo's
             COMPETITION_LOGOS: {
                 'Eredivisie': 'logos/netherlands_eredivisie.football-logos.cc.svg',
@@ -3499,9 +3651,34 @@
                 .trim();
         }
 
+        function normalizeTeamFlagKey(name = '') {
+            return normalizeInternationalTeamName(name)
+                .toLowerCase()
+                .replace(/ã«/g, 'e')
+                .replace(/ã¶/g, 'o')
+                .replace(/ã¼/g, 'u')
+                .replace(/ã¯/g, 'i')
+                .replace(/ã©/g, 'e')
+                .replace(/ã¨/g, 'e')
+                .replace(/ã¡/g, 'a')
+                .replace(/ã¢/g, 'a')
+                .replace(/ã§/g, 'c')
+                .replace(/ã³/g, 'o')
+                .replace(/ã±/g, 'n')
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .replace(/['’.-]/g, ' ')
+                .replace(/\s+/g, ' ')
+                .trim();
+        }
+
         function isUefaNationalTeam(name) {
             const normalized = normalizeInternationalTeamName(name);
             return CONFIG.UEFA_NATIONAL_TEAMS.includes(normalized);
+        }
+
+        function getTeamFlagCode(name = '') {
+            return CONFIG.TEAM_FLAG_CODES[normalizeTeamFlagKey(name)] || '';
         }
 
         function isRelevantInternationalMatch(competitionName, homeTeam, awayTeam) {
@@ -4472,8 +4649,10 @@
                         html += `<div class="football-slot-matches">`;
 
                         slot.matches.forEach(event => {
-                            const homeLogoSrc = event.homeCrest || CONFIG.CLUB_LOGOS[event.home];
-                            const awayLogoSrc = event.awayCrest || CONFIG.CLUB_LOGOS[event.away];
+                            const homeFlagCode = getTeamFlagCode(event.home);
+                            const awayFlagCode = getTeamFlagCode(event.away);
+                            const homeLogoSrc = homeFlagCode ? `logos/flags/${homeFlagCode}.svg` : (event.homeCrest || CONFIG.CLUB_LOGOS[event.home]);
+                            const awayLogoSrc = awayFlagCode ? `logos/flags/${awayFlagCode}.svg` : (event.awayCrest || CONFIG.CLUB_LOGOS[event.away]);
                             const homeLogo = homeLogoSrc ? `<img src="${homeLogoSrc}" class="team-logo" onerror="this.style.display='none'" alt="">` : '<span class="team-logo-placeholder"></span>';
                             const awayLogo = awayLogoSrc ? `<img src="${awayLogoSrc}" class="team-logo" onerror="this.style.display='none'" alt="">` : '<span class="team-logo-placeholder"></span>';
                             const competitionLabel = getEventCompetitionLabel(event);
