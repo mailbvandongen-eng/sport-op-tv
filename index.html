@@ -4504,12 +4504,19 @@
 
                     // Match rows
                     compEvents.forEach(event => {
-                        if (sportType === 'darts' && event.matches && event.matches.length > 0) {
+                        const hasDartsMatches = sportType === 'darts' && event.matches && event.matches.length > 0;
+                        const hasDartsDetails = hasDartsMatches && event.matches.some(m => {
+                            if (!m.label) return true;
+                            return getDartsFallbackItems(event.title || event.event || '', m.label).length > 0;
+                        });
+
+                        if (hasDartsDetails) {
                             // Darts with matches: expandable accordion
                             const compSlug = comp.toLowerCase().replace(/[^a-z0-9]+/g, '-');
                             const eventId = `darts-${dateKey}-${compSlug}-${compEvents.indexOf(event)}`;
                             const title = getEventPrimaryTitle(event, comp);
                             const competitionLabel = getEventCompetitionLabel(event, comp);
+                            let hasFallbackItems = false;
 
                             html += `<div class="match-row darts-row darts-expandable" data-event-id="${eventId}">`;
                             html += `<div class="event-info">`;
@@ -4541,6 +4548,7 @@
                                 }
                                 html += `</div>`;
                                 if (fallbackItems.length > 0) {
+                                    hasFallbackItems = true;
                                     html += `<div class="darts-session-details">`;
                                     fallbackItems.forEach(item => {
                                         html += `<div class="darts-session-detail">${item}</div>`;
@@ -4548,13 +4556,16 @@
                                     html += `</div>`;
                                 }
                             });
-                            if (event.matches.some(m => m.label)) {
+                            if (hasFallbackItems) {
                                 html += `<div class="darts-fallback-note">Confirmed fallback: sessieschema is bevestigd, exacte partijen volgen zodra loting of order of play beschikbaar is.</div>`;
                             }
                             html += `</div>`;
                         } else {
                             // Darts without matches & F1: single row with title
-                            const title = getEventPrimaryTitle(event, comp);
+                            const labelOnlyTitle = hasDartsMatches
+                                ? event.matches.map(m => m.label).filter(Boolean).join(' · ')
+                                : '';
+                            const title = labelOnlyTitle || getEventPrimaryTitle(event, comp);
                             const competitionLabel = getEventCompetitionLabel(event, comp);
 
                             html += `<div class="match-row ${sportType}-row">`;
