@@ -40,6 +40,8 @@
             --radius: 12px;
             --radius-sm: 8px;
             --comp-header-bg: #f5f5f5;
+            --content-width: 1280px;
+            --content-gutter: clamp(16px, 3vw, 32px);
         }
 
         [data-theme="dark"] {
@@ -71,9 +73,9 @@
         }
 
         .container {
-            max-width: 900px;
+            max-width: calc(var(--content-width) + (var(--content-gutter) * 2));
             margin: 0 auto;
-            padding: 20px;
+            padding: 20px var(--content-gutter) 32px;
         }
 
         /* Header Section (BeSoccer style) */
@@ -83,10 +85,21 @@
             position: sticky;
             top: 0;
             z-index: 100;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
         }
 
         [data-theme="light"] .header-section {
             background: #1a472a;
+        }
+
+        .title-bar,
+        .sport-buttons-row,
+        .filters-row,
+        .date-tabs-container {
+            width: min(100%, calc(var(--content-width) + (var(--content-gutter) * 2)));
+            margin: 0 auto;
+            padding-left: var(--content-gutter);
+            padding-right: var(--content-gutter);
         }
 
         /* Title Bar - Row 1 */
@@ -1490,6 +1503,147 @@
 
         .competition-group.compact-group .competition-header {
             display: none;
+        }
+
+        @media (min-width: 1024px) {
+            .title-bar {
+                padding-top: 16px;
+                padding-bottom: 14px;
+            }
+
+            .title-bar h1 {
+                font-size: 1.35rem;
+            }
+
+            .sport-buttons-row {
+                gap: 10px;
+                padding-top: 4px;
+                padding-bottom: 14px;
+                justify-content: flex-start;
+            }
+
+            .sport-filter-btn {
+                min-width: 112px;
+                padding: 9px 16px;
+                font-size: 0.88rem;
+                justify-content: center;
+            }
+
+            .filters-row {
+                padding-top: 12px;
+                padding-bottom: 16px;
+            }
+
+            .filters-primary {
+                gap: 12px;
+            }
+
+            .dropdown {
+                flex-basis: 280px;
+            }
+
+            .dropdown-btn,
+            .filter-input,
+            .reset-btn {
+                min-height: 42px;
+                font-size: 0.88rem;
+            }
+
+            .date-tabs-container {
+                padding-top: 10px;
+                padding-bottom: 10px;
+            }
+
+            .date-tabs {
+                gap: 6px;
+            }
+
+            .date-tab {
+                padding: 9px 14px;
+                font-size: 0.8rem;
+            }
+
+            .events-container {
+                display: grid;
+                gap: 18px;
+                padding-top: 18px;
+            }
+
+            .day-section {
+                background: var(--card-bg);
+                border: 1px solid var(--border);
+                border-radius: 18px;
+                overflow: hidden;
+                box-shadow: var(--shadow);
+            }
+
+            .day-header {
+                top: 142px;
+                padding: 16px 20px;
+                font-size: 0.92rem;
+                background: linear-gradient(180deg, var(--card-bg) 0%, var(--bg) 100%);
+            }
+
+            .competition-header {
+                padding: 12px 20px;
+            }
+
+            .competition-header .competition-name {
+                font-size: 0.88rem;
+            }
+
+            .football-slot {
+                padding: 16px 20px 14px;
+            }
+
+            .football-slot-header {
+                padding-bottom: 12px;
+            }
+
+            .football-slot-matches {
+                gap: 16px;
+                padding-top: 12px;
+            }
+
+            .football-slot-match {
+                grid-template-columns: minmax(0, 1fr) minmax(140px, auto);
+                gap: 20px;
+            }
+
+            .football-team-name {
+                font-size: 1rem;
+            }
+
+            .football-slot-channel {
+                font-size: 0.92rem;
+            }
+
+            .match-row {
+                padding: 14px 20px;
+            }
+
+            .match-row .event-info {
+                gap: 16px;
+                min-width: 0;
+            }
+
+            .match-row .event-info .match-time {
+                min-width: 56px;
+                font-size: 0.95rem;
+            }
+
+            .match-row .event-title {
+                font-size: 0.96rem;
+                line-height: 1.35;
+            }
+
+            .match-row .event-competition {
+                font-size: 0.72rem;
+            }
+
+            .match-row .channel-badge {
+                font-size: 0.78rem;
+            }
         }
 
         .match-row .event-location {
