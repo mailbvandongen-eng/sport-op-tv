@@ -3013,18 +3013,18 @@
                     time: '19:00',
                     label: 'Avondsessie',
                     items: [
-                        'Groep H - Tsjechie 4-0 India',
-                        'Groep K - Kroatie 3-4 Japan',
-                        'Groep L - Finland 3-4 Noorwegen',
-                        'Groep D - Ierland 4-1 Singapore',
-                        'Groep E - Polen 4-1 Portugal',
-                        'Groep F - Zweden 4-2 Zuid-Afrika',
-                        'Groep J - Letland 4-2 Italie',
-                        'Groep B - Belgie 2-4 Hongkong',
-                        'Groep A - Duitsland 4-0 Filipijnen',
-                        'Groep C - Wales 4-1 Litouwen',
-                        'Groep I - Oostenrijk 4-1 China',
-                        'Groep G - Australie 3-4 Verenigde Staten'
+                        'Groep H - Tsjechie vs India',
+                        'Groep K - Kroatie vs Japan',
+                        'Groep L - Finland vs Noorwegen',
+                        'Groep D - Ierland vs Singapore',
+                        'Groep E - Polen vs Portugal',
+                        'Groep F - Zweden vs Zuid-Afrika',
+                        'Groep J - Letland vs Italie',
+                        'Groep B - Belgie vs Hongkong',
+                        'Groep A - Duitsland vs Filipijnen',
+                        'Groep C - Wales vs Litouwen',
+                        'Groep I - Oostenrijk vs China',
+                        'Groep G - Australie vs Verenigde Staten'
                     ]
                 }
             ],
@@ -3033,18 +3033,18 @@
                     time: '13:00',
                     label: 'Middagsessie',
                     items: [
-                        'Groep H - India 1-4 Denemarken',
-                        'Groep K - Kroatie 3-4 Spanje',
-                        'Groep L - Finland 0-4 Hongarije',
-                        'Groep D - Singapore 4-2 Gibraltar',
-                        'Groep E - Portugal 1-4 Zwitserland',
-                        'Groep F - Zuid-Afrika 4-1 Mongolie',
-                        'Groep J - Italie 4-2 Trinidad en Tobago',
-                        'Groep B - Belgie 4-1 Slovenie',
-                        'Groep A - Filipijnen 4-1 Nieuw-Zeeland',
-                        'Groep C - Litouwen 4-2 Thailand',
-                        'Groep I - China 3-4 Frankrijk',
-                        'Groep G - Australie 1-4 Canada'
+                        'Groep H - India vs Denemarken',
+                        'Groep K - Kroatie vs Spanje',
+                        'Groep L - Finland vs Hongarije',
+                        'Groep D - Singapore vs Gibraltar',
+                        'Groep E - Portugal vs Zwitserland',
+                        'Groep F - Zuid-Afrika vs Mongolie',
+                        'Groep J - Italie vs Trinidad en Tobago',
+                        'Groep B - Belgie vs Slovenie',
+                        'Groep A - Filipijnen vs Nieuw-Zeeland',
+                        'Groep C - Litouwen vs Thailand',
+                        'Groep I - China vs Frankrijk',
+                        'Groep G - Australie vs Canada'
                     ]
                 }
             ],
@@ -4862,7 +4862,8 @@
                                 html += `<div class="darts-match-item">`;
                                 html += `<span class="darts-match-time">${m.time}</span>`;
                                 if (m.label) {
-                                    html += `<span class="darts-match-players">${m.label}</span>`;
+                                    const sessionLabel = m.time ? `${m.label} (${m.time} start)` : m.label;
+                                    html += `<span class="darts-match-players">${sessionLabel}</span>`;
                                 } else {
                                     const homeName = dartsPlayers[m.home]?.name || m.home;
                                     const awayName = dartsPlayers[m.away]?.name || m.away;
