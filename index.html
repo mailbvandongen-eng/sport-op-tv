@@ -2959,6 +2959,58 @@
             'Dutch Darts Championship - Finale'
         ]);
 
+        const worldCupOfDartsSchedule = {
+            '2026-06-11': [
+                { time: 'Groep H', label: 'Tsjechië 4-0 India' },
+                { time: 'Groep K', label: 'Kroatië 3-4 Japan' },
+                { time: 'Groep L', label: 'Finland 3-4 Noorwegen' },
+                { time: 'Groep D', label: 'Ierland 4-1 Singapore' },
+                { time: 'Groep E', label: 'Polen 4-1 Portugal' },
+                { time: 'Groep F', label: 'Zweden 4-2 Zuid-Afrika' },
+                { time: 'Groep J', label: 'Letland 4-2 Italië' },
+                { time: 'Groep B', label: 'België 2-4 Hongkong' },
+                { time: 'Groep A', label: 'Duitsland 4-0 Filipijnen' },
+                { time: 'Groep C', label: 'Wales 4-1 Litouwen' },
+                { time: 'Groep I', label: 'Oostenrijk 4-1 China' },
+                { time: 'Groep G', label: 'Australië 3-4 Verenigde Staten' }
+            ],
+            '2026-06-12': [
+                { time: 'Groep H', label: 'India 1-4 Denemarken' },
+                { time: 'Groep H', label: 'Tsjechië 4-1 Denemarken' },
+                { time: 'Groep K', label: 'Kroatië 3-4 Spanje' },
+                { time: 'Groep K', label: 'Japan 1-4 Spanje' },
+                { time: 'Groep L', label: 'Finland 0-4 Hongarije' },
+                { time: 'Groep L', label: 'Noorwegen vs Hongarije' },
+                { time: 'Groep D', label: 'Singapore 4-2 Gibraltar' },
+                { time: 'Groep D', label: 'Ierland vs Gibraltar' },
+                { time: 'Groep E', label: 'Portugal 1-4 Zwitserland' },
+                { time: 'Groep E', label: 'Polen vs Zwitserland' },
+                { time: 'Groep F', label: 'Zuid-Afrika 4-1 Mongolië' },
+                { time: 'Groep F', label: 'Zweden vs Mongolië' },
+                { time: 'Groep J', label: 'Italië 4-2 Trinidad en Tobago' },
+                { time: 'Groep J', label: 'Letland vs Trinidad en Tobago' },
+                { time: 'Groep B', label: 'België 4-1 Slovenië' },
+                { time: 'Groep B', label: 'Hongkong vs Slovenië' },
+                { time: 'Groep A', label: 'Filipijnen 4-1 Nieuw-Zeeland' },
+                { time: 'Groep A', label: 'Duitsland vs Nieuw-Zeeland' },
+                { time: 'Groep C', label: 'Litouwen 4-2 Thailand' },
+                { time: 'Groep C', label: 'Wales vs Thailand' },
+                { time: 'Groep I', label: 'China 3-4 Frankrijk' },
+                { time: 'Groep I', label: 'Oostenrijk vs Frankrijk' },
+                { time: 'Groep G', label: 'Australië 1-4 Canada' },
+                { time: 'Groep G', label: 'Verenigde Staten vs Canada' }
+            ],
+            '2026-06-13': [
+                dartsSession('13:00', 'Laatste 16 - bevestigde loting volgt na de groepsfase'),
+                dartsSession('19:00', 'Kwartfinales')
+            ],
+            '2026-06-14': [
+                dartsSession('19:00', 'Halve finale 1'),
+                dartsSession('20:30', 'Halve finale 2'),
+                dartsSession('22:00', 'Finale')
+            ]
+        };
+
         const dartsCalendar = [
             // Premier League Darts 2026 - Echte schema's met tijden
             { date: '2026-02-05', time: '20:00', event: 'Premier League Darts - Avond 1', location: 'Belfast', channel: 'Viaplay', matches: [
@@ -3206,16 +3258,16 @@
             ]},
             // World Cup of Darts 2026
             { date: '2026-06-11', time: '13:00', event: 'World Cup of Darts', location: 'Frankfurt', channel: 'Viaplay', matches: [
-                dartsSession('13:00', 'Groepsfase')
+                ...worldCupOfDartsSchedule['2026-06-11']
             ]},
             { date: '2026-06-12', time: '13:00', event: 'World Cup of Darts', location: 'Frankfurt', channel: 'Viaplay', matches: [
-                dartsSession('13:00', 'Groepsfase / laatste 16')
+                ...worldCupOfDartsSchedule['2026-06-12']
             ]},
             { date: '2026-06-13', time: '19:00', event: 'World Cup of Darts', location: 'Frankfurt', channel: 'Viaplay', matches: [
-                dartsSession('19:00', 'Kwartfinales')
+                ...worldCupOfDartsSchedule['2026-06-13']
             ]},
             { date: '2026-06-14', time: '19:00', event: 'World Cup of Darts - Finale', location: 'Frankfurt', channel: 'Viaplay', matches: [
-                dartsSession('19:00', 'Halve finales + finale')
+                ...worldCupOfDartsSchedule['2026-06-14']
             ]},
             // US Darts Masters 2026
             { date: '2026-06-26', time: '02:00', event: 'US Darts Masters', location: 'New York', channel: 'Viaplay', matches: [
@@ -4448,9 +4500,10 @@
             const futureDays = 30;
 
             try {
+                const freshDartsData = getStaticDartsEvents();
                 const [footballData, dartsData, f1Data] = await Promise.all([
                     cachedData.voetbal || fetchFootballMatches(),
-                    cachedData.darts || Promise.resolve(getStaticDartsEvents()),
+                    Promise.resolve(freshDartsData),
                     cachedData.f1 || fetchF1Sessions()
                 ]);
 
@@ -4462,7 +4515,7 @@
                 cachedData.voetbal = sanitizedUpcomingCount > reliableUpcomingCount
                     ? sanitizedFootballData
                     : reliableFootballData;
-                cachedData.darts = dartsData || [];
+                cachedData.darts = dartsData || freshDartsData || [];
                 cachedData.f1 = f1Data || [];
 
                 cachedData.voetbal.forEach(e => e.sportType = 'voetbal');
