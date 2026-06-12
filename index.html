@@ -2376,18 +2376,14 @@
             <div class="side-menu-content">
                 <!-- Weergave opties -->
                 <div class="menu-section">
-                    <h3 class="menu-section-title">Weergave</h3>
-                    <div class="menu-toggles">
-                        <label class="menu-toggle" id="menu-scores-toggle">
-                            <span class="toggle-text">Uitslagen</span>
-                            <input type="checkbox" id="toggle-scores">
-                            <span class="toggle-switch"></span>
-                        </label>
-                    </div>
+                    <h3 class="menu-section-title">Info</h3>
+                    <p style="color: var(--text-secondary); line-height: 1.5; margin: 0;">
+                        Standen zijn verwijderd. Uitslagen blijven verborgen. Bij darts zie je per sessie de bekende affiches en tijden.
+                    </p>
                 </div>
 
                 <!-- Standen sectie -->
-                <div class="menu-section">
+                <div class="menu-section" style="display:none;" aria-hidden="true">
                     <div class="menu-section-header">
                         <h3 class="menu-section-title">Standen</h3>
                         <button class="refresh-standings-btn" id="refresh-standings" title="Ververs standen">↻</button>
@@ -2439,7 +2435,7 @@
         // ============================================
         const CONFIG = {
             // Cache version - increment to force cache clear after config changes
-            CACHE_VERSION: '3.9.7',
+            CACHE_VERSION: '3.9.8',
 
             // OpenFootball API (gratis, geen key nodig!)
             // https://github.com/openfootball/football.json
@@ -3011,6 +3007,69 @@
             ]
         };
 
+        const worldCupOfDartsSessions = {
+            day1Evening: [
+                {
+                    time: '19:00',
+                    label: 'Avondsessie',
+                    items: [
+                        'Groep H - Tsjechie 4-0 India',
+                        'Groep K - Kroatie 3-4 Japan',
+                        'Groep L - Finland 3-4 Noorwegen',
+                        'Groep D - Ierland 4-1 Singapore',
+                        'Groep E - Polen 4-1 Portugal',
+                        'Groep F - Zweden 4-2 Zuid-Afrika',
+                        'Groep J - Letland 4-2 Italie',
+                        'Groep B - Belgie 2-4 Hongkong',
+                        'Groep A - Duitsland 4-0 Filipijnen',
+                        'Groep C - Wales 4-1 Litouwen',
+                        'Groep I - Oostenrijk 4-1 China',
+                        'Groep G - Australie 3-4 Verenigde Staten'
+                    ]
+                }
+            ],
+            day2Afternoon: [
+                {
+                    time: '13:00',
+                    label: 'Middagsessie',
+                    items: [
+                        'Groep H - India 1-4 Denemarken',
+                        'Groep K - Kroatie 3-4 Spanje',
+                        'Groep L - Finland 0-4 Hongarije',
+                        'Groep D - Singapore 4-2 Gibraltar',
+                        'Groep E - Portugal 1-4 Zwitserland',
+                        'Groep F - Zuid-Afrika 4-1 Mongolie',
+                        'Groep J - Italie 4-2 Trinidad en Tobago',
+                        'Groep B - Belgie 4-1 Slovenie',
+                        'Groep A - Filipijnen 4-1 Nieuw-Zeeland',
+                        'Groep C - Litouwen 4-2 Thailand',
+                        'Groep I - China 3-4 Frankrijk',
+                        'Groep G - Australie 1-4 Canada'
+                    ]
+                }
+            ],
+            day2Evening: [
+                {
+                    time: '19:00',
+                    label: 'Avondsessie',
+                    items: [
+                        'Groep H - Tsjechie vs Denemarken',
+                        'Groep K - Japan vs Spanje',
+                        'Groep L - Noorwegen vs Hongarije',
+                        'Groep D - Ierland vs Gibraltar',
+                        'Groep E - Polen vs Zwitserland',
+                        'Groep F - Zweden vs Mongolie',
+                        'Groep J - Letland vs Trinidad en Tobago',
+                        'Groep B - Hongkong vs Slovenie',
+                        'Groep A - Duitsland vs Nieuw-Zeeland',
+                        'Groep C - Wales vs Thailand',
+                        'Groep I - Oostenrijk vs Frankrijk',
+                        'Groep G - Verenigde Staten vs Canada'
+                    ]
+                }
+            ]
+        };
+
         const dartsCalendar = [
             // Premier League Darts 2026 - Echte schema's met tijden
             { date: '2026-02-05', time: '20:00', event: 'Premier League Darts - Avond 1', location: 'Belfast', channel: 'Viaplay', matches: [
@@ -3257,11 +3316,14 @@
                 dartsSession('19:00', 'Halve finales + finale')
             ]},
             // World Cup of Darts 2026
-            { date: '2026-06-11', time: '13:00', event: 'World Cup of Darts', location: 'Frankfurt', channel: 'Viaplay', matches: [
-                ...worldCupOfDartsSchedule['2026-06-11']
+            { date: '2026-06-11', time: '19:00', event: 'World Cup of Darts', location: 'Frankfurt', channel: 'Viaplay', matches: [
+                ...worldCupOfDartsSessions.day1Evening
             ]},
             { date: '2026-06-12', time: '13:00', event: 'World Cup of Darts', location: 'Frankfurt', channel: 'Viaplay', matches: [
-                ...worldCupOfDartsSchedule['2026-06-12']
+                ...worldCupOfDartsSessions.day2Afternoon
+            ]},
+            { date: '2026-06-12', time: '19:00', event: 'World Cup of Darts', location: 'Frankfurt', channel: 'Viaplay', matches: [
+                ...worldCupOfDartsSessions.day2Evening
             ]},
             { date: '2026-06-13', time: '19:00', event: 'World Cup of Darts', location: 'Frankfurt', channel: 'Viaplay', matches: [
                 ...worldCupOfDartsSchedule['2026-06-13']
@@ -4796,6 +4858,7 @@
                             html += `<div class="darts-matches-list" id="${eventId}" style="display:none;">`;
                             event.matches.forEach(m => {
                                 const fallbackItems = m.label ? getDartsFallbackItems(event.title || event.event || '', m.label) : [];
+                                const detailItems = Array.isArray(m.items) && m.items.length > 0 ? m.items : fallbackItems;
                                 html += `<div class="darts-match-item">`;
                                 html += `<span class="darts-match-time">${m.time}</span>`;
                                 if (m.label) {
@@ -4806,10 +4869,10 @@
                                     html += `<span class="darts-match-players">${homeName} <span class="vs">vs</span> ${awayName}</span>`;
                                 }
                                 html += `</div>`;
-                                if (fallbackItems.length > 0) {
-                                    hasFallbackItems = true;
+                                if (detailItems.length > 0) {
+                                    hasFallbackItems = hasFallbackItems || fallbackItems.length > 0;
                                     html += `<div class="darts-session-details">`;
-                                    fallbackItems.forEach(item => {
+                                    detailItems.forEach(item => {
                                         html += `<div class="darts-session-detail">${item}</div>`;
                                     });
                                     html += `</div>`;
@@ -5292,7 +5355,6 @@
             sideMenu.classList.add('open');
             menuOverlay.classList.add('show');
             document.body.style.overflow = 'hidden';
-            renderStandingsInMenu();
         }
 
         function closeMenu() {
@@ -5305,34 +5367,6 @@
         hamburgerBtn.addEventListener('click', openMenu);
         closeMenuBtn.addEventListener('click', closeMenu);
         menuOverlay.addEventListener('click', closeMenu);
-
-        // Standings sport buttons
-        document.querySelectorAll('.standings-sport-btn').forEach(btn => {
-            btn.addEventListener('click', async () => {
-                document.querySelectorAll('.standings-sport-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                standingsSport = btn.dataset.standingsSport;
-                await renderStandingsInMenu();
-            });
-        });
-
-        document.getElementById('toggle-scores').addEventListener('change', function() {
-            showScores = this.checked;
-            document.getElementById('events-container').classList.toggle('show-scores', showScores);
-        });
-
-        // Refresh standings button
-        document.getElementById('refresh-standings').addEventListener('click', async function() {
-            this.classList.add('loading');
-            // Clear all standings caches (use correct league ID keys)
-            [88, 39, 78, 140, 135, 61, 2, 3, 848].forEach(id => {
-                localStorage.removeItem(`standings_${id}`);
-                localStorage.removeItem(`standings_${id}_time`);
-            });
-            // Re-render current standings
-            await renderStandingsInMenu();
-            this.classList.remove('loading');
-        });
 
         // Sport filter buttons
         document.querySelectorAll('.sport-filter-btn').forEach(btn => {
@@ -5435,11 +5469,6 @@
             filters.clubs = [];
             if (clubInput) clubInput.value = '';
             localStorage.removeItem('selectedClubs');
-
-            // Reset toggles
-            document.getElementById('toggle-scores').checked = false;
-            showScores = false;
-            document.getElementById('events-container').classList.remove('show-scores');
 
             renderEvents();
         });
