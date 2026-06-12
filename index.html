@@ -3070,6 +3070,50 @@
             ]
         };
 
+        const worldCupOfDartsSecondRoundPlaceholders = [
+            { team: 'Engeland', time: '13:00', label: 'Engeland vs tegenstander volgt na groepsfase' },
+            { team: 'Nederland', time: '13:00', label: 'Nederland vs tegenstander volgt na groepsfase' },
+            { team: 'Schotland', time: '19:00', label: 'Schotland vs tegenstander volgt na groepsfase' },
+            { team: 'Noord-Ierland', time: '19:00', label: 'Noord-Ierland vs tegenstander volgt na groepsfase' }
+        ];
+
+        const worldCupOfDartsSecondRoundConfirmed = [
+            // Voeg bevestigde wedstrijden hier toe zodra de loting/order of play bekend is.
+            // Voorbeeld:
+            // { team: 'Engeland', time: '13:00', label: 'Engeland vs Duitsland' }
+        ];
+
+        function buildWorldCupSecondRoundSessions() {
+            const merged = worldCupOfDartsSecondRoundPlaceholders.map(placeholder => {
+                const confirmed = worldCupOfDartsSecondRoundConfirmed.find(match => match.team === placeholder.team);
+                return confirmed || placeholder;
+            });
+
+            return {
+                afternoon: [
+                    {
+                        time: '13:00',
+                        label: 'Middagsessie - Tweede ronde',
+                        items: merged.filter(match => match.time === '13:00').map(match => match.label)
+                    }
+                ],
+                evening: [
+                    {
+                        time: '19:00',
+                        label: 'Avondsessie - Tweede ronde',
+                        items: merged.filter(match => match.time === '19:00').map(match => match.label)
+                    },
+                    {
+                        time: '22:00',
+                        label: 'Avondsessie - Kwartfinales',
+                        items: ['Kwartfinales - affiches volgen na de tweede ronde']
+                    }
+                ]
+            };
+        }
+
+        const worldCupOfDartsSecondRoundSessions = buildWorldCupSecondRoundSessions();
+
         const dartsCalendar = [
             // Premier League Darts 2026 - Echte schema's met tijden
             { date: '2026-02-05', time: '20:00', event: 'Premier League Darts - Avond 1', location: 'Belfast', channel: 'Viaplay', matches: [
@@ -3325,8 +3369,11 @@
             { date: '2026-06-12', time: '19:00', event: 'World Cup of Darts', location: 'Frankfurt', channel: 'Viaplay', matches: [
                 ...worldCupOfDartsSessions.day2Evening
             ]},
+            { date: '2026-06-13', time: '13:00', event: 'World Cup of Darts', location: 'Frankfurt', channel: 'Viaplay', matches: [
+                ...worldCupOfDartsSecondRoundSessions.afternoon
+            ]},
             { date: '2026-06-13', time: '19:00', event: 'World Cup of Darts', location: 'Frankfurt', channel: 'Viaplay', matches: [
-                ...worldCupOfDartsSchedule['2026-06-13']
+                ...worldCupOfDartsSecondRoundSessions.evening
             ]},
             { date: '2026-06-14', time: '19:00', event: 'World Cup of Darts - Finale', location: 'Frankfurt', channel: 'Viaplay', matches: [
                 ...worldCupOfDartsSchedule['2026-06-14']
