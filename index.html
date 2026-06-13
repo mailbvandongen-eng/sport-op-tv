@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Sport op TV Vanavond</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -146,6 +149,10 @@
             height: 20px;
         }
 
+        .icon-btn.loading svg {
+            animation: spin 1s linear infinite;
+        }
+
         /* Theme toggle sun/moon icons */
         .icon-btn .sun-icon { display: none; }
         .icon-btn .moon-icon { display: block; }
@@ -163,7 +170,7 @@
 
         /* Filters Row */
         .filters-row {
-            display: flex;
+            display: none;
             align-items: center;
             gap: 10px;
             padding: 8px 16px 12px 16px;
@@ -176,11 +183,6 @@
             gap: 8px;
             flex: 1;
             min-width: 0;
-        }
-
-        body[data-sport-view="darts"] .filters-row,
-        body[data-sport-view="f1"] .filters-row {
-            display: none;
         }
 
         /* Dropdown */
@@ -2446,6 +2448,9 @@
         <div class="title-bar">
             <h1>Sport op TV</h1>
             <div class="title-bar-icons">
+                <button class="icon-btn" id="refresh-data" title="Ververs alle data">
+                    <i data-lucide="refresh-cw"></i>
+                </button>
                 <button class="icon-btn" id="theme-toggle" title="Thema wisselen">
                     <i data-lucide="sun" class="sun-icon"></i>
                     <i data-lucide="moon" class="moon-icon"></i>
@@ -2528,19 +2533,11 @@
                 <button class="close-menu-btn" id="close-menu-btn">×</button>
             </div>
             <div class="side-menu-content">
-                <!-- Weergave opties -->
-                <div class="menu-section">
-                    <h3 class="menu-section-title">Info</h3>
-                    <p style="color: var(--text-secondary); line-height: 1.5; margin: 0;">
-                        Standen zijn verwijderd. Uitslagen blijven verborgen. Bij darts zie je per sessie de bekende affiches en tijden.
-                    </p>
-                </div>
-
                 <!-- Standen sectie -->
-                <div class="menu-section" style="display:none;" aria-hidden="true">
+                <div class="menu-section">
                     <div class="menu-section-header">
-                        <h3 class="menu-section-title">Standen</h3>
-                        <button class="refresh-standings-btn" id="refresh-standings" title="Ververs standen">↻</button>
+                        <h3 class="menu-section-title">Standen & WK 2026</h3>
+                        <button class="refresh-standings-btn" id="refresh-standings" title="Ververs alle data">↻</button>
                     </div>
                     <div class="standings-sport-buttons">
                         <button class="standings-sport-btn active" data-standings-sport="voetbal">Voetbal</button>
@@ -2563,7 +2560,7 @@
             <div class="api-status" id="api-status">
                 <span class="live-dot"></span> <span class="status-text">Laden...</span>
             </div>
-            <p class="version-footer">v3.9.7</p>
+            <p class="version-footer">v3.9.13</p>
         </footer>
     </div>
 
@@ -2589,7 +2586,7 @@
         // ============================================
         const CONFIG = {
             // Cache version - increment to force cache clear after config changes
-            CACHE_VERSION: '3.9.8',
+            CACHE_VERSION: '3.9.13',
 
             // OpenFootball API (gratis, geen key nodig!)
             // https://github.com/openfootball/football.json
@@ -2630,9 +2627,9 @@
                 { slug: 'uefa.europa', name: 'Europa League', channel: 'Ziggo Sport' },
                 { slug: 'uefa.europa.conf', name: 'Conference League', channel: 'Ziggo Sport' },
                 // Men's international competitions
-                { slug: 'fifa.world', name: 'WK', channel: 'NPO / ESPN' },
-                { slug: 'uefa.euro', name: 'EK', channel: 'NPO / ESPN' },
-                { slug: 'uefa.nations', name: 'Nations League', channel: 'NPO / Ziggo Sport' },
+                { slug: 'fifa.world', name: 'WK', channel: 'NPO 1 / ESPN' },
+                { slug: 'uefa.euro', name: 'EK', channel: 'NPO 1 / ESPN' },
+                { slug: 'uefa.nations', name: 'Nations League', channel: 'NPO 1 / Ziggo Sport' },
                 { slug: 'fifa.worldq.uefa', name: 'WK Kwalificatie', channel: 'Ziggo Sport' },
                 { slug: 'uefa.euroq', name: 'EK Kwalificatie', channel: 'Ziggo Sport' },
                 { slug: 'fifa.friendly', name: 'Vriendschappelijk Internationaal', channel: 'ESPN / Ziggo Sport' },
@@ -3038,21 +3035,9 @@
         let standingsSport = 'voetbal'; // Which sport to show in standings menu
         let showScores = false;
         let showPast = true; // Always show past events
-        // Load filters from localStorage (with error handling)
         let filters = { competitions: [], clubs: [] };
-        try {
-            const savedComps = localStorage.getItem('selectedCompetitions');
-            const savedClubs = localStorage.getItem('selectedClubs');
-            if (savedComps) filters.competitions = JSON.parse(savedComps) || [];
-            if (savedClubs) filters.clubs = JSON.parse(savedClubs) || [];
-            // Ensure arrays
-            if (!Array.isArray(filters.competitions)) filters.competitions = [];
-            if (!Array.isArray(filters.clubs)) filters.clubs = [];
-        } catch (e) {
-            console.warn('Could not load filters from localStorage:', e);
-            localStorage.removeItem('selectedCompetitions');
-            localStorage.removeItem('selectedClubs');
-        }
+        localStorage.removeItem('selectedCompetitions');
+        localStorage.removeItem('selectedClubs');
         let cachedData = {
             voetbal: null,
             darts: null,
@@ -3916,12 +3901,81 @@
             }));
         }
 
+        function normalizeChannelLabel(channel = '') {
+            const raw = String(channel || '').trim().replace(/\s+/g, ' ');
+            if (!raw) return '';
+
+            const compact = raw.toLowerCase().replace(/\s+/g, '');
+            const canonical = {
+                npo: 'NPO 1',
+                npo1: 'NPO 1',
+                npo2: 'NPO 2',
+                npo3: 'NPO 3',
+                espn: 'ESPN',
+                espn1: 'ESPN 1',
+                espn2: 'ESPN 2',
+                espn3: 'ESPN 3',
+                espn4: 'ESPN 4',
+                espn5: 'ESPN 5',
+                ziggosport: 'Ziggo Sport',
+                viaplay: 'Viaplay',
+                rtl7: 'RTL 7',
+                sbs6: 'SBS 6',
+                veronica: 'Veronica'
+            };
+
+            return canonical[compact] || raw
+                .replace(/^npo\s*(\d)$/i, 'NPO $1')
+                .replace(/^rtl\s*7$/i, 'RTL 7')
+                .replace(/^sbs\s*6$/i, 'SBS 6');
+        }
+
+        function splitChannelList(channel = '') {
+            return String(channel || '')
+                .split(/\s*(?:\/|\||,|;|\n)\s*/g)
+                .map(item => item.trim())
+                .filter(Boolean);
+        }
+
+        function normalizeChannelList(channel = '') {
+            const seen = new Set();
+            return splitChannelList(channel)
+                .map(normalizeChannelLabel)
+                .filter(Boolean)
+                .filter(item => {
+                    const key = item.toLowerCase();
+                    if (seen.has(key)) return false;
+                    seen.add(key);
+                    return true;
+                })
+                .join(' / ');
+        }
+
+        function getPrimaryChannel(channel = '') {
+            return splitChannelList(channel)
+                .map(normalizeChannelLabel)
+                .find(Boolean) || '';
+        }
+
+        function normalizeFootballMatchChannel(match) {
+            return {
+                ...match,
+                channel: normalizeChannelList(match.channel)
+            };
+        }
+
+        function getLocalDateKey(dateLike) {
+            const date = new Date(dateLike);
+            return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+        }
+
         function dedupeFootballMatches(matches) {
             const channelSpecificityScore = (channel = '') => {
                 if (!channel) return 0;
-                const normalized = channel.trim().toLowerCase();
-                if (normalized.includes('/')) return 1;
-                if (normalized === 'npo' || normalized === 'espn' || normalized === 'ziggo sport') return 2;
+                const normalizedList = normalizeChannelList(channel);
+                const primaryChannel = getPrimaryChannel(channel).toLowerCase();
+                if (normalizedList.includes('/')) return 1;
+                if (['npo 1', 'npo 2', 'npo 3', 'espn', 'ziggo sport', 'viaplay'].includes(primaryChannel)) return 2;
                 return 3;
             };
 
@@ -3936,15 +3990,20 @@
                 return score;
             };
 
+            const normalizeFootballDedupeTeamName = (name = '') => {
+                return getTeamFlagCode(name) || normalizeTeamFlagKey(name) || String(name || '').toLowerCase().trim();
+            };
+
             const deduped = new Map();
 
             matches.forEach(match => {
-                const dateStr = new Date(match.date).toISOString().split('T')[0];
+                const competitionKey = (match.competition || '').toLowerCase().trim();
+                const dateStr = competitionKey === 'wk' ? 'wk-2026' : getLocalDateKey(match.date);
                 const key = [
                     dateStr,
-                    (match.competition || '').toLowerCase().trim(),
-                    (match.home || '').toLowerCase().trim(),
-                    (match.away || '').toLowerCase().trim()
+                    competitionKey,
+                    normalizeFootballDedupeTeamName(match.home),
+                    normalizeFootballDedupeTeamName(match.away)
                 ].join('|');
 
                 const existing = deduped.get(key);
@@ -4012,6 +4071,8 @@
         }
 
         function hasConcreteFootballParticipants(match) {
+            if (match?.isStatic && match?.competition === 'WK') return true;
+
             const blockedValues = ['tbd', 'to be announced', 'winner', 'loser', 'uefa po', 'play-off winner', 'playoff winner'];
             const home = (match.home || '').toLowerCase();
             const away = (match.away || '').toLowerCase();
@@ -4056,7 +4117,7 @@
             if (cacheValid) {
                 console.log('Using cached football data');
                 const data = JSON.parse(cached);
-                return data.map(m => ({ ...m, date: new Date(m.date) }));
+                return data.map(m => normalizeFootballMatchChannel({ ...m, date: new Date(m.date) }));
             }
 
             const allMatches = [];
@@ -4134,7 +4195,7 @@
             allMatches.push(...confirmedFallbackMatches);
             console.log(`Added ${confirmedFallbackMatches.length} confirmed football fallback matches`);
 
-            const dedupedMatches = dedupeFootballMatches(allMatches);
+            const dedupedMatches = dedupeFootballMatches(allMatches).map(normalizeFootballMatchChannel);
 
             console.log(`Total matches loaded: ${dedupedMatches.length}`);
 
@@ -4151,7 +4212,7 @@
                 console.log('API unavailable, using cached data');
                 localStorage.setItem('footballSource', 'cache');
                 const data = JSON.parse(cached);
-                return data.map(m => ({ ...m, date: new Date(m.date) }));
+                return data.map(m => normalizeFootballMatchChannel({ ...m, date: new Date(m.date) }));
             }
 
             // No cache - use static fallback data
@@ -4164,7 +4225,7 @@
         function getDateStr(daysFromNow) {
             const d = new Date();
             d.setDate(d.getDate() + daysFromNow);
-            return d.toISOString().split('T')[0];
+            return getLocalDateKey(d);
         }
 
         // Fetch European cup matches from football-data.org
@@ -4238,7 +4299,7 @@
             for (let i = -7; i <= 30; i++) {
                 const d = new Date();
                 d.setDate(d.getDate() + i);
-                dates.push(d.toISOString().split('T')[0].replace(/-/g, ''));
+                dates.push(getLocalDateKey(d).replace(/-/g, ''));
             }
 
             // Fetch each competition
@@ -4246,7 +4307,7 @@
                 try {
                     // ESPN wants dates in YYYYMMDD format, we query multiple dates
                     // But for efficiency, we query the API once and it returns all matches
-                    const today = new Date().toISOString().split('T')[0].replace(/-/g, '');
+                    const today = getLocalDateKey(new Date()).replace(/-/g, '');
                     const url = `${CONFIG.ESPN_API_URL}/${comp.slug}/scoreboard`;
                     console.log(`Fetching ${comp.name}...`);
 
@@ -4626,7 +4687,7 @@
             for (let i = -7; i < 31; i++) {
                 const date = new Date(today);
                 date.setDate(date.getDate() + i);
-                const dateStr = date.toISOString().split('T')[0];
+                const dateStr = getLocalDateKey(date);
 
                 dartsCalendar
                     .filter(event => event.date === dateStr)
@@ -4827,6 +4888,11 @@
             const filteredEvents = allEvents.filter(e => {
                 const eventDate = new Date(e.date);
                 eventDate.setHours(0, 0, 0, 0);
+                if (e.sportType === 'voetbal' && e.isStatic && e.competition === 'WK') {
+                    const wkEndDate = new Date('2026-07-19T23:59:59');
+                    wkEndDate.setHours(0, 0, 0, 0);
+                    if (eventDate >= today && eventDate <= wkEndDate) return true;
+                }
                 if (eventDate >= today && eventDate <= futureLimit) return true;
                 if (showPast) {
                     const pastDays = e.sportType === 'voetbal' ? 3 : 7;
@@ -4840,7 +4906,7 @@
             // Group by date, then by competition
             const eventsByDate = {};
             filteredEvents.forEach(event => {
-                const dateKey = event.date.toISOString().split('T')[0];
+                const dateKey = getLocalDateKey(event.date);
                 if (!eventsByDate[dateKey]) eventsByDate[dateKey] = [];
                 eventsByDate[dateKey].push(event);
             });
@@ -4878,16 +4944,13 @@
 
             // Helper: get channel HTML (text only, same style as competition names)
             const getChannelHtml = (channel) => {
-                if (!channel) return '';
-                return `<span class="channel-badge">${channel}</span>`;
+                const normalizedChannel = normalizeChannelList(channel);
+                if (!normalizedChannel) return '';
+                return `<span class="channel-badge">${normalizedChannel}</span>`;
             };
 
             const getFootballChannelHtml = (channel) => {
-                if (!channel) return '';
-                const primaryChannel = channel
-                    .split(/\s*(?:\/|\||,|;|\n)\s*/g)
-                    .map(item => item.trim())
-                    .find(Boolean);
+                const primaryChannel = getPrimaryChannel(channel);
                 if (!primaryChannel) return '';
                 return `<span class="football-slot-channel">${primaryChannel}</span>`;
             };
@@ -5366,14 +5429,14 @@
             if (standingsSport === 'voetbal') {
                 // Football standings - show tabs for each league
                 const leagues = [
+                    { id: 'wk2026', name: 'WK 2026' },
                     { id: 88, name: 'Eredivisie' },
                     { id: 39, name: 'Premier League' },
                     { id: 78, name: 'Bundesliga' },
                     { id: 140, name: 'La Liga' },
                     { id: 135, name: 'Serie A' },
                     { id: 61, name: 'Ligue 1' },
-                    { id: 2, name: 'Champions League' },
-                    { id: 'wk2026', name: 'WK 2026' }
+                    { id: 2, name: 'Champions League' }
                 ];
 
                 tabsContainer.innerHTML = leagues.map((l, i) =>
@@ -5548,15 +5611,39 @@
 
         // Hamburger Menu
         const hamburgerBtn = document.getElementById('hamburger-btn');
+        const refreshDataBtn = document.getElementById('refresh-data');
         const sideMenu = document.getElementById('side-menu');
         const menuOverlay = document.getElementById('menu-overlay');
         const closeMenuBtn = document.getElementById('close-menu-btn');
+
+        function clearAllDataCaches() {
+            cachedData = { voetbal: null, darts: null, f1: null };
+            localStorage.removeItem('footballCache');
+            localStorage.removeItem('footballCacheTime');
+            localStorage.removeItem('footballSource');
+            localStorage.removeItem('selectedCompetitions');
+            localStorage.removeItem('selectedClubs');
+
+            Object.keys(localStorage).forEach(key => {
+                if (key.startsWith('standings_')) {
+                    localStorage.removeItem(key);
+                }
+            });
+        }
+
+        function reloadWithFreshData() {
+            clearAllDataCaches();
+            const url = new URL(window.location.href);
+            url.searchParams.set('refresh', Date.now().toString());
+            window.location.replace(url.toString());
+        }
 
         function openMenu() {
             hamburgerBtn.classList.add('active');
             sideMenu.classList.add('open');
             menuOverlay.classList.add('show');
             document.body.style.overflow = 'hidden';
+            renderStandingsInMenu();
         }
 
         function closeMenu() {
@@ -5569,6 +5656,31 @@
         hamburgerBtn.addEventListener('click', openMenu);
         closeMenuBtn.addEventListener('click', closeMenu);
         menuOverlay.addEventListener('click', closeMenu);
+
+        if (refreshDataBtn) {
+            refreshDataBtn.addEventListener('click', () => {
+                refreshDataBtn.classList.add('loading');
+                reloadWithFreshData();
+            });
+        }
+
+        // Standings sport buttons
+        document.querySelectorAll('.standings-sport-btn').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                document.querySelectorAll('.standings-sport-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                standingsSport = btn.dataset.standingsSport;
+                await renderStandingsInMenu();
+            });
+        });
+
+        const refreshStandingsBtn = document.getElementById('refresh-standings');
+        if (refreshStandingsBtn) {
+            refreshStandingsBtn.addEventListener('click', function() {
+                this.classList.add('loading');
+                reloadWithFreshData();
+            });
+        }
 
         // Sport filter buttons
         document.querySelectorAll('.sport-filter-btn').forEach(btn => {
