@@ -2560,7 +2560,7 @@
             <div class="api-status" id="api-status">
                 <span class="live-dot"></span> <span class="status-text">Laden...</span>
             </div>
-            <p class="version-footer">v3.9.13</p>
+            <p class="version-footer">v3.9.14</p>
         </footer>
     </div>
 
@@ -2586,7 +2586,7 @@
         // ============================================
         const CONFIG = {
             // Cache version - increment to force cache clear after config changes
-            CACHE_VERSION: '3.9.13',
+            CACHE_VERSION: '3.9.14',
 
             // OpenFootball API (gratis, geen key nodig!)
             // https://github.com/openfootball/football.json
@@ -3833,6 +3833,9 @@
         // Alle data moet van de API komen.
         // Deze functie geeft alleen WK 2026 terug (kan niet van API komen, is toekomst)
         function getStaticFootballMatches() {
+            // Geen handmatig WK-schema meer: tijden/teams komen uit ESPN/API.
+            return [];
+
             const matches = [
                 // ============================================
                 // WK 2026 - Nederland wedstrijden (kan niet van API)
@@ -3981,8 +3984,9 @@
 
             const footballMatchReliabilityScore = (match) => {
                 let score = 0;
-                if (match.isFallbackConfirmed) score += 100;
-                if (match.isStatic) score += 80;
+                if (!match.isStatic && !match.isFallbackConfirmed) score += 100;
+                if (match.isFallbackConfirmed) score += 20;
+                if (match.isStatic) score -= 20;
                 if (match.status === 'FINISHED') score += 20;
                 if (match.live) score += 10;
                 score += channelSpecificityScore(match.channel);
@@ -4352,6 +4356,8 @@
                                 awayCrest: awayTeam.team?.logo,
                                 competition: comp.name,
                                 channel: comp.channel,
+                                venue: competition.venue?.fullName || competition.venue?.displayName || event.venue?.fullName || event.venue?.displayName || '',
+                                source: 'ESPN',
                                 score: isFinished || isLive ? `${homeScore}-${awayScore}` : null,
                                 live: isLive,
                                 status: isFinished ? 'FINISHED' : (isLive ? 'IN_PLAY' : 'SCHEDULED'),
@@ -4620,6 +4626,36 @@
 
         // Functie om WK groepen te renderen
         function renderWK2026Groups() {
+            const matches = (cachedData.voetbal || [])
+                .filter(match => match.competition === 'WK' && !match.isStatic)
+                .sort((a, b) => new Date(a.date) - new Date(b.date));
+
+            if (matches.length === 0) {
+                return `<div class="standings-container">
+                    <div class="standings-title">WK 2026 Schema</div>
+                    <div class="no-events"><p>Geen betrouwbaar WK-schema geladen. Gebruik de verversknop om de actuele data opnieuw op te halen.</p></div>
+                </div>`;
+            }
+
+            let dynamicHtml = '<div class="standings-container">';
+            dynamicHtml += '<div class="standings-title" style="color:var(--football);">WK 2026 Schema</div>';
+            dynamicHtml += '<table class="standings-table"><tr><th>Datum</th><th>Tijd</th><th>Wedstrijd</th><th>Zender</th></tr>';
+
+            matches.forEach(match => {
+                const matchDate = new Date(match.date);
+                const dateLabel = matchDate.toLocaleDateString('nl-NL', { weekday: 'short', day: 'numeric', month: 'short' });
+                const isNetherlands = match.home === 'Nederland' || match.away === 'Nederland' || match.home === 'Netherlands' || match.away === 'Netherlands';
+                dynamicHtml += `<tr class="${isNetherlands ? 'highlight-row' : ''}">
+                    <td>${dateLabel}</td>
+                    <td>${match.time}</td>
+                    <td>${match.home} - ${match.away}${match.venue ? `<br><small>${match.venue}</small>` : ''}</td>
+                    <td>${normalizeChannelList(match.channel)}</td>
+                </tr>`;
+            });
+
+            dynamicHtml += '</table></div>';
+            return dynamicHtml;
+
             let html = '<div class="standings-container">';
 
             // Nederland schema
@@ -5491,6 +5527,11 @@
 
             // Special case: WK 2026 groups
             if (leagueId === 'wk2026') {
+                if (!cachedData.voetbal) {
+                    const footballData = await fetchFootballMatches();
+                    cachedData.voetbal = filterReliableFootballMatches(sanitizeFootballMatches(footballData || []));
+                    cachedData.voetbal.forEach(e => e.sportType = 'voetbal');
+                }
                 contentContainer.innerHTML = renderWK2026Groups();
                 return;
             }
