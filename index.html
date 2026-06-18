@@ -1206,6 +1206,26 @@
             color: var(--f1);
         }
 
+        .football-summary-link,
+        .standings-summary-link {
+            font-size: 0.74rem;
+            font-weight: 700;
+            color: var(--football);
+            text-decoration: none;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        .football-summary-link:hover,
+        .standings-summary-link:hover {
+            text-decoration: underline;
+        }
+
+        .standings-summary-link {
+            display: inline-block;
+            margin-top: 4px;
+        }
+
         /* Competition Header - grey bar with flag and channel */
         .competition-header {
             display: flex;
@@ -2560,7 +2580,7 @@
             <div class="api-status" id="api-status">
                 <span class="live-dot"></span> <span class="status-text">Laden...</span>
             </div>
-            <p class="version-footer">v3.9.15</p>
+            <p class="version-footer">v3.9.16</p>
         </footer>
     </div>
 
@@ -2586,7 +2606,7 @@
         // ============================================
         const CONFIG = {
             // Cache version - increment to force cache clear after config changes
-            CACHE_VERSION: '3.9.15',
+            CACHE_VERSION: '3.9.16',
 
             // OpenFootball API (gratis, geen key nodig!)
             // https://github.com/openfootball/football.json
@@ -3960,6 +3980,22 @@
                 .find(Boolean) || '';
         }
 
+        function getWorldCupSummaryUrl(match) {
+            const query = [
+                match.home,
+                match.away,
+                'FIFA World Cup 2026 extended highlights 10 minutes'
+            ].filter(Boolean).join(' ');
+
+            return `https://www.youtube.com/results?search_query=${encodeURIComponent(query)}`;
+        }
+
+        function getWorldCupSummaryLinkHtml(match, className = 'football-summary-link') {
+            if ((match.competition || '').trim() !== 'WK') return '';
+
+            return `<a class="${className}" href="${getWorldCupSummaryUrl(match)}" target="_blank" rel="noopener noreferrer" title="Zoek een samenvatting van ca. 8-12 minuten">Samenvatting 8-12 min</a>`;
+        }
+
         function normalizeFootballMatchChannel(match) {
             return {
                 ...match,
@@ -4651,7 +4687,7 @@
                 dynamicHtml += `<tr class="${isNetherlands ? 'highlight-row' : ''}">
                     <td>${dateLabel}</td>
                     <td>${match.time}</td>
-                    <td>${match.home} - ${match.away}${match.venue ? `<br><small>${match.venue}</small>` : ''}</td>
+                    <td>${match.home} - ${match.away}${match.venue ? `<br><small>${match.venue}</small>` : ''}<br>${getWorldCupSummaryLinkHtml(match, 'standings-summary-link')}</td>
                     <td>${normalizeChannelList(match.channel)}</td>
                 </tr>`;
             });
@@ -5093,6 +5129,7 @@
                                 html += `<div class="football-slot-meta">${matchMeta}</div>`;
                             }
                             html += getFootballChannelHtml(event.channel);
+                            html += getWorldCupSummaryLinkHtml(event);
                             html += `</div>`;
                             html += `</div>`;
                         });
