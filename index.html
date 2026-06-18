@@ -38,6 +38,10 @@
             --darts-glow: rgba(249, 115, 22, 0.3);
             --f1: #ef4444;
             --f1-glow: rgba(239, 68, 68, 0.3);
+            --motogp: #0ea5e9;
+            --motogp-glow: rgba(14, 165, 233, 0.28);
+            --handbal: #8b5cf6;
+            --handbal-glow: rgba(139, 92, 246, 0.28);
             --shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
             --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.1);
             --radius: 12px;
@@ -325,6 +329,16 @@
             color: rgba(255, 255, 255, 0.85);
         }
 
+        .sport-filter-btn[data-sport="motogp"] {
+            background: rgba(14, 165, 233, 0.25);
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .sport-filter-btn[data-sport="handbal"] {
+            background: rgba(139, 92, 246, 0.25);
+            color: rgba(255, 255, 255, 0.85);
+        }
+
         .sport-filter-btn:hover {
             opacity: 0.85;
         }
@@ -343,6 +357,14 @@
 
         .sport-filter-btn[data-sport="f1"].active {
             background: var(--f1);
+        }
+
+        .sport-filter-btn[data-sport="motogp"].active {
+            background: var(--motogp);
+        }
+
+        .sport-filter-btn[data-sport="handbal"].active {
+            background: var(--handbal);
         }
 
         /* Date Tabs (BeSoccer style) */
@@ -660,6 +682,16 @@
         .standings-sport-btn[data-standings-sport="f1"].active {
             border-color: var(--f1);
             background: linear-gradient(135deg, var(--f1) 0%, #dc2626 100%);
+        }
+
+        .standings-sport-btn[data-standings-sport="motogp"].active {
+            border-color: var(--motogp);
+            background: linear-gradient(135deg, var(--motogp) 0%, #0284c7 100%);
+        }
+
+        .standings-sport-btn[data-standings-sport="handbal"].active {
+            border-color: var(--handbal);
+            background: linear-gradient(135deg, var(--handbal) 0%, #7c3aed 100%);
         }
 
         .menu-overlay {
@@ -1505,9 +1537,11 @@
             opacity: 0.6;
         }
 
-        /* Darts/F1 specific rows */
+        /* Compact rows for non-football sports */
         .match-row.darts-row,
-        .match-row.f1-row {
+        .match-row.f1-row,
+        .match-row.motogp-row,
+        .match-row.handbal-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -1548,7 +1582,7 @@
             line-height: 1.3;
         }
 
-        /* Channel badge in match rows (darts/F1) */
+        /* Channel badge in compact match rows */
         .match-row .channel-badge {
             font-size: 0.7rem;
             font-weight: 700;
@@ -1935,7 +1969,9 @@
             }
 
             .match-row.darts-row,
-            .match-row.f1-row {
+            .match-row.f1-row,
+            .match-row.motogp-row,
+            .match-row.handbal-row {
                 align-items: flex-start;
             }
 
@@ -1990,6 +2026,18 @@
             background: rgba(239, 68, 68, 0.15);
             color: #ef4444;
             border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .sport-badge-motogp {
+            background: rgba(14, 165, 233, 0.15);
+            color: #0ea5e9;
+            border: 1px solid rgba(14, 165, 233, 0.3);
+        }
+
+        .sport-badge-handbal {
+            background: rgba(139, 92, 246, 0.15);
+            color: #8b5cf6;
+            border: 1px solid rgba(139, 92, 246, 0.3);
         }
 
         /* Desktop card header (inside card) */
@@ -2480,14 +2528,20 @@
         .sport-voetbal .event-time { color: var(--football); }
         .sport-darts .event-time { color: var(--darts); }
         .sport-f1 .event-time { color: var(--f1); }
+        .sport-motogp .event-time { color: var(--motogp); }
+        .sport-handbal .event-time { color: var(--handbal); }
 
         .sport-voetbal .day-header { border-color: var(--football); }
         .sport-darts .day-header { border-color: var(--darts); }
         .sport-f1 .day-header { border-color: var(--f1); }
+        .sport-motogp .day-header { border-color: var(--motogp); }
+        .sport-handbal .day-header { border-color: var(--handbal); }
 
         .sport-voetbal .event-card:hover { border-color: var(--football); box-shadow: 0 8px 30px var(--football-glow); }
         .sport-darts .event-card:hover { border-color: var(--darts); box-shadow: 0 8px 30px var(--darts-glow); }
         .sport-f1 .event-card:hover { border-color: var(--f1); box-shadow: 0 8px 30px var(--f1-glow); }
+        .sport-motogp .event-card:hover { border-color: var(--motogp); box-shadow: 0 8px 30px var(--motogp-glow); }
+        .sport-handbal .event-card:hover { border-color: var(--handbal); box-shadow: 0 8px 30px var(--handbal-glow); }
 
         /* Scrollbar styling */
         ::-webkit-scrollbar {
@@ -2534,6 +2588,8 @@
             <button class="sport-filter-btn active" data-sport="voetbal">Voetbal</button>
             <button class="sport-filter-btn" data-sport="darts">Darts</button>
             <button class="sport-filter-btn" data-sport="f1">F1</button>
+            <button class="sport-filter-btn" data-sport="motogp">MotoGP</button>
+            <button class="sport-filter-btn" data-sport="handbal">Handbal</button>
         </div>
 
         <!-- Row 3: Filters -->
@@ -2611,6 +2667,8 @@
                         <button class="standings-sport-btn active" data-standings-sport="voetbal">Voetbal</button>
                         <button class="standings-sport-btn" data-standings-sport="darts">Darts</button>
                         <button class="standings-sport-btn" data-standings-sport="f1">F1</button>
+                        <button class="standings-sport-btn" data-standings-sport="motogp">MotoGP</button>
+                        <button class="standings-sport-btn" data-standings-sport="handbal">Handbal</button>
                     </div>
                     <!-- Standen content -->
                     <div class="standings-tabs" id="standings-tabs-menu"></div>
@@ -2628,7 +2686,7 @@
             <div class="api-status" id="api-status">
                 <span class="live-dot"></span> <span class="status-text">Laden...</span>
             </div>
-            <p class="version-footer">v3.9.17</p>
+            <p class="version-footer">v3.9.18</p>
         </footer>
     </div>
 
@@ -2654,7 +2712,7 @@
         // ============================================
         const CONFIG = {
             // Cache version - increment to force cache clear after config changes
-            CACHE_VERSION: '3.9.17',
+            CACHE_VERSION: '3.9.18',
 
             // OpenFootball API (gratis, geen key nodig!)
             // https://github.com/openfootball/football.json
@@ -2759,7 +2817,9 @@
                 'Europa League': 'Ziggo Sport',
                 'Conference League': 'Ziggo Sport',
                 'Formula 1': 'Viaplay',
-                'Darts': 'Viaplay'
+                'Darts': 'Viaplay',
+                'MotoGP': 'Ziggo Sport',
+                'Handbal': 'EHF TV'
             },
 
             // TV kanaal logo's - lokale bestanden in /logos/ map
@@ -2819,7 +2879,12 @@
                 'European Championship': 'eu',
                 'World Cup of Darts': 'world',
                 'Formula 1': 'world',
-                'F1': 'world'
+                'F1': 'world',
+                'MotoGP': 'world',
+                'MotoGP 2026': 'world',
+                'EHF Champions League': 'eu',
+                'EHF TV': 'eu',
+                'Handbal': 'eu'
             },
 
             TEAM_FLAG_CODES: {
@@ -3116,6 +3181,8 @@
                 voetbal: null,
                 darts: null,
                 f1: null,
+                motogp: null,
+                handbal: null,
                 highlights: null
             };
         }
@@ -3874,6 +3941,38 @@
                 dartsSession('13:00', 'Vierde ronde'),
                 dartsSession('19:00', 'Vierde ronde')
             ]},
+        ];
+
+        const motoGPCalendar = [
+            { date: '2026-02-27', time: '12:00', event: 'GP Thailand - Buriram (27 februari-1 maart)', location: 'Buriram', channel: 'Ziggo Sport' },
+            { date: '2026-03-20', time: '12:00', event: 'GP Brazil - Goiania (20-22 maart)', location: 'Goiania', channel: 'Ziggo Sport' },
+            { date: '2026-03-27', time: '12:00', event: 'GP USA - Austin (27-29 maart)', location: 'Austin', channel: 'Ziggo Sport' },
+            { date: '2026-04-24', time: '12:00', event: 'GP Spain - Jerez (24-26 april)', location: 'Jerez', channel: 'Ziggo Sport' },
+            { date: '2026-05-08', time: '12:00', event: 'GP France - Le Mans (8-10 mei)', location: 'Le Mans', channel: 'Ziggo Sport' },
+            { date: '2026-05-15', time: '12:00', event: 'GP Catalonia - Barcelona (15-17 mei)', location: 'Barcelona', channel: 'Ziggo Sport' },
+            { date: '2026-05-29', time: '12:00', event: 'GP Italy - Mugello (29-31 mei)', location: 'Mugello', channel: 'Ziggo Sport' },
+            { date: '2026-06-05', time: '12:00', event: 'GP Hungary - Balaton (5-7 juni)', location: 'Balaton', channel: 'Ziggo Sport' },
+            { date: '2026-06-19', time: '12:00', event: 'GP Czechia - Brno (19-21 juni)', location: 'Brno', channel: 'Ziggo Sport' },
+            { date: '2026-06-26', time: '12:00', event: 'GP Netherlands - Assen (26-28 juni)', location: 'Assen', channel: 'Ziggo Sport' },
+            { date: '2026-07-10', time: '12:00', event: 'GP Germany - Sachsenring (10-12 juli)', location: 'Sachsenring', channel: 'Ziggo Sport' },
+            { date: '2026-08-07', time: '12:00', event: 'GP Great Britain - Silverstone (7-9 augustus)', location: 'Silverstone', channel: 'Ziggo Sport' },
+            { date: '2026-08-28', time: '12:00', event: 'GP Aragon - MotorLand (28-30 augustus)', location: 'MotorLand', channel: 'Ziggo Sport' },
+            { date: '2026-09-11', time: '12:00', event: 'GP San Marino - Misano (11-13 september)', location: 'Misano', channel: 'Ziggo Sport' },
+            { date: '2026-09-18', time: '12:00', event: 'GP Austria - Spielberg (18-20 september)', location: 'Spielberg', channel: 'Ziggo Sport' },
+            { date: '2026-10-02', time: '12:00', event: 'GP Japan - Motegi (2-4 oktober)', location: 'Motegi', channel: 'Ziggo Sport' },
+            { date: '2026-10-09', time: '12:00', event: 'GP Indonesia - Mandalika (9-11 oktober)', location: 'Mandalika', channel: 'Ziggo Sport' },
+            { date: '2026-10-23', time: '12:00', event: 'GP Australia - Phillip Island (23-25 oktober)', location: 'Phillip Island', channel: 'Ziggo Sport' },
+            { date: '2026-10-30', time: '12:00', event: 'GP Malaysia - Sepang (30 oktober-1 november)', location: 'Sepang', channel: 'Ziggo Sport' },
+            { date: '2026-11-06', time: '12:00', event: 'GP Qatar - Lusail (6-8 november)', location: 'Lusail', channel: 'Ziggo Sport' },
+            { date: '2026-11-20', time: '12:00', event: 'GP Portugal - Portimao (20-22 november)', location: 'Portimao', channel: 'Ziggo Sport' },
+            { date: '2026-11-27', time: '12:00', event: 'GP Valencia - Cheste (27-29 november)', location: 'Cheste', channel: 'Ziggo Sport' }
+        ];
+
+        const handballCalendar = [
+            { date: '2026-06-06', time: '15:00', event: 'Raiffeisen Bank EHF FINAL4 2026 - Halve finales', competition: 'EHF Champions League Women', location: 'Budapest', channel: 'EHF TV' },
+            { date: '2026-06-07', time: '15:00', event: 'Raiffeisen Bank EHF FINAL4 2026 - Finaledag', competition: 'EHF Champions League Women', location: 'Budapest', channel: 'EHF TV' },
+            { date: '2026-06-13', time: '15:00', event: 'TruckScout24 EHF FINAL4 2026 - Halve finales', competition: 'EHF Champions League', location: 'Cologne', channel: 'EHF TV' },
+            { date: '2026-06-14', time: '15:00', event: 'TruckScout24 EHF FINAL4 2026 - Finaledag', competition: 'EHF Champions League', location: 'Cologne', channel: 'EHF TV' }
         ];
 
         // ============================================
@@ -4930,6 +5029,64 @@
             return events;
         }
 
+        function getStaticMotoGPEvents() {
+            const events = [];
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            for (let i = -7; i < 31; i++) {
+                const date = new Date(today);
+                date.setDate(date.getDate() + i);
+                const dateStr = getLocalDateKey(date);
+
+                motoGPCalendar
+                    .filter(event => event.date === dateStr)
+                    .forEach(event => {
+                        events.push({
+                            date: new Date(event.date + 'T' + event.time),
+                            time: event.time,
+                            title: event.event,
+                            location: event.location,
+                            competition: 'MotoGP 2026',
+                            channel: event.channel,
+                            score: null,
+                            isStatic: true,
+                            live: isLiveNow(event.date + 'T' + event.time, null, 72)
+                        });
+                    });
+            }
+            return events;
+        }
+
+        function getStaticHandballEvents() {
+            const events = [];
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            for (let i = -7; i < 31; i++) {
+                const date = new Date(today);
+                date.setDate(date.getDate() + i);
+                const dateStr = getLocalDateKey(date);
+
+                handballCalendar
+                    .filter(event => event.date === dateStr)
+                    .forEach(event => {
+                        events.push({
+                            date: new Date(event.date + 'T' + event.time),
+                            time: event.time,
+                            title: event.event,
+                            location: event.location,
+                            competition: event.competition || 'EHF TV',
+                            channel: event.channel,
+                            score: null,
+                            isStatic: true,
+                            live: isLiveNow(event.date + 'T' + event.time, null, 4)
+                        });
+                    });
+            }
+            return events;
+        }
+
         function getDartsFallbackItems(eventTitle, sessionLabel) {
             if (europeanTourEvents.has(eventTitle)) {
                 if (sessionLabel.includes('Eerste ronde') && sessionLabel.includes('Middagsessie')) {
@@ -5049,10 +5206,14 @@
 
             try {
                 const freshDartsData = getStaticDartsEvents();
-                const [footballData, dartsData, f1Data, highlightData] = await Promise.all([
+                const freshMotoGPData = getStaticMotoGPEvents();
+                const freshHandballData = getStaticHandballEvents();
+                const [footballData, dartsData, f1Data, motoGPData, handballData, highlightData] = await Promise.all([
                     cachedData.voetbal || fetchFootballMatches(),
                     Promise.resolve(freshDartsData),
                     cachedData.f1 || fetchF1Sessions(),
+                    Promise.resolve(cachedData.motogp || freshMotoGPData),
+                    Promise.resolve(cachedData.handbal || freshHandballData),
                     cachedData.highlights || fetchWorldCupHighlights()
                 ]);
 
@@ -5066,12 +5227,16 @@
                     : reliableFootballData;
                 cachedData.darts = dartsData || freshDartsData || [];
                 cachedData.f1 = f1Data || [];
+                cachedData.motogp = motoGPData || freshMotoGPData || [];
+                cachedData.handbal = handballData || freshHandballData || [];
                 cachedData.highlights = highlightData || [];
                 setWorldCupHighlights(cachedData.highlights);
 
                 cachedData.voetbal.forEach(e => e.sportType = 'voetbal');
                 cachedData.darts.forEach(e => e.sportType = 'darts');
                 cachedData.f1.forEach(e => e.sportType = 'f1');
+                cachedData.motogp.forEach(e => e.sportType = 'motogp');
+                cachedData.handbal.forEach(e => e.sportType = 'handbal');
 
             } catch (error) {
                 console.error('Fetch error:', error);
@@ -5083,6 +5248,8 @@
             let footballEvents = currentSportFilter === null || currentSportFilter === 'voetbal' ? [...cachedData.voetbal] : [];
             let dartsEvents = currentSportFilter === null || currentSportFilter === 'darts' ? [...cachedData.darts] : [];
             let f1Events = currentSportFilter === null || currentSportFilter === 'f1' ? [...cachedData.f1] : [];
+            let motoGPEvents = currentSportFilter === null || currentSportFilter === 'motogp' ? [...cachedData.motogp] : [];
+            let handballEvents = currentSportFilter === null || currentSportFilter === 'handbal' ? [...cachedData.handbal] : [];
 
             // Football: apply competition/club filters
             if (filters.competitions && filters.competitions.length > 0) {
@@ -5096,7 +5263,7 @@
                 });
             }
 
-            let allEvents = [...footballEvents, ...dartsEvents, ...f1Events];
+            let allEvents = [...footballEvents, ...dartsEvents, ...f1Events, ...motoGPEvents, ...handballEvents];
 
             // Update API status
             const statusEl = document.getElementById('api-status');
@@ -5104,6 +5271,8 @@
             if (cachedData.voetbal.length > 0) sources.push('Voetbal');
             if (cachedData.darts.length > 0) sources.push('Darts');
             if (cachedData.f1.length > 0) sources.push('F1');
+            if (cachedData.motogp.length > 0) sources.push('MotoGP');
+            if (cachedData.handbal.length > 0) sources.push('Handbal');
             statusEl.innerHTML = sources.length > 0
                 ? `<span class="live-dot"></span> ${sources.join(' + ')}`
                 : '<span class="live-dot" style="background: #e10600;"></span> Geen data';
@@ -5302,7 +5471,7 @@
                 const sortedComps = Object.keys(byCompetition).sort((a, b) => {
                     const typeA = byCompetition[a].sportType;
                     const typeB = byCompetition[b].sportType;
-                    const order = { darts: 1, f1: 2 };
+                    const order = { darts: 1, f1: 2, motogp: 3, handbal: 4 };
                     return (order[typeA] || 3) - (order[typeB] || 3);
                 });
 
@@ -5311,7 +5480,7 @@
                     compEvents.sort((a, b) => a.time.localeCompare(b.time));
 
                     // Competition header
-                    const compactGroupClass = (currentSportFilter === 'darts' || currentSportFilter === 'f1') ? ' compact-group' : '';
+                    const compactGroupClass = (['darts', 'f1', 'motogp', 'handbal'].includes(currentSportFilter)) ? ' compact-group' : '';
                     html += `<div class="competition-group${compactGroupClass}">`;
                     html += `<div class="competition-header">`;
                     html += getFlagImg(comp);
@@ -5650,6 +5819,57 @@
             await renderStandings('standings-tabs-menu', 'standings-content-menu');
         }
 
+        function renderMotoGPOverview() {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const includeFrom = new Date(today);
+            includeFrom.setDate(includeFrom.getDate() - 2);
+
+            const events = motoGPCalendar
+                .map(event => ({ ...event, dateObj: new Date(event.date + 'T12:00:00') }))
+                .filter(event => event.dateObj >= includeFrom)
+                .sort((a, b) => a.dateObj - b.dateObj);
+
+            let html = '<div class="standings-title" style="color:var(--motogp);">MotoGP 2026 Kalender</div>';
+            html += '<table class="standings-table"><tr><th>Datum</th><th>Grand Prix</th><th>Zender</th></tr>';
+            events.forEach(event => {
+                html += `<tr>
+                    <td>${formatDate(event.dateObj)}</td>
+                    <td>${event.event}<br><small>${event.location}</small></td>
+                    <td>${event.channel}</td>
+                </tr>`;
+            });
+            html += '</table>';
+            return html;
+        }
+
+        function renderHandballOverview() {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            const events = handballCalendar
+                .map(event => ({ ...event, dateObj: new Date(event.date + 'T' + event.time) }))
+                .filter(event => event.dateObj >= today)
+                .sort((a, b) => a.dateObj - b.dateObj);
+
+            let html = '<div class="standings-title" style="color:var(--handbal);">Handbal - EHF TV</div>';
+            if (events.length === 0) {
+                html += '<div class="no-events"><p>Geen bevestigde EHF TV-wedstrijden in de komende periode.</p></div>';
+                return html;
+            }
+
+            html += '<table class="standings-table"><tr><th>Datum</th><th>Wedstrijd</th><th>Zender</th></tr>';
+            events.forEach(event => {
+                html += `<tr>
+                    <td>${formatDate(event.dateObj)}<br><small>${event.time}</small></td>
+                    <td>${event.event}<br><small>${event.location}</small></td>
+                    <td>${event.channel}</td>
+                </tr>`;
+            });
+            html += '</table>';
+            return html;
+        }
+
         // Render standings
         async function renderStandings(tabsId = 'standings-tabs-menu', contentId = 'standings-content-menu') {
             const tabsContainer = document.getElementById(tabsId);
@@ -5712,6 +5932,13 @@
                         renderF1Standings(f1Data, tab.dataset.type, contentId);
                     });
                 });
+            } else if (standingsSport === 'motogp') {
+                tabsContainer.innerHTML = '<button class="standings-tab active">Kalender</button>';
+                contentContainer.innerHTML = renderMotoGPOverview();
+
+            } else if (standingsSport === 'handbal') {
+                tabsContainer.innerHTML = '<button class="standings-tab active">EHF TV</button>';
+                contentContainer.innerHTML = renderHandballOverview();
             }
         }
 
