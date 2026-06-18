@@ -1,0 +1,42 @@
+name: Update NOS highlights
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-nos-highlights
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Update highlight data
+        run: node scripts/update-nos-highlights.mjs
+
+      - name: Commit highlight data
+        run: |
+          if git diff --quiet -- data/nos-highlights.json; then
+            echo "No highlight changes"
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/nos-highlights.json
+          git commit -m "Update NOS highlight links"
+          git push

@@ -1113,6 +1113,10 @@
             gap: 16px;
         }
 
+        .football-slot-match.has-summary {
+            grid-template-columns: minmax(0, 1fr) 38px auto;
+        }
+
         .football-slot-match + .football-slot-match {
             border-top: 1px solid rgba(0, 0, 0, 0.08);
             padding-top: 12px;
@@ -1206,24 +1210,54 @@
             color: var(--f1);
         }
 
-        .football-summary-link,
-        .standings-summary-link {
-            font-size: 0.74rem;
-            font-weight: 700;
-            color: var(--football);
+        .football-summary-icon,
+        .standings-summary-icon {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            height: 24px;
+            border-radius: 4px;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
             text-decoration: none;
-            line-height: 1.2;
-            white-space: nowrap;
+            flex: 0 0 34px;
         }
 
-        .football-summary-link:hover,
-        .standings-summary-link:hover {
-            text-decoration: underline;
+        .football-summary-icon img,
+        .standings-summary-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
-        .standings-summary-link {
-            display: inline-block;
-            margin-top: 4px;
+        .football-summary-icon::after,
+        .standings-summary-icon::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 0;
+            height: 0;
+            transform: translate(-38%, -50%);
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            border-left: 8px solid #fff;
+            filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.6));
+            pointer-events: none;
+        }
+
+        .football-summary-icon:hover,
+        .standings-summary-icon:hover {
+            box-shadow: 0 0 0 2px var(--football);
+        }
+
+        .standings-summary-icon {
+            margin-left: 8px;
+            vertical-align: middle;
         }
 
         /* Competition Header - grey bar with flag and channel */
@@ -1632,6 +1666,10 @@
                 gap: 20px;
             }
 
+            .football-slot-match.has-summary {
+                grid-template-columns: minmax(0, 1fr) 40px minmax(140px, auto);
+            }
+
             .football-team-name {
                 font-size: 1rem;
             }
@@ -1815,6 +1853,16 @@
 
             .football-slot-match {
                 gap: 8px;
+            }
+
+            .football-slot-match.has-summary {
+                grid-template-columns: minmax(0, 1fr) 30px auto;
+            }
+
+            .football-summary-icon {
+                width: 30px;
+                height: 22px;
+                flex-basis: 30px;
             }
 
             .football-slot-match + .football-slot-match {
@@ -2580,7 +2628,7 @@
             <div class="api-status" id="api-status">
                 <span class="live-dot"></span> <span class="status-text">Laden...</span>
             </div>
-            <p class="version-footer">v3.9.16</p>
+            <p class="version-footer">v3.9.17</p>
         </footer>
     </div>
 
@@ -2606,7 +2654,7 @@
         // ============================================
         const CONFIG = {
             // Cache version - increment to force cache clear after config changes
-            CACHE_VERSION: '3.9.16',
+            CACHE_VERSION: '3.9.17',
 
             // OpenFootball API (gratis, geen key nodig!)
             // https://github.com/openfootball/football.json
@@ -2638,6 +2686,7 @@
             // ESPN API (gratis, geen key nodig!)
             // URL: https://site.api.espn.com/apis/site/v2/sports/soccer/{league}/scoreboard
             ESPN_API_URL: 'https://site.api.espn.com/apis/site/v2/sports/soccer',
+            WORLD_CUP_HIGHLIGHTS_URL: 'data/nos-highlights.json',
 
             // ESPN competities - EL, Conference League en nationale bekers
             ESPN_COMPETITIONS: [
@@ -2803,6 +2852,7 @@
                 'cape verde': 'cv',
                 'kaapverdie': 'cv',
                 'colombia': 'co',
+                'congo dr': 'cd',
                 'croatia': 'hr',
                 'kroatie': 'hr',
                 'curacao': 'cw',
@@ -2812,6 +2862,8 @@
                 'tsjechie': 'cz',
                 'denmark': 'dk',
                 'denemarken': 'dk',
+                'democratic republic of congo': 'cd',
+                'dr congo': 'cd',
                 'ecuador': 'ec',
                 'egypt': 'eg',
                 'egypte': 'eg',
@@ -3056,12 +3108,20 @@
         let showScores = false;
         let showPast = true; // Always show past events
         let filters = { competitions: [], clubs: [] };
+        let worldCupHighlightIndex = new Map();
         localStorage.removeItem('selectedCompetitions');
         localStorage.removeItem('selectedClubs');
+        function createEmptyCachedData() {
+            return {
+                voetbal: null,
+                darts: null,
+                f1: null,
+                highlights: null
+            };
+        }
+
         let cachedData = {
-            voetbal: null,
-            darts: null,
-            f1: null
+            ...createEmptyCachedData()
         };
 
         // ============================================
@@ -3980,20 +4040,106 @@
                 .find(Boolean) || '';
         }
 
-        function getWorldCupSummaryUrl(match) {
-            const query = [
-                match.home,
-                match.away,
-                'FIFA World Cup 2026 extended highlights 10 minutes'
-            ].filter(Boolean).join(' ');
-
-            return `https://www.youtube.com/results?search_query=${encodeURIComponent(query)}`;
+        function escapeHtmlAttribute(value = '') {
+            return String(value)
+                .replace(/&/g, '&amp;')
+                .replace(/"/g, '&quot;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
         }
 
-        function getWorldCupSummaryLinkHtml(match, className = 'football-summary-link') {
-            if ((match.competition || '').trim() !== 'WK') return '';
+        function getWorldCupTeamMatchKey(name = '') {
+            const normalized = normalizeTeamFlagKey(name);
+            const aliases = {
+                'usa': 'united states',
+                'u s a': 'united states',
+                'usmnt': 'united states',
+                'congo democratic republic': 'dr congo',
+                'congo dr': 'dr congo',
+                'drc': 'dr congo',
+                'd r congo': 'dr congo',
+                'korea republic': 'south korea',
+                'ivory coast': 'ivory coast',
+                'cote d ivoire': 'ivory coast',
+                'cote divoire': 'ivory coast'
+            };
+            const canonical = aliases[normalized] || normalized;
+            const flagCode = CONFIG.TEAM_FLAG_CODES[canonical] || CONFIG.TEAM_FLAG_CODES[normalized];
+            return flagCode ? `flag:${flagCode}` : `name:${canonical}`;
+        }
 
-            return `<a class="${className}" href="${getWorldCupSummaryUrl(match)}" target="_blank" rel="noopener noreferrer" title="Zoek een samenvatting van ca. 8-12 minuten">Samenvatting 8-12 min</a>`;
+        function getWorldCupMatchKey(home = '', away = '') {
+            return [getWorldCupTeamMatchKey(home), getWorldCupTeamMatchKey(away)]
+                .sort()
+                .join('|');
+        }
+
+        function isKnownWorldCupTeamName(name = '') {
+            const normalized = normalizeTeamFlagKey(name);
+            if (!normalized) return false;
+            if (['tbd', 'to be determined'].includes(normalized)) return false;
+            if (normalized.includes(' po ') || normalized.startsWith('po ') || normalized.includes('playoff')) return false;
+            if (normalized.includes('intercont')) return false;
+            return true;
+        }
+
+        function setWorldCupHighlights(items = []) {
+            worldCupHighlightIndex = new Map();
+
+            items
+                .filter(item => item?.url && item?.home && item?.away)
+                .forEach(item => {
+                    const key = getWorldCupMatchKey(item.home, item.away);
+                    const existing = worldCupHighlightIndex.get(key);
+                    const existingDate = new Date(existing?.published || existing?.updated || 0).getTime();
+                    const itemDate = new Date(item.published || item.updated || 0).getTime();
+
+                    if (!existing || itemDate >= existingDate) {
+                        worldCupHighlightIndex.set(key, item);
+                    }
+                });
+        }
+
+        async function fetchWorldCupHighlights() {
+            try {
+                const separator = CONFIG.WORLD_CUP_HIGHLIGHTS_URL.includes('?') ? '&' : '?';
+                const response = await fetch(`${CONFIG.WORLD_CUP_HIGHLIGHTS_URL}${separator}v=${Date.now()}`, {
+                    cache: 'no-store'
+                });
+
+                if (!response.ok) {
+                    console.warn(`NOS highlight data unavailable: ${response.status}`);
+                    setWorldCupHighlights([]);
+                    return [];
+                }
+
+                const data = await response.json();
+                const items = Array.isArray(data.items) ? data.items : [];
+                setWorldCupHighlights(items);
+                return items;
+            } catch (error) {
+                console.warn('Could not fetch NOS highlight data:', error);
+                setWorldCupHighlights([]);
+                return [];
+            }
+        }
+
+        function getWorldCupHighlight(match) {
+            if ((match.competition || '').trim() !== 'WK') return null;
+            if (!isKnownWorldCupTeamName(match.home) || !isKnownWorldCupTeamName(match.away)) return null;
+
+            return worldCupHighlightIndex.get(getWorldCupMatchKey(match.home, match.away)) || null;
+        }
+
+        function getWorldCupSummaryLinkHtml(match, className = 'football-summary-icon') {
+            const highlight = getWorldCupHighlight(match);
+            if (!highlight) return '';
+
+            const url = escapeHtmlAttribute(highlight.url);
+            const title = escapeHtmlAttribute(`NOS samenvatting openen: ${highlight.home} - ${highlight.away}`);
+            const thumbnail = escapeHtmlAttribute(highlight.thumbnail || `https://i.ytimg.com/vi/${highlight.videoId}/hqdefault.jpg`);
+
+            return `<a class="${className}" href="${url}" target="_blank" rel="noopener noreferrer" title="${title}" aria-label="${title}"><img src="${thumbnail}" alt="" loading="lazy"></a>`;
         }
 
         function normalizeFootballMatchChannel(match) {
@@ -4684,10 +4830,11 @@
                 const matchDate = new Date(match.date);
                 const dateLabel = matchDate.toLocaleDateString('nl-NL', { weekday: 'short', day: 'numeric', month: 'short' });
                 const isNetherlands = match.home === 'Nederland' || match.away === 'Nederland' || match.home === 'Netherlands' || match.away === 'Netherlands';
+                const summaryHtml = getWorldCupSummaryLinkHtml(match, 'standings-summary-icon');
                 dynamicHtml += `<tr class="${isNetherlands ? 'highlight-row' : ''}">
                     <td>${dateLabel}</td>
                     <td>${match.time}</td>
-                    <td>${match.home} - ${match.away}${match.venue ? `<br><small>${match.venue}</small>` : ''}<br>${getWorldCupSummaryLinkHtml(match, 'standings-summary-link')}</td>
+                    <td>${match.home} - ${match.away}${summaryHtml}${match.venue ? `<br><small>${match.venue}</small>` : ''}</td>
                     <td>${normalizeChannelList(match.channel)}</td>
                 </tr>`;
             });
@@ -4902,10 +5049,11 @@
 
             try {
                 const freshDartsData = getStaticDartsEvents();
-                const [footballData, dartsData, f1Data] = await Promise.all([
+                const [footballData, dartsData, f1Data, highlightData] = await Promise.all([
                     cachedData.voetbal || fetchFootballMatches(),
                     Promise.resolve(freshDartsData),
-                    cachedData.f1 || fetchF1Sessions()
+                    cachedData.f1 || fetchF1Sessions(),
+                    cachedData.highlights || fetchWorldCupHighlights()
                 ]);
 
                 const sanitizedFootballData = sanitizeFootballMatches(footballData || []);
@@ -4918,6 +5066,8 @@
                     : reliableFootballData;
                 cachedData.darts = dartsData || freshDartsData || [];
                 cachedData.f1 = f1Data || [];
+                cachedData.highlights = highlightData || [];
+                setWorldCupHighlights(cachedData.highlights);
 
                 cachedData.voetbal.forEach(e => e.sportType = 'voetbal');
                 cachedData.darts.forEach(e => e.sportType = 'darts');
@@ -5114,7 +5264,8 @@
                             const competitionLabel = getEventCompetitionLabel(event);
                             const hasScore = event.score && event.score !== '-';
                             const matchMeta = showScores && hasScore ? event.score : (event.live ? 'LIVE' : '');
-                            const matchClass = `football-slot-match${event.live ? ' live' : ''}${hasScore ? ' finished' : ''}`;
+                            const summaryHtml = getWorldCupSummaryLinkHtml(event);
+                            const matchClass = `football-slot-match${event.live ? ' live' : ''}${hasScore ? ' finished' : ''}${summaryHtml ? ' has-summary' : ''}`;
 
                             html += `<div class="${matchClass}">`;
                             html += `<div class="football-slot-teams">`;
@@ -5124,12 +5275,12 @@
                             html += `<div class="football-team-line">${homeLogo}<span class="football-team-separator">-</span><span class="football-team-name">${event.home}</span></div>`;
                             html += `<div class="football-team-line">${awayLogo}<span class="football-team-separator">-</span><span class="football-team-name">${event.away}</span></div>`;
                             html += `</div>`;
+                            html += summaryHtml;
                             html += `<div class="football-slot-side">`;
                             if (matchMeta) {
                                 html += `<div class="football-slot-meta">${matchMeta}</div>`;
                             }
                             html += getFootballChannelHtml(event.channel);
-                            html += getWorldCupSummaryLinkHtml(event);
                             html += `</div>`;
                             html += `</div>`;
                         });
@@ -5574,6 +5725,11 @@
                     cachedData.voetbal = filterReliableFootballMatches(sanitizeFootballMatches(footballData || []));
                     cachedData.voetbal.forEach(e => e.sportType = 'voetbal');
                 }
+                if (!cachedData.highlights) {
+                    cachedData.highlights = await fetchWorldCupHighlights();
+                } else {
+                    setWorldCupHighlights(cachedData.highlights);
+                }
                 contentContainer.innerHTML = renderWK2026Groups();
                 return;
             }
@@ -5700,7 +5856,8 @@
         const closeMenuBtn = document.getElementById('close-menu-btn');
 
         function clearAllDataCaches() {
-            cachedData = { voetbal: null, darts: null, f1: null };
+            cachedData = createEmptyCachedData();
+            setWorldCupHighlights([]);
             localStorage.removeItem('footballCache');
             localStorage.removeItem('footballCacheTime');
             localStorage.removeItem('footballSource');
@@ -5895,7 +6052,8 @@
 
         // Auto-refresh every 5 minutes
         setInterval(() => {
-            cachedData = { voetbal: null, darts: null, f1: null };
+            cachedData = createEmptyCachedData();
+            setWorldCupHighlights([]);
             renderEvents();
         }, 5 * 60 * 1000);
     </script>

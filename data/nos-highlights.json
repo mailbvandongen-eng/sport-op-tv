@@ -1,0 +1,67 @@
+{
+  "source": "https://www.youtube.com/feeds/videos.xml?channel_id=UCT4oPufBQa0f6C67Fw_HXNg",
+  "channelId": "UCT4oPufBQa0f6C67Fw_HXNg",
+  "updatedAt": "2026-06-18T20:29:22.582Z",
+  "items": [
+    {
+      "videoId": "-oxHwK6aT7A",
+      "title": "Samenvatting Tsjechië - Zuid-Afrika | Groep A | WK2026 ⚽️",
+      "url": "https://www.youtube.com/watch?v=-oxHwK6aT7A",
+      "thumbnail": "https://i2.ytimg.com/vi/-oxHwK6aT7A/hqdefault.jpg",
+      "published": "2026-06-18T19:02:34.000Z",
+      "updated": "2026-06-18T19:02:36.000Z",
+      "source": "NOS Sport YouTube",
+      "home": "Tsjechië",
+      "away": "Zuid-Afrika",
+      "group": "Groep A"
+    },
+    {
+      "videoId": "ef2gjbyprLw",
+      "title": "Samenvatting Oezbekistan - Colombia | Groep K | WK2026 ⚽️",
+      "url": "https://www.youtube.com/watch?v=ef2gjbyprLw",
+      "thumbnail": "https://i2.ytimg.com/vi/ef2gjbyprLw/hqdefault.jpg",
+      "published": "2026-06-18T04:56:14.000Z",
+      "updated": "2026-06-18T13:13:15.000Z",
+      "source": "NOS Sport YouTube",
+      "home": "Oezbekistan",
+      "away": "Colombia",
+      "group": "Groep K"
+    },
+    {
+      "videoId": "TfR3EH505Pw",
+      "title": "Samenvatting Ghana - Panama | Groep L | WK2026 ⚽️",
+      "url": "https://www.youtube.com/watch?v=TfR3EH505Pw",
+      "thumbnail": "https://i1.ytimg.com/vi/TfR3EH505Pw/hqdefault.jpg",
+      "published": "2026-06-18T03:14:35.000Z",
+      "updated": "2026-06-18T13:14:50.000Z",
+      "source": "NOS Sport YouTube",
+      "home": "Ghana",
+      "away": "Panama",
+      "group": "Groep L"
+    },
+    {
+      "videoId": "dtXMnN56roY",
+      "title": "Samenvatting Engeland - Kroatië | Groep L | WK2026 ⚽️",
+      "url": "https://www.youtube.com/watch?v=dtXMnN56roY",
+      "thumbnail": "https://i1.ytimg.com/vi/dtXMnN56roY/hqdefault.jpg",
+      "published": "2026-06-17T22:49:58.000Z",
+      "updated": "2026-06-18T13:11:47.000Z",
+      "source": "NOS Sport YouTube",
+      "home": "Engeland",
+      "away": "Kroatië",
+      "group": "Groep L"
+    },
+    {
+      "videoId": "kbDsffQn20I",
+      "title": "Samenvatting Portugal - DR Congo | Groep K | WK2026 ⚽️",
+      "url": "https://www.youtube.com/watch?v=kbDsffQn20I",
+      "thumbnail": "https://i4.ytimg.com/vi/kbDsffQn20I/hqdefault.jpg",
+      "published": "2026-06-17T20:12:07.000Z",
+      "updated": "2026-06-18T13:14:26.000Z",
+      "source": "NOS Sport YouTube",
+      "home": "Portugal",
+      "away": "DR Congo",
+      "group": "Groep K"
+    }
+  ]
+}
