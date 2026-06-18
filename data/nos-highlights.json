@@ -1,8 +1,20 @@
 {
   "source": "https://www.youtube.com/feeds/videos.xml?channel_id=UCT4oPufBQa0f6C67Fw_HXNg",
   "channelId": "UCT4oPufBQa0f6C67Fw_HXNg",
-  "updatedAt": "2026-06-18T20:29:22.582Z",
+  "updatedAt": "2026-06-18T22:34:42.705Z",
   "items": [
+    {
+      "videoId": "uaTufNIuC1g",
+      "title": "Samenvatting Zwitserland - Bosnië en Herzegovina | Groep B | WK2026 ⚽️",
+      "url": "https://www.youtube.com/watch?v=uaTufNIuC1g",
+      "thumbnail": "https://i2.ytimg.com/vi/uaTufNIuC1g/hqdefault.jpg",
+      "published": "2026-06-18T22:06:33.000Z",
+      "updated": "2026-06-18T22:11:20.000Z",
+      "source": "NOS Sport YouTube",
+      "home": "Zwitserland",
+      "away": "Bosnië en Herzegovina",
+      "group": "Groep B"
+    },
     {
       "videoId": "-oxHwK6aT7A",
       "title": "Samenvatting Tsjechië - Zuid-Afrika | Groep A | WK2026 ⚽️",
@@ -21,7 +33,7 @@
       "url": "https://www.youtube.com/watch?v=ef2gjbyprLw",
       "thumbnail": "https://i2.ytimg.com/vi/ef2gjbyprLw/hqdefault.jpg",
       "published": "2026-06-18T04:56:14.000Z",
-      "updated": "2026-06-18T13:13:15.000Z",
+      "updated": "2026-06-18T22:18:26.000Z",
       "source": "NOS Sport YouTube",
       "home": "Oezbekistan",
       "away": "Colombia",
@@ -33,7 +45,7 @@
       "url": "https://www.youtube.com/watch?v=TfR3EH505Pw",
       "thumbnail": "https://i1.ytimg.com/vi/TfR3EH505Pw/hqdefault.jpg",
       "published": "2026-06-18T03:14:35.000Z",
-      "updated": "2026-06-18T13:14:50.000Z",
+      "updated": "2026-06-18T22:18:50.000Z",
       "source": "NOS Sport YouTube",
       "home": "Ghana",
       "away": "Panama",
@@ -45,7 +57,7 @@
       "url": "https://www.youtube.com/watch?v=dtXMnN56roY",
       "thumbnail": "https://i1.ytimg.com/vi/dtXMnN56roY/hqdefault.jpg",
       "published": "2026-06-17T22:49:58.000Z",
-      "updated": "2026-06-18T13:11:47.000Z",
+      "updated": "2026-06-18T22:19:04.000Z",
       "source": "NOS Sport YouTube",
       "home": "Engeland",
       "away": "Kroatië",
