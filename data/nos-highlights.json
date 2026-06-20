@@ -1,15 +1,27 @@
 {
   "source": "https://www.youtube.com/feeds/videos.xml?channel_id=UCT4oPufBQa0f6C67Fw_HXNg",
   "channelId": "UCT4oPufBQa0f6C67Fw_HXNg",
-  "updatedAt": "2026-06-20T19:01:51.225Z",
+  "updatedAt": "2026-06-20T20:42:09.646Z",
   "items": [
+    {
+      "videoId": "18MG_CMnQxY",
+      "title": "Samenvatting Nederland - Zweden | Groep F | WK2026⚽️",
+      "url": "https://www.youtube.com/watch?v=18MG_CMnQxY",
+      "thumbnail": "https://i2.ytimg.com/vi/18MG_CMnQxY/hqdefault.jpg",
+      "published": "2026-06-20T19:42:13.000Z",
+      "updated": "2026-06-20T19:45:28.000Z",
+      "source": "NOS Sport YouTube",
+      "home": "Nederland",
+      "away": "Zweden",
+      "group": "Groep F"
+    },
     {
       "videoId": "ITWvs7Dzxd4",
       "title": "Samenvatting Turkije - Paraguay | Groep D | WK2026",
       "url": "https://www.youtube.com/watch?v=ITWvs7Dzxd4",
       "thumbnail": "https://i2.ytimg.com/vi/ITWvs7Dzxd4/hqdefault.jpg",
       "published": "2026-06-20T06:13:18.000Z",
-      "updated": "2026-06-20T18:50:41.000Z",
+      "updated": "2026-06-20T20:35:52.000Z",
       "source": "NOS Sport YouTube",
       "home": "Turkije",
       "away": "Paraguay",
