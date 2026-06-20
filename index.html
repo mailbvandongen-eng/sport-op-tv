@@ -2686,7 +2686,7 @@
             <div class="api-status" id="api-status">
                 <span class="live-dot"></span> <span class="status-text">Laden...</span>
             </div>
-            <p class="version-footer">v3.9.18</p>
+            <p class="version-footer">v3.9.19</p>
         </footer>
     </div>
 
@@ -2712,7 +2712,7 @@
         // ============================================
         const CONFIG = {
             // Cache version - increment to force cache clear after config changes
-            CACHE_VERSION: '3.9.18',
+            CACHE_VERSION: '3.9.19',
 
             // OpenFootball API (gratis, geen key nodig!)
             // https://github.com/openfootball/football.json
@@ -3206,7 +3206,11 @@
             'Van Veen': {name: 'Gian van Veen'}
         };
 
-        const dartsSession = (time, label) => ({ time, label });
+        const dartsSession = (time, label, items = null) => ({
+            time,
+            label,
+            ...(items ? { items } : {})
+        });
 
         const europeanTourEvents = new Set([
             'Poland Darts Open',
@@ -3673,15 +3677,60 @@
             ]},
             // European Tour 9 - Slovak Darts Open 2026
             { date: '2026-06-19', time: '13:00', event: 'Slovak Darts Open', location: 'Bratislava', channel: 'Viaplay', matches: [
-                dartsSession('13:00', 'Middagsessie - Eerste ronde'),
-                dartsSession('19:00', 'Avondsessie - Eerste ronde')
+                dartsSession('13:00', 'Middagsessie - Eerste ronde', [
+                    '13:07 - Justin Hood vs Benjamin Pratnemer',
+                    '13:47 - Karel Sedlacek vs Tyler Thorpe',
+                    '14:13 - Andrew Gilding vs Mervyn King',
+                    '14:48 - Kevin Doets vs Owen Bates',
+                    '15:11 - Niels Zonneveld vs Jan Sliacky',
+                    "15:38 - William O'Connor vs Jeffrey De Graaf",
+                    '16:07 - Ryan Joyce vs Johan Engstrom',
+                    '16:37 - Dave Chisnall vs Adrian Dudek'
+                ]),
+                dartsSession('19:00', 'Avondsessie - Eerste ronde', [
+                    '19:07 - Dirk van Duijvenbode vs Madars Razma',
+                    '19:40 - Kim Huybrechts vs Keane Barry',
+                    '20:08 - Rob Cross vs Juraj Holub',
+                    '20:42 - Daryl Gurney vs Jim Long',
+                    '21:08 - Niko Springer vs Tom Sykes',
+                    '21:34 - Cameron Menzies vs Gabriel Varaljay',
+                    '22:03 - Joe Cullen vs Peter Kelemen',
+                    '22:32 - Krzysztof Ratajski vs Cristo Reyes'
+                ])
             ]},
             { date: '2026-06-20', time: '13:00', event: 'Slovak Darts Open', location: 'Bratislava', channel: 'Viaplay', matches: [
-                dartsSession('13:00', 'Middagsessie - Tweede ronde'),
-                dartsSession('19:00', 'Avondsessie - Tweede ronde')
+                dartsSession('13:00', 'Middagsessie - Tweede ronde', [
+                    "13:07 - Mike De Decker vs William O'Connor",
+                    '13:31 - Damon Heta vs Kevin Doets',
+                    '13:59 - Wessel Nijman vs Benjamin Pratnemer',
+                    '14:30 - Danny Noppert vs Madars Razma',
+                    '15:02 - Jermaine Wattimena vs Dave Chisnall',
+                    '15:33 - Chris Dobey vs Tyler Thorpe',
+                    '16:05 - Ryan Searle vs Kim Huybrechts',
+                    '16:34 - Luke Woodhouse vs Andrew Gilding'
+                ]),
+                dartsSession('19:00', 'Avondsessie - Tweede ronde', [
+                    '19:08 - Nathan Aspinall vs Jim Long',
+                    '19:42 - Martin Schindler vs Tom Sykes',
+                    '20:15 - Gerwyn Price vs Cameron Menzies',
+                    '20:37 - Gian van Veen vs Rob Cross',
+                    '21:07 - Michael van Gerwen vs Krzysztof Ratajski',
+                    '21:40 - Jonny Clayton vs Ryan Joyce',
+                    '22:12 - Stephen Bunting vs Niels Zonneveld',
+                    '22:47 - Ross Smith vs Joe Cullen'
+                ])
             ]},
             { date: '2026-06-21', time: '13:00', event: 'Slovak Darts Open - Finale', location: 'Bratislava', channel: 'Viaplay', matches: [
-                dartsSession('13:00', 'Middagsessie - Laatste 16'),
+                dartsSession('13:00', 'Middagsessie - Laatste 16', [
+                    '13:00 - Rob Cross vs Kevin Doets',
+                    '13:30 - Ryan Searle vs Nathan Aspinall',
+                    '14:00 - Cameron Menzies vs Tom Sykes',
+                    '14:30 - Danny Noppert vs Jermaine Wattimena',
+                    '15:00 - Michael van Gerwen vs Andrew Gilding',
+                    '15:30 - Chris Dobey vs Ross Smith',
+                    '16:00 - Ryan Joyce vs Mike De Decker',
+                    '16:30 - Stephen Bunting vs Wessel Nijman'
+                ]),
                 dartsSession('19:00', 'Avondsessie - Kwartfinales / halve finales / finale')
             ]},
             // European Tour 10 - European Darts Open 2026
