@@ -1,15 +1,27 @@
 {
   "source": "https://www.youtube.com/feeds/videos.xml?channel_id=UCT4oPufBQa0f6C67Fw_HXNg",
   "channelId": "UCT4oPufBQa0f6C67Fw_HXNg",
-  "updatedAt": "2026-06-20T21:56:16.670Z",
+  "updatedAt": "2026-06-20T23:18:47.071Z",
   "items": [
+    {
+      "videoId": "VikWhuU7lCI",
+      "title": "Samenvatting Duitsland - Ivoorkust | Groep E | WK2026 ⚽️",
+      "url": "https://www.youtube.com/watch?v=VikWhuU7lCI",
+      "thumbnail": "https://i3.ytimg.com/vi/VikWhuU7lCI/hqdefault.jpg",
+      "published": "2026-06-20T23:01:40.000Z",
+      "updated": "2026-06-20T23:05:58.000Z",
+      "source": "NOS Sport YouTube",
+      "home": "Duitsland",
+      "away": "Ivoorkust",
+      "group": "Groep E"
+    },
     {
       "videoId": "18MG_CMnQxY",
       "title": "Samenvatting Nederland - Zweden | Groep F | WK2026⚽️",
       "url": "https://www.youtube.com/watch?v=18MG_CMnQxY",
       "thumbnail": "https://i2.ytimg.com/vi/18MG_CMnQxY/hqdefault.jpg",
       "published": "2026-06-20T19:42:13.000Z",
-      "updated": "2026-06-20T21:55:15.000Z",
+      "updated": "2026-06-20T23:16:50.000Z",
       "source": "NOS Sport YouTube",
       "home": "Nederland",
       "away": "Zweden",
