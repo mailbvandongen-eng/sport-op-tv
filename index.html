@@ -101,6 +101,7 @@
 
         .title-bar,
         .sport-buttons-row,
+        .results-toggle-row,
         .filters-row,
         .date-tabs-container {
             width: min(100%, calc(var(--content-width) + (var(--content-gutter) * 2)));
@@ -365,6 +366,44 @@
 
         .sport-filter-btn[data-sport="handbal"].active {
             background: var(--handbal);
+        }
+
+        .results-toggle-row {
+            display: flex;
+            justify-content: flex-end;
+            padding: 0 16px 8px 16px;
+        }
+
+        .results-toggle-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            min-height: 34px;
+            padding: 7px 12px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.08);
+            color: rgba(255, 255, 255, 0.9);
+            cursor: pointer;
+            font-size: 0.78rem;
+            font-weight: 700;
+            transition: all 0.2s ease;
+        }
+
+        .results-toggle-btn:hover {
+            background: rgba(255, 255, 255, 0.14);
+            border-color: rgba(255, 255, 255, 0.28);
+        }
+
+        .results-toggle-btn.active {
+            background: var(--success);
+            border-color: transparent;
+            color: #ffffff;
+        }
+
+        .results-toggle-btn svg {
+            width: 17px;
+            height: 17px;
         }
 
         /* Date Tabs (BeSoccer style) */
@@ -1527,7 +1566,7 @@
             align-items: center;
             gap: 10px;
             position: sticky;
-            top: 120px;
+            top: 160px;
             z-index: 10;
         }
 
@@ -1668,7 +1707,7 @@
             }
 
             .day-header {
-                top: 142px;
+                top: 184px;
                 padding: 16px 20px;
                 font-size: 0.92rem;
                 background: linear-gradient(180deg, var(--card-bg) 0%, var(--bg) 100%);
@@ -1745,6 +1784,142 @@
             color: var(--text-secondary);
         }
 
+        .results-view {
+            display: grid;
+            gap: 12px;
+        }
+
+        .results-summary {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 14px 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .results-summary-title {
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+
+        .results-summary-meta {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+        }
+
+        .results-day-group {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .results-day-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 11px 14px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
+            font-size: 0.82rem;
+            font-weight: 800;
+        }
+
+        .results-row {
+            display: grid;
+            grid-template-columns: 72px minmax(0, 1fr) auto;
+            gap: 14px;
+            align-items: center;
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .results-row:last-child {
+            border-bottom: none;
+        }
+
+        .results-row.pending-result {
+            background: var(--glass-bg);
+        }
+
+        .results-time {
+            font-size: 0.84rem;
+            font-weight: 800;
+            color: var(--text);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .results-main {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            min-width: 0;
+        }
+
+        .results-competition {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            min-width: 0;
+            color: var(--text-secondary);
+            font-size: 0.72rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .results-sport-badge {
+            flex: 0 0 auto;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: var(--bg);
+            color: var(--text);
+            font-size: 0.68rem;
+            font-weight: 800;
+        }
+
+        .results-teams {
+            color: var(--text);
+            font-size: 0.92rem;
+            font-weight: 700;
+            line-height: 1.35;
+            overflow-wrap: anywhere;
+        }
+
+        .results-location {
+            color: var(--text-secondary);
+            font-size: 0.74rem;
+            line-height: 1.3;
+        }
+
+        .results-reason {
+            color: var(--warning);
+            font-size: 0.74rem;
+            line-height: 1.3;
+            font-weight: 700;
+        }
+
+        .results-score {
+            color: var(--success);
+            font-size: 1.12rem;
+            font-weight: 900;
+            font-variant-numeric: tabular-nums;
+            white-space: nowrap;
+            text-align: right;
+        }
+
+        .results-score.empty {
+            min-width: 42px;
+            min-height: 22px;
+            border-bottom: 2px solid var(--border);
+            color: transparent;
+        }
+
         .source-dot {
             width: 8px;
             height: 8px;
@@ -1818,6 +1993,18 @@
                 padding: 5px 10px;
                 font-size: 0.72rem;
                 white-space: nowrap;
+            }
+
+            .results-toggle-row {
+                justify-content: stretch;
+                padding: 0 12px 8px;
+            }
+
+            .results-toggle-btn {
+                width: 100%;
+                justify-content: center;
+                min-height: 36px;
+                font-size: 0.76rem;
             }
 
             .date-tabs-container {
@@ -1966,6 +2153,31 @@
                 top: auto;
                 padding: 10px 12px 8px;
                 font-size: 0.78rem;
+            }
+
+            .results-summary {
+                border-radius: 0;
+                border-left: none;
+                border-right: none;
+                padding: 12px;
+            }
+
+            .results-day-group {
+                border-radius: 0;
+                border-left: none;
+                border-right: none;
+            }
+
+            .results-row {
+                grid-template-columns: 52px minmax(0, 1fr);
+                gap: 10px;
+                padding: 11px 12px;
+            }
+
+            .results-score {
+                grid-column: 2;
+                justify-self: start;
+                font-size: 1rem;
             }
 
             .match-row.darts-row,
@@ -2592,6 +2804,13 @@
             <button class="sport-filter-btn" data-sport="handbal">Handbal</button>
         </div>
 
+        <div class="results-toggle-row">
+            <button class="results-toggle-btn" id="results-toggle" type="button" aria-pressed="false">
+                <i data-lucide="list-checks"></i>
+                <span>Uitslagen tonen</span>
+            </button>
+        </div>
+
         <!-- Row 3: Filters -->
         <div class="filters-row" id="filters-row">
             <div class="filters-primary">
@@ -2686,7 +2905,7 @@
             <div class="api-status" id="api-status">
                 <span class="live-dot"></span> <span class="status-text">Laden...</span>
             </div>
-            <p class="version-footer">v3.9.19</p>
+            <p class="version-footer">v3.9.21</p>
         </footer>
     </div>
 
@@ -2712,7 +2931,7 @@
         // ============================================
         const CONFIG = {
             // Cache version - increment to force cache clear after config changes
-            CACHE_VERSION: '3.9.19',
+            CACHE_VERSION: '3.9.21',
 
             // OpenFootball API (gratis, geen key nodig!)
             // https://github.com/openfootball/football.json
@@ -2745,6 +2964,7 @@
             // URL: https://site.api.espn.com/apis/site/v2/sports/soccer/{league}/scoreboard
             ESPN_API_URL: 'https://site.api.espn.com/apis/site/v2/sports/soccer',
             WORLD_CUP_HIGHLIGHTS_URL: 'data/nos-highlights.json',
+            PDC_FIXTURES_URL: 'https://fixtures.darts.web.gc.pdcservices.co.uk/v2?page.size=500',
 
             // ESPN competities - EL, Conference League en nationale bekers
             ESPN_COMPETITIONS: [
@@ -3171,6 +3391,7 @@
         let currentSport = 'voetbal';
         let standingsSport = 'voetbal'; // Which sport to show in standings menu
         let showScores = false;
+        let resultsMode = false;
         let showPast = true; // Always show past events
         let filters = { competitions: [], clubs: [] };
         let worldCupHighlightIndex = new Map();
@@ -3183,6 +3404,7 @@
                 f1: null,
                 motogp: null,
                 handbal: null,
+                dartsResults: null,
                 highlights: null
             };
         }
@@ -4196,6 +4418,13 @@
                 .replace(/>/g, '&gt;');
         }
 
+        function escapeHtml(value = '') {
+            return String(value)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+        }
+
         function getWorldCupTeamMatchKey(name = '') {
             const normalized = normalizeTeamFlagKey(name);
             const aliases = {
@@ -4450,13 +4679,13 @@
 
         // Fetch football matches - try API-Football first, fall back to cache
         // Fetch football matches from OpenFootball (gratis, geen API key!)
-        async function fetchFootballMatches() {
+        async function fetchFootballMatches(options = {}) {
             console.log('Fetching football matches from OpenFootball...');
 
             // Check localStorage cache first (valid for 1 hour)
             const cached = localStorage.getItem('footballCache');
             const cacheTime = localStorage.getItem('footballCacheTime');
-            const cacheValid = cached && cacheTime && (Date.now() - parseInt(cacheTime)) < 1 * 60 * 60 * 1000;
+            const cacheValid = !options.force && cached && cacheTime && (Date.now() - parseInt(cacheTime)) < 1 * 60 * 60 * 1000;
 
             if (cacheValid) {
                 console.log('Using cached football data');
@@ -4583,8 +4812,8 @@
             console.log('Fetching CL/EL/Conference from football-data.org...');
             const allMatches = [];
 
-            // Calculate date range: 7 days back, 30 days forward
-            const fromDate = getDateStr(-7);
+            // Calculate date range: 30 days back, 30 days forward
+            const fromDate = getDateStr(-30);
             const toDate = getDateStr(30);
 
             // Fetch each competition
@@ -4638,8 +4867,8 @@
             console.log('Fetching EL/Conference/Cups from ESPN API...');
             const allMatches = [];
 
-            // Calculate date range: 7 days back, 30 days forward
-            const fromDate = getDateStr(-7).replace(/-/g, '');
+            // Calculate date range: 30 days back, 30 days forward
+            const fromDate = getDateStr(-30).replace(/-/g, '');
             const toDate = getDateStr(30).replace(/-/g, '');
 
             // Fetch each competition
@@ -5136,6 +5365,333 @@
             return events;
         }
 
+        function cleanDartsTournamentName(name = '') {
+            return String(name || '')
+                .replace(/^20\d{2}\s+/i, '')
+                .replace(/^ET\d+\s*-\s*/i, '')
+                .replace(/\s*-\s*Finale$/i, '')
+                .replace(/\s+/g, ' ')
+                .trim();
+        }
+
+        function normalizeResultText(value = '') {
+            return String(value || '')
+                .toLowerCase()
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .replace(/[^a-z0-9]+/g, ' ')
+                .trim();
+        }
+
+        function normalizeDartsTournamentName(name = '') {
+            return normalizeResultText(cleanDartsTournamentName(name));
+        }
+
+        function getConfiguredDartsTournamentNames() {
+            return new Set(
+                dartsCalendar
+                    .map(event => normalizeDartsTournamentName(event.event))
+                    .filter(Boolean)
+            );
+        }
+
+        function isConfiguredDartsTournament(name = '') {
+            const normalized = normalizeDartsTournamentName(name);
+            if (!normalized) return false;
+
+            const configuredNames = getConfiguredDartsTournamentNames();
+            for (const configured of configuredNames) {
+                if (normalized === configured || normalized.endsWith(configured)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function getPdcParticipantName(participant = {}) {
+            const fullName = [participant.firstName, participant.lastName]
+                .map(part => String(part || '').trim())
+                .filter(Boolean)
+                .join(' ');
+            return fullName || String(participant.nickname || '').trim();
+        }
+
+        function getPdcFixtureDate(attributes = {}) {
+            if (!attributes.startDate) return new Date();
+            if (attributes.startTime) {
+                return new Date(`${attributes.startDate}T${attributes.startTime}Z`);
+            }
+            return new Date(`${attributes.startDate}T12:00:00`);
+        }
+
+        function formatResultTime(dateObj, fallback = '') {
+            if (fallback) return fallback;
+            if (!(dateObj instanceof Date) || Number.isNaN(dateObj.getTime())) return '';
+            return dateObj.toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' });
+        }
+
+        function buildLocationLabel(...parts) {
+            const seen = new Set();
+            return parts
+                .map(part => String(part || '').trim())
+                .filter(Boolean)
+                .filter(part => {
+                    const key = part.toLowerCase();
+                    if (seen.has(key)) return false;
+                    seen.add(key);
+                    return true;
+                })
+                .join(', ');
+        }
+
+        function isValidDate(dateObj) {
+            return dateObj instanceof Date && !Number.isNaN(dateObj.getTime());
+        }
+
+        function getPendingResultReason(dateObj, durationHours, sourceLabel) {
+            const now = new Date();
+            if (!isValidDate(dateObj)) {
+                return `Geen betrouwbare starttijd in ${sourceLabel}; refresh controleert opnieuw.`;
+            }
+
+            const expectedEnd = new Date(dateObj.getTime() + durationHours * 60 * 60 * 1000);
+            if (now >= dateObj && now <= expectedEnd) {
+                return 'Wedstrijd bezig; einduitslag nog niet definitief.';
+            }
+            if (now > expectedEnd) {
+                return `Uitslag nog niet gepubliceerd bij ${sourceLabel}; refresh controleert opnieuw.`;
+            }
+            return 'Nog niet gespeeld.';
+        }
+
+        function isFutureResultCandidate(dateObj) {
+            return isValidDate(dateObj) && dateObj > new Date();
+        }
+
+        function normalizePdcDartsResults(fixtures = []) {
+            return fixtures
+                .map(fixture => fixture.attributes || fixture)
+                .filter(attributes => attributes && isConfiguredDartsTournament(attributes.tournament?.name || ''))
+                .map(attributes => {
+                    const dateObj = getPdcFixtureDate(attributes);
+                    if (!isValidDate(dateObj)) return null;
+
+                    const isResult = String(attributes.status || '').toLowerCase() === 'result';
+                    const hasScore = isResult
+                        && attributes.participant1Score !== null
+                        && attributes.participant1Score !== undefined
+                        && attributes.participant2Score !== null
+                        && attributes.participant2Score !== undefined;
+
+                    if (!hasScore && isFutureResultCandidate(dateObj)) return null;
+
+                    const nameParts = String(attributes.name || '').split(/\s+vs\s+/i);
+                    const pdcHome = getPdcParticipantName(attributes.participant1);
+                    const pdcAway = getPdcParticipantName(attributes.participant2);
+                    const namedHome = nameParts[0] && !/^N\/A$/i.test(nameParts[0].trim()) ? nameParts[0].trim() : '';
+                    const namedAway = nameParts[1] && !/^N\/A$/i.test(nameParts[1].trim()) ? nameParts[1].trim() : '';
+                    const home = pdcHome || namedHome || attributes.stage?.name || 'Wedstrijd';
+                    const away = pdcAway || namedAway || '';
+                    const competition = cleanDartsTournamentName(attributes.tournament?.name || 'PDC Darts');
+                    const location = buildLocationLabel(attributes.tournament?.venue, attributes.tournament?.city);
+                    const score = hasScore ? `${attributes.participant1Score}-${attributes.participant2Score}` : '';
+
+                    return {
+                        sportType: 'darts',
+                        dateObj,
+                        dateKey: getLocalDateKey(dateObj),
+                        time: formatResultTime(dateObj),
+                        home,
+                        away,
+                        score,
+                        reason: score ? '' : getPendingResultReason(dateObj, 3, 'PDC'),
+                        competition,
+                        stage: attributes.stage?.name || '',
+                        location,
+                        source: 'PDC',
+                        verified: true
+                    };
+                })
+                .filter(Boolean);
+        }
+
+        async function fetchPdcDartsResults(options = {}) {
+            try {
+                const separator = CONFIG.PDC_FIXTURES_URL.includes('?') ? '&' : '?';
+                const response = await fetch(`${CONFIG.PDC_FIXTURES_URL}${separator}v=${Date.now()}`, {
+                    cache: 'no-store'
+                });
+                if (!response.ok) throw new Error(`PDC fixtures ${response.status}`);
+                const data = await response.json();
+                return normalizePdcDartsResults(data.data || []);
+            } catch (error) {
+                console.warn('Could not fetch PDC darts results:', error);
+                return [];
+            }
+        }
+
+        function parseDartsScoreLabel(label = '') {
+            let raw = String(label || '').trim();
+            const timeMatch = raw.match(/^(\d{1,2}:\d{2})\s*[-\u2013]\s*(.+)$/);
+            const time = timeMatch ? timeMatch[1] : '';
+            if (timeMatch) raw = timeMatch[2].trim();
+
+            const scoreMatch = raw.match(/^(.+?)\s+(\d+)\s*[-\u2013]\s*(\d+)\s+(.+)$/);
+            if (!scoreMatch) return null;
+
+            return {
+                time,
+                home: scoreMatch[1].replace(/^Groep\s+[A-Z]\s*-\s*/i, '').trim(),
+                away: scoreMatch[4].trim(),
+                score: `${scoreMatch[2]}-${scoreMatch[3]}`
+            };
+        }
+
+        function extractDartsResultItemsFromEvent(event = {}) {
+            if (!Array.isArray(event.matches)) return [];
+
+            const results = [];
+            event.matches.forEach(session => {
+                const labels = [];
+                if (Array.isArray(session.items)) labels.push(...session.items);
+                if (session.label) labels.push(session.label);
+
+                labels.forEach(label => {
+                    const parsed = parseDartsScoreLabel(label);
+                    if (!parsed) return;
+
+                    const time = parsed.time || session.time || event.time || '12:00';
+                    const eventDateKey = typeof event.date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(event.date)
+                        ? event.date
+                        : getLocalDateKey(event.date);
+                    const dateObj = new Date(`${eventDateKey}T${time}`);
+
+                    results.push({
+                        sportType: 'darts',
+                        dateObj,
+                        dateKey: getLocalDateKey(dateObj),
+                        time,
+                        home: parsed.home,
+                        away: parsed.away,
+                        score: parsed.score,
+                        competition: cleanDartsTournamentName(event.event || event.title || 'Darts'),
+                        stage: session.label || '',
+                        location: event.location || '',
+                        source: 'App schema'
+                    });
+                });
+            });
+            return results;
+        }
+
+        function extractStaticDartsResultItems() {
+            return dartsCalendar.flatMap(event => extractDartsResultItemsFromEvent(event));
+        }
+
+        function extractWorldCupOfDartsScheduleResultItems() {
+            return Object.entries(worldCupOfDartsSchedule).flatMap(([date, matches]) => {
+                const event = {
+                    date,
+                    time: '19:00',
+                    event: date === '2026-06-14' ? 'World Cup of Darts - Finale' : 'World Cup of Darts',
+                    location: 'Frankfurt',
+                    matches: matches.map(match => ({
+                        time: /^\d{1,2}:\d{2}$/.test(match.time || '') ? match.time : '',
+                        label: match.label
+                    }))
+                };
+                return extractDartsResultItemsFromEvent(event);
+            });
+        }
+
+        function hasKnownScore(value) {
+            return typeof value === 'string' && /\d+\s*[-\u2013]\s*\d+/.test(value);
+        }
+
+        function getFootballSourceLabel(event = {}) {
+            if (event.source) return event.source;
+            if (event.isStatic || event.isFallbackConfirmed) return 'App schema';
+            return 'voetbalbron';
+        }
+
+        function isFootballResultCandidate(event = {}) {
+            if (!event.home || !event.away) return false;
+            const dateObj = new Date(event.date);
+            if (!isValidDate(dateObj)) return false;
+            if (isFutureResultCandidate(dateObj)) return false;
+            return event.live || hasKnownScore(event.score) || dateObj <= new Date();
+        }
+
+        function extractFootballResultItems(events = []) {
+            return events
+                .filter(isFootballResultCandidate)
+                .map(event => {
+                    const dateObj = new Date(event.date);
+                    const source = getFootballSourceLabel(event);
+                    const score = event.live ? '' : (hasKnownScore(event.score) ? event.score : '');
+                    const reason = score
+                        ? ''
+                        : (event.live ? 'Wedstrijd bezig; einduitslag nog niet definitief.' : getPendingResultReason(dateObj, 2, source));
+
+                    return {
+                        sportType: 'voetbal',
+                        dateObj,
+                        dateKey: getLocalDateKey(dateObj),
+                        time: event.time || formatResultTime(dateObj),
+                        home: event.home,
+                        away: event.away,
+                        score,
+                        reason,
+                        competition: event.competition || 'Voetbal',
+                        stage: event.aggregate || '',
+                        location: event.venue || event.location || event.city || '',
+                        source,
+                        verified: !(event.isStatic || event.isFallbackConfirmed)
+                    };
+                });
+        }
+
+        function getResultQualityScore(item = {}) {
+            let score = 0;
+            if (item.source === 'PDC') score += 100;
+            if (item.source === 'Live bron') score += 80;
+            if (item.verified) score += 20;
+            if (hasKnownScore(item.score)) score += 50;
+            if (item.location) score += 10;
+            if (item.stage) score += 5;
+            if (item.time) score += 2;
+            return score;
+        }
+
+        function dedupeResultItems(items = []) {
+            const byKey = new Map();
+
+            items.forEach(item => {
+                if (!item || !item.dateKey || (!item.home && !item.stage)) return;
+                const key = [
+                    item.sportType,
+                    item.dateKey,
+                    normalizeResultText(item.home),
+                    normalizeResultText(item.away),
+                    normalizeResultText(item.competition || item.stage)
+                ].join('|');
+                const existing = byKey.get(key);
+                if (!existing || getResultQualityScore(item) > getResultQualityScore(existing)) {
+                    byKey.set(key, item);
+                }
+            });
+
+            return Array.from(byKey.values())
+                .sort((a, b) => a.dateObj - b.dateObj || String(a.time || '').localeCompare(String(b.time || '')));
+        }
+
+        function buildResultItems() {
+            return dedupeResultItems([
+                ...extractFootballResultItems(cachedData.voetbal || []),
+                ...(cachedData.dartsResults || [])
+            ]);
+        }
+
         function getDartsFallbackItems(eventTitle, sessionLabel) {
             if (europeanTourEvents.has(eventTitle)) {
                 if (sessionLabel.includes('Eerste ronde') && sessionLabel.includes('Middagsessie')) {
@@ -5218,6 +5774,89 @@
                    date1.getDate() === date2.getDate();
         }
 
+        function getResultSportLabel(sportType = '') {
+            const labels = {
+                voetbal: 'Voetbal',
+                darts: 'Darts',
+                f1: 'F1',
+                motogp: 'MotoGP',
+                handbal: 'Handbal'
+            };
+            return labels[sportType] || sportType || 'Sport';
+        }
+
+        async function ensureDartsResultsLoaded(force = false) {
+            if (!force && Array.isArray(cachedData.dartsResults)) {
+                return cachedData.dartsResults;
+            }
+            cachedData.dartsResults = await fetchPdcDartsResults({ force });
+            return cachedData.dartsResults;
+        }
+
+        async function renderResultsView(container, visibleDateRange = [], forceRefresh = false) {
+            await ensureDartsResultsLoaded(forceRefresh);
+            const allResultItems = buildResultItems();
+            const visibleDateSet = new Set(visibleDateRange);
+            const resultItems = allResultItems.filter(item => visibleDateSet.has(item.dateKey));
+            const knownCount = resultItems.filter(item => hasKnownScore(item.score)).length;
+            const pendingCount = resultItems.length - knownCount;
+
+            const resultsByDate = new Map();
+            visibleDateRange.forEach(dateKey => resultsByDate.set(dateKey, []));
+            resultItems.forEach(item => {
+                if (!resultsByDate.has(item.dateKey)) resultsByDate.set(item.dateKey, []);
+                resultsByDate.get(item.dateKey).push(item);
+            });
+
+            let html = '<div class="results-view">';
+            html += `<div class="results-summary">
+                <div class="results-summary-title">Uitslagen</div>
+                <div class="results-summary-meta">${knownCount} definitieve uitslagen, ${pendingCount} lege velden met reden. Refresh controleert de openbare bronnen opnieuw.</div>
+            </div>`;
+
+            Array.from(resultsByDate.entries()).forEach(([dateKey, items]) => {
+                const dateObj = new Date(`${dateKey}T12:00:00`);
+                const isToday = isSameDay(dateObj, new Date());
+                html += `<div class="day-section results-day-group${isToday ? ' today-section' : ''}" data-date="${dateKey}" ${isToday ? 'id="today-anchor"' : ''}>`;
+                html += `<div class="results-day-header"><span>${escapeHtml(formatDate(dateObj))}</span><span>${items.length}</span></div>`;
+
+                if (items.length === 0) {
+                    html += `<div class="no-events-day"><p>Geen gespeelde wedstrijden met te controleren uitslag.</p></div>`;
+                    html += `</div>`;
+                    return;
+                }
+
+                items.forEach(item => {
+                    const hasScore = hasKnownScore(item.score);
+                    const meta = [
+                        item.location || 'Locatie niet beschikbaar',
+                        item.stage,
+                        item.source ? `Bron: ${item.source}` : ''
+                    ].filter(Boolean).join(' - ');
+                    const competition = item.competition || getResultSportLabel(item.sportType);
+                    const teams = item.away ? `${item.home} - ${item.away}` : item.home;
+
+                    html += `<div class="results-row${hasScore ? '' : ' pending-result'}">`;
+                    html += `<div class="results-time">${escapeHtml(item.time || '')}</div>`;
+                    html += `<div class="results-main">`;
+                    html += `<div class="results-competition"><span class="results-sport-badge">${escapeHtml(getResultSportLabel(item.sportType))}</span><span>${escapeHtml(competition)}</span></div>`;
+                    html += `<div class="results-teams">${escapeHtml(teams)}</div>`;
+                    html += `<div class="results-location">${escapeHtml(meta)}</div>`;
+                    if (!hasScore && item.reason) {
+                        html += `<div class="results-reason">${escapeHtml(item.reason)}</div>`;
+                    }
+                    html += `</div>`;
+                    html += `<div class="results-score${hasScore ? '' : ' empty'}">${hasScore ? escapeHtml(item.score) : ''}</div>`;
+                    html += `</div>`;
+                });
+
+                html += `</div>`;
+            });
+
+            html += '</div>';
+            container.innerHTML = html;
+        }
+
         function showLoading() {
             const container = document.getElementById('events-container');
             container.innerHTML = `
@@ -5246,19 +5885,21 @@
             const container = document.getElementById('events-container');
             container.className = `events-container${showScores ? ' show-scores' : ''}`;
             document.body.dataset.sportView = currentSportFilter || 'all';
+            updateResultsModeControls();
 
             showLoading();
 
             const today = new Date();
             today.setHours(0, 0, 0, 0);
             const futureDays = 30;
+            const forceResultsRefresh = resultsMode;
 
             try {
                 const freshDartsData = getStaticDartsEvents();
                 const freshMotoGPData = getStaticMotoGPEvents();
                 const freshHandballData = getStaticHandballEvents();
                 const [footballData, dartsData, f1Data, motoGPData, handballData, highlightData] = await Promise.all([
-                    cachedData.voetbal || fetchFootballMatches(),
+                    forceResultsRefresh ? fetchFootballMatches({ force: true }) : (cachedData.voetbal || fetchFootballMatches()),
                     Promise.resolve(freshDartsData),
                     cachedData.f1 || fetchF1Sessions(),
                     Promise.resolve(cachedData.motogp || freshMotoGPData),
@@ -5325,6 +5966,17 @@
             statusEl.innerHTML = sources.length > 0
                 ? `<span class="live-dot"></span> ${sources.join(' + ')}`
                 : '<span class="live-dot" style="background: #e10600;"></span> Geen data';
+
+            if (resultsMode) {
+                const resultDateRange = buildDateRange(today, 30, 0);
+                generateDateTabs(resultDateRange, today);
+                await renderResultsView(container, resultDateRange, forceResultsRefresh);
+                setupScrollSync();
+                setTimeout(() => {
+                    scrollToTodayOrNearest();
+                }, 100);
+                return;
+            }
 
             // Filter by date range
             const futureLimit = new Date(today);
@@ -5779,6 +6431,7 @@
                 scrollSyncObserver.disconnect();
             }
 
+            const headerHeight = document.querySelector('.header-section')?.offsetHeight || 140;
             scrollSyncObserver = new IntersectionObserver((entries) => {
                 if (Date.now() < scrollSyncPausedUntil) return;
                 entries.forEach(entry => {
@@ -5790,7 +6443,7 @@
                     }
                 });
             }, {
-                rootMargin: '-120px 0px -70% 0px', // Trigger when section is near top
+                rootMargin: `-${headerHeight}px 0px -70% 0px`, // Trigger when section is near top
                 threshold: [0.1]
             });
 
@@ -6124,9 +6777,23 @@
         // EVENT LISTENERS
         // ============================================
 
+        function updateResultsModeControls() {
+            document.body.classList.toggle('results-mode', resultsMode);
+            const btn = document.getElementById('results-toggle');
+            if (!btn) return;
+
+            btn.classList.toggle('active', resultsMode);
+            btn.setAttribute('aria-pressed', resultsMode ? 'true' : 'false');
+            const label = btn.querySelector('span');
+            if (label) {
+                label.textContent = resultsMode ? 'Programma tonen' : 'Uitslagen tonen';
+            }
+        }
+
         // Hamburger Menu
         const hamburgerBtn = document.getElementById('hamburger-btn');
         const refreshDataBtn = document.getElementById('refresh-data');
+        const resultsToggleBtn = document.getElementById('results-toggle');
         const sideMenu = document.getElementById('side-menu');
         const menuOverlay = document.getElementById('menu-overlay');
         const closeMenuBtn = document.getElementById('close-menu-btn');
@@ -6180,6 +6847,14 @@
             });
         }
 
+        if (resultsToggleBtn) {
+            resultsToggleBtn.addEventListener('click', () => {
+                resultsMode = !resultsMode;
+                selectedDate = null;
+                renderEvents();
+            });
+        }
+
         // Standings sport buttons
         document.querySelectorAll('.standings-sport-btn').forEach(btn => {
             btn.addEventListener('click', async () => {
@@ -6215,6 +6890,8 @@
                     btn.classList.add('active');
                     currentSportFilter = sport;
                 }
+
+                resultsMode = false;
 
                 // Reset selected date to today when switching sports
                 selectedDate = null;
