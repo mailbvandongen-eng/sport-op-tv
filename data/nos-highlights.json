@@ -1,8 +1,20 @@
 {
   "source": "https://www.youtube.com/feeds/videos.xml?channel_id=UCT4oPufBQa0f6C67Fw_HXNg",
   "channelId": "UCT4oPufBQa0f6C67Fw_HXNg",
-  "updatedAt": "2026-06-21T23:45:57.614Z",
+  "updatedAt": "2026-06-22T05:03:43.588Z",
   "items": [
+    {
+      "videoId": "1ofvFGrGWfg",
+      "title": "Samenvatting Uruguay - Kaapverdië | Groep H | WK2026 ⚽️",
+      "url": "https://www.youtube.com/watch?v=1ofvFGrGWfg",
+      "thumbnail": "https://i2.ytimg.com/vi/1ofvFGrGWfg/hqdefault.jpg",
+      "published": "2026-06-22T03:12:31.000Z",
+      "updated": "2026-06-22T03:14:10.000Z",
+      "source": "NOS Sport YouTube",
+      "home": "Uruguay",
+      "away": "Kaapverdië",
+      "group": "Groep H"
+    },
     {
       "videoId": "0MsdyTRus9s",
       "title": "Samenvatting België - Iran | Groep G | WK2026⚽️",
@@ -21,7 +33,7 @@
       "url": "https://www.youtube.com/watch?v=neWwzD4PxrY",
       "thumbnail": "https://i3.ytimg.com/vi/neWwzD4PxrY/hqdefault.jpg",
       "published": "2026-06-21T19:00:25.000Z",
-      "updated": "2026-06-21T23:39:29.000Z",
+      "updated": "2026-06-22T04:48:15.000Z",
       "source": "NOS Sport YouTube",
       "home": "Spanje",
       "away": "Saudi-Arabië",
@@ -33,7 +45,7 @@
       "url": "https://www.youtube.com/watch?v=cmhC1y6uoII",
       "thumbnail": "https://i4.ytimg.com/vi/cmhC1y6uoII/hqdefault.jpg",
       "published": "2026-06-21T07:22:43.000Z",
-      "updated": "2026-06-21T23:36:37.000Z",
+      "updated": "2026-06-22T04:45:09.000Z",
       "source": "NOS Sport YouTube",
       "home": "Tunesië",
       "away": "Japan",
@@ -45,7 +57,7 @@
       "url": "https://www.youtube.com/watch?v=p7PNVbmk9B8",
       "thumbnail": "https://i1.ytimg.com/vi/p7PNVbmk9B8/hqdefault.jpg",
       "published": "2026-06-21T03:36:17.000Z",
-      "updated": "2026-06-21T23:37:14.000Z",
+      "updated": "2026-06-22T04:44:36.000Z",
       "source": "NOS Sport YouTube",
       "home": "Ecuador",
       "away": "Curaçao",
