@@ -1,15 +1,51 @@
 {
   "source": "https://www.youtube.com/feeds/videos.xml?channel_id=UCT4oPufBQa0f6C67Fw_HXNg",
   "channelId": "UCT4oPufBQa0f6C67Fw_HXNg",
-  "updatedAt": "2026-06-23T01:32:07.901Z",
+  "updatedAt": "2026-06-23T09:54:00.486Z",
   "items": [
+    {
+      "videoId": "0GZfRaV0voE",
+      "title": "Samenvatting Jordanië - Algerije | Groep J | WK2026 ⚽️",
+      "url": "https://www.youtube.com/watch?v=0GZfRaV0voE",
+      "thumbnail": "https://i1.ytimg.com/vi/0GZfRaV0voE/hqdefault.jpg",
+      "published": "2026-06-23T06:52:39.000Z",
+      "updated": "2026-06-23T06:53:04.000Z",
+      "source": "NOS Sport YouTube",
+      "home": "Jordanië",
+      "away": "Algerije",
+      "group": "Groep J"
+    },
+    {
+      "videoId": "U0n7UQ_zN3w",
+      "title": "Samenvatting Noorwegen - Senegal | Groep I | WK2026⚽️",
+      "url": "https://www.youtube.com/watch?v=U0n7UQ_zN3w",
+      "thumbnail": "https://i2.ytimg.com/vi/U0n7UQ_zN3w/hqdefault.jpg",
+      "published": "2026-06-23T03:30:02.000Z",
+      "updated": "2026-06-23T07:55:43.000Z",
+      "source": "NOS Sport YouTube",
+      "home": "Noorwegen",
+      "away": "Senegal",
+      "group": "Groep I"
+    },
+    {
+      "videoId": "QygOdAXJP5o",
+      "title": "Samenvatting Frankrijk - Irak | Groep I | WK2026⚽️",
+      "url": "https://www.youtube.com/watch?v=QygOdAXJP5o",
+      "thumbnail": "https://i2.ytimg.com/vi/QygOdAXJP5o/hqdefault.jpg",
+      "published": "2026-06-23T03:19:55.000Z",
+      "updated": "2026-06-23T06:55:21.000Z",
+      "source": "NOS Sport YouTube",
+      "home": "Frankrijk",
+      "away": "Irak",
+      "group": "Groep I"
+    },
     {
       "videoId": "0jO5qZaGhLI",
       "title": "Samenvatting Argentinië - Oostenrijk | Groep J | WK2026 ⚽️",
       "url": "https://www.youtube.com/watch?v=0jO5qZaGhLI",
       "thumbnail": "https://i1.ytimg.com/vi/0jO5qZaGhLI/hqdefault.jpg",
       "published": "2026-06-22T19:42:35.000Z",
-      "updated": "2026-06-22T19:43:54.000Z",
+      "updated": "2026-06-23T09:25:37.000Z",
       "source": "NOS Sport YouTube",
       "home": "Argentinië",
       "away": "Oostenrijk",
