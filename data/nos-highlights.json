@@ -1,8 +1,20 @@
 {
   "source": "https://www.youtube.com/feeds/videos.xml?channel_id=UCT4oPufBQa0f6C67Fw_HXNg",
   "channelId": "UCT4oPufBQa0f6C67Fw_HXNg",
-  "updatedAt": "2026-06-23T21:20:01.942Z",
+  "updatedAt": "2026-06-23T22:48:27.387Z",
   "items": [
+    {
+      "videoId": "g8DpEuI4hj4",
+      "title": "Samenvatting Engeland - Ghana | Groep L | WK2026 ⚽️",
+      "url": "https://www.youtube.com/watch?v=g8DpEuI4hj4",
+      "thumbnail": "https://i4.ytimg.com/vi/g8DpEuI4hj4/hqdefault.jpg",
+      "published": "2026-06-23T22:43:29.000Z",
+      "updated": "2026-06-23T22:44:30.000Z",
+      "source": "NOS Sport YouTube",
+      "home": "Engeland",
+      "away": "Ghana",
+      "group": "Groep L"
+    },
     {
       "videoId": "Z_CCW0vy5Us",
       "title": "Samenvatting Portugal - Oezbekistan | Groep K | WK2026 ⚽️",
