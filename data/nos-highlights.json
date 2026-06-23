@@ -1,8 +1,20 @@
 {
   "source": "https://www.youtube.com/feeds/videos.xml?channel_id=UCT4oPufBQa0f6C67Fw_HXNg",
   "channelId": "UCT4oPufBQa0f6C67Fw_HXNg",
-  "updatedAt": "2026-06-23T19:32:08.448Z",
+  "updatedAt": "2026-06-23T21:20:01.942Z",
   "items": [
+    {
+      "videoId": "Z_CCW0vy5Us",
+      "title": "Samenvatting Portugal - Oezbekistan | Groep K | WK2026 ⚽️",
+      "url": "https://www.youtube.com/watch?v=Z_CCW0vy5Us",
+      "thumbnail": "https://i3.ytimg.com/vi/Z_CCW0vy5Us/hqdefault.jpg",
+      "published": "2026-06-23T19:55:54.000Z",
+      "updated": "2026-06-23T19:58:06.000Z",
+      "source": "NOS Sport YouTube",
+      "home": "Portugal",
+      "away": "Oezbekistan",
+      "group": "Groep K"
+    },
     {
       "videoId": "0GZfRaV0voE",
       "title": "Samenvatting Jordanië - Algerije | Groep J | WK2026 ⚽️",
