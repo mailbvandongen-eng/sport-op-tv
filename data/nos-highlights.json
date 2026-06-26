@@ -1,8 +1,32 @@
 {
   "source": "https://www.youtube.com/feeds/videos.xml?channel_id=UCT4oPufBQa0f6C67Fw_HXNg",
   "channelId": "UCT4oPufBQa0f6C67Fw_HXNg",
-  "updatedAt": "2026-06-26T00:19:11.311Z",
+  "updatedAt": "2026-06-26T04:51:25.600Z",
   "items": [
+    {
+      "videoId": "9lcICUSH_TM",
+      "title": "Samenvatting Japan - Zweden | Groep F | WK2026⚽️",
+      "url": "https://www.youtube.com/watch?v=9lcICUSH_TM",
+      "thumbnail": "https://i2.ytimg.com/vi/9lcICUSH_TM/hqdefault.jpg",
+      "published": "2026-06-26T01:58:59.000Z",
+      "updated": "2026-06-26T02:13:06.000Z",
+      "source": "NOS Sport YouTube",
+      "home": "Japan",
+      "away": "Zweden",
+      "group": "Groep F"
+    },
+    {
+      "videoId": "4BcqRk0Clh4",
+      "title": "Samenvatting Tunesië - Nederland | Groep F | WK2026⚽️",
+      "url": "https://www.youtube.com/watch?v=4BcqRk0Clh4",
+      "thumbnail": "https://i1.ytimg.com/vi/4BcqRk0Clh4/hqdefault.jpg",
+      "published": "2026-06-26T01:55:38.000Z",
+      "updated": "2026-06-26T02:13:57.000Z",
+      "source": "NOS Sport YouTube",
+      "home": "Tunesië",
+      "away": "Nederland",
+      "group": "Groep F"
+    },
     {
       "videoId": "UsdFopi0Rvg",
       "title": "Samenvatting Curaçao - Ivoorkust | Groep E | WK2026 ⚽️",
