@@ -1,8 +1,32 @@
 {
   "source": "https://www.youtube.com/feeds/videos.xml?channel_id=UCT4oPufBQa0f6C67Fw_HXNg",
   "channelId": "UCT4oPufBQa0f6C67Fw_HXNg",
-  "updatedAt": "2026-06-26T21:43:31.130Z",
+  "updatedAt": "2026-06-26T22:54:49.814Z",
   "items": [
+    {
+      "videoId": "yC_oI8pVpvc",
+      "title": "Samenvatting Senegal - Irak | Groep I | WK2026 ⚽️",
+      "url": "https://www.youtube.com/watch?v=yC_oI8pVpvc",
+      "thumbnail": "https://i2.ytimg.com/vi/yC_oI8pVpvc/hqdefault.jpg",
+      "published": "2026-06-26T22:25:20.000Z",
+      "updated": "2026-06-26T22:26:34.000Z",
+      "source": "NOS Sport YouTube",
+      "home": "Senegal",
+      "away": "Irak",
+      "group": "Groep I"
+    },
+    {
+      "videoId": "2-mzDgP3JII",
+      "title": "Samenvatting Noorwegen - Frankrijk | Groep I | WK2026 ⚽️",
+      "url": "https://www.youtube.com/watch?v=2-mzDgP3JII",
+      "thumbnail": "https://i3.ytimg.com/vi/2-mzDgP3JII/hqdefault.jpg",
+      "published": "2026-06-26T22:01:32.000Z",
+      "updated": "2026-06-26T22:03:19.000Z",
+      "source": "NOS Sport YouTube",
+      "home": "Noorwegen",
+      "away": "Frankrijk",
+      "group": "Groep I"
+    },
     {
       "videoId": "tqadDwofFpY",
       "title": "Samenvatting Turkije - Verenigde Staten | Groep D | WK2026⚽️",
