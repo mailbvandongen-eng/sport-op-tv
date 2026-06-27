@@ -1,8 +1,32 @@
 {
   "source": "https://www.youtube.com/feeds/videos.xml?channel_id=UCT4oPufBQa0f6C67Fw_HXNg",
   "channelId": "UCT4oPufBQa0f6C67Fw_HXNg",
-  "updatedAt": "2026-06-27T00:13:59.147Z",
+  "updatedAt": "2026-06-27T04:29:00.897Z",
   "items": [
+    {
+      "videoId": "nFatQGFfK4U",
+      "title": "Samenvatting Kaapverdië - Saoedi-Arabië | Groep H | WK2026",
+      "url": "https://www.youtube.com/watch?v=nFatQGFfK4U",
+      "thumbnail": "https://i3.ytimg.com/vi/nFatQGFfK4U/hqdefault.jpg",
+      "published": "2026-06-27T04:07:57.000Z",
+      "updated": "2026-06-27T04:10:28.000Z",
+      "source": "NOS Sport YouTube",
+      "home": "Kaapverdië",
+      "away": "Saoedi-Arabië",
+      "group": "Groep H"
+    },
+    {
+      "videoId": "1eiokOyPHVg",
+      "title": "Samenvatting Uruguay - Spanje | Groep H | WK2026",
+      "url": "https://www.youtube.com/watch?v=1eiokOyPHVg",
+      "thumbnail": "https://i2.ytimg.com/vi/1eiokOyPHVg/hqdefault.jpg",
+      "published": "2026-06-27T03:17:39.000Z",
+      "updated": "2026-06-27T03:17:40.000Z",
+      "source": "NOS Sport YouTube",
+      "home": "Uruguay",
+      "away": "Spanje",
+      "group": "Groep H"
+    },
     {
       "videoId": "yC_oI8pVpvc",
       "title": "Samenvatting Senegal - Irak | Groep I | WK2026 ⚽️",
