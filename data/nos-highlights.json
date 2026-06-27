@@ -1,8 +1,32 @@
 {
   "source": "https://www.youtube.com/feeds/videos.xml?channel_id=UCT4oPufBQa0f6C67Fw_HXNg",
   "channelId": "UCT4oPufBQa0f6C67Fw_HXNg",
-  "updatedAt": "2026-06-27T04:29:00.897Z",
+  "updatedAt": "2026-06-27T07:37:29.671Z",
   "items": [
+    {
+      "videoId": "fRgaMJ4WGmE",
+      "title": "Samenvatting Egypte - Iran | Groep G | WK2026",
+      "url": "https://www.youtube.com/watch?v=fRgaMJ4WGmE",
+      "thumbnail": "https://i3.ytimg.com/vi/fRgaMJ4WGmE/hqdefault.jpg",
+      "published": "2026-06-27T07:05:40.000Z",
+      "updated": "2026-06-27T07:07:31.000Z",
+      "source": "NOS Sport YouTube",
+      "home": "Egypte",
+      "away": "Iran",
+      "group": "Groep G"
+    },
+    {
+      "videoId": "ui-7kzQ9iX0",
+      "title": "Samenvatting Nieuw-Zeeland - België | Groep H | WK2026",
+      "url": "https://www.youtube.com/watch?v=ui-7kzQ9iX0",
+      "thumbnail": "https://i2.ytimg.com/vi/ui-7kzQ9iX0/hqdefault.jpg",
+      "published": "2026-06-27T06:36:10.000Z",
+      "updated": "2026-06-27T06:38:08.000Z",
+      "source": "NOS Sport YouTube",
+      "home": "Nieuw-Zeeland",
+      "away": "België",
+      "group": "Groep H"
+    },
     {
       "videoId": "nFatQGFfK4U",
       "title": "Samenvatting Kaapverdië - Saoedi-Arabië | Groep H | WK2026",
@@ -21,7 +45,7 @@
       "url": "https://www.youtube.com/watch?v=1eiokOyPHVg",
       "thumbnail": "https://i2.ytimg.com/vi/1eiokOyPHVg/hqdefault.jpg",
       "published": "2026-06-27T03:17:39.000Z",
-      "updated": "2026-06-27T03:17:40.000Z",
+      "updated": "2026-06-27T07:26:17.000Z",
       "source": "NOS Sport YouTube",
       "home": "Uruguay",
       "away": "Spanje",
