@@ -2905,7 +2905,7 @@
             <div class="api-status" id="api-status">
                 <span class="live-dot"></span> <span class="status-text">Laden...</span>
             </div>
-            <p class="version-footer">v3.9.22</p>
+            <p class="version-footer">v3.9.23</p>
         </footer>
     </div>
 
@@ -2931,7 +2931,7 @@
         // ============================================
         const CONFIG = {
             // Cache version - increment to force cache clear after config changes
-            CACHE_VERSION: '3.9.22',
+            CACHE_VERSION: '3.9.23',
 
             // OpenFootball API (gratis, geen key nodig!)
             // https://github.com/openfootball/football.json
@@ -5474,18 +5474,9 @@
             const localTime = getPdcFixtureLocalTime(attributes);
             const { home, away } = getPdcMatchPlayers(attributes);
             const stage = getDartsStageLabel(attributes.stage?.name || '');
-            const status = String(attributes.status || '').toLowerCase();
-            const hasResult = status === 'result'
-                && attributes.participant1Score !== null
-                && attributes.participant1Score !== undefined
-                && attributes.participant2Score !== null
-                && attributes.participant2Score !== undefined;
-
             let matchLabel = '';
             if (home && away) {
-                matchLabel = hasResult
-                    ? `${home} ${attributes.participant1Score}-${attributes.participant2Score} ${away}`
-                    : `${home} vs ${away}`;
+                matchLabel = `${home} vs ${away}`;
             } else if (home || away) {
                 matchLabel = `${home || away} vs tegenstander volgt`;
             } else {
