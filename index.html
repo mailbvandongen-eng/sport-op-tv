@@ -2905,7 +2905,7 @@
             <div class="api-status" id="api-status">
                 <span class="live-dot"></span> <span class="status-text">Laden...</span>
             </div>
-            <p class="version-footer">v3.9.21</p>
+            <p class="version-footer">v3.9.22</p>
         </footer>
     </div>
 
@@ -2931,7 +2931,7 @@
         // ============================================
         const CONFIG = {
             // Cache version - increment to force cache clear after config changes
-            CACHE_VERSION: '3.9.21',
+            CACHE_VERSION: '3.9.22',
 
             // OpenFootball API (gratis, geen key nodig!)
             // https://github.com/openfootball/football.json
@@ -3404,6 +3404,7 @@
                 f1: null,
                 motogp: null,
                 handbal: null,
+                dartsFixtures: null,
                 dartsResults: null,
                 highlights: null
             };
@@ -5424,6 +5425,192 @@
             return new Date(`${attributes.startDate}T12:00:00`);
         }
 
+        function getPdcFixtureLocalTime(attributes = {}) {
+            return formatResultTime(getPdcFixtureDate(attributes));
+        }
+
+        function getDartsSessionStartTime(localTime = '') {
+            const hour = parseInt(String(localTime || '').split(':')[0], 10);
+            if (Number.isNaN(hour)) return localTime || 'TBD';
+            return `${String(hour).padStart(2, '0')}:00`;
+        }
+
+        function getDartsSessionLabel(localTime = '') {
+            const hour = parseInt(String(localTime || '').split(':')[0], 10);
+            if (Number.isNaN(hour)) return 'Sessie';
+            if (hour < 12) return 'Ochtendsessie';
+            if (hour < 17) return 'Middagsessie';
+            return 'Avondsessie';
+        }
+
+        function getDartsStageLabel(stageName = '') {
+            const normalized = String(stageName || '').trim().toLowerCase();
+            const labels = {
+                'last 64': 'Laatste 64',
+                'last 32': 'Laatste 32',
+                'last 16': 'Laatste 16',
+                'quarter-final': 'Kwartfinales',
+                'quarter-finals': 'Kwartfinales',
+                'semi-final': 'Halve finales',
+                'semi-finals': 'Halve finales',
+                'final': 'Finale'
+            };
+            return labels[normalized] || stageName || '';
+        }
+
+        function getPdcMatchPlayers(attributes = {}) {
+            const nameParts = String(attributes.name || '').split(/\s+vs\s+/i);
+            const pdcHome = getPdcParticipantName(attributes.participant1);
+            const pdcAway = getPdcParticipantName(attributes.participant2);
+            const namedHome = nameParts[0] && !/^N\/A$/i.test(nameParts[0].trim()) ? nameParts[0].trim() : '';
+            const namedAway = nameParts[1] && !/^N\/A$/i.test(nameParts[1].trim()) ? nameParts[1].trim() : '';
+            return {
+                home: pdcHome || namedHome,
+                away: pdcAway || namedAway
+            };
+        }
+
+        function formatPdcScheduleItem(attributes = {}) {
+            const localTime = getPdcFixtureLocalTime(attributes);
+            const { home, away } = getPdcMatchPlayers(attributes);
+            const stage = getDartsStageLabel(attributes.stage?.name || '');
+            const status = String(attributes.status || '').toLowerCase();
+            const hasResult = status === 'result'
+                && attributes.participant1Score !== null
+                && attributes.participant1Score !== undefined
+                && attributes.participant2Score !== null
+                && attributes.participant2Score !== undefined;
+
+            let matchLabel = '';
+            if (home && away) {
+                matchLabel = hasResult
+                    ? `${home} ${attributes.participant1Score}-${attributes.participant2Score} ${away}`
+                    : `${home} vs ${away}`;
+            } else if (home || away) {
+                matchLabel = `${home || away} vs tegenstander volgt`;
+            } else {
+                matchLabel = `${stage || 'Wedstrijd'} - spelers volgen zodra PDC ze publiceert`;
+            }
+
+            return localTime ? `${localTime} - ${matchLabel}` : matchLabel;
+        }
+
+        function normalizePdcDartsSchedule(fixtures = []) {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const fromDate = new Date(today);
+            fromDate.setDate(fromDate.getDate() - 7);
+            const toDate = new Date(today);
+            toDate.setDate(toDate.getDate() + 30);
+            toDate.setHours(23, 59, 59, 999);
+
+            const sessionGroups = new Map();
+
+            fixtures
+                .map(fixture => fixture.attributes || fixture)
+                .filter(attributes => attributes && isConfiguredDartsTournament(attributes.tournament?.name || ''))
+                .forEach(attributes => {
+                    const dateObj = getPdcFixtureDate(attributes);
+                    if (!isValidDate(dateObj) || dateObj < fromDate || dateObj > toDate) return;
+
+                    const localTime = formatResultTime(dateObj);
+                    const localDateKey = getLocalDateKey(dateObj);
+                    const tournamentName = cleanDartsTournamentName(attributes.tournament?.name || 'PDC Darts');
+                    const sessionStart = getDartsSessionStartTime(localTime);
+                    const sessionName = getDartsSessionLabel(localTime);
+                    const sessionKey = [
+                        localDateKey,
+                        attributes.tournamentID || tournamentName,
+                        sessionName
+                    ].join('|');
+
+                    if (!sessionGroups.has(sessionKey)) {
+                        sessionGroups.set(sessionKey, {
+                            localDateKey,
+                            tournamentName,
+                            tournamentID: attributes.tournamentID || '',
+                            sessionStart,
+                            sessionName,
+                            location: buildLocationLabel(attributes.tournament?.venue, attributes.tournament?.city),
+                            fixtures: [],
+                            stages: new Set()
+                        });
+                    }
+
+                    const group = sessionGroups.get(sessionKey);
+                    group.sessionStart = [group.sessionStart, sessionStart].sort()[0];
+                    group.fixtures.push(attributes);
+                    const stage = getDartsStageLabel(attributes.stage?.name || '');
+                    if (stage) group.stages.add(stage);
+                });
+
+            const eventGroups = new Map();
+
+            Array.from(sessionGroups.values())
+                .sort((a, b) => a.localDateKey.localeCompare(b.localDateKey) || a.sessionStart.localeCompare(b.sessionStart))
+                .forEach(session => {
+                    session.fixtures.sort((a, b) => getPdcFixtureDate(a) - getPdcFixtureDate(b));
+
+                    const stageLabel = Array.from(session.stages).join(' / ');
+                    const eventKey = [
+                        session.localDateKey,
+                        session.tournamentID || normalizeDartsTournamentName(session.tournamentName)
+                    ].join('|');
+
+                    if (!eventGroups.has(eventKey)) {
+                        eventGroups.set(eventKey, {
+                            date: `${session.localDateKey}T${session.sessionStart}`,
+                            time: session.sessionStart,
+                            title: session.tournamentName,
+                            location: session.location,
+                            competition: session.tournamentName,
+                            channel: 'Viaplay',
+                            matches: [],
+                            score: null,
+                            live: false,
+                            isPdcDynamic: true
+                        });
+                    }
+
+                    const event = eventGroups.get(eventKey);
+                    event.time = [event.time, session.sessionStart].sort()[0];
+                    event.live = event.live || session.fixtures.some(fixture => {
+                        const status = String(fixture.status || '').toLowerCase();
+                        if (status === 'fixture') {
+                            return isLiveNow(getPdcFixtureDate(fixture), null, 3);
+                        }
+                        return false;
+                    });
+                    event.matches.push(dartsSession(
+                        session.sessionStart,
+                        [session.sessionName, stageLabel].filter(Boolean).join(' - '),
+                        session.fixtures.map(formatPdcScheduleItem)
+                    ));
+                });
+
+            return Array.from(eventGroups.values());
+        }
+
+        function mergeDartsScheduleEvents(staticEvents = [], pdcEvents = []) {
+            if (!Array.isArray(pdcEvents) || pdcEvents.length === 0) return staticEvents;
+
+            const pdcKeys = new Set(pdcEvents.map(event => [
+                getLocalDateKey(event.date),
+                normalizeDartsTournamentName(event.competition || event.title)
+            ].join('|')));
+
+            const filteredStatic = staticEvents.filter(event => {
+                const key = [
+                    getLocalDateKey(event.date),
+                    normalizeDartsTournamentName(event.competition || event.title)
+                ].join('|');
+                return !pdcKeys.has(key);
+            });
+
+            return [...filteredStatic, ...pdcEvents]
+                .sort((a, b) => new Date(a.date) - new Date(b.date) || String(a.time || '').localeCompare(String(b.time || '')));
+        }
+
         function formatResultTime(dateObj, fallback = '') {
             if (fallback) return fallback;
             if (!(dateObj instanceof Date) || Number.isNaN(dateObj.getTime())) return '';
@@ -5515,7 +5702,11 @@
                 .filter(Boolean);
         }
 
-        async function fetchPdcDartsResults(options = {}) {
+        async function fetchPdcFixtures(options = {}) {
+            if (!options.force && Array.isArray(cachedData.dartsFixtures)) {
+                return cachedData.dartsFixtures;
+            }
+
             try {
                 const separator = CONFIG.PDC_FIXTURES_URL.includes('?') ? '&' : '?';
                 const response = await fetch(`${CONFIG.PDC_FIXTURES_URL}${separator}v=${Date.now()}`, {
@@ -5523,11 +5714,25 @@
                 });
                 if (!response.ok) throw new Error(`PDC fixtures ${response.status}`);
                 const data = await response.json();
-                return normalizePdcDartsResults(data.data || []);
+                cachedData.dartsFixtures = data.data || [];
+                if (options.force) {
+                    cachedData.dartsResults = null;
+                }
+                return cachedData.dartsFixtures;
             } catch (error) {
-                console.warn('Could not fetch PDC darts results:', error);
+                console.warn('Could not fetch PDC darts fixtures:', error);
                 return [];
             }
+        }
+
+        async function fetchPdcDartsSchedule(options = {}) {
+            const fixtures = await fetchPdcFixtures(options);
+            return normalizePdcDartsSchedule(fixtures);
+        }
+
+        async function fetchPdcDartsResults(options = {}) {
+            const fixtures = await fetchPdcFixtures(options);
+            return normalizePdcDartsResults(fixtures);
         }
 
         function parseDartsScoreLabel(label = '') {
@@ -5878,6 +6083,7 @@
 
         // Current sport filter (null = all sports)
         let currentSportFilter = 'voetbal'; // Start with voetbal active
+        let forceRefreshSports = new Set();
         let scrollSyncObserver = null;
         let scrollSyncPausedUntil = 0;
 
@@ -5892,15 +6098,17 @@
             const today = new Date();
             today.setHours(0, 0, 0, 0);
             const futureDays = 30;
-            const forceResultsRefresh = resultsMode;
+            const forceAllRefresh = forceRefreshSports.has('all');
+            const forceFootballRefresh = forceAllRefresh || forceRefreshSports.has('voetbal') || resultsMode;
+            const forceDartsRefresh = forceAllRefresh || forceRefreshSports.has('darts') || resultsMode;
 
             try {
-                const freshDartsData = getStaticDartsEvents();
+                const staticDartsData = getStaticDartsEvents();
                 const freshMotoGPData = getStaticMotoGPEvents();
                 const freshHandballData = getStaticHandballEvents();
-                const [footballData, dartsData, f1Data, motoGPData, handballData, highlightData] = await Promise.all([
-                    forceResultsRefresh ? fetchFootballMatches({ force: true }) : (cachedData.voetbal || fetchFootballMatches()),
-                    Promise.resolve(freshDartsData),
+                const [footballData, pdcDartsData, f1Data, motoGPData, handballData, highlightData] = await Promise.all([
+                    forceFootballRefresh ? fetchFootballMatches({ force: true }) : (cachedData.voetbal || fetchFootballMatches()),
+                    fetchPdcDartsSchedule({ force: forceDartsRefresh }),
                     cachedData.f1 || fetchF1Sessions(),
                     Promise.resolve(cachedData.motogp || freshMotoGPData),
                     Promise.resolve(cachedData.handbal || freshHandballData),
@@ -5915,7 +6123,7 @@
                 cachedData.voetbal = sanitizedUpcomingCount > reliableUpcomingCount
                     ? sanitizedFootballData
                     : reliableFootballData;
-                cachedData.darts = dartsData || freshDartsData || [];
+                cachedData.darts = mergeDartsScheduleEvents(staticDartsData, pdcDartsData || []);
                 cachedData.f1 = f1Data || [];
                 cachedData.motogp = motoGPData || freshMotoGPData || [];
                 cachedData.handbal = handballData || freshHandballData || [];
@@ -5932,6 +6140,8 @@
                 console.error('Fetch error:', error);
                 showError('Kon data niet ophalen. Probeer het later opnieuw.');
                 return;
+            } finally {
+                forceRefreshSports.clear();
             }
 
             // Apply sport filter
@@ -5970,7 +6180,7 @@
             if (resultsMode) {
                 const resultDateRange = buildDateRange(today, 30, 0);
                 generateDateTabs(resultDateRange, today);
-                await renderResultsView(container, resultDateRange, forceResultsRefresh);
+                await renderResultsView(container, resultDateRange, false);
                 setupScrollSync();
                 setTimeout(() => {
                     scrollToTodayOrNearest();
@@ -6814,6 +7024,53 @@
             });
         }
 
+        function clearSportDataCache(sport) {
+            if (!sport) {
+                clearAllDataCaches();
+                forceRefreshSports.add('all');
+                return;
+            }
+
+            if (sport === 'voetbal') {
+                cachedData.voetbal = null;
+                localStorage.removeItem('footballCache');
+                localStorage.removeItem('footballCacheTime');
+                localStorage.removeItem('footballSource');
+                forceRefreshSports.add('voetbal');
+                return;
+            }
+
+            if (sport === 'darts') {
+                cachedData.darts = null;
+                cachedData.dartsFixtures = null;
+                cachedData.dartsResults = null;
+                forceRefreshSports.add('darts');
+                return;
+            }
+
+            cachedData[sport] = null;
+            forceRefreshSports.add(sport);
+        }
+
+        async function refreshVisibleData(triggerButton = null) {
+            const sportToRefresh = currentSportFilter || null;
+            clearSportDataCache(sportToRefresh);
+
+            if (triggerButton) {
+                triggerButton.classList.add('loading');
+                triggerButton.disabled = true;
+            }
+
+            try {
+                await renderEvents();
+            } finally {
+                if (triggerButton) {
+                    triggerButton.classList.remove('loading');
+                    triggerButton.disabled = false;
+                }
+            }
+        }
+
         function reloadWithFreshData() {
             clearAllDataCaches();
             const url = new URL(window.location.href);
@@ -6841,9 +7098,8 @@
         menuOverlay.addEventListener('click', closeMenu);
 
         if (refreshDataBtn) {
-            refreshDataBtn.addEventListener('click', () => {
-                refreshDataBtn.classList.add('loading');
-                reloadWithFreshData();
+            refreshDataBtn.addEventListener('click', async () => {
+                await refreshVisibleData(refreshDataBtn);
             });
         }
 
