@@ -2931,7 +2931,7 @@
         // ============================================
         const CONFIG = {
             // Cache version - increment to force cache clear after config changes
-            CACHE_VERSION: '3.9.23',
+            CACHE_VERSION: '3.9.24',
 
             // OpenFootball API (gratis, geen key nodig!)
             // https://github.com/openfootball/football.json
@@ -4532,6 +4532,13 @@
             return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
         }
 
+        function addDaysToDateKey(dateKey, days) {
+            const [year, month, day] = String(dateKey || '').split('-').map(Number);
+            if (!year || !month || !day) return '';
+            const date = new Date(Date.UTC(year, month - 1, day + days, 12, 0, 0));
+            return `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, '0')}-${String(date.getUTCDate()).padStart(2, '0')}`;
+        }
+
         function buildDateRange(today, daysBack = 3, daysForward = 7) {
             const dates = [];
             for (let i = -daysBack; i <= daysForward; i++) {
@@ -5425,8 +5432,36 @@
             return new Date(`${attributes.startDate}T12:00:00`);
         }
 
+        function getDatePartsInTimeZone(dateObj, timeZone = 'Europe/Amsterdam') {
+            if (!(dateObj instanceof Date) || Number.isNaN(dateObj.getTime())) {
+                return { dateKey: '', time: '' };
+            }
+
+            const parts = new Intl.DateTimeFormat('en-CA', {
+                timeZone,
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                hourCycle: 'h23'
+            }).formatToParts(dateObj).reduce((result, part) => {
+                if (part.type !== 'literal') result[part.type] = part.value;
+                return result;
+            }, {});
+
+            return {
+                dateKey: `${parts.year}-${parts.month}-${parts.day}`,
+                time: `${parts.hour}:${parts.minute}`
+            };
+        }
+
+        function getPdcFixtureLocalParts(attributes = {}) {
+            return getDatePartsInTimeZone(getPdcFixtureDate(attributes), 'Europe/Amsterdam');
+        }
+
         function getPdcFixtureLocalTime(attributes = {}) {
-            return formatResultTime(getPdcFixtureDate(attributes));
+            return getPdcFixtureLocalParts(attributes).time;
         }
 
         function getDartsSessionStartTime(localTime = '') {
@@ -5487,13 +5522,9 @@
         }
 
         function normalizePdcDartsSchedule(fixtures = []) {
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
-            const fromDate = new Date(today);
-            fromDate.setDate(fromDate.getDate() - 7);
-            const toDate = new Date(today);
-            toDate.setDate(toDate.getDate() + 30);
-            toDate.setHours(23, 59, 59, 999);
+            const todayKey = getDatePartsInTimeZone(new Date(), 'Europe/Amsterdam').dateKey;
+            const fromDateKey = addDaysToDateKey(todayKey, -7);
+            const toDateKey = addDaysToDateKey(todayKey, 30);
 
             const sessionGroups = new Map();
 
@@ -5502,10 +5533,13 @@
                 .filter(attributes => attributes && isConfiguredDartsTournament(attributes.tournament?.name || ''))
                 .forEach(attributes => {
                     const dateObj = getPdcFixtureDate(attributes);
-                    if (!isValidDate(dateObj) || dateObj < fromDate || dateObj > toDate) return;
+                    if (!isValidDate(dateObj)) return;
 
-                    const localTime = formatResultTime(dateObj);
-                    const localDateKey = getLocalDateKey(dateObj);
+                    const localParts = getPdcFixtureLocalParts(attributes);
+                    const localTime = localParts.time;
+                    const localDateKey = localParts.dateKey;
+                    if (!localDateKey || localDateKey < fromDateKey || localDateKey > toDateKey) return;
+
                     const tournamentName = cleanDartsTournamentName(attributes.tournament?.name || 'PDC Darts');
                     const sessionStart = getDartsSessionStartTime(localTime);
                     const sessionName = getDartsSessionLabel(localTime);
@@ -5673,12 +5707,13 @@
                     const competition = cleanDartsTournamentName(attributes.tournament?.name || 'PDC Darts');
                     const location = buildLocationLabel(attributes.tournament?.venue, attributes.tournament?.city);
                     const score = hasScore ? `${attributes.participant1Score}-${attributes.participant2Score}` : '';
+                    const localParts = getPdcFixtureLocalParts(attributes);
 
                     return {
                         sportType: 'darts',
                         dateObj,
-                        dateKey: getLocalDateKey(dateObj),
-                        time: formatResultTime(dateObj),
+                        dateKey: localParts.dateKey || getLocalDateKey(dateObj),
+                        time: localParts.time || formatResultTime(dateObj),
                         home,
                         away,
                         score,
