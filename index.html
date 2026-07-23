@@ -2931,7 +2931,7 @@
         // ============================================
         const CONFIG = {
             // Cache version - increment to force cache clear after config changes
-            CACHE_VERSION: '3.9.24',
+            CACHE_VERSION: '3.9.25',
 
             // OpenFootball API (gratis, geen key nodig!)
             // https://github.com/openfootball/football.json
@@ -4334,6 +4334,12 @@
 
         function getConfirmedFootballFallbackMatches() {
             const matches = [
+                // UEFA European qualifiers for Dutch clubs, verified against UEFA and club sources.
+                { date: '2026-07-23', time: '20:00', home: 'FK Vojvodina', away: 'Ajax', competition: 'Conference League', channel: 'Ziggo Sport', venue: 'Stadion Karadjordje', source: 'UEFA/Ajax confirmed' },
+                { date: '2026-07-30', time: '20:00', home: 'Ajax', away: 'FK Vojvodina', competition: 'Conference League', channel: 'Ziggo Sport', venue: 'Johan Cruijff ArenA', source: 'UEFA/Ajax confirmed' },
+                { date: '2026-07-23', time: '20:00', home: 'FC Twente', away: 'Ferencvaros', competition: 'Europa League', channel: 'Ziggo Sport', venue: 'De Grolsch Veste', source: 'UEFA/FC Twente confirmed' },
+                { date: '2026-07-30', time: '20:30', home: 'Ferencvaros', away: 'FC Twente', competition: 'Europa League', channel: 'Ziggo Sport', source: 'UEFA/FC Twente confirmed' },
+
                 // Oranje Leeuwinnen - confirmed upcoming qualifiers / internationals
                 { date: '2026-04-14', time: 'TBD', home: 'Nederland', away: 'Frankrijk', competition: 'WK Kwalificatie Vrouwen', channel: 'NPO 3 / ESPN' },
                 { date: '2026-04-18', time: 'TBD', home: 'Frankrijk', away: 'Nederland', competition: 'WK Kwalificatie Vrouwen', channel: 'NPO 3 / ESPN' },
@@ -4342,12 +4348,14 @@
             ];
 
             return matches.map(m => ({
-                date: new Date(`${m.date}T12:00:00`),
+                date: new Date(`${m.date}T${/^\d{1,2}:\d{2}$/.test(m.time) ? m.time : '12:00'}`),
                 time: m.time,
                 home: m.home,
                 away: m.away,
                 competition: m.competition,
                 channel: m.channel,
+                venue: m.venue || '',
+                source: m.source || 'Confirmed fallback',
                 score: null,
                 live: false,
                 status: 'SCHEDULED',
