@@ -2941,7 +2941,7 @@
         // ============================================
         const CONFIG = {
             // Cache version - increment to force cache clear after config changes
-            CACHE_VERSION: '3.9.30',
+            CACHE_VERSION: '3.9.31',
 
             // OpenFootball API (gratis, geen key nodig!)
             // https://github.com/openfootball/football.json
@@ -3089,6 +3089,7 @@
                 'EHF European League Men': 'EHF TV',
                 'EHF European League Women': 'EHF TV',
                 'EHF European Cup Women': 'EHF TV',
+                'M18 EHF Championship I 2026': 'EHF TV',
                 "Women's EHF EURO 2026": 'EHF TV'
             },
 
@@ -3167,6 +3168,7 @@
                 'EHF European League Men': 'eu',
                 'EHF European League Women': 'eu',
                 'EHF European Cup Women': 'eu',
+                'M18 EHF Championship I 2026': 'eu',
                 "Women's EHF EURO 2026": 'eu',
                 'EHF TV': 'eu',
                 'Handbal': 'eu'
@@ -4326,6 +4328,26 @@
         ];
 
         const handballCalendar = [
+            { date: '2026-08-03', time: '12:00', event: 'Latvia vs Ukraine', competition: 'M18 EHF Championship I 2026', location: 'Skopje', channel: 'EHF TV', source: 'EHF confirmed' },
+            { date: '2026-08-03', time: '14:15', event: 'Romania vs Lithuania', competition: 'M18 EHF Championship I 2026', location: 'Skopje', channel: 'EHF TV', source: 'EHF confirmed' },
+            { date: '2026-08-03', time: '16:30', event: 'Netherlands vs Estonia', competition: 'M18 EHF Championship I 2026', location: 'Skopje', channel: 'EHF TV', source: 'EHF confirmed' },
+            { date: '2026-08-03', time: '18:45', event: 'Greece vs Luxembourg', competition: 'M18 EHF Championship I 2026', location: 'Skopje', channel: 'EHF TV', source: 'EHF confirmed' },
+            { date: '2026-08-04', time: '12:00', event: 'Lithuania vs Ukraine', competition: 'M18 EHF Championship I 2026', location: 'Skopje', channel: 'EHF TV', source: 'EHF confirmed' },
+            { date: '2026-08-04', time: '14:15', event: 'Romania vs Latvia', competition: 'M18 EHF Championship I 2026', location: 'Skopje', channel: 'EHF TV', source: 'EHF confirmed' },
+            { date: '2026-08-04', time: '16:30', event: 'Luxembourg vs Estonia', competition: 'M18 EHF Championship I 2026', location: 'Skopje', channel: 'EHF TV', source: 'EHF confirmed' },
+            { date: '2026-08-04', time: '18:45', event: 'Greece vs Netherlands', competition: 'M18 EHF Championship I 2026', location: 'Skopje', channel: 'EHF TV', source: 'EHF confirmed' },
+            { date: '2026-08-06', time: '12:00', event: 'Ukraine vs Romania', competition: 'M18 EHF Championship I 2026', location: 'Skopje', channel: 'EHF TV', source: 'EHF confirmed' },
+            { date: '2026-08-06', time: '14:15', event: 'Latvia vs Lithuania', competition: 'M18 EHF Championship I 2026', location: 'Skopje', channel: 'EHF TV', source: 'EHF confirmed' },
+            { date: '2026-08-06', time: '16:30', event: 'Estonia vs Greece', competition: 'M18 EHF Championship I 2026', location: 'Skopje', channel: 'EHF TV', source: 'EHF confirmed' },
+            { date: '2026-08-06', time: '18:45', event: 'Netherlands vs Luxembourg', competition: 'M18 EHF Championship I 2026', location: 'Skopje', channel: 'EHF TV', source: 'EHF confirmed' },
+            { date: '2026-08-08', time: '12:00', event: 'Cross Match 5-8: PR 3. A vs PR 4. B', competition: 'M18 EHF Championship I 2026', location: 'Skopje', channel: 'EHF TV', source: 'EHF confirmed' },
+            { date: '2026-08-08', time: '14:30', event: 'Cross Match 5-8: PR 3. B vs PR 4. A', competition: 'M18 EHF Championship I 2026', location: 'Skopje', channel: 'EHF TV', source: 'EHF confirmed' },
+            { date: '2026-08-08', time: '17:00', event: 'Halve finale: PR 1. A vs PR 2. B', competition: 'M18 EHF Championship I 2026', location: 'Skopje', channel: 'EHF TV', source: 'EHF confirmed' },
+            { date: '2026-08-08', time: '19:30', event: 'Halve finale: PR 1. B vs PR 2. A', competition: 'M18 EHF Championship I 2026', location: 'Skopje', channel: 'EHF TV', source: 'EHF confirmed' },
+            { date: '2026-08-09', time: '12:00', event: 'Plaatsingswedstrijd 7/8: L.M13 vs L.M14', competition: 'M18 EHF Championship I 2026', location: 'Skopje', channel: 'EHF TV', source: 'EHF confirmed' },
+            { date: '2026-08-09', time: '14:30', event: 'Plaatsingswedstrijd 5/6: W.M13 vs W.M14', competition: 'M18 EHF Championship I 2026', location: 'Skopje', channel: 'EHF TV', source: 'EHF confirmed' },
+            { date: '2026-08-09', time: '17:00', event: 'Bronze match: L.M15 vs L.M16', competition: 'M18 EHF Championship I 2026', location: 'Skopje', channel: 'EHF TV', source: 'EHF confirmed' },
+            { date: '2026-08-09', time: '19:30', event: 'Finale: W.M15 vs W.M16', competition: 'M18 EHF Championship I 2026', location: 'Skopje', channel: 'EHF TV', source: 'EHF confirmed' },
             { date: '2026-09-05', time: 'TBD', event: 'EHF Champions League Women - Groepsfase speelweekend 1', competition: 'EHF Champions League Women', location: 'Europa', channel: 'EHF TV', source: 'EHF confirmed', note: 'Exacte affiches volgen zodra EHF het wedstrijdschema publiceert.' },
             { date: '2026-09-06', time: 'TBD', event: 'EHF Champions League Women - Groepsfase speelweekend 1', competition: 'EHF Champions League Women', location: 'Europa', channel: 'EHF TV', source: 'EHF confirmed', note: 'Exacte affiches volgen zodra EHF het wedstrijdschema publiceert.' },
             { date: '2026-09-09', time: 'TBD', event: 'EHF Champions League Men - Groepsfase speelronde 1', competition: 'EHF Champions League', location: 'Europa', channel: 'EHF TV', source: 'EHF confirmed', note: 'Exacte affiches volgen zodra EHF het wedstrijdschema publiceert.' },
