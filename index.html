@@ -6405,7 +6405,7 @@
             });
 
             const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
-            const visibleDateRange = buildDateRange(today, showPast ? 3 : 0, 7);
+            const visibleDateRange = buildDateRange(today, showPast ? 3 : 0, futureDays);
             visibleDateRange.forEach(dateKey => {
                 if (!eventsByDate[dateKey]) eventsByDate[dateKey] = [];
             });
