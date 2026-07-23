@@ -2941,7 +2941,7 @@
         // ============================================
         const CONFIG = {
             // Cache version - increment to force cache clear after config changes
-            CACHE_VERSION: '3.9.26',
+            CACHE_VERSION: '3.9.27',
 
             // OpenFootball API (gratis, geen key nodig!)
             // https://github.com/openfootball/football.json
@@ -3003,12 +3003,11 @@
                 { slug: 'uefa.euroq', name: 'EK Kwalificatie', channel: 'Ziggo Sport' },
                 { slug: 'fifa.friendly', name: 'Vriendschappelijk Internationaal', channel: 'ESPN / Ziggo Sport' },
                 // Women's international competitions
-                { slug: 'fifa.wwc', name: 'WK Vrouwen', channel: 'NPO 3 / ESPN' },
-                { slug: 'uefa.weuro', name: 'EK Vrouwen', channel: 'NPO 3 / ESPN' },
-                { slug: 'fifa.wworldq.uefa', name: 'WK Kwalificatie Vrouwen', channel: 'NPO 3 / ESPN' },
-                { slug: 'uefa.w.euroq', name: 'EK Kwalificatie Vrouwen', channel: 'NPO 3 / ESPN' },
-                { slug: 'uefa.w.nations', name: 'Nations League Vrouwen', channel: 'NPO 3 / ESPN' },
-                { slug: 'fifa.friendly.w', name: 'Vriendschappelijk Internationaal Vrouwen', channel: 'NPO 3 / ESPN' },
+                { slug: 'fifa.wwc', name: 'WK Vrouwen', channel: 'NPO 3 / ESPN', dutchNationalTeamOnly: true },
+                { slug: 'uefa.weuro', name: 'EK Vrouwen', channel: 'NPO 3 / ESPN', dutchNationalTeamOnly: true },
+                { slug: 'fifa.wworldq.uefa', name: 'WK Kwalificatie Vrouwen', channel: 'NPO 3 / ESPN', dutchNationalTeamOnly: true },
+                { slug: 'uefa.w.nations', name: 'Nations League Vrouwen', channel: 'NPO 3 / ESPN', dutchNationalTeamOnly: true },
+                { slug: 'fifa.friendly.w', name: 'Vriendschappelijk Internationaal Vrouwen', channel: 'NPO 3 / ESPN', dutchNationalTeamOnly: true },
                 // Nationale bekers
                 { slug: 'ned.cup', name: 'KNVB Beker', channel: 'ESPN' },
                 { slug: 'ned.supercup', name: 'Johan Cruijff Schaal', channel: 'ESPN' },
@@ -3070,6 +3069,12 @@
                 'Conference League': 'Ziggo Sport',
                 'Conference League Kwalificatie': 'Ziggo Sport',
                 'UEFA Super Cup': 'Ziggo Sport',
+                'WK Vrouwen': 'NPO 3 / ESPN',
+                'EK Vrouwen': 'NPO 3 / ESPN',
+                'WK Kwalificatie Vrouwen': 'NPO 3 / ESPN',
+                'EK Kwalificatie Vrouwen': 'NPO 3 / ESPN',
+                'Nations League Vrouwen': 'NPO 3 / ESPN',
+                'Vriendschappelijk Internationaal Vrouwen': 'NPO 3 / ESPN',
                 'Community Shield': 'Viaplay',
                 'DFL Supercup': 'Viaplay',
                 'Supercopa de Espana': 'Ziggo Sport',
@@ -4402,6 +4407,8 @@
                 { date: '2026-07-30', time: '20:30', home: 'Ferencvaros', away: 'FC Twente', competition: 'Europa League Kwalificatie', channel: 'Ziggo Sport', source: 'UEFA/FC Twente confirmed' },
 
                 // Oranje Leeuwinnen - confirmed upcoming qualifiers / internationals
+                { date: '2026-10-09', time: 'TBD', home: 'Hongarije', away: 'Nederland', competition: 'WK Kwalificatie Vrouwen', channel: 'NPO 3 / ESPN', source: 'OnsOranje/UEFA confirmed' },
+                { date: '2026-10-13', time: 'TBD', home: 'Nederland', away: 'Hongarije', competition: 'WK Kwalificatie Vrouwen', channel: 'NPO 3 / ESPN', source: 'OnsOranje/UEFA confirmed' },
                 { date: '2026-04-14', time: 'TBD', home: 'Nederland', away: 'Frankrijk', competition: 'WK Kwalificatie Vrouwen', channel: 'NPO 3 / ESPN' },
                 { date: '2026-04-18', time: 'TBD', home: 'Frankrijk', away: 'Nederland', competition: 'WK Kwalificatie Vrouwen', channel: 'NPO 3 / ESPN' },
                 { date: '2026-06-05', time: 'TBD', home: 'Ierland', away: 'Nederland', competition: 'WK Kwalificatie Vrouwen', channel: 'NPO 3 / ESPN' },
@@ -4723,6 +4730,11 @@
             return CONFIG.TEAM_FLAG_CODES[normalizeTeamFlagKey(name)] || '';
         }
 
+        function isDutchNationalTeamName(name = '') {
+            const normalized = normalizeTeamFlagKey(name);
+            return normalized === 'netherlands' || normalized === 'nederland' || getTeamFlagCode(name) === 'nl';
+        }
+
         function isRelevantInternationalMatch(competitionName, homeTeam, awayTeam) {
             const isFriendly = competitionName === 'Vriendschappelijk Internationaal' || competitionName === 'Vriendschappelijk Internationaal Vrouwen';
             const isWorldTournament = competitionName === 'WK' || competitionName === 'WK Vrouwen';
@@ -4740,6 +4752,10 @@
 
         function shouldIncludeEspnMatch(comp, homeTeam, awayTeam) {
             if (comp.dutchClubsOnly && !isDutchFootballClubName(homeTeam) && !isDutchFootballClubName(awayTeam)) {
+                return false;
+            }
+
+            if (comp.dutchNationalTeamOnly && !isDutchNationalTeamName(homeTeam) && !isDutchNationalTeamName(awayTeam)) {
                 return false;
             }
 
