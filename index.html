@@ -2826,8 +2826,12 @@
                         <label><input type="checkbox" value="Ligue 1"> Ligue 1</label>
                         <hr>
                         <label><input type="checkbox" value="Champions League"> Champions League</label>
+                        <label><input type="checkbox" value="Champions League Kwalificatie"> Champions League Kwalificatie</label>
                         <label><input type="checkbox" value="Europa League"> Europa League</label>
+                        <label><input type="checkbox" value="Europa League Kwalificatie"> Europa League Kwalificatie</label>
                         <label><input type="checkbox" value="Conference League"> Conference League</label>
+                        <label><input type="checkbox" value="Conference League Kwalificatie"> Conference League Kwalificatie</label>
+                        <label><input type="checkbox" value="UEFA Super Cup"> UEFA Super Cup</label>
                         <hr>
                         <label><input type="checkbox" value="FA Cup"> FA Cup</label>
                         <label><input type="checkbox" value="League Cup"> League Cup</label>
@@ -2836,6 +2840,12 @@
                         <label><input type="checkbox" value="Copa del Rey"> Copa del Rey</label>
                         <label><input type="checkbox" value="Coupe de France"> Coupe de France</label>
                         <label><input type="checkbox" value="KNVB Beker"> KNVB Beker</label>
+                        <label><input type="checkbox" value="Johan Cruijff Schaal"> Johan Cruijff Schaal</label>
+                        <label><input type="checkbox" value="Community Shield"> Community Shield</label>
+                        <label><input type="checkbox" value="DFL Supercup"> DFL Supercup</label>
+                        <label><input type="checkbox" value="Supercopa de Espana"> Supercopa de Espana</label>
+                        <label><input type="checkbox" value="Supercoppa Italiana"> Supercoppa Italiana</label>
+                        <label><input type="checkbox" value="Trophee des Champions"> Trophee des Champions</label>
                         <hr>
                         <label><input type="checkbox" value="WK"> WK</label>
                         <label><input type="checkbox" value="EK"> EK</label>
@@ -2931,7 +2941,7 @@
         // ============================================
         const CONFIG = {
             // Cache version - increment to force cache clear after config changes
-            CACHE_VERSION: '3.9.25',
+            CACHE_VERSION: '3.9.26',
 
             // OpenFootball API (gratis, geen key nodig!)
             // https://github.com/openfootball/football.json
@@ -2966,13 +2976,25 @@
             WORLD_CUP_HIGHLIGHTS_URL: 'data/nos-highlights.json',
             PDC_FIXTURES_URL: 'https://fixtures.darts.web.gc.pdcservices.co.uk/v2?page.size=500',
 
-            // ESPN competities - EL, Conference League en nationale bekers
+            // ESPN competities - aanvullende live bron voor nationale competities, UEFA en bekers
             ESPN_COMPETITIONS: [
+                // National leagues, used when OpenFootball season files are not yet published
+                { slug: 'ned.1', name: 'Eredivisie', channel: 'ESPN' },
+                { slug: 'ned.2', name: 'Keuken Kampioen Divisie', channel: 'ESPN' },
+                { slug: 'eng.1', name: 'Premier League', channel: 'Viaplay' },
+                { slug: 'ger.1', name: 'Bundesliga', channel: 'Viaplay' },
+                { slug: 'esp.1', name: 'La Liga', channel: 'Ziggo Sport' },
+                { slug: 'ita.1', name: 'Serie A', channel: 'Ziggo Sport' },
+                { slug: 'fra.1', name: 'Ligue 1', channel: 'Ziggo Sport' },
                 // UEFA top competitions
                 { slug: 'uefa.champions', name: 'Champions League', channel: 'Ziggo Sport' },
+                { slug: 'uefa.champions_qual', name: 'Champions League Kwalificatie', channel: 'Ziggo Sport', dutchClubsOnly: true },
                 // UEFA Cups
                 { slug: 'uefa.europa', name: 'Europa League', channel: 'Ziggo Sport' },
+                { slug: 'uefa.europa_qual', name: 'Europa League Kwalificatie', channel: 'Ziggo Sport', dutchClubsOnly: true },
                 { slug: 'uefa.europa.conf', name: 'Conference League', channel: 'Ziggo Sport' },
+                { slug: 'uefa.europa.conf_qual', name: 'Conference League Kwalificatie', channel: 'Ziggo Sport', dutchClubsOnly: true },
+                { slug: 'uefa.super_cup', name: 'UEFA Super Cup', channel: 'Ziggo Sport' },
                 // Men's international competitions
                 { slug: 'fifa.world', name: 'WK', channel: 'NPO 1 / ESPN' },
                 { slug: 'uefa.euro', name: 'EK', channel: 'NPO 1 / ESPN' },
@@ -2989,11 +3011,17 @@
                 { slug: 'fifa.friendly.w', name: 'Vriendschappelijk Internationaal Vrouwen', channel: 'NPO 3 / ESPN' },
                 // Nationale bekers
                 { slug: 'ned.cup', name: 'KNVB Beker', channel: 'ESPN' },
+                { slug: 'ned.supercup', name: 'Johan Cruijff Schaal', channel: 'ESPN' },
                 { slug: 'eng.fa', name: 'FA Cup', channel: 'Viaplay' },
+                { slug: 'eng.charity', name: 'Community Shield', channel: 'Viaplay' },
                 { slug: 'ger.dfb_pokal', name: 'DFB Pokal', channel: 'Viaplay' },
+                { slug: 'ger.super_cup', name: 'DFL Supercup', channel: 'Viaplay' },
                 { slug: 'esp.copa_del_rey', name: 'Copa del Rey', channel: 'Ziggo Sport' },
+                { slug: 'esp.super_cup', name: 'Supercopa de Espana', channel: 'Ziggo Sport' },
                 { slug: 'ita.coppa_italia', name: 'Coppa Italia', channel: 'Ziggo Sport' },
+                { slug: 'ita.super_cup', name: 'Supercoppa Italiana', channel: 'Ziggo Sport' },
                 { slug: 'fra.coupe_de_france', name: 'Coupe de France', channel: 'Ziggo Sport' },
+                { slug: 'fra.super_cup', name: 'Trophee des Champions', channel: 'Ziggo Sport' },
                 // Engelse League Cup
                 { slug: 'eng.league_cup', name: 'League Cup', channel: 'Viaplay' },
             ],
@@ -3020,6 +3048,7 @@
             // Nederlandse TV zenders mapping
             TV_CHANNELS: {
                 'Eredivisie': 'ESPN',
+                'Keuken Kampioen Divisie': 'ESPN',
                 'Premier League': 'Viaplay',
                 'Primera Division': 'Ziggo Sport',
                 'La Liga': 'Ziggo Sport',
@@ -3033,9 +3062,19 @@
                 'Copa del Rey': 'Ziggo Sport',
                 'Coupe de France': 'Ziggo Sport',
                 'KNVB Beker': 'ESPN',
+                'Johan Cruijff Schaal': 'ESPN',
                 'Champions League': 'Ziggo Sport',
+                'Champions League Kwalificatie': 'Ziggo Sport',
                 'Europa League': 'Ziggo Sport',
+                'Europa League Kwalificatie': 'Ziggo Sport',
                 'Conference League': 'Ziggo Sport',
+                'Conference League Kwalificatie': 'Ziggo Sport',
+                'UEFA Super Cup': 'Ziggo Sport',
+                'Community Shield': 'Viaplay',
+                'DFL Supercup': 'Viaplay',
+                'Supercopa de Espana': 'Ziggo Sport',
+                'Supercoppa Italiana': 'Ziggo Sport',
+                'Trophee des Champions': 'Ziggo Sport',
                 'Formula 1': 'Viaplay',
                 'Darts': 'Viaplay',
                 'MotoGP': 'Ziggo Sport',
@@ -3064,20 +3103,30 @@
                 'Eredivisie': 'nl',
                 'Keuken Kampioen Divisie': 'nl',
                 'KNVB Beker': 'nl',
+                'Johan Cruijff Schaal': 'nl',
                 'Premier League': 'en',
                 'FA Cup': 'en',
                 'League Cup': 'en',
+                'Community Shield': 'en',
                 'Bundesliga': 'de',
                 'DFB Pokal': 'de',
+                'DFL Supercup': 'de',
                 'La Liga': 'es',
                 'Copa del Rey': 'es',
+                'Supercopa de Espana': 'es',
                 'Serie A': 'it',
                 'Coppa Italia': 'it',
+                'Supercoppa Italiana': 'it',
                 'Ligue 1': 'fr',
                 'Coupe de France': 'fr',
+                'Trophee des Champions': 'fr',
                 'Champions League': 'eu',
+                'Champions League Kwalificatie': 'eu',
                 'Europa League': 'eu',
+                'Europa League Kwalificatie': 'eu',
                 'Conference League': 'eu',
+                'Conference League Kwalificatie': 'eu',
+                'UEFA Super Cup': 'eu',
                 'Nations League': 'eu',
                 'WK': 'world',
                 'EK': 'eu',
@@ -3291,6 +3340,18 @@
                 'Roemenië', 'San Marino', 'Scotland', 'Schotland', 'Serbia', 'Servië', 'Slovakia',
                 'Slowakije', 'Slovenia', 'Slovenië', 'Spain', 'Spanje', 'Sweden', 'Zweden', 'Switzerland',
                 'Zwitserland', 'Turkey', 'Türkiye', 'Turkije', 'Ukraine', 'Oekraïne', 'Wales'
+            ],
+
+            DUTCH_FOOTBALL_CLUBS: [
+                'ADO Den Haag', 'Ajax', 'Ajax Amsterdam', 'Almere City', 'AZ', 'AZ Alkmaar',
+                'Cambuur', 'De Graafschap', 'Excelsior', 'FC Dordrecht', 'FC Eindhoven',
+                'FC Emmen', 'FC Groningen', 'FC Twente', 'FC Utrecht', 'FC Volendam',
+                'Feyenoord', 'Fortuna Sittard', 'Go Ahead Eagles', 'Helmond Sport',
+                'Heracles Almelo', 'Jong Ajax', 'Jong AZ', 'Jong FC Utrecht', 'Jong PSV',
+                'MVV Maastricht', 'NAC Breda', 'NEC Nijmegen', 'N.E.C.', 'PEC Zwolle',
+                'PSV', 'PSV Eindhoven', 'RKC Waalwijk', 'Roda JC Kerkrade', 'SC Cambuur',
+                'SC Heerenveen', 'Sparta Rotterdam', 'Telstar', 'TOP Oss', 'Vitesse',
+                'VVV-Venlo', 'Willem II'
             ],
 
             // Club logo's - lokale bestanden in /logos/ map
@@ -4335,10 +4396,10 @@
         function getConfirmedFootballFallbackMatches() {
             const matches = [
                 // UEFA European qualifiers for Dutch clubs, verified against UEFA and club sources.
-                { date: '2026-07-23', time: '20:00', home: 'FK Vojvodina', away: 'Ajax', competition: 'Conference League', channel: 'Ziggo Sport', venue: 'Stadion Karadjordje', source: 'UEFA/Ajax confirmed' },
-                { date: '2026-07-30', time: '20:00', home: 'Ajax', away: 'FK Vojvodina', competition: 'Conference League', channel: 'Ziggo Sport', venue: 'Johan Cruijff ArenA', source: 'UEFA/Ajax confirmed' },
-                { date: '2026-07-23', time: '20:00', home: 'FC Twente', away: 'Ferencvaros', competition: 'Europa League', channel: 'Ziggo Sport', venue: 'De Grolsch Veste', source: 'UEFA/FC Twente confirmed' },
-                { date: '2026-07-30', time: '20:30', home: 'Ferencvaros', away: 'FC Twente', competition: 'Europa League', channel: 'Ziggo Sport', source: 'UEFA/FC Twente confirmed' },
+                { date: '2026-07-23', time: '20:00', home: 'FK Vojvodina', away: 'Ajax', competition: 'Conference League Kwalificatie', channel: 'Ziggo Sport', venue: 'Stadion Karadjordje', source: 'UEFA/Ajax confirmed' },
+                { date: '2026-07-30', time: '20:00', home: 'Ajax', away: 'FK Vojvodina', competition: 'Conference League Kwalificatie', channel: 'Ziggo Sport', venue: 'Johan Cruijff ArenA', source: 'UEFA/Ajax confirmed' },
+                { date: '2026-07-23', time: '20:00', home: 'FC Twente', away: 'Ferencvaros', competition: 'Europa League Kwalificatie', channel: 'Ziggo Sport', venue: 'De Grolsch Veste', source: 'UEFA/FC Twente confirmed' },
+                { date: '2026-07-30', time: '20:30', home: 'Ferencvaros', away: 'FC Twente', competition: 'Europa League Kwalificatie', channel: 'Ziggo Sport', source: 'UEFA/FC Twente confirmed' },
 
                 // Oranje Leeuwinnen - confirmed upcoming qualifiers / internationals
                 { date: '2026-04-14', time: 'TBD', home: 'Nederland', away: 'Frankrijk', competition: 'WK Kwalificatie Vrouwen', channel: 'NPO 3 / ESPN' },
@@ -4580,7 +4641,8 @@
             };
 
             const normalizeFootballDedupeTeamName = (name = '') => {
-                return getTeamFlagCode(name) || normalizeTeamFlagKey(name) || String(name || '').toLowerCase().trim();
+                const normalized = normalizeFootballClubNameForMatching(name);
+                return getTeamFlagCode(name) || normalized || String(name || '').toLowerCase().trim();
             };
 
             const deduped = new Map();
@@ -4635,6 +4697,23 @@
                 .trim();
         }
 
+        function normalizeFootballClubNameForMatching(name = '') {
+            return normalizeTeamFlagKey(name)
+                .replace(/^(afc|fc|fk|sc)\s+/, '')
+                .replace(/\s+(afc|fc|fk|sc)$/, '')
+                .replace(/\bamsterdam\b/g, '')
+                .replace(/\s+/g, ' ')
+                .trim();
+        }
+
+        function isDutchFootballClubName(name = '') {
+            const normalized = normalizeFootballClubNameForMatching(name);
+            if (!normalized) return false;
+            return CONFIG.DUTCH_FOOTBALL_CLUBS
+                .map(normalizeFootballClubNameForMatching)
+                .includes(normalized);
+        }
+
         function isUefaNationalTeam(name) {
             const normalized = normalizeInternationalTeamName(name);
             return CONFIG.UEFA_NATIONAL_TEAMS.includes(normalized);
@@ -4657,6 +4736,14 @@
             }
 
             return isUefaNationalTeam(homeTeam) || isUefaNationalTeam(awayTeam);
+        }
+
+        function shouldIncludeEspnMatch(comp, homeTeam, awayTeam) {
+            if (comp.dutchClubsOnly && !isDutchFootballClubName(homeTeam) && !isDutchFootballClubName(awayTeam)) {
+                return false;
+            }
+
+            return isRelevantInternationalMatch(comp.name, homeTeam, awayTeam);
         }
 
         function hasConcreteFootballParticipants(match) {
@@ -4767,11 +4854,11 @@
                 console.warn('Could not fetch CL matches:', e);
             }
 
-            // Fetch EL, Conference League and national cups from ESPN API
+            // Fetch additional football competitions from ESPN API
             try {
                 const espnMatches = await fetchESPNMatches();
                 allMatches.push(...espnMatches);
-                console.log(`Added ${espnMatches.length} EL/Conference/Cup matches from ESPN`);
+                console.log(`Added ${espnMatches.length} additional football matches from ESPN`);
             } catch (e) {
                 console.warn('Could not fetch ESPN matches:', e);
             }
@@ -4878,9 +4965,9 @@
             return allMatches;
         }
 
-        // Fetch matches from ESPN API (EL, Conference League, nationale bekers)
+        // Fetch matches from ESPN API (national leagues, UEFA, qualifiers, cups and supercups)
         async function fetchESPNMatches() {
-            console.log('Fetching EL/Conference/Cups from ESPN API...');
+            console.log('Fetching additional football competitions from ESPN API...');
             const allMatches = [];
 
             // Calculate date range: 30 days back, 30 days forward
@@ -4921,7 +5008,7 @@
                             const homeName = homeTeam.team?.shortDisplayName || homeTeam.team?.displayName || 'TBD';
                             const awayName = awayTeam.team?.shortDisplayName || awayTeam.team?.displayName || 'TBD';
 
-                            if (!isRelevantInternationalMatch(comp.name, homeName, awayName)) {
+                            if (!shouldIncludeEspnMatch(comp, homeName, awayName)) {
                                 return;
                             }
 
