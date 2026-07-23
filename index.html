@@ -2941,7 +2941,7 @@
         // ============================================
         const CONFIG = {
             // Cache version - increment to force cache clear after config changes
-            CACHE_VERSION: '3.9.29',
+            CACHE_VERSION: '3.9.30',
 
             // OpenFootball API (gratis, geen key nodig!)
             // https://github.com/openfootball/football.json
@@ -3083,7 +3083,13 @@
                 'Formula 1': 'Viaplay',
                 'Darts': 'Viaplay',
                 'MotoGP': 'Ziggo Sport',
-                'Handbal': 'EHF TV'
+                'Handbal': 'EHF TV',
+                'EHF Champions League': 'EHF TV',
+                'EHF Champions League Women': 'EHF TV',
+                'EHF European League Men': 'EHF TV',
+                'EHF European League Women': 'EHF TV',
+                'EHF European Cup Women': 'EHF TV',
+                "Women's EHF EURO 2026": 'EHF TV'
             },
 
             // TV kanaal logo's - lokale bestanden in /logos/ map
@@ -3157,6 +3163,11 @@
                 'MotoGP': 'world',
                 'MotoGP 2026': 'world',
                 'EHF Champions League': 'eu',
+                'EHF Champions League Women': 'eu',
+                'EHF European League Men': 'eu',
+                'EHF European League Women': 'eu',
+                'EHF European Cup Women': 'eu',
+                "Women's EHF EURO 2026": 'eu',
                 'EHF TV': 'eu',
                 'Handbal': 'eu'
             },
@@ -4306,7 +4317,29 @@
             { date: '2026-11-27', time: '12:00', event: 'GP Valencia - Cheste (27-29 november)', location: 'Cheste', channel: 'Ziggo Sport' }
         ];
 
+        const motoGPSessionTemplate = [
+            { offset: 0, time: 'TBD', label: 'Vrije training 1' },
+            { offset: 0, time: 'TBD', label: 'Training 2' },
+            { offset: 1, time: 'TBD', label: 'Kwalificatie' },
+            { offset: 1, time: 'TBD', label: 'Sprint' },
+            { offset: 2, time: 'TBD', label: 'Race' }
+        ];
+
         const handballCalendar = [
+            { date: '2026-09-05', time: 'TBD', event: 'EHF Champions League Women - Groepsfase speelweekend 1', competition: 'EHF Champions League Women', location: 'Europa', channel: 'EHF TV', source: 'EHF confirmed', note: 'Exacte affiches volgen zodra EHF het wedstrijdschema publiceert.' },
+            { date: '2026-09-06', time: 'TBD', event: 'EHF Champions League Women - Groepsfase speelweekend 1', competition: 'EHF Champions League Women', location: 'Europa', channel: 'EHF TV', source: 'EHF confirmed', note: 'Exacte affiches volgen zodra EHF het wedstrijdschema publiceert.' },
+            { date: '2026-09-09', time: 'TBD', event: 'EHF Champions League Men - Groepsfase speelronde 1', competition: 'EHF Champions League', location: 'Europa', channel: 'EHF TV', source: 'EHF confirmed', note: 'Exacte affiches volgen zodra EHF het wedstrijdschema publiceert.' },
+            { date: '2026-09-10', time: 'TBD', event: 'EHF Champions League Men - Groepsfase speelronde 1', competition: 'EHF Champions League', location: 'Europa', channel: 'EHF TV', source: 'EHF confirmed', note: 'Exacte affiches volgen zodra EHF het wedstrijdschema publiceert.' },
+            { date: '2026-09-29', time: 'TBD', event: 'EHF European League Men - Groepsfase start', competition: 'EHF European League Men', location: 'Europa', channel: 'EHF TV', source: 'EHF confirmed', note: 'Zes groepsrondes lopen van 29 september t/m 2 december 2026.' },
+            { date: '2026-10-03', time: 'TBD', event: 'EHF European Cup Women - Ronde 2 heenweekend', competition: 'EHF European Cup Women', location: 'Europa', channel: 'EHF TV', source: 'EHF confirmed', note: 'Exacte affiches volgen zodra EHF het wedstrijdschema publiceert.' },
+            { date: '2026-10-10', time: 'TBD', event: 'EHF European Cup Women - Ronde 2 terugweekend', competition: 'EHF European Cup Women', location: 'Europa', channel: 'EHF TV', source: 'EHF confirmed', note: 'Exacte affiches volgen zodra EHF het wedstrijdschema publiceert.' },
+            { date: '2026-11-07', time: 'TBD', event: 'EHF European Cup Women - Ronde 3 heenweekend', competition: 'EHF European Cup Women', location: 'Europa', channel: 'EHF TV', source: 'EHF confirmed', note: 'Exacte affiches volgen zodra EHF het wedstrijdschema publiceert.' },
+            { date: '2026-11-14', time: 'TBD', event: 'EHF European Cup Women - Ronde 3 terugweekend', competition: 'EHF European Cup Women', location: 'Europa', channel: 'EHF TV', source: 'EHF confirmed', note: 'Exacte affiches volgen zodra EHF het wedstrijdschema publiceert.' },
+            { date: '2026-12-03', time: 'TBD', event: "Women's EHF EURO 2026 - Voorronde start", competition: "Women's EHF EURO 2026", location: 'Polen / Roemenie / Tsjechie / Slowakije / Turkije', channel: 'EHF TV', source: 'EHF confirmed', note: 'Toernooi loopt van 3 t/m 20 december 2026.' },
+            { date: '2026-12-10', time: 'TBD', event: "Women's EHF EURO 2026 - Hoofdronde start", competition: "Women's EHF EURO 2026", location: 'Polen / Roemenie / Tsjechie / Slowakije / Turkije', channel: 'EHF TV', source: 'EHF confirmed', note: 'Exacte wedstrijden volgen uit de groepsfase.' },
+            { date: '2026-12-18', time: 'TBD', event: "Women's EHF EURO 2026 - Halve finales / plaatsingswedstrijden", competition: "Women's EHF EURO 2026", location: 'Polen', channel: 'EHF TV', source: 'EHF confirmed', note: 'Exacte wedstrijden volgen uit de hoofdronde.' },
+            { date: '2026-12-20', time: 'TBD', event: "Women's EHF EURO 2026 - Finaledag", competition: "Women's EHF EURO 2026", location: 'Katowice', channel: 'EHF TV', source: 'EHF confirmed', note: 'Finale en medaillewedstrijd.' },
+            { date: '2027-01-09', time: 'TBD', event: 'EHF European League Women - Seizoen start', competition: 'EHF European League Women', location: 'Europa', channel: 'EHF TV', source: 'EHF confirmed', note: 'Seizoen loopt van 9 januari t/m 9 mei 2027.' },
             { date: '2026-06-06', time: '15:00', event: 'Raiffeisen Bank EHF FINAL4 2026 - Halve finales', competition: 'EHF Champions League Women', location: 'Budapest', channel: 'EHF TV' },
             { date: '2026-06-07', time: '15:00', event: 'Raiffeisen Bank EHF FINAL4 2026 - Finaledag', competition: 'EHF Champions League Women', location: 'Budapest', channel: 'EHF TV' },
             { date: '2026-06-13', time: '15:00', event: 'TruckScout24 EHF FINAL4 2026 - Halve finales', competition: 'EHF Champions League', location: 'Cologne', channel: 'EHF TV' },
@@ -5426,6 +5459,11 @@
             return events;
         }
 
+        function getStaticEventDate(dateKey, time = '') {
+            const eventTime = /^\d{1,2}:\d{2}$/.test(String(time || '')) ? time : '12:00';
+            return new Date(`${dateKey}T${eventTime}`);
+        }
+
         function getStaticMotoGPEvents() {
             const events = [];
             const today = new Date();
@@ -5437,18 +5475,27 @@
                 const dateStr = getLocalDateKey(date);
 
                 motoGPCalendar
-                    .filter(event => event.date === dateStr)
                     .forEach(event => {
-                        events.push({
-                            date: new Date(event.date + 'T' + event.time),
-                            time: event.time,
-                            title: event.event,
-                            location: event.location,
-                            competition: 'MotoGP 2026',
-                            channel: event.channel,
-                            score: null,
-                            isStatic: true,
-                            live: isLiveNow(event.date + 'T' + event.time, null, 72)
+                        const sessions = event.sessions || motoGPSessionTemplate;
+                        sessions.forEach(session => {
+                            const sessionDateStr = addDaysToDateKey(event.date, session.offset || 0);
+                            if (sessionDateStr !== dateStr) return;
+
+                            const sessionTime = session.time || event.time || 'TBD';
+                            const sessionDate = getStaticEventDate(sessionDateStr, sessionTime);
+
+                            events.push({
+                                date: sessionDate,
+                                time: sessionTime,
+                                title: `${event.event} - ${session.label}`,
+                                location: event.location,
+                                competition: 'MotoGP 2026',
+                                channel: event.channel,
+                                score: null,
+                                source: 'MotoGP confirmed calendar',
+                                isStatic: true,
+                                live: /^\d{1,2}:\d{2}$/.test(sessionTime) && isLiveNow(sessionDate, null, 2)
+                            });
                         });
                     });
             }
@@ -5468,16 +5515,18 @@
                 handballCalendar
                     .filter(event => event.date === dateStr)
                     .forEach(event => {
+                        const eventDate = getStaticEventDate(event.date, event.time);
                         events.push({
-                            date: new Date(event.date + 'T' + event.time),
+                            date: eventDate,
                             time: event.time,
-                            title: event.event,
+                            title: event.note ? `${event.event} - ${event.note}` : event.event,
                             location: event.location,
                             competition: event.competition || 'EHF TV',
                             channel: event.channel,
                             score: null,
+                            source: event.source || 'EHF confirmed calendar',
                             isStatic: true,
-                            live: isLiveNow(event.date + 'T' + event.time, null, 4)
+                            live: /^\d{1,2}:\d{2}$/.test(event.time || '') && isLiveNow(eventDate, null, 4)
                         });
                     });
             }
