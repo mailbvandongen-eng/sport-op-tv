@@ -370,14 +370,43 @@
 
         .results-toggle-row {
             display: flex;
-            justify-content: flex-end;
+            align-items: center;
+            justify-content: stretch;
+            gap: 8px;
             padding: 0 16px 8px 16px;
+        }
+
+        .quick-search {
+            position: relative;
+            display: flex;
+            align-items: center;
+            flex: 3 1 0;
+            min-width: 0;
+        }
+
+        .quick-search svg {
+            position: absolute;
+            left: 10px;
+            width: 16px;
+            height: 16px;
+            color: rgba(255, 255, 255, 0.52);
+            pointer-events: none;
+        }
+
+        .quick-search .filter-input {
+            width: 100%;
+            min-width: 0;
+            height: 34px;
+            padding-left: 34px;
         }
 
         .results-toggle-btn {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
+            flex: 1 1 0;
+            min-width: 144px;
             min-height: 34px;
             padding: 7px 12px;
             border: 1px solid rgba(255, 255, 255, 0.18);
@@ -1996,12 +2025,18 @@
             }
 
             .results-toggle-row {
-                justify-content: stretch;
+                align-items: center;
                 padding: 0 12px 8px;
+                gap: 8px;
+            }
+
+            .quick-search {
+                flex: 1 1 auto;
             }
 
             .results-toggle-btn {
-                width: 100%;
+                flex: 0 0 auto;
+                width: auto;
                 justify-content: center;
                 min-height: 36px;
                 font-size: 0.76rem;
@@ -2207,6 +2242,18 @@
 
             .match-row .channel-badge {
                 font-size: 0.66rem;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .results-toggle-btn {
+                min-width: 44px;
+                width: 44px;
+                padding: 0;
+            }
+
+            .results-toggle-btn span {
+                display: none;
             }
         }
 
@@ -2805,7 +2852,11 @@
         </div>
 
         <div class="results-toggle-row">
-            <button class="results-toggle-btn" id="results-toggle" type="button" aria-pressed="false">
+            <div class="quick-search" role="search">
+                <i data-lucide="search"></i>
+                <input type="search" class="filter-input" id="filter-clubs" placeholder="Zoek team of land..." autocomplete="off" aria-label="Zoek op team of land">
+            </div>
+            <button class="results-toggle-btn" id="results-toggle" type="button" aria-pressed="false" title="Uitslagen tonen" aria-label="Uitslagen tonen">
                 <i data-lucide="list-checks"></i>
                 <span>Uitslagen tonen</span>
             </button>
@@ -2863,7 +2914,6 @@
                         <label><input type="checkbox" value="Vriendschappelijk Internationaal Vrouwen"> Oefenwedstrijden Vrouwen</label>
                     </div>
                 </div>
-                <input type="text" class="filter-input" id="filter-clubs" placeholder="Clubs...">
                 <button class="reset-btn" id="reset-filters" title="Reset">↻</button>
             </div>
         </div>
@@ -7215,6 +7265,8 @@
 
             btn.classList.toggle('active', resultsMode);
             btn.setAttribute('aria-pressed', resultsMode ? 'true' : 'false');
+            btn.setAttribute('title', resultsMode ? 'Programma tonen' : 'Uitslagen tonen');
+            btn.setAttribute('aria-label', resultsMode ? 'Programma tonen' : 'Uitslagen tonen');
             const label = btn.querySelector('span');
             if (label) {
                 label.textContent = resultsMode ? 'Programma tonen' : 'Uitslagen tonen';
