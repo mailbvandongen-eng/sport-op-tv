@@ -2853,6 +2853,7 @@
                         <label><input type="checkbox" value="WK Kwalificatie"> WK Kwalificatie</label>
                         <label><input type="checkbox" value="EK Kwalificatie"> EK Kwalificatie</label>
                         <label><input type="checkbox" value="Vriendschappelijk Internationaal"> Oefenwedstrijden</label>
+                        <label><input type="checkbox" value="Oefenwedstrijd"> Oefenwedstrijden clubs</label>
                         <hr>
                         <label><input type="checkbox" value="WK Vrouwen"> WK Vrouwen</label>
                         <label><input type="checkbox" value="EK Vrouwen"> EK Vrouwen</label>
@@ -2941,7 +2942,7 @@
         // ============================================
         const CONFIG = {
             // Cache version - increment to force cache clear after config changes
-            CACHE_VERSION: '3.9.31',
+            CACHE_VERSION: '3.9.32',
 
             // OpenFootball API (gratis, geen key nodig!)
             // https://github.com/openfootball/football.json
@@ -3075,6 +3076,7 @@
                 'EK Kwalificatie Vrouwen': 'NPO 3 / ESPN',
                 'Nations League Vrouwen': 'NPO 3 / ESPN',
                 'Vriendschappelijk Internationaal Vrouwen': 'NPO 3 / ESPN',
+                'Oefenwedstrijd': 'MUTV',
                 'Community Shield': 'Viaplay',
                 'DFL Supercup': 'Viaplay',
                 'Supercopa de Espana': 'Ziggo Sport',
@@ -3145,6 +3147,7 @@
                 'WK Kwalificatie': 'world',
                 'EK Kwalificatie': 'eu',
                 'Vriendschappelijk Internationaal': 'world',
+                'Oefenwedstrijd': 'world',
                 'WK Vrouwen': 'world',
                 'EK Vrouwen': 'eu',
                 'WK Kwalificatie Vrouwen': 'world',
@@ -3434,6 +3437,7 @@
                 // La Liga
                 'Real Madrid': 'logos/real-madrid.svg',
                 'Barcelona': 'logos/barcelona.svg',
+                'Atletico Madrid': 'logos/spain_atletico-madrid.football-logos.cc.svg',
                 'Atlético Madrid': 'logos/spain_atletico-madrid.football-logos.cc.svg',
                 'Sevilla': 'logos/sevilla.svg',
                 // Bundesliga
@@ -4461,6 +4465,14 @@
                 { date: '2026-07-23', time: '20:00', home: 'FC Twente', away: 'Ferencvaros', competition: 'Europa League Kwalificatie', channel: 'Ziggo Sport', venue: 'De Grolsch Veste', source: 'UEFA/FC Twente confirmed' },
                 { date: '2026-07-30', time: '20:30', home: 'Ferencvaros', away: 'FC Twente', competition: 'Europa League Kwalificatie', channel: 'Ziggo Sport', source: 'UEFA/FC Twente confirmed' },
 
+                // Manchester United pre-season friendlies, visible via the Manchester United app / MUTV.
+                { date: '2026-07-18', time: '17:00', home: 'Manchester United', away: 'Wrexham', competition: 'Oefenwedstrijd', channel: 'MUTV', venue: 'Helsingin olympiastadion', source: 'Manchester United/ESPN confirmed', score: '0-1' },
+                { date: '2026-07-24', time: '18:00', home: 'Rosenborg', away: 'Manchester United', competition: 'Oefenwedstrijd', channel: 'MUTV', venue: 'Lerkendal Stadion', source: 'Manchester United/Premier League confirmed', score: '0-5' },
+                { date: '2026-08-01', time: '15:00', home: 'Manchester United', away: 'Atletico Madrid', competition: 'Oefenwedstrijd', channel: 'MUTV', venue: 'Strawberry Arena', source: 'Manchester United/ESPN confirmed' },
+                { date: '2026-08-08', time: '17:00', home: 'Paris Saint-Germain', away: 'Manchester United', competition: 'Oefenwedstrijd', channel: 'MUTV', venue: 'Nya Ullevi', source: 'Manchester United/ESPN confirmed' },
+                { date: '2026-08-12', time: '20:30', home: 'Leeds United', away: 'Manchester United', competition: 'Oefenwedstrijd', channel: 'MUTV', venue: 'Croke Park', source: 'Manchester United/ESPN confirmed' },
+                { date: '2026-08-15', time: '16:45', home: 'AC Milan', away: 'Manchester United', competition: 'Oefenwedstrijd', channel: 'MUTV', venue: 'Tarczynski Arena', source: 'Manchester United/Sky confirmed' },
+
                 // Oranje Leeuwinnen - confirmed upcoming qualifiers / internationals
                 { date: '2026-10-09', time: 'TBD', home: 'Hongarije', away: 'Nederland', competition: 'WK Kwalificatie Vrouwen', channel: 'NPO 3 / ESPN', source: 'OnsOranje/UEFA confirmed' },
                 { date: '2026-10-13', time: 'TBD', home: 'Nederland', away: 'Hongarije', competition: 'WK Kwalificatie Vrouwen', channel: 'NPO 3 / ESPN', source: 'OnsOranje/UEFA confirmed' },
@@ -4479,9 +4491,9 @@
                 channel: m.channel,
                 venue: m.venue || '',
                 source: m.source || 'Confirmed fallback',
-                score: null,
+                score: m.score || null,
                 live: false,
-                status: 'SCHEDULED',
+                status: m.score ? 'FINISHED' : 'SCHEDULED',
                 isFallbackConfirmed: true
             }));
         }
@@ -4504,6 +4516,7 @@
                 espn5: 'ESPN 5',
                 ziggosport: 'Ziggo Sport',
                 viaplay: 'Viaplay',
+                mutv: 'MUTV',
                 rtl7: 'RTL 7',
                 sbs6: 'SBS 6',
                 veronica: 'Veronica'
