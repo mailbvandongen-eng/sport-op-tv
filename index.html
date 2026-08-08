@@ -2992,7 +2992,7 @@
         // ============================================
         const CONFIG = {
             // Cache version - increment to force cache clear after config changes
-            CACHE_VERSION: '3.9.33',
+            CACHE_VERSION: '3.9.34',
 
             // OpenFootball API (gratis, geen key nodig!)
             // https://github.com/openfootball/football.json
@@ -3073,7 +3073,7 @@
                 { slug: 'fra.coupe_de_france', name: 'Coupe de France', channel: 'Ziggo Sport' },
                 { slug: 'fra.super_cup', name: 'Trophee des Champions', channel: 'Ziggo Sport' },
                 // Engelse League Cup
-                { slug: 'eng.league_cup', name: 'EFL Cup (Carabao Cup)', channel: 'Viaplay' },
+                { slug: 'eng.league_cup', name: 'EFL Cup (Carabao Cup)', channel: 'Viaplay', minimumRound: 3 },
             ],
 
             // Backup: API-Football (alleen seizoen 2022-2024 op gratis plan!)
@@ -3419,7 +3419,7 @@
                 'FC Emmen', 'FC Groningen', 'FC Twente', 'FC Utrecht', 'FC Volendam',
                 'Feyenoord', 'Fortuna Sittard', 'Go Ahead Eagles', 'Helmond Sport',
                 'Heracles Almelo', 'Jong Ajax', 'Jong AZ', 'Jong FC Utrecht', 'Jong PSV',
-                'MVV Maastricht', 'NAC Breda', 'NEC Nijmegen', 'N.E.C.', 'PEC Zwolle',
+                'MVV Maastricht', 'NAC Breda', 'NEC', 'NEC Nijmegen', 'N.E.C.', 'N.E.C. Nijmegen', 'PEC Zwolle',
                 'PSV', 'PSV Eindhoven', 'RKC Waalwijk', 'Roda JC Kerkrade', 'SC Cambuur',
                 'SC Heerenveen', 'Sparta Rotterdam', 'Telstar', 'TOP Oss', 'Vitesse',
                 'VVV-Venlo', 'Willem II'
@@ -4509,12 +4509,6 @@
 
         function getConfirmedFootballFallbackMatches() {
             const matches = [
-                // UEFA European qualifiers for Dutch clubs, verified against UEFA and club sources.
-                { date: '2026-07-23', time: '20:00', home: 'FK Vojvodina', away: 'Ajax', competition: 'Conference League Kwalificatie', channel: 'Ziggo Sport', venue: 'Stadion Karadjordje', source: 'UEFA/Ajax confirmed' },
-                { date: '2026-07-30', time: '20:00', home: 'Ajax', away: 'FK Vojvodina', competition: 'Conference League Kwalificatie', channel: 'Ziggo Sport', venue: 'Johan Cruijff ArenA', source: 'UEFA/Ajax confirmed' },
-                { date: '2026-07-23', time: '20:00', home: 'FC Twente', away: 'Ferencvaros', competition: 'Europa League Kwalificatie', channel: 'Ziggo Sport', venue: 'De Grolsch Veste', source: 'UEFA/FC Twente confirmed' },
-                { date: '2026-07-30', time: '20:30', home: 'Ferencvaros', away: 'FC Twente', competition: 'Europa League Kwalificatie', channel: 'Ziggo Sport', source: 'UEFA/FC Twente confirmed' },
-
                 // Manchester United pre-season friendlies, visible via the Manchester United app / MUTV.
                 { date: '2026-07-18', time: '17:00', home: 'Manchester United', away: 'Wrexham', competition: 'Oefenwedstrijd', channel: 'MUTV', venue: 'Helsingin olympiastadion', source: 'Manchester United/ESPN confirmed', score: '0-1' },
                 { date: '2026-07-24', time: '18:00', home: 'Rosenborg', away: 'Manchester United', competition: 'Oefenwedstrijd', channel: 'MUTV', venue: 'Lerkendal Stadion', source: 'Manchester United/Premier League confirmed', score: '0-5' },
@@ -4888,12 +4882,55 @@
             return isUefaNationalTeam(homeTeam) || isUefaNationalTeam(awayTeam);
         }
 
-        function shouldIncludeEspnMatch(comp, homeTeam, awayTeam) {
+        function getEspnRoundText(event, competition) {
+            return [
+                event?.season?.type?.name,
+                event?.season?.type?.abbreviation,
+                event?.season?.slug,
+                event?.week?.text,
+                competition?.type?.text,
+                competition?.type?.abbreviation,
+                ...(competition?.notes || []).map(note => note?.headline),
+                competition?.status?.type?.detail,
+                event?.name,
+                event?.shortName
+            ].filter(Boolean).join(' ').toLowerCase();
+        }
+
+        function isAtOrAfterEnglishCupRound(roundText, minimumRound = 3) {
+            const text = String(roundText || '').toLowerCase().replace(/[-_]+/g, ' ');
+            if (!text) return false;
+
+            if (/round of (32|16)|last (32|16)|quarter|semi|\bfinal\b/.test(text)) {
+                return true;
+            }
+
+            const wordRounds = { first: 1, second: 2, third: 3, fourth: 4, fifth: 5, sixth: 6 };
+            for (const [word, round] of Object.entries(wordRounds)) {
+                if (new RegExp(`\\b${word}\\s+(?:proper\\s+)?round\\b|\\bround\\s+${word}\\b`).test(text)) {
+                    return round >= minimumRound;
+                }
+            }
+
+            const numericRound = text.match(/\b(?:round|rnd)\s*(\d+)|\b(\d+)(?:st|nd|rd|th)\s+(?:proper\s+)?round\b/);
+            if (numericRound) {
+                return Number(numericRound[1] || numericRound[2]) >= minimumRound;
+            }
+
+            // Unknown round metadata is hidden so the early rounds cannot flood the agenda.
+            return false;
+        }
+
+        function shouldIncludeEspnMatch(comp, homeTeam, awayTeam, event, competition) {
             if (comp.dutchClubsOnly && !isDutchFootballClubName(homeTeam) && !isDutchFootballClubName(awayTeam)) {
                 return false;
             }
 
             if (comp.dutchNationalTeamOnly && !isDutchNationalTeamName(homeTeam) && !isDutchNationalTeamName(awayTeam)) {
+                return false;
+            }
+
+            if (comp.minimumRound && !isAtOrAfterEnglishCupRound(getEspnRoundText(event, competition), comp.minimumRound)) {
                 return false;
             }
 
@@ -5162,7 +5199,7 @@
                             const homeName = homeTeam.team?.shortDisplayName || homeTeam.team?.displayName || 'TBD';
                             const awayName = awayTeam.team?.shortDisplayName || awayTeam.team?.displayName || 'TBD';
 
-                            if (!shouldIncludeEspnMatch(comp, homeName, awayName)) {
+                            if (!shouldIncludeEspnMatch(comp, homeName, awayName, event, competition)) {
                                 return;
                             }
 
