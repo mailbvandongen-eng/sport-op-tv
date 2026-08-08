@@ -1,11 +1,13 @@
-import { readFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
 
 const ROOT_DIR = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const INDEX_PATH = resolve(ROOT_DIR, 'index.html');
+const require = createRequire(import.meta.url);
+const footballPolicy = require(resolve(ROOT_DIR, 'football-policy.js'));
 const AMSTERDAM_TIME_ZONE = 'Europe/Amsterdam';
 const ESPN_BASE_URL = 'https://site.api.espn.com/apis/site/v2/sports/soccer';
+const ESPN_STANDINGS_BASE_URL = 'https://site.api.espn.com/apis/v2/sports/soccer';
 const DEFAULT_DAYS_FORWARD = 30;
 
 function getDatePartsInTimeZone(dateObj, timeZone = AMSTERDAM_TIME_ZONE) {
@@ -41,22 +43,6 @@ function getCheckDateKey() {
   return getDatePartsInTimeZone(new Date()).dateKey;
 }
 
-function extractEspnCompetitions(html) {
-  const match = html.match(/ESPN_COMPETITIONS:\s*\[([\s\S]*?)\r?\n\s*\],\r?\n\r?\n\s*\/\/ Backup:/);
-  if (!match) throw new Error('ESPN_COMPETITIONS kon niet uit index.html worden gelezen');
-
-  const entries = [...match[1].matchAll(/\{\s*slug:\s*'([^']+)',\s*name:\s*'([^']+)'([^}]*)\}/g)]
-    .map(([, slug, name, rest]) => ({
-      slug,
-      name,
-      dutchClubsOnly: /dutchClubsOnly:\s*true/.test(rest),
-      dutchNationalTeamOnly: /dutchNationalTeamOnly:\s*true/.test(rest)
-    }));
-
-  if (entries.length === 0) throw new Error('Geen ESPN-competities gevonden in index.html');
-  return entries;
-}
-
 async function fetchScoreboard(slug, fromDateKey, toDateKey) {
   const url = `${ESPN_BASE_URL}/${slug}/scoreboard?dates=${toEspnDateKey(fromDateKey)}-${toEspnDateKey(toDateKey)}&limit=1000`;
   const response = await fetch(url, {
@@ -78,6 +64,20 @@ async function fetchScoreboard(slug, fromDateKey, toDateKey) {
     ok: response.ok,
     events: Array.isArray(data.events) ? data.events : []
   };
+}
+
+async function fetchStandings(slug) {
+  const response = await fetch(`${ESPN_STANDINGS_BASE_URL}/${slug}/standings?region=nl&lang=nl`, {
+    headers: { 'User-Agent': 'sport-op-tv-football-check/1.0' }
+  });
+  let data = {};
+  try {
+    data = await response.json();
+  } catch {
+    data = {};
+  }
+  const entries = (data.children || []).flatMap(group => group?.standings?.entries || []);
+  return { slug, status: response.status, ok: response.ok, entries };
 }
 
 function eventText(event = {}) {
@@ -138,8 +138,7 @@ async function runControlCheck(check) {
 }
 
 async function main() {
-  const html = await readFile(INDEX_PATH, 'utf8');
-  const competitions = extractEspnCompetitions(html);
+  const competitions = footballPolicy.ESPN_COMPETITIONS;
   const checkDateKey = getCheckDateKey();
   const toDateKey = addDaysToDateKey(checkDateKey, Number(process.env.DAYS_FORWARD || DEFAULT_DAYS_FORWARD));
   const failures = [];
@@ -162,6 +161,17 @@ async function main() {
     console.log(`${comp.name} | ${comp.slug} | status ${result.status} | events ${result.events.length}`);
     if (!result.ok) {
       failures.push(`${comp.name} (${comp.slug}) geeft ESPN status ${result.status}`);
+    }
+  }
+
+  console.log('Standenbronnen:');
+  const standingsResults = await Promise.all(
+    [...new Set(Object.values(footballPolicy.ESPN_STANDINGS))].map(fetchStandings)
+  );
+  for (const result of standingsResults) {
+    console.log(`${result.slug} | status ${result.status} | teams ${result.entries.length}`);
+    if (!result.ok || result.entries.length === 0) {
+      failures.push(`Standen ${result.slug}: status ${result.status}, teams ${result.entries.length}`);
     }
   }
 

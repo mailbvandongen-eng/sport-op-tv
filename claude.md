@@ -7,10 +7,9 @@
 
 ### GEEN FAKE DATA!
 - **NOOIT** handmatig wedstrijddata toevoegen of verzinnen
-- **ALLEEN** de API's gebruiken voor wedstrijddata:
-  - OpenFootball: Eredivisie, Premier League, Bundesliga, La Liga, Serie A, Ligue 1
-  - Football-data.org: Champions League
-  - ESPN API: Europa League, Conference League, nationale bekers
+- **ALLEEN** sleutelloze bronnen gebruiken voor openbare wedstrijddata:
+  - OpenFootball: nationale competities
+  - ESPN API: standen, UEFA-competities, interlands en nationale bekers
 - Cache: 1 uur
 
 ### Darts & F1
@@ -20,6 +19,13 @@
 ---
 
 ## Changelog
+
+### v3.10.0 (2026-08-09)
+- Openbare API-sleutels en de CORS-proxy verwijderd
+- Standen en Champions League overgezet naar de sleutelloze ESPN-bron
+- Voetbalselectie en competitiebeleid verplaatst naar `football-policy.js`
+- Bronstatus en laatste bijwerktijd zichtbaar in de footer
+- Automatische selectie- en beveiligingstests toegevoegd
 
 ### v3.8.0 (2026-02-26)
 - **ESPN API integratie** voor Europa League, Conference League en nationale bekers
@@ -209,7 +215,7 @@
 
 ### v1.1.2 (2026-02-11)
 - Fixed: CORS proxy toegevoegd voor GitHub Pages (API was geblokkeerd door browser)
-- API calls gaan nu via corsproxy.io
+- API-calls gingen destijds via een publieke CORS-proxy (verwijderd in v3.10.0)
 
 ### v1.1.1 (2026-02-11)
 - Improved: Mobile layout (compacter header, tabs, filters)
@@ -258,10 +264,10 @@
 
 ## API Configuration
 
-### API-Football
-- Key: `6299b9b25468371fa7878f188ca297c0`
-- Limit: 100 requests/day
-- Cache TTL: 6 hours
+### Voetbal
+- OpenFootball en ESPN vereisen geen API-sleutel
+- Standen worden 24 uur gecachet; wedstrijden 1 uur
+- Voeg nooit sleutels of tokens toe aan deze openbare repository
 
 ### OpenF1
 - No API key needed
@@ -291,7 +297,7 @@
 - `getStaticStandings()` - Football league standings snapshots
 
 ## Known Issues
-- API-Football rate limit (100/day) causes "Geen voetbal gevonden" when exceeded
+- Externe sportbronnen kunnen tijdelijk onbereikbaar of onvolledig zijn
 - Ergast API has no 2026 F1 data yet
 
 ## User Preferences

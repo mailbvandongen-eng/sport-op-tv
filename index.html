@@ -11,6 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="football-policy.js"></script>
     <style>
         * {
             margin: 0;
@@ -2966,13 +2967,16 @@
             <div class="api-status" id="api-status">
                 <span class="live-dot"></span> <span class="status-text">Laden...</span>
             </div>
-            <p class="version-footer">v3.9.23</p>
+            <p class="version-footer">v3.10.0</p>
         </footer>
     </div>
 
     <script>
-        // Initialize Lucide icons
-        lucide.createIcons();
+        // Icons are decorative; a third-party outage must never stop the agenda.
+        function refreshIcons() {
+            if (globalThis.lucide?.createIcons) globalThis.lucide.createIcons();
+        }
+        refreshIcons();
 
         // Dark mode toggle
         const themeToggle = document.getElementById('theme-toggle');
@@ -2984,7 +2988,7 @@
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             document.documentElement.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
-            lucide.createIcons();
+            refreshIcons();
         });
 
         // ============================================
@@ -2992,7 +2996,7 @@
         // ============================================
         const CONFIG = {
             // Cache version - increment to force cache clear after config changes
-            CACHE_VERSION: '3.9.34',
+            CACHE_VERSION: '3.10.0',
 
             // OpenFootball API (gratis, geen key nodig!)
             // https://github.com/openfootball/football.json
@@ -3008,89 +3012,15 @@
                 { file: 'fr.1.json', name: 'Ligue 1', channel: 'Ziggo Sport' },
             ],
 
-            // Football-Data.org API (gratis met registratie!)
-            // Registreer op: https://www.football-data.org/client/register
-            // Vul hieronder je API key in:
-            FOOTBALL_DATA_KEY: '6324c5852d2c44e685625b598d9380ce',
-            FOOTBALL_DATA_URL: 'https://api.football-data.org/v4',
-
-            // Football-Data.org competities (gratis tier)
-            // Beschikbaar: CL, PL, BL1, SA, FL1, PD, DED, ELC, EC, WC
-            // NIET beschikbaar: EL, Conference League (betaald)
-            FOOTBALL_DATA_COMPETITIONS: [
-                { code: 'CL', name: 'Champions League', channel: 'Ziggo Sport' },
-            ],
-
             // ESPN API (gratis, geen key nodig!)
             // URL: https://site.api.espn.com/apis/site/v2/sports/soccer/{league}/scoreboard
             ESPN_API_URL: 'https://site.api.espn.com/apis/site/v2/sports/soccer',
+            ESPN_STANDINGS_API_URL: 'https://site.api.espn.com/apis/v2/sports/soccer',
             WORLD_CUP_HIGHLIGHTS_URL: 'data/nos-highlights.json',
             PDC_FIXTURES_URL: 'https://fixtures.darts.web.gc.pdcservices.co.uk/v2?page.size=500',
 
-            // ESPN competities - aanvullende live bron voor nationale competities, UEFA en bekers
-            ESPN_COMPETITIONS: [
-                // National leagues, used when OpenFootball season files are not yet published
-                { slug: 'ned.1', name: 'Eredivisie', channel: 'ESPN' },
-                { slug: 'ned.2', name: 'Keuken Kampioen Divisie', channel: 'ESPN' },
-                { slug: 'eng.1', name: 'Premier League', channel: 'Viaplay' },
-                { slug: 'ger.1', name: 'Bundesliga', channel: 'Viaplay' },
-                { slug: 'esp.1', name: 'La Liga', channel: 'Ziggo Sport' },
-                { slug: 'ita.1', name: 'Serie A', channel: 'Ziggo Sport' },
-                { slug: 'fra.1', name: 'Ligue 1', channel: 'Ziggo Sport' },
-                // UEFA top competitions
-                { slug: 'uefa.champions', name: 'Champions League', channel: 'Ziggo Sport' },
-                { slug: 'uefa.champions_qual', name: 'Champions League Kwalificatie', channel: 'Ziggo Sport', dutchClubsOnly: true },
-                // UEFA Cups
-                { slug: 'uefa.europa', name: 'Europa League', channel: 'Ziggo Sport' },
-                { slug: 'uefa.europa_qual', name: 'Europa League Kwalificatie', channel: 'Ziggo Sport', dutchClubsOnly: true },
-                { slug: 'uefa.europa.conf', name: 'Conference League', channel: 'Ziggo Sport' },
-                { slug: 'uefa.europa.conf_qual', name: 'Conference League Kwalificatie', channel: 'Ziggo Sport', dutchClubsOnly: true },
-                { slug: 'uefa.super_cup', name: 'UEFA Super Cup', channel: 'Ziggo Sport' },
-                // Men's international competitions
-                { slug: 'fifa.world', name: 'WK', channel: 'NPO 1 / ESPN' },
-                { slug: 'uefa.euro', name: 'EK', channel: 'NPO 1 / ESPN' },
-                { slug: 'uefa.nations', name: 'Nations League', channel: 'NPO 1 / Ziggo Sport' },
-                { slug: 'fifa.worldq.uefa', name: 'WK Kwalificatie', channel: 'Ziggo Sport' },
-                { slug: 'uefa.euroq', name: 'EK Kwalificatie', channel: 'Ziggo Sport' },
-                { slug: 'fifa.friendly', name: 'Vriendschappelijk Internationaal', channel: 'ESPN / Ziggo Sport' },
-                // Women's international competitions
-                { slug: 'fifa.wwc', name: 'WK Vrouwen', channel: 'NPO 3 / ESPN' },
-                { slug: 'uefa.weuro', name: 'EK Vrouwen', channel: 'NPO 3 / ESPN' },
-                { slug: 'fifa.wworldq.uefa', name: 'WK Kwalificatie Vrouwen', channel: 'NPO 3 / ESPN', dutchNationalTeamOnly: true },
-                { slug: 'uefa.w.nations', name: 'Nations League Vrouwen', channel: 'NPO 3 / ESPN', dutchNationalTeamOnly: true },
-                { slug: 'fifa.friendly.w', name: 'Vriendschappelijk Internationaal Vrouwen', channel: 'NPO 3 / ESPN', dutchNationalTeamOnly: true },
-                // Nationale bekers
-                { slug: 'ned.cup', name: 'KNVB Beker', channel: 'ESPN' },
-                { slug: 'ned.supercup', name: 'Johan Cruijff Schaal', channel: 'ESPN' },
-                { slug: 'eng.fa', name: 'FA Cup', channel: 'Viaplay' },
-                { slug: 'eng.charity', name: 'Community Shield', channel: 'Viaplay' },
-                { slug: 'ger.dfb_pokal', name: 'DFB Pokal', channel: 'Viaplay' },
-                { slug: 'ger.super_cup', name: 'DFL Supercup', channel: 'Viaplay' },
-                { slug: 'esp.copa_del_rey', name: 'Copa del Rey', channel: 'Ziggo Sport' },
-                { slug: 'esp.super_cup', name: 'Supercopa de Espana', channel: 'Ziggo Sport' },
-                { slug: 'ita.coppa_italia', name: 'Coppa Italia', channel: 'Ziggo Sport' },
-                { slug: 'ita.super_cup', name: 'Supercoppa Italiana', channel: 'Ziggo Sport' },
-                { slug: 'fra.coupe_de_france', name: 'Coupe de France', channel: 'Ziggo Sport' },
-                { slug: 'fra.super_cup', name: 'Trophee des Champions', channel: 'Ziggo Sport' },
-                // Engelse League Cup
-                { slug: 'eng.league_cup', name: 'EFL Cup (Carabao Cup)', channel: 'Viaplay', minimumRound: 3 },
-            ],
-
-            // Backup: API-Football (alleen seizoen 2022-2024 op gratis plan!)
-            API_FOOTBALL_KEY: '6299b9b25468371fa7878f188ca297c0',
-            API_FOOTBALL_URL: 'https://v3.football.api-sports.io',
-            CORS_PROXY: 'https://corsproxy.io/?',
-
-            // API-Football league IDs (voor standen, werkt wel voor huidig seizoen)
-            API_FOOTBALL_LEAGUES: [
-                { id: 88, name: 'Eredivisie', channel: 'ESPN' },
-                { id: 39, name: 'Premier League', channel: 'Viaplay' },
-                { id: 78, name: 'Bundesliga', channel: 'Viaplay' },
-                { id: 140, name: 'La Liga', channel: 'Ziggo Sport' },
-                { id: 135, name: 'Serie A', channel: 'Ziggo Sport' },
-                { id: 61, name: 'Ligue 1', channel: 'Ziggo Sport' },
-                { id: 2, name: 'Champions League', channel: 'Ziggo Sport' },
-            ],
+            // Centraal relevantiebeleid in football-policy.js.
+            ESPN_COMPETITIONS: ISER_FOOTBALL_POLICY.ESPN_COMPETITIONS,
 
             // OpenF1 API (gratis, geen key nodig)
             F1_API_URL: 'https://api.openf1.org/v1',
@@ -3413,17 +3343,7 @@
                 'Zwitserland', 'Turkey', 'Türkiye', 'Turkije', 'Ukraine', 'Oekraïne', 'Wales'
             ],
 
-            DUTCH_FOOTBALL_CLUBS: [
-                'ADO Den Haag', 'Ajax', 'Ajax Amsterdam', 'Almere City', 'AZ', 'AZ Alkmaar',
-                'Cambuur', 'De Graafschap', 'Excelsior', 'FC Dordrecht', 'FC Eindhoven',
-                'FC Emmen', 'FC Groningen', 'FC Twente', 'FC Utrecht', 'FC Volendam',
-                'Feyenoord', 'Fortuna Sittard', 'Go Ahead Eagles', 'Helmond Sport',
-                'Heracles Almelo', 'Jong Ajax', 'Jong AZ', 'Jong FC Utrecht', 'Jong PSV',
-                'MVV Maastricht', 'NAC Breda', 'NEC', 'NEC Nijmegen', 'N.E.C.', 'N.E.C. Nijmegen', 'PEC Zwolle',
-                'PSV', 'PSV Eindhoven', 'RKC Waalwijk', 'Roda JC Kerkrade', 'SC Cambuur',
-                'SC Heerenveen', 'Sparta Rotterdam', 'Telstar', 'TOP Oss', 'Vitesse',
-                'VVV-Venlo', 'Willem II'
-            ],
+            DUTCH_FOOTBALL_CLUBS: ISER_FOOTBALL_POLICY.DUTCH_FOOTBALL_CLUBS,
 
             // Club logo's - lokale bestanden in /logos/ map
             CLUB_LOGOS: {
@@ -3546,6 +3466,21 @@
         let cachedData = {
             ...createEmptyCachedData()
         };
+        let footballSourceHealth = { successful: 0, failed: 0, updatedAt: null, fromCache: false };
+
+        function restoreFootballSourceHealth(cacheTime) {
+            try {
+                const stored = JSON.parse(localStorage.getItem('footballSourceHealth') || '{}');
+                footballSourceHealth = {
+                    successful: Number(stored.successful) || 0,
+                    failed: Number(stored.failed) || 0,
+                    updatedAt: Number(cacheTime || stored.updatedAt) || null,
+                    fromCache: true
+                };
+            } catch {
+                footballSourceHealth = { successful: 0, failed: 0, updatedAt: Number(cacheTime) || null, fromCache: true };
+            }
+        }
 
         // ============================================
         // DARTS DATA 2026 - Premier League Darts & Major Events
@@ -4837,20 +4772,11 @@
         }
 
         function normalizeFootballClubNameForMatching(name = '') {
-            return normalizeTeamFlagKey(name)
-                .replace(/^(afc|fc|fk|sc)\s+/, '')
-                .replace(/\s+(afc|fc|fk|sc)$/, '')
-                .replace(/\bamsterdam\b/g, '')
-                .replace(/\s+/g, ' ')
-                .trim();
+            return ISER_FOOTBALL_POLICY.normalizeClubName(name);
         }
 
         function isDutchFootballClubName(name = '') {
-            const normalized = normalizeFootballClubNameForMatching(name);
-            if (!normalized) return false;
-            return CONFIG.DUTCH_FOOTBALL_CLUBS
-                .map(normalizeFootballClubNameForMatching)
-                .includes(normalized);
+            return ISER_FOOTBALL_POLICY.isDutchClub(name);
         }
 
         function isUefaNationalTeam(name) {
@@ -4882,59 +4808,11 @@
             return isUefaNationalTeam(homeTeam) || isUefaNationalTeam(awayTeam);
         }
 
-        function getEspnRoundText(event, competition) {
-            return [
-                event?.season?.type?.name,
-                event?.season?.type?.abbreviation,
-                event?.season?.slug,
-                event?.week?.text,
-                competition?.type?.text,
-                competition?.type?.abbreviation,
-                ...(competition?.notes || []).map(note => note?.headline),
-                competition?.status?.type?.detail,
-                event?.name,
-                event?.shortName
-            ].filter(Boolean).join(' ').toLowerCase();
-        }
-
-        function isAtOrAfterEnglishCupRound(roundText, minimumRound = 3) {
-            const text = String(roundText || '').toLowerCase().replace(/[-_]+/g, ' ');
-            if (!text) return false;
-
-            if (/round of (32|16)|last (32|16)|quarter|semi|\bfinal\b/.test(text)) {
-                return true;
-            }
-
-            const wordRounds = { first: 1, second: 2, third: 3, fourth: 4, fifth: 5, sixth: 6 };
-            for (const [word, round] of Object.entries(wordRounds)) {
-                if (new RegExp(`\\b${word}\\s+(?:proper\\s+)?round\\b|\\bround\\s+${word}\\b`).test(text)) {
-                    return round >= minimumRound;
-                }
-            }
-
-            const numericRound = text.match(/\b(?:round|rnd)\s*(\d+)|\b(\d+)(?:st|nd|rd|th)\s+(?:proper\s+)?round\b/);
-            if (numericRound) {
-                return Number(numericRound[1] || numericRound[2]) >= minimumRound;
-            }
-
-            // Unknown round metadata is hidden so the early rounds cannot flood the agenda.
-            return false;
-        }
-
         function shouldIncludeEspnMatch(comp, homeTeam, awayTeam, event, competition) {
-            if (comp.dutchClubsOnly && !isDutchFootballClubName(homeTeam) && !isDutchFootballClubName(awayTeam)) {
-                return false;
-            }
-
-            if (comp.dutchNationalTeamOnly && !isDutchNationalTeamName(homeTeam) && !isDutchNationalTeamName(awayTeam)) {
-                return false;
-            }
-
-            if (comp.minimumRound && !isAtOrAfterEnglishCupRound(getEspnRoundText(event, competition), comp.minimumRound)) {
-                return false;
-            }
-
-            return isRelevantInternationalMatch(comp.name, homeTeam, awayTeam);
+            return ISER_FOOTBALL_POLICY.includesMatch(comp, homeTeam, awayTeam, event, competition, {
+                isDutchNationalTeam: isDutchNationalTeamName,
+                isRelevantInternationalMatch
+            });
         }
 
         function hasConcreteFootballParticipants(match) {
@@ -4971,8 +4849,7 @@
             }).length;
         }
 
-        // Fetch football matches - try API-Football first, fall back to cache
-        // Fetch football matches from OpenFootball (gratis, geen API key!)
+        // Fetch football matches from keyless OpenFootball and ESPN sources.
         async function fetchFootballMatches(options = {}) {
             console.log('Fetching football matches from OpenFootball...');
 
@@ -4983,10 +4860,12 @@
 
             if (cacheValid) {
                 console.log('Using cached football data');
+                restoreFootballSourceHealth(cacheTime);
                 const data = JSON.parse(cached);
                 return data.map(m => normalizeFootballMatchChannel({ ...m, date: new Date(m.date) }));
             }
 
+            footballSourceHealth = { successful: 0, failed: 0, updatedAt: null, fromCache: false };
             const allMatches = [];
 
             // Fetch all leagues in parallel from OpenFootball
@@ -4998,10 +4877,12 @@
 
                     if (!response.ok) {
                         console.warn(`Failed to fetch ${league.name}: ${response.status}`);
+                        footballSourceHealth.failed += 1;
                         return [];
                     }
 
                     const data = await response.json();
+                    footballSourceHealth.successful += 1;
                     const matches = [];
 
                     if (data.matches && Array.isArray(data.matches)) {
@@ -5027,6 +4908,7 @@
                     return matches;
                 } catch (error) {
                     console.error(`Error fetching ${league.name}:`, error);
+                    footballSourceHealth.failed += 1;
                     return [];
                 }
             });
@@ -5035,15 +4917,6 @@
             results.forEach(matches => allMatches.push(...matches));
 
             console.log(`OpenFootball matches loaded: ${allMatches.length}`);
-
-            // Also fetch CL from football-data.org (if API key configured)
-            try {
-                const clMatches = await fetchFootballDataMatches();
-                allMatches.push(...clMatches);
-                console.log(`Added ${clMatches.length} CL matches from football-data.org`);
-            } catch (e) {
-                console.warn('Could not fetch CL matches:', e);
-            }
 
             // Fetch additional football competitions from ESPN API
             try {
@@ -5068,15 +4941,18 @@
 
             // Cache the results
             if (dedupedMatches.length > 0) {
+                footballSourceHealth.updatedAt = Date.now();
                 localStorage.setItem('footballCache', JSON.stringify(dedupedMatches));
-                localStorage.setItem('footballCacheTime', Date.now().toString());
-                localStorage.setItem('footballSource', 'openfootball+espn+confirmed-fallback' + (CONFIG.FOOTBALL_DATA_KEY ? '+football-data' : ''));
+                localStorage.setItem('footballCacheTime', footballSourceHealth.updatedAt.toString());
+                localStorage.setItem('footballSource', 'openfootball+espn+confirmed-fallback');
+                localStorage.setItem('footballSourceHealth', JSON.stringify(footballSourceHealth));
                 return dedupedMatches;
             }
 
             // API failed - use old cache if available
             if (cached) {
                 console.log('API unavailable, using cached data');
+                restoreFootballSourceHealth(cacheTime);
                 localStorage.setItem('footballSource', 'cache');
                 const data = JSON.parse(cached);
                 return data.map(m => normalizeFootballMatchChannel({ ...m, date: new Date(m.date) }));
@@ -5093,67 +4969,6 @@
             const d = new Date();
             d.setDate(d.getDate() + daysFromNow);
             return getLocalDateKey(d);
-        }
-
-        // Fetch European cup matches from football-data.org
-        async function fetchFootballDataMatches() {
-            // Check if API key is configured
-            if (!CONFIG.FOOTBALL_DATA_KEY) {
-                console.log('Football-data.org API key not configured - skipping CL/EL/Conference');
-                return [];
-            }
-
-            console.log('Fetching CL/EL/Conference from football-data.org...');
-            const allMatches = [];
-
-            // Calculate date range: 30 days back, 30 days forward
-            const fromDate = getDateStr(-30);
-            const toDate = getDateStr(30);
-
-            // Fetch each competition
-            for (const comp of CONFIG.FOOTBALL_DATA_COMPETITIONS) {
-                try {
-                    const url = `${CONFIG.FOOTBALL_DATA_URL}/competitions/${comp.code}/matches?dateFrom=${fromDate}&dateTo=${toDate}`;
-                    console.log(`Fetching ${comp.name}...`);
-
-                    const response = await fetch(url, {
-                        headers: { 'X-Auth-Token': CONFIG.FOOTBALL_DATA_KEY }
-                    });
-
-                    if (!response.ok) {
-                        console.warn(`Football-data.org ${comp.name}: ${response.status}`);
-                        continue;
-                    }
-
-                    const data = await response.json();
-
-                    if (data.matches && Array.isArray(data.matches)) {
-                        data.matches.forEach(match => {
-                            const matchDate = new Date(match.utcDate);
-                            const hasScore = match.score?.fullTime?.home !== null;
-
-                            allMatches.push({
-                                date: matchDate,
-                                time: matchDate.toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' }),
-                                home: match.homeTeam.shortName || match.homeTeam.name,
-                                away: match.awayTeam.shortName || match.awayTeam.name,
-                                homeCrest: match.homeTeam.crest,
-                                awayCrest: match.awayTeam.crest,
-                                competition: comp.name,
-                                channel: comp.channel,
-                                score: hasScore ? `${match.score.fullTime.home}-${match.score.fullTime.away}` : null,
-                                live: match.status === 'IN_PLAY' || match.status === 'PAUSED',
-                                status: match.status
-                            });
-                        });
-                        console.log(`Loaded ${data.matches.length} ${comp.name} matches`);
-                    }
-                } catch (error) {
-                    console.error(`Error fetching ${comp.name}:`, error);
-                }
-            }
-
-            return allMatches;
         }
 
         // Fetch matches from ESPN API (national leagues, UEFA, qualifiers, cups and supercups)
@@ -5177,10 +4992,12 @@
 
                     if (!response.ok) {
                         console.warn(`ESPN ${comp.name}: ${response.status}`);
+                        footballSourceHealth.failed += 1;
                         continue;
                     }
 
                     const data = await response.json();
+                    footballSourceHealth.successful += 1;
 
                     if (data.events && Array.isArray(data.events)) {
                         data.events.forEach(event => {
@@ -5226,6 +5043,7 @@
                     }
                 } catch (error) {
                     console.error(`Error fetching ${comp.name}:`, error);
+                    footballSourceHealth.failed += 1;
                 }
             }
 
@@ -5244,32 +5062,38 @@
                 return JSON.parse(cached);
             }
 
-            // Try API
-            const season = new Date().getMonth() >= 7 ? new Date().getFullYear() : new Date().getFullYear() - 1;
-            try {
-                const apiUrl = `${CONFIG.API_FOOTBALL_URL}/standings?league=${leagueId}&season=${season}`;
-                const response = await fetch(
-                    `${CONFIG.CORS_PROXY}${encodeURIComponent(apiUrl)}`,
-                    { headers: { 'x-apisports-key': CONFIG.API_FOOTBALL_KEY } }
-                );
+            const espnSlug = ISER_FOOTBALL_POLICY.ESPN_STANDINGS[leagueId];
+            if (espnSlug) {
+                try {
+                    const response = await fetch(`${CONFIG.ESPN_STANDINGS_API_URL}/${espnSlug}/standings?region=nl&lang=nl`);
+                    if (response.ok) {
+                        const data = await response.json();
+                        const entries = (data.children || []).flatMap(group => group?.standings?.entries || []);
+                        const standings = entries.map(entry => {
+                            const stat = name => entry.stats?.find(item => item.name === name)?.value || 0;
+                            return {
+                                rank: stat('rank'),
+                                team: {
+                                    name: entry.team?.displayName || entry.team?.name || 'Onbekend',
+                                    logo: entry.team?.logos?.[0]?.href || ''
+                                },
+                                all: { win: stat('wins'), draw: stat('ties'), lose: stat('losses') },
+                                goalsDiff: stat('pointDifferential'),
+                                points: stat('points')
+                            };
+                        }).filter(team => team.rank > 0);
 
-                if (response.ok) {
-                    const data = await response.json();
-
-                    // Check for rate limit error in response
-                    if (data.errors && Object.keys(data.errors).length > 0) {
-                        console.warn('Standings API error:', data.errors);
-                    } else if (data.response && data.response[0] && data.response[0].league.standings) {
-                        const standings = data.response[0].league.standings[0];
-                        // Cache the result
-                        localStorage.setItem(cacheKey, JSON.stringify(standings));
-                        localStorage.setItem(cacheKey + '_time', Date.now().toString());
-                        console.log(`Standings for ${leagueId} fetched from API`);
-                        return standings;
+                        if (standings.length > 0) {
+                            localStorage.setItem(cacheKey, JSON.stringify(standings));
+                            localStorage.setItem(cacheKey + '_time', Date.now().toString());
+                            localStorage.setItem(cacheKey + '_source', 'ESPN');
+                            console.log(`Standings for ${leagueId} fetched from ESPN`);
+                            return standings;
+                        }
                     }
+                } catch (error) {
+                    console.error('ESPN standings fetch error:', error);
                 }
-            } catch (e) {
-                console.error('Standings fetch error:', e);
             }
 
             // API failed - use cached data if available (even if old)
@@ -6501,8 +6325,19 @@
             if (cachedData.f1.length > 0) sources.push('F1');
             if (cachedData.motogp.length > 0) sources.push('MotoGP');
             if (cachedData.handbal.length > 0) sources.push('Handbal');
+            const checkedSources = footballSourceHealth.successful + footballSourceHealth.failed;
+            const updatedTime = footballSourceHealth.updatedAt
+                ? new Intl.DateTimeFormat('nl-NL', { hour: '2-digit', minute: '2-digit' }).format(new Date(footballSourceHealth.updatedAt))
+                : '';
+            const sourceHealthText = checkedSources > 0
+                ? `${footballSourceHealth.successful}/${checkedSources} voetbalbronnen`
+                : (footballSourceHealth.fromCache ? 'voetbal uit cache' : 'voetbalbron onbekend');
+            const freshnessText = updatedTime ? ` · bijgewerkt ${updatedTime}` : '';
+            const statusDotStyle = footballSourceHealth.failed === 0
+                ? ''
+                : ` style="background: ${footballSourceHealth.successful > 0 ? '#f59e0b' : '#e10600'};"`;
             statusEl.innerHTML = sources.length > 0
-                ? `<span class="live-dot"></span> ${sources.join(' + ')}`
+                ? `<span class="live-dot"${statusDotStyle}></span> ${sources.join(' + ')} · ${sourceHealthText}${freshnessText}`
                 : '<span class="live-dot" style="background: #e10600;"></span> Geen data';
 
             if (resultsMode) {
@@ -7344,6 +7179,7 @@
             localStorage.removeItem('footballCache');
             localStorage.removeItem('footballCacheTime');
             localStorage.removeItem('footballSource');
+            localStorage.removeItem('footballSourceHealth');
             localStorage.removeItem('selectedCompetitions');
             localStorage.removeItem('selectedClubs');
 
@@ -7366,6 +7202,7 @@
                 localStorage.removeItem('footballCache');
                 localStorage.removeItem('footballCacheTime');
                 localStorage.removeItem('footballSource');
+                localStorage.removeItem('footballSourceHealth');
                 forceRefreshSports.add('voetbal');
                 return;
             }
@@ -7577,6 +7414,7 @@
             localStorage.removeItem('footballCache');
             localStorage.removeItem('footballCacheTime');
             localStorage.removeItem('footballSource');
+            localStorage.removeItem('footballSourceHealth');
             // Clear all standings caches
             Object.keys(localStorage).forEach(key => {
                 if (key.startsWith('standings_')) {

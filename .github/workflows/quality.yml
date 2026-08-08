@@ -1,0 +1,22 @@
+name: Iser quality checks
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Test football selection
+        run: node scripts/test-football-selection.mjs
+      - name: Check public files for credentials
+        run: node scripts/test-public-security.mjs
