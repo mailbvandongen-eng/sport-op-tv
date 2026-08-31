@@ -137,3 +137,13 @@
         includesMatch
     });
 });
+
+// Load the universal cross-sport search extension in browsers. Keeping this
+// loader here avoids duplicating the large single-file application just to add
+// one script tag. Node-based policy tests ignore it.
+if (typeof document !== 'undefined') {
+    const searchScript = document.createElement('script');
+    searchScript.src = 'search-enhancements.js?v=3.10.1';
+    searchScript.defer = true;
+    document.head.appendChild(searchScript);
+}
