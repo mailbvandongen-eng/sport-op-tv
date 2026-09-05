@@ -18,5 +18,7 @@ jobs:
           node-version: 22
       - name: Test football selection
         run: node scripts/test-football-selection.mjs
+      - name: Test search and competition filters
+        run: node scripts/test-search.mjs
       - name: Check public files for credentials
         run: node scripts/test-public-security.mjs

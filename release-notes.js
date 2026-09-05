@@ -2,15 +2,17 @@
     'use strict';
 
     const RELEASE = Object.freeze({
-        version: '3.11.0',
-        date: '31 augustus 2026',
-        title: 'Zoeken en release notes',
+        version: '3.12.0',
+        date: '5 september 2026',
+        title: 'Zoeken en competitiefilters hersteld',
         notes: [
-            'Nieuwe universele zoekfunctie over alle sporten.',
-            'Zoeken werkt nu op team, sport, competitie, evenementtitel en zender.',
-            'Zoeksuggesties verschijnen tijdens het typen.',
-            'Release notes worden voortaan automatisch één keer getoond na iedere nieuwe versie.',
-            'Het versienummer onderaan de app opent de release notes opnieuw.'
+            'De universele zoekfunctie start nu betrouwbaar bij de eerste opening.',
+            'Zoeken werkt over alle sporten op sport, team, competitie, land, evenement en zender.',
+            'Zoeksuggesties zijn bedienbaar met aanraken, pijltjestoetsen en Enter.',
+            'Bij voetbal is een doorzoekbaar competitiefilter met selectievakjes toegevoegd.',
+            'Geselecteerde voetbalcompetities blijven op dit apparaat bewaard.',
+            'Een zoekopdracht zonder treffers toont voortaan een duidelijke melding.',
+            'Dit wijzigingsvenster en het versienummer laden nu zonder herladen van de app.'
         ]
     });
 
@@ -150,13 +152,23 @@
         });
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
+    let initialized = false;
+
+    function init() {
+        if (initialized) return;
+        initialized = true;
         installStyles();
         installVersionLink();
         if (localStorage.getItem(STORAGE_KEY) !== RELEASE.version) {
             setTimeout(() => showReleaseNotes(true), 250);
         }
-    });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init, { once: true });
+    } else {
+        init();
+    }
 
     window.SPORT_OP_TV_RELEASE = RELEASE;
 })();

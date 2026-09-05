@@ -137,17 +137,3 @@
         includesMatch
     });
 });
-
-// Browser extensions are loaded here so the large single-file app does not
-// need to be rewritten merely to add a script tag. Node policy tests ignore it.
-if (typeof document !== 'undefined') {
-    const searchScript = document.createElement('script');
-    searchScript.src = 'search-enhancements.js?v=3.11.0';
-    searchScript.defer = true;
-    document.head.appendChild(searchScript);
-
-    const releaseScript = document.createElement('script');
-    releaseScript.src = 'release-notes.js?v=3.11.0';
-    releaseScript.defer = true;
-    document.head.appendChild(releaseScript);
-}

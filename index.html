@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="football-policy.js"></script>
+    <script src="football-policy.js?v=3.12.0"></script>
     <style>
         * {
             margin: 0;
@@ -2855,68 +2855,17 @@
         <div class="results-toggle-row">
             <div class="quick-search" role="search">
                 <i data-lucide="search"></i>
-                <input type="search" class="filter-input" id="filter-clubs" placeholder="Zoek team of land..." autocomplete="off" aria-label="Zoek op team of land">
+                <input type="search" class="filter-input" id="sport-search" placeholder="Zoek sport, team, competitie of zender..." autocomplete="off" aria-label="Zoek op sport, team, competitie, land, zender of evenement">
             </div>
+            <button class="competition-filter-btn" id="competition-filter-btn" type="button" aria-haspopup="dialog" aria-expanded="false" aria-label="Voetbalcompetities kiezen" hidden>
+                <i data-lucide="list-filter"></i>
+                <span class="competition-filter-label">Competities</span>
+                <span class="competition-filter-count" id="competition-filter-count" hidden>0</span>
+            </button>
             <button class="results-toggle-btn" id="results-toggle" type="button" aria-pressed="false" title="Uitslagen tonen" aria-label="Uitslagen tonen">
                 <i data-lucide="list-checks"></i>
                 <span>Uitslagen tonen</span>
             </button>
-        </div>
-
-        <!-- Row 3: Filters -->
-        <div class="filters-row" id="filters-row">
-            <div class="filters-primary">
-                <div class="dropdown" id="comp-dropdown">
-                    <button class="dropdown-btn" id="comp-btn">Competities ▾</button>
-                    <div class="dropdown-content" id="comp-content">
-                        <label><input type="checkbox" value="Eredivisie"> Eredivisie</label>
-                        <label><input type="checkbox" value="Keuken Kampioen Divisie"> Keuken Kampioen Divisie</label>
-                        <label><input type="checkbox" value="Premier League"> Premier League</label>
-                        <label><input type="checkbox" value="Bundesliga"> Bundesliga</label>
-                        <label><input type="checkbox" value="La Liga"> La Liga</label>
-                        <label><input type="checkbox" value="Serie A"> Serie A</label>
-                        <label><input type="checkbox" value="Ligue 1"> Ligue 1</label>
-                        <hr>
-                        <label><input type="checkbox" value="Champions League"> Champions League</label>
-                        <label><input type="checkbox" value="Champions League Kwalificatie"> Champions League Kwalificatie</label>
-                        <label><input type="checkbox" value="Europa League"> Europa League</label>
-                        <label><input type="checkbox" value="Europa League Kwalificatie"> Europa League Kwalificatie</label>
-                        <label><input type="checkbox" value="Conference League"> Conference League</label>
-                        <label><input type="checkbox" value="Conference League Kwalificatie"> Conference League Kwalificatie</label>
-                        <label><input type="checkbox" value="UEFA Super Cup"> UEFA Super Cup</label>
-                        <hr>
-                        <label><input type="checkbox" value="FA Cup"> FA Cup</label>
-                        <label><input type="checkbox" value="EFL Cup (Carabao Cup)"> EFL Cup (Carabao Cup)</label>
-                        <label><input type="checkbox" value="Coppa Italia"> Coppa Italia</label>
-                        <label><input type="checkbox" value="DFB Pokal"> DFB Pokal</label>
-                        <label><input type="checkbox" value="Copa del Rey"> Copa del Rey</label>
-                        <label><input type="checkbox" value="Coupe de France"> Coupe de France</label>
-                        <label><input type="checkbox" value="KNVB Beker"> KNVB Beker</label>
-                        <label><input type="checkbox" value="Johan Cruijff Schaal"> Johan Cruijff Schaal</label>
-                        <label><input type="checkbox" value="Community Shield"> Community Shield</label>
-                        <label><input type="checkbox" value="DFL Supercup"> DFL Supercup</label>
-                        <label><input type="checkbox" value="Supercopa de Espana"> Supercopa de Espana</label>
-                        <label><input type="checkbox" value="Supercoppa Italiana"> Supercoppa Italiana</label>
-                        <label><input type="checkbox" value="Trophee des Champions"> Trophee des Champions</label>
-                        <hr>
-                        <label><input type="checkbox" value="WK"> WK</label>
-                        <label><input type="checkbox" value="EK"> EK</label>
-                        <label><input type="checkbox" value="Nations League"> Nations League</label>
-                        <label><input type="checkbox" value="WK Kwalificatie"> WK Kwalificatie</label>
-                        <label><input type="checkbox" value="EK Kwalificatie"> EK Kwalificatie</label>
-                        <label><input type="checkbox" value="Vriendschappelijk Internationaal"> Oefenwedstrijden</label>
-                        <label><input type="checkbox" value="Oefenwedstrijd"> Oefenwedstrijden clubs</label>
-                        <hr>
-                        <label><input type="checkbox" value="WK Vrouwen"> WK Vrouwen</label>
-                        <label><input type="checkbox" value="EK Vrouwen"> EK Vrouwen</label>
-                        <label><input type="checkbox" value="WK Kwalificatie Vrouwen"> WK Kwalificatie Vrouwen</label>
-                        <label><input type="checkbox" value="EK Kwalificatie Vrouwen"> EK Kwalificatie Vrouwen</label>
-                        <label><input type="checkbox" value="Nations League Vrouwen"> Nations League Vrouwen</label>
-                        <label><input type="checkbox" value="Vriendschappelijk Internationaal Vrouwen"> Oefenwedstrijden Vrouwen</label>
-                    </div>
-                </div>
-                <button class="reset-btn" id="reset-filters" title="Reset">↻</button>
-            </div>
         </div>
 
         <!-- Date Tabs -->
@@ -2967,7 +2916,7 @@
             <div class="api-status" id="api-status">
                 <span class="live-dot"></span> <span class="status-text">Laden...</span>
             </div>
-            <p class="version-footer">v3.10.0</p>
+            <p class="version-footer">v3.12.0</p>
         </footer>
     </div>
 
@@ -2996,7 +2945,7 @@
         // ============================================
         const CONFIG = {
             // Cache version - increment to force cache clear after config changes
-            CACHE_VERSION: '3.10.0',
+            CACHE_VERSION: '3.12.0',
 
             // OpenFootball API (gratis, geen key nodig!)
             // https://github.com/openfootball/football.json
@@ -3446,9 +3395,19 @@
         let showScores = false;
         let resultsMode = false;
         let showPast = true; // Always show past events
-        let filters = { competitions: [], clubs: [] };
+        function getStoredCompetitionFilters() {
+            try {
+                const stored = JSON.parse(localStorage.getItem('selectedCompetitions') || '[]');
+                return Array.isArray(stored)
+                    ? [...new Set(stored.map(value => String(value).trim()).filter(Boolean))]
+                    : [];
+            } catch (_) {
+                return [];
+            }
+        }
+
+        let filters = { competitions: getStoredCompetitionFilters() };
         let worldCupHighlightIndex = new Map();
-        localStorage.removeItem('selectedCompetitions');
         localStorage.removeItem('selectedClubs');
         function createEmptyCachedData() {
             return {
@@ -6303,16 +6262,9 @@
             let motoGPEvents = currentSportFilter === null || currentSportFilter === 'motogp' ? [...cachedData.motogp] : [];
             let handballEvents = currentSportFilter === null || currentSportFilter === 'handbal' ? [...cachedData.handbal] : [];
 
-            // Football: apply competition/club filters
-            if (filters.competitions && filters.competitions.length > 0) {
+            // Football: apply the persistent competition filter.
+            if (currentSportFilter === 'voetbal' && filters.competitions && filters.competitions.length > 0) {
                 footballEvents = footballEvents.filter(e => filters.competitions.includes(e.competition));
-            }
-            if (filters.clubs && filters.clubs.length > 0) {
-                footballEvents = footballEvents.filter(e => {
-                    const homeMatch = filters.clubs.some(club => e.home && e.home.toLowerCase().includes(club.toLowerCase()));
-                    const awayMatch = filters.clubs.some(club => e.away && e.away.toLowerCase().includes(club.toLowerCase()));
-                    return homeMatch || awayMatch;
-                });
             }
 
             let allEvents = [...footballEvents, ...dartsEvents, ...f1Events, ...motoGPEvents, ...handballEvents];
@@ -6383,9 +6335,12 @@
 
             const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
             const visibleDateRange = buildDateRange(today, showPast ? 3 : 0, futureDays);
-            visibleDateRange.forEach(dateKey => {
-                if (!eventsByDate[dateKey]) eventsByDate[dateKey] = [];
-            });
+            const competitionFilterActive = currentSportFilter === 'voetbal' && filters.competitions.length > 0;
+            if (!competitionFilterActive) {
+                visibleDateRange.forEach(dateKey => {
+                    if (!eventsByDate[dateKey]) eventsByDate[dateKey] = [];
+                });
+            }
 
             const sortedDates = Object.keys(eventsByDate).sort();
 
@@ -6396,8 +6351,8 @@
                 container.innerHTML = `
                     <div class="no-events">
                         <div class="icon">📺</div>
-                        <h3>Geen sport gevonden</h3>
-                        <p>Er zijn geen uitzendingen gevonden voor de komende periode.</p>
+                        <h3>${competitionFilterActive ? 'Geen wedstrijden in deze competities' : 'Geen sport gevonden'}</h3>
+                        <p>${competitionFilterActive ? 'Kies een andere competitie of toon alles.' : 'Er zijn geen uitzendingen gevonden voor de komende periode.'}</p>
                     </div>
                 `;
                 return;
@@ -6510,7 +6465,7 @@
                             const summaryHtml = getWorldCupSummaryLinkHtml(event);
                             const matchClass = `football-slot-match${event.live ? ' live' : ''}${hasScore ? ' finished' : ''}${summaryHtml ? ' has-summary' : ''}`;
 
-                            html += `<div class="${matchClass}">`;
+                            html += `<div class="${matchClass}" data-competition="${escapeHtml(event.competition || '')}">`;
                             html += `<div class="football-slot-teams">`;
                             if (competitionLabel) {
                                 html += `<div class="football-match-competition">${competitionLabel}</div>`;
@@ -7165,6 +7120,58 @@
             }
         }
 
+        function syncSportFilterButtons() {
+            document.querySelectorAll('.sport-filter-btn').forEach(button => {
+                button.classList.toggle('active', button.dataset.sport === currentSportFilter);
+            });
+            document.body.dataset.sportView = currentSportFilter || 'all';
+        }
+
+        function setSportFilter(sport, renderNow = true) {
+            currentSportFilter = sport || null;
+            syncSportFilterButtons();
+            return renderNow ? renderEvents() : Promise.resolve();
+        }
+
+        function getSearchEvents() {
+            return ['voetbal', 'darts', 'f1', 'motogp', 'handbal'].flatMap(sport =>
+                (cachedData[sport] || []).map(event => ({
+                    ...event,
+                    sportType: event.sportType || sport
+                }))
+            );
+        }
+
+        function getFootballCompetitionCounts() {
+            const counts = new Map();
+            (cachedData.voetbal || []).forEach(event => {
+                const competition = String(event.competition || '').trim();
+                if (competition) counts.set(competition, (counts.get(competition) || 0) + 1);
+            });
+            return Array.from(counts, ([value, count]) => ({ value, count }));
+        }
+
+        function setCompetitionFilters(values, renderNow = true) {
+            filters.competitions = [...new Set((values || []).map(value => String(value).trim()).filter(Boolean))];
+            if (filters.competitions.length) {
+                localStorage.setItem('selectedCompetitions', JSON.stringify(filters.competitions));
+            } else {
+                localStorage.removeItem('selectedCompetitions');
+            }
+            return renderNow ? renderEvents() : Promise.resolve();
+        }
+
+        window.SPORT_OP_TV_APP = Object.freeze({
+            getCompetitionFilters: () => [...filters.competitions],
+            getFootballCompetitionCounts,
+            getSearchEvents,
+            getSportFilter: () => currentSportFilter,
+            isResultsMode: () => resultsMode,
+            renderEvents,
+            setCompetitionFilters,
+            setSportFilter
+        });
+
         // Hamburger Menu
         const hamburgerBtn = document.getElementById('hamburger-btn');
         const refreshDataBtn = document.getElementById('refresh-data');
@@ -7180,7 +7187,6 @@
             localStorage.removeItem('footballCacheTime');
             localStorage.removeItem('footballSource');
             localStorage.removeItem('footballSourceHealth');
-            localStorage.removeItem('selectedCompetitions');
             localStorage.removeItem('selectedClubs');
 
             Object.keys(localStorage).forEach(key => {
@@ -7300,107 +7306,16 @@
         document.querySelectorAll('.sport-filter-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const sport = btn.dataset.sport;
-                const wasActive = btn.classList.contains('active');
-
-                // Remove active from all
-                document.querySelectorAll('.sport-filter-btn').forEach(b => b.classList.remove('active'));
-
-                if (wasActive) {
-                    // Was active, now show all sports
-                    currentSportFilter = null;
-                } else {
-                    // Activate this sport filter
-                    btn.classList.add('active');
-                    currentSportFilter = sport;
-                }
+                window.SPORT_OP_TV_SEARCH?.clear({ restoreSport: false, render: false });
+                const nextSport = currentSportFilter === sport ? null : sport;
 
                 resultsMode = false;
-
-                // Reset selected date to today when switching sports
                 selectedDate = null;
 
-                renderEvents().then(() => {
+                setSportFilter(nextSport).then(() => {
                     setTimeout(() => scrollToTodayOrNearest(), 150);
                 });
             });
-        });
-
-        // Competition dropdown
-        const compBtn = document.getElementById('comp-btn');
-        const compContent = document.getElementById('comp-content');
-        const compCheckboxes = compContent.querySelectorAll('input[type="checkbox"]');
-
-        // Set initial state from localStorage
-        compCheckboxes.forEach(cb => {
-            cb.checked = filters.competitions.includes(cb.value);
-        });
-        updateCompBtnText();
-
-        // Toggle dropdown
-        compBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            compContent.classList.toggle('show');
-        });
-
-        // Handle checkbox changes
-        compCheckboxes.forEach(cb => {
-            cb.addEventListener('change', () => {
-                filters.competitions = Array.from(compCheckboxes)
-                    .filter(c => c.checked)
-                    .map(c => c.value);
-                localStorage.setItem('selectedCompetitions', JSON.stringify(filters.competitions));
-                updateCompBtnText();
-                renderEvents();
-            });
-        });
-
-        // Close dropdown when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!compContent.contains(e.target) && e.target !== compBtn) {
-                compContent.classList.remove('show');
-            }
-        });
-
-        function updateCompBtnText() {
-            const count = filters.competitions.length;
-            if (count === 0) {
-                compBtn.textContent = 'Alle competities ▾';
-            } else if (count === 1) {
-                compBtn.textContent = filters.competitions[0] + ' ▾';
-            } else {
-                compBtn.textContent = `${count} competities ▾`;
-            }
-        }
-
-        // Club filter with debounce (comma separated)
-        let clubFilterTimeout;
-        const clubInput = document.getElementById('filter-clubs');
-        clubInput.value = (filters.clubs || []).join(', ');
-
-        clubInput.addEventListener('input', () => {
-            clearTimeout(clubFilterTimeout);
-            clubFilterTimeout = setTimeout(() => {
-                const value = clubInput.value;
-                filters.clubs = value ? value.split(',').map(c => c.trim()).filter(c => c) : [];
-                localStorage.setItem('selectedClubs', JSON.stringify(filters.clubs));
-                renderEvents();
-            }, 300);
-        });
-
-        // Reset filters button
-        document.getElementById('reset-filters').addEventListener('click', () => {
-            // Clear competitions
-            filters.competitions = [];
-            if (compCheckboxes) compCheckboxes.forEach(cb => cb.checked = false);
-            updateCompBtnText();
-            localStorage.removeItem('selectedCompetitions');
-
-            // Clear clubs
-            filters.clubs = [];
-            if (clubInput) clubInput.value = '';
-            localStorage.removeItem('selectedClubs');
-
-            renderEvents();
         });
 
 
@@ -7434,5 +7349,7 @@
             renderEvents();
         }, 5 * 60 * 1000);
     </script>
+    <script src="search-enhancements.js?v=3.12.0" defer></script>
+    <script src="release-notes.js?v=3.12.0" defer></script>
 </body>
 </html>

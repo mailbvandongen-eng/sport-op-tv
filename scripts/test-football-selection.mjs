@@ -50,7 +50,7 @@ for (const slug of ['uefa.champions_qual', 'uefa.europa_qual', 'uefa.europa.conf
   assert.equal(policy.includesMatch(competition, 'Olympiacos', 'Benfica', {}, {}, internationalOptions), false);
 }
 
-assert.match(source, /<script src="football-policy\.js"><\/script>/);
+assert.match(source, /<script src="football-policy\.js(?:\?v=[^"]+)?"><\/script>/);
 assert.match(source, /ESPN_COMPETITIONS:\s*ISER_FOOTBALL_POLICY\.ESPN_COMPETITIONS/);
 assert.doesNotMatch(source, /UEFA European qualifiers for Dutch clubs/);
 
