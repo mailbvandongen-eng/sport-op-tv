@@ -2916,7 +2916,7 @@
             <div class="api-status" id="api-status">
                 <span class="live-dot"></span> <span class="status-text">Laden...</span>
             </div>
-            <p class="version-footer">v3.12.1</p>
+            <p class="version-footer">v3.12.2</p>
         </footer>
     </div>
 
@@ -2945,11 +2945,11 @@
         // ============================================
         const CONFIG = {
             // Cache version - increment to force cache clear after config changes
-            CACHE_VERSION: '3.12.1',
+            CACHE_VERSION: '3.12.2',
 
             // OpenFootball API (gratis, geen key nodig!)
             // https://github.com/openfootball/football.json
-            OPENFOOTBALL_BASE: 'https://raw.githubusercontent.com/openfootball/football.json/master/2026-27',
+            OPENFOOTBALL_REPO: 'https://raw.githubusercontent.com/openfootball/football.json/master',
 
             // Competities van OpenFootball (nationale competities)
             OPENFOOTBALL_LEAGUES: [
@@ -4808,6 +4808,12 @@
             }).length;
         }
 
+        function getOpenFootballSeason(date = new Date()) {
+            const year = date.getFullYear();
+            const startYear = date.getMonth() >= 6 ? year : year - 1;
+            return `${startYear}-${String(startYear + 1).slice(-2)}`;
+        }
+
         // Fetch football matches from keyless OpenFootball and ESPN sources.
         async function fetchFootballMatches(options = {}) {
             console.log('Fetching football matches from OpenFootball...');
@@ -4830,7 +4836,7 @@
             // Fetch all leagues in parallel from OpenFootball
             const leaguePromises = CONFIG.OPENFOOTBALL_LEAGUES.map(async (league) => {
                 try {
-                    const url = `${CONFIG.OPENFOOTBALL_BASE}/${league.file}`;
+                    const url = `${CONFIG.OPENFOOTBALL_REPO}/${getOpenFootballSeason()}/${league.file}`;
                     console.log(`Fetching ${league.name} from ${url}`);
                     const response = await fetch(url);
 
