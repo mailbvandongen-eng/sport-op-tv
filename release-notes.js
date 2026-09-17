@@ -1,18 +1,115 @@
 (function () {
     'use strict';
 
+    // Hotfix 2026-09-17: het World Series Finals-toernooi stond wel in de
+    // kalender, maar alleen met generieke rondelabels. Vul de echte order of
+    // play en de bekende brackets in, zodat Darts een daadwerkelijk programma
+    // toont. Dit draait na index.html en rendert daarna de agenda opnieuw.
+    if (typeof dartsCalendar === 'undefined') return;
+
+    const worldSeriesSchedule = {
+        '2026-09-17': {
+            time: '19:00',
+            event: 'World Series of Darts Finals',
+            matches: [{
+                time: '19:00',
+                label: 'Eerste ronde - avondsessie',
+                items: [
+                    'Viktor Tingstrom vs Dirk van Duijvenbode',
+                    'Rob Cross vs Ryan Searle',
+                    'Karel Sedlacek vs Ben Robb',
+                    'Kevin Doets vs Ross Smith',
+                    'Stephen Bunting vs Josh Rock',
+                    'Luke Humphries vs Jermaine Wattimena',
+                    'Michael van Gerwen vs Daryl Gurney',
+                    'Gian van Veen vs Chris Dobey'
+                ]
+            }]
+        },
+        '2026-09-18': {
+            time: '19:00',
+            event: 'World Series of Darts Finals',
+            matches: [{
+                time: '19:00',
+                label: 'Eerste ronde - avondsessie',
+                items: [
+                    'Adam Leek vs Jim Long',
+                    'Motomu Sakai vs Callan Rydz',
+                    'Wessel Nijman vs Simon Whitlock',
+                    'Nathan Aspinall vs Raymond Smith',
+                    'James Wade vs Damon Heta',
+                    'Gerwyn Price vs Brody Klinge',
+                    'Luke Littler vs Danny Noppert',
+                    'Jonny Clayton vs Maik Kuivenhoven'
+                ]
+            }]
+        },
+        '2026-09-19': {
+            time: '13:00',
+            event: 'World Series of Darts Finals',
+            matches: [
+                {
+                    time: '13:00',
+                    label: 'Tweede ronde - middagsessie',
+                    items: [
+                        'Van Gerwen/Gurney vs Doets/Ross Smith',
+                        'Bunting/Rock vs Cross/Searle',
+                        'Humphries/Wattimena vs Tingstrom/Van Duijvenbode',
+                        'Van Veen/Dobey vs Sedlacek/Robb'
+                    ]
+                },
+                {
+                    time: '19:00',
+                    label: 'Tweede ronde - avondsessie',
+                    items: [
+                        'Price/Klinge vs Leek/Long',
+                        'Wade/Heta vs Nijman/Whitlock',
+                        'Littler/Noppert vs Aspinall/Raymond Smith',
+                        'Clayton/Kuivenhoven vs Sakai/Rydz'
+                    ]
+                }
+            ]
+        },
+        '2026-09-20': {
+            time: '13:00',
+            event: 'World Series of Darts Finals - Finale',
+            matches: [
+                { time: '13:00', label: 'Kwartfinales' },
+                { time: '19:00', label: 'Halve finales + finale' }
+            ]
+        }
+    };
+
+    Object.entries(worldSeriesSchedule).forEach(([date, patch]) => {
+        const event = dartsCalendar.find(item =>
+            item.date === date && /world series.*final/i.test(String(item.event || ''))
+        );
+        if (!event) return;
+        event.time = patch.time;
+        event.event = patch.event;
+        event.location = 'AFAS Live, Amsterdam';
+        event.channel = 'Viaplay';
+        event.matches = patch.matches;
+    });
+
+    if (typeof renderEvents === 'function') {
+        setTimeout(() => renderEvents(), 0);
+    }
+})();
+
+(function () {
+    'use strict';
+
     const RELEASE = Object.freeze({
-        version: '3.12.0',
-        date: '5 september 2026',
-        title: 'Zoeken en competitiefilters hersteld',
+        version: '3.12.1',
+        date: '17 september 2026',
+        title: 'World Series Finals-programma hersteld',
         notes: [
-            'De universele zoekfunctie start nu betrouwbaar bij de eerste opening.',
-            'Zoeken werkt over alle sporten op sport, team, competitie, land, evenement en zender.',
-            'Zoeksuggesties zijn bedienbaar met aanraken, pijltjestoetsen en Enter.',
-            'Bij voetbal is een doorzoekbaar competitiefilter met selectievakjes toegevoegd.',
-            'Geselecteerde voetbalcompetities blijven op dit apparaat bewaard.',
-            'Een zoekopdracht zonder treffers toont voortaan een duidelijke melding.',
-            'Dit wijzigingsvenster en het versienummer laden nu zonder herladen van de app.'
+            'Het volledige programma van de World Series of Darts Finals in Amsterdam staat nu bij Darts.',
+            'Donderdag en vrijdag tonen de acht wedstrijden uit de eerste ronde.',
+            'Zaterdag toont zowel de middag- als avondsessie van de tweede ronde.',
+            'Zondag toont de kwartfinales, halve finales en finale.',
+            'De gewijzigde deelnemers Dirk van Duijvenbode, Daryl Gurney en Maik Kuivenhoven zijn verwerkt.'
         ]
     });
 
@@ -23,7 +120,7 @@
             .replace(/&/g, '&amp;')
             .replace(/</g, '&lt;')
             .replace(/>/g, '&gt;')
-            .replace(/"/g, '&quot;');
+            .replace(/\"/g, '&quot;');
     }
 
     function installStyles() {
