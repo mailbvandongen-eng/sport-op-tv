@@ -58,6 +58,18 @@
         { slug: 'eng.league_cup', name: 'EFL Cup (Carabao Cup)', channel: 'Viaplay', minimumRound: 3 }
     ].map(Object.freeze));
 
+    const DUTCH_NATIONAL_TEAM_COVERAGE = Object.freeze({
+        men: Object.freeze([
+            'WK', 'EK', 'Nations League', 'WK Kwalificatie', 'EK Kwalificatie',
+            'Vriendschappelijk Internationaal'
+        ]),
+        women: Object.freeze([
+            'WK Vrouwen', 'EK Vrouwen', 'Nations League Vrouwen',
+            'WK Kwalificatie Vrouwen', 'EK Kwalificatie Vrouwen',
+            'Vriendschappelijk Internationaal Vrouwen'
+        ])
+    });
+
     const ESPN_STANDINGS = Object.freeze({
         88: 'ned.1',
         39: 'eng.1',
@@ -129,6 +141,7 @@
     return Object.freeze({
         DUTCH_FOOTBALL_CLUBS,
         ESPN_COMPETITIONS,
+        DUTCH_NATIONAL_TEAM_COVERAGE,
         ESPN_STANDINGS,
         normalizeClubName,
         isDutchClub,
