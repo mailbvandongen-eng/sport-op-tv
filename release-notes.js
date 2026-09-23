@@ -101,15 +101,15 @@
     'use strict';
 
     const RELEASE = Object.freeze({
-        version: '3.12.3',
+        version: '3.12.4',
         date: '23 september 2026',
-        title: 'Interlands en Nations League hersteld',
+        title: 'Volledige Nations League zichtbaar',
         notes: [
             'Het Nederlands elftal staat weer in de Nations League-agenda, ook als de ESPN-feed tijdelijk niets levert.',
             'De interlanddekking voor Nederland mannen en vrouwen is vastgelegd voor WK, EK, Nations League, kwalificaties en oefeninterlands.',
             'De automatische broncontrole controleert nu ook expliciet de interlanddekking van beide Nederlandse elftallen.',
             'De voetbalcache wordt bij deze versie vernieuwd zodat oude ontbrekende wedstrijden niet blijven hangen.',
-            'De Nations League-weergave wordt verder uitgebreid zodat niet alleen Oranje, maar ook de overige wedstrijden zichtbaar zijn.'
+            'De Nations League toont nu competitiebreed alle wedstrijden van de eerste twee speelronden, niet alleen Oranje.'
         ]
     });
 
