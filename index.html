@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="football-policy.js?v=3.12.3"></script>
+    <script src="football-policy.js?v=3.12.4"></script>
     <style>
         * {
             margin: 0;
@@ -2945,7 +2945,7 @@
         // ============================================
         const CONFIG = {
             // Cache version - increment to force cache clear after config changes
-            CACHE_VERSION: '3.12.3',
+            CACHE_VERSION: '3.12.4',
 
             // OpenFootball API (gratis, geen key nodig!)
             // https://github.com/openfootball/football.json
@@ -4431,14 +4431,64 @@
                 { date: '2026-07-26', time: '14:00', home: 'Feyenoord', away: 'Rayo Vallecano', competition: 'Oefenwedstrijd', channel: 'Feyenoord ONE', venue: 'De Kuip', source: 'Feyenoord confirmed' },
                 { date: '2026-08-02', time: '15:00', home: 'Feyenoord', away: 'Atalanta BC', competition: 'Oefenwedstrijd', channel: 'Feyenoord ONE', venue: 'De Kuip', source: 'Feyenoord confirmed' },
 
-                // Nederlands elftal - UEFA Nations League 2026/27. Confirmed UEFA fixtures;
-                // fallback keeps Oranje visible when the ESPN competition feed is unavailable or incomplete.
+                // UEFA Nations League 2026/27 - official UEFA fallback (matchdays 1-2).
+                // Competition-wide fallback: keeps all fixtures visible if ESPN is unavailable/incomplete.
+                { date: '2026-09-24', time: '18:00', home: 'Andorra', away: 'Malta', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
                 { date: '2026-09-24', time: '20:45', home: 'Nederland', away: 'Duitsland', competition: 'Nations League', channel: 'NPO 3', source: 'UEFA/Ziggo confirmed' },
+                { date: '2026-09-24', time: '20:45', home: 'Servië', away: 'Griekenland', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
+                { date: '2026-09-24', time: '20:45', home: 'Noorwegen', away: 'Denemarken', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
+                { date: '2026-09-24', time: '20:45', home: 'Portugal', away: 'Wales', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
+                { date: '2026-09-24', time: '20:45', home: 'Oostenrijk', away: 'Israël', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
+                { date: '2026-09-24', time: '20:45', home: 'Kosovo', away: 'Ierland', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
+                { date: '2026-09-24', time: '20:45', home: 'Liechtenstein', away: 'Litouwen', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
+
+                { date: '2026-09-25', time: '18:00', home: 'Georgië', away: 'Noord-Ierland', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
+                { date: '2026-09-25', time: '18:00', home: 'Armenië', away: 'Letland', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
+                { date: '2026-09-25', time: '20:45', home: 'Italië', away: 'België', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
+                { date: '2026-09-25', time: '20:45', home: 'Turkije', away: 'Frankrijk', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
+                { date: '2026-09-25', time: '20:45', home: 'Hongarije', away: 'Oekraïne', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
+                { date: '2026-09-25', time: '20:45', home: 'Polen', away: 'Bosnië-Herzegovina', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
+                { date: '2026-09-25', time: '20:45', home: 'Zweden', away: 'Roemenië', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
+                { date: '2026-09-25', time: '20:45', home: 'Montenegro', away: 'Cyprus', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
+
+                { date: '2026-09-26', time: '15:00', home: 'Slovenië', away: 'Schotland', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
+                { date: '2026-09-26', time: '18:00', home: 'San Marino', away: 'Finland', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
+                { date: '2026-09-26', time: '18:00', home: 'Faeröer', away: 'Kazachstan', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
+                { date: '2026-09-26', time: '18:00', home: 'Bulgarije', away: 'Luxemburg', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
+                { date: '2026-09-26', time: '18:00', home: 'IJsland', away: 'Estland', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
+                { date: '2026-09-26', time: '20:45', home: 'Tsjechië', away: 'Kroatië', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
+                { date: '2026-09-26', time: '20:45', home: 'Engeland', away: 'Spanje', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
+                { date: '2026-09-26', time: '20:45', home: 'Noord-Macedonië', away: 'Zwitserland', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
+                { date: '2026-09-26', time: '20:45', home: 'Albanië', away: 'Wit-Rusland', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
+                { date: '2026-09-26', time: '20:45', home: 'Slowakije', away: 'Moldavië', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
+
+                { date: '2026-09-27', time: '15:00', home: 'Litouwen', away: 'Azerbeidzjan', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
                 { date: '2026-09-27', time: '18:00', home: 'Servië', away: 'Nederland', competition: 'Nations League', channel: 'NPO 1', source: 'UEFA/Ziggo confirmed' },
-                { date: '2026-10-01', time: '20:45', home: 'Griekenland', away: 'Nederland', competition: 'Nations League', channel: 'NPO 3', source: 'UEFA/Ziggo confirmed' },
-                { date: '2026-10-04', time: '20:45', home: 'Nederland', away: 'Servië', competition: 'Nations League', channel: 'NPO 1', source: 'UEFA/Ziggo confirmed' },
-                { date: '2026-11-13', time: '20:45', home: 'Nederland', away: 'Griekenland', competition: 'Nations League', channel: 'NPO 1 / 2 / 3 n.n.b.', source: 'UEFA/Ziggo confirmed' },
-                { date: '2026-11-16', time: '20:45', home: 'Duitsland', away: 'Nederland', competition: 'Nations League', channel: 'NPO 1 / 2 / 3 n.n.b.', source: 'UEFA/Ziggo confirmed' },
+                { date: '2026-09-27', time: '18:00', home: 'Denemarken', away: 'Wales', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
+                { date: '2026-09-27', time: '18:00', home: 'Oostenrijk', away: 'Kosovo', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
+                { date: '2026-09-27', time: '18:00', home: 'Gibraltar', away: 'Andorra', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
+                { date: '2026-09-27', time: '20:45', home: 'Duitsland', away: 'Griekenland', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
+                { date: '2026-09-27', time: '20:45', home: 'Noorwegen', away: 'Portugal', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
+                { date: '2026-09-27', time: '20:45', home: 'Israël', away: 'Ierland', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
+
+                { date: '2026-09-28', time: '18:00', home: 'Georgië', away: 'Oekraïne', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
+                { date: '2026-09-28', time: '18:00', home: 'Armenië', away: 'Montenegro', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
+                { date: '2026-09-28', time: '20:45', home: 'België', away: 'Frankrijk', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
+                { date: '2026-09-28', time: '20:45', home: 'Turkije', away: 'Italië', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
+                { date: '2026-09-28', time: '20:45', home: 'Noord-Ierland', away: 'Hongarije', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
+                { date: '2026-09-28', time: '20:45', home: 'Roemenië', away: 'Bosnië-Herzegovina', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
+                { date: '2026-09-28', time: '20:45', home: 'Zweden', away: 'Polen', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
+                { date: '2026-09-28', time: '20:45', home: 'Letland', away: 'Cyprus', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
+
+                { date: '2026-09-29', time: '18:00', home: 'Finland', away: 'Wit-Rusland', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
+                { date: '2026-09-29', time: '18:00', home: 'Moldavië', away: 'Faeröer', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
+                { date: '2026-09-29', time: '20:45', home: 'Tsjechië', away: 'Engeland', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
+                { date: '2026-09-29', time: '20:45', home: 'Spanje', away: 'Kroatië', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
+                { date: '2026-09-29', time: '20:45', home: 'Schotland', away: 'Zwitserland', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
+                { date: '2026-09-29', time: '20:45', home: 'Slovenië', away: 'Noord-Macedonië', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
+                { date: '2026-09-29', time: '20:45', home: 'San Marino', away: 'Albanië', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
+                { date: '2026-09-29', time: '20:45', home: 'Slowakije', away: 'Kazachstan', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
+                { date: '2026-09-29', time: '20:45', home: 'Bulgarije', away: 'Estland', competition: 'Nations League', channel: 'Zender n.t.b.', source: 'UEFA confirmed' },
 
                 // Oranje Leeuwinnen - confirmed upcoming qualifiers / internationals
                 { date: '2026-10-09', time: 'TBD', home: 'Hongarije', away: 'Nederland', competition: 'WK Kwalificatie Vrouwen', channel: 'NPO 3 / ESPN', source: 'OnsOranje/UEFA confirmed' },
@@ -7364,7 +7414,7 @@
             renderEvents();
         }, 5 * 60 * 1000);
     </script>
-    <script src="search-enhancements.js?v=3.12.3" defer></script>
-    <script src="release-notes.js?v=3.12.3" defer></script>
+    <script src="search-enhancements.js?v=3.12.4" defer></script>
+    <script src="release-notes.js?v=3.12.4" defer></script>
 </body>
 </html>
