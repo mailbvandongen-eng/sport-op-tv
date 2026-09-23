@@ -101,15 +101,15 @@
     'use strict';
 
     const RELEASE = Object.freeze({
-        version: '3.12.1',
-        date: '17 september 2026',
-        title: 'World Series Finals-programma hersteld',
+        version: '3.12.3',
+        date: '23 september 2026',
+        title: 'Interlands en Nations League hersteld',
         notes: [
-            'Het volledige programma van de World Series of Darts Finals in Amsterdam staat nu bij Darts.',
-            'Donderdag en vrijdag tonen de acht wedstrijden uit de eerste ronde.',
-            'Zaterdag toont zowel de middag- als avondsessie van de tweede ronde.',
-            'Zondag toont de kwartfinales, halve finales en finale.',
-            'De gewijzigde deelnemers Dirk van Duijvenbode, Daryl Gurney en Maik Kuivenhoven zijn verwerkt.'
+            'Het Nederlands elftal staat weer in de Nations League-agenda, ook als de ESPN-feed tijdelijk niets levert.',
+            'De interlanddekking voor Nederland mannen en vrouwen is vastgelegd voor WK, EK, Nations League, kwalificaties en oefeninterlands.',
+            'De automatische broncontrole controleert nu ook expliciet de interlanddekking van beide Nederlandse elftallen.',
+            'De voetbalcache wordt bij deze versie vernieuwd zodat oude ontbrekende wedstrijden niet blijven hangen.',
+            'De Nations League-weergave wordt verder uitgebreid zodat niet alleen Oranje, maar ook de overige wedstrijden zichtbaar zijn.'
         ]
     });
 
