@@ -143,6 +143,16 @@ async function main() {
   const toDateKey = addDaysToDateKey(checkDateKey, Number(process.env.DAYS_FORWARD || DEFAULT_DAYS_FORWARD));
   const failures = [];
 
+  const requiredNationalCoverage = {
+    men: ['WK', 'EK', 'Nations League', 'WK Kwalificatie', 'EK Kwalificatie', 'Vriendschappelijk Internationaal'],
+    women: ['WK Vrouwen', 'EK Vrouwen', 'Nations League Vrouwen', 'WK Kwalificatie Vrouwen', 'EK Kwalificatie Vrouwen', 'Vriendschappelijk Internationaal Vrouwen']
+  };
+  for (const [team, required] of Object.entries(requiredNationalCoverage)) {
+    const configured = footballPolicy.DUTCH_NATIONAL_TEAM_COVERAGE?.[team] || [];
+    const missing = required.filter(name => !configured.includes(name));
+    if (missing.length) failures.push(`Interlanddekking ${team} mist: ${missing.join(', ')}`);
+  }
+
   const duplicateSlugs = competitions
     .map(comp => comp.slug)
     .filter((slug, index, all) => all.indexOf(slug) !== index);
