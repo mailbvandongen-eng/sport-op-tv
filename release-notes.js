@@ -101,14 +101,15 @@
     'use strict';
 
     const RELEASE = Object.freeze({
-        version: '3.12.5',
+        version: '3.12.6',
         date: '29 september 2026',
-        title: 'Voetbalagenda compleet en scherm blijft rustig',
+        title: 'Mijn competities',
         notes: [
-            'De UEFA Women’s Champions League is toegevoegd aan de voetbalbron, inclusief Disney+ / NOS als Nederlandse kijkoptie.',
-            'De automatische broncontrole bewaakt deze competitie voortaan expliciet.',
-            'De agenda bouwt zichzelf niet meer iedere vijf minuten volledig opnieuw op; verversen gebeurt alleen nog op verzoek.',
-            'De voetbalcache wordt vernieuwd zodat eerder ontbrekende wedstrijden direct opnieuw worden opgehaald.'
+            'De voetbalfilter heet nu Mijn competities en is bedoeld als vaste persoonlijke voorkeur.',
+            'Aangevinkte competities worden onthouden en de agenda toont daarna standaard alleen die competities.',
+            'Ook competities zonder wedstrijd in de huidige week blijven instelbaar, zodat voorkeuren niet verdwijnen tussen speelronden.',
+            'Per groep kun je met Alleen deze in één tik bijvoorbeeld alleen Nederland, Europa of interlands kiezen.',
+            'Alle competities zet de persoonlijke selectie uit en toont weer de volledige voetbalagenda.'
         ]
     });
 
