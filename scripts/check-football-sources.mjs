@@ -217,6 +217,14 @@ async function main() {
       to: '2026-11-16',
       minMatches: 4,
       patterns: [/netherlands|nederland/i]
+    },
+    {
+      label: 'Women’s Champions League speelronde 30 september 2026',
+      slug: 'uefa.wchampions',
+      from: '2026-09-30',
+      to: '2026-09-30',
+      minMatches: 5,
+      patterns: []
     }
   ];
 
