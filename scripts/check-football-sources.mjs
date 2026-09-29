@@ -44,7 +44,7 @@ function getCheckDateKey() {
 }
 
 async function fetchScoreboard(slug, fromDateKey, toDateKey) {
-  const url = `${ESPN_BASE_URL}/${slug}/scoreboard?dates=${toEspnDateKey(fromDateKey)}-${toEspnDateKey(toDateKey)}&limit=1000`;
+  const url = `${ESPN_BASE_URL}/${slug}/scoreboard?dates=${toEspnDateKey(fromDateKey)}-${toEspnDateKey(toDateKey)}`;
   const response = await fetch(url, {
     headers: {
       'User-Agent': 'sport-op-tv-football-check/1.0'
