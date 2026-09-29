@@ -83,12 +83,12 @@ const releaseNotes = readFileSync(path.join(root, 'release-notes.js'), 'utf8');
 assert.match(index, /id="sport-search"/);
 assert.match(index, /id="competition-filter-btn"/);
 assert.match(index, /data-competition="\$\{escapeHtml\(event\.competition \|\| ''\)\}"/);
-assert.match(index, /search-enhancements\.js\?v=3\.12\.0/);
-assert.match(index, /release-notes\.js\?v=3\.12\.0/);
-assert.match(index, /football-policy\.js\?v=3\.12\.0/);
+assert.match(index, /search-enhancements\.js\?v=3\.12\.5/);
+assert.match(index, /release-notes\.js\?v=3\.12\.5/);
+assert.match(index, /football-policy\.js\?v=3\.12\.5/);
 assert.match(index, /currentSportFilter === 'voetbal' && filters\.competitions/);
 assert.doesNotMatch(policy, /createElement\(['"]script['"]\)/);
-assert.match(releaseNotes, /version: '3\.12\.0'/);
+assert.match(releaseNotes, /version: '3\.12\.5'/);
 assert.match(releaseNotes, /document\.readyState === 'loading'/);
 
 console.log('Search and filter checks passed.');
