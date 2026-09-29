@@ -101,15 +101,14 @@
     'use strict';
 
     const RELEASE = Object.freeze({
-        version: '3.12.4',
-        date: '23 september 2026',
-        title: 'Volledige Nations League zichtbaar',
+        version: '3.12.5',
+        date: '29 september 2026',
+        title: 'Voetbalagenda compleet en scherm blijft rustig',
         notes: [
-            'Het Nederlands elftal staat weer in de Nations League-agenda, ook als de ESPN-feed tijdelijk niets levert.',
-            'De interlanddekking voor Nederland mannen en vrouwen is vastgelegd voor WK, EK, Nations League, kwalificaties en oefeninterlands.',
-            'De automatische broncontrole controleert nu ook expliciet de interlanddekking van beide Nederlandse elftallen.',
-            'De voetbalcache wordt bij deze versie vernieuwd zodat oude ontbrekende wedstrijden niet blijven hangen.',
-            'De Nations League toont nu competitiebreed alle wedstrijden van de eerste twee speelronden, niet alleen Oranje.'
+            'De UEFA Women’s Champions League is toegevoegd aan de voetbalbron, inclusief Disney+ / NOS als Nederlandse kijkoptie.',
+            'De automatische broncontrole bewaakt deze competitie voortaan expliciet.',
+            'De agenda bouwt zichzelf niet meer iedere vijf minuten volledig opnieuw op; verversen gebeurt alleen nog op verzoek.',
+            'De voetbalcache wordt vernieuwd zodat eerder ontbrekende wedstrijden direct opnieuw worden opgehaald.'
         ]
     });
 
