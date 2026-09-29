@@ -26,6 +26,7 @@
         { slug: 'ita.1', name: 'Serie A', channel: 'Ziggo Sport' },
         { slug: 'fra.1', name: 'Ligue 1', channel: 'Ziggo Sport' },
         { slug: 'uefa.champions', name: 'Champions League', channel: 'Ziggo Sport' },
+        { slug: 'uefa.wchampions', name: "Women's Champions League", channel: 'Disney+ / NOS' },
         { slug: 'uefa.champions_qual', name: 'Champions League Kwalificatie', channel: 'Ziggo Sport', dutchClubsOnly: true },
         { slug: 'uefa.europa', name: 'Europa League', channel: 'Ziggo Sport' },
         { slug: 'uefa.europa_qual', name: 'Europa League Kwalificatie', channel: 'Ziggo Sport', dutchClubsOnly: true },
