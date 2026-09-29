@@ -5001,75 +5001,86 @@
             console.log('Fetching additional football competitions from ESPN API...');
             const allMatches = [];
 
-            // Calculate date range: 30 days back, 30 days forward
-            const fromDate = getDateStr(-30).replace(/-/g, '');
-            const toDate = getDateStr(30).replace(/-/g, '');
+            // ESPN documenteert datumqueries per dag. Probeer eerst één compacte
+            // weekrange; als ESPN die weigert, val automatisch terug op losse dagen.
+            const dayKeys = Array.from({ length: 8 }, (_, offset) => getDateStr(offset).replace(/-/g, ''));
+            const fromDate = dayKeys[0];
+            const toDate = dayKeys[dayKeys.length - 1];
 
-            // Fetch each competition
-            for (const comp of CONFIG.ESPN_COMPETITIONS) {
+            async function fetchCompetitionEvents(comp) {
+                const rangeUrl = `${CONFIG.ESPN_API_URL}/${comp.slug}/scoreboard?dates=${fromDate}-${toDate}`;
                 try {
-                    const url = `${CONFIG.ESPN_API_URL}/${comp.slug}/scoreboard?dates=${fromDate}-${toDate}`;
-                    console.log(`Fetching ${comp.name}...`);
+                    const rangeResponse = await fetch(rangeUrl);
+                    if (rangeResponse.ok) {
+                        footballSourceHealth.successful += 1;
+                        const data = await rangeResponse.json();
+                        return Array.isArray(data.events) ? data.events : [];
+                    }
 
-                    const response = await fetch(url, {
-                        headers: { 'User-Agent': 'Mozilla/5.0' }
-                    });
-
-                    if (!response.ok) {
-                        console.warn(`ESPN ${comp.name}: ${response.status}`);
+                    if (rangeResponse.status !== 400) {
+                        console.warn(`ESPN ${comp.name}: ${rangeResponse.status}`);
                         footballSourceHealth.failed += 1;
-                        continue;
+                        return [];
                     }
 
-                    const data = await response.json();
+                    console.warn(`ESPN ${comp.name}: weekrange geweigerd, terugval op losse dagen`);
+                    const dailyResults = await Promise.all(dayKeys.map(async dateKey => {
+                        const response = await fetch(`${CONFIG.ESPN_API_URL}/${comp.slug}/scoreboard?dates=${dateKey}`);
+                        if (!response.ok) return [];
+                        const data = await response.json();
+                        return Array.isArray(data.events) ? data.events : [];
+                    }));
                     footballSourceHealth.successful += 1;
-
-                    if (data.events && Array.isArray(data.events)) {
-                        data.events.forEach(event => {
-                            const matchDate = new Date(event.date);
-                            const competition = event.competitions?.[0];
-                            if (!competition) return;
-
-                            const homeTeam = competition.competitors?.find(c => c.homeAway === 'home');
-                            const awayTeam = competition.competitors?.find(c => c.homeAway === 'away');
-                            if (!homeTeam || !awayTeam) return;
-
-                            const homeScore = homeTeam.score;
-                            const awayScore = awayTeam.score;
-                            const isFinished = competition.status?.type?.completed;
-                            const isLive = competition.status?.type?.state === 'in';
-                            const homeName = homeTeam.team?.shortDisplayName || homeTeam.team?.displayName || 'TBD';
-                            const awayName = awayTeam.team?.shortDisplayName || awayTeam.team?.displayName || 'TBD';
-
-                            if (!shouldIncludeEspnMatch(comp, homeName, awayName, event, competition)) {
-                                return;
-                            }
-
-                            allMatches.push({
-                                date: matchDate,
-                                time: matchDate.toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' }),
-                                home: homeName,
-                                away: awayName,
-                                homeCrest: homeTeam.team?.logo,
-                                awayCrest: awayTeam.team?.logo,
-                                competition: comp.name,
-                                channel: comp.channel,
-                                venue: competition.venue?.fullName || competition.venue?.displayName || event.venue?.fullName || event.venue?.displayName || '',
-                                source: 'ESPN',
-                                score: isFinished || isLive ? `${homeScore}-${awayScore}` : null,
-                                live: isLive,
-                                status: isFinished ? 'FINISHED' : (isLive ? 'IN_PLAY' : 'SCHEDULED'),
-                                // Extra info for knockout rounds
-                                aggregate: competition.series?.competitors ?
-                                    `(agg: ${competition.series.competitors[0]?.aggregateScore}-${competition.series.competitors[1]?.aggregateScore})` : null
-                            });
-                        });
-                        console.log(`Loaded ${data.events.length} ${comp.name} matches`);
-                    }
+                    return dailyResults.flat();
                 } catch (error) {
                     console.error(`Error fetching ${comp.name}:`, error);
                     footballSourceHealth.failed += 1;
+                    return [];
                 }
+            }
+
+            for (const comp of CONFIG.ESPN_COMPETITIONS) {
+                const events = await fetchCompetitionEvents(comp);
+
+                events.forEach(event => {
+                    const matchDate = new Date(event.date);
+                    const competition = event.competitions?.[0];
+                    if (!competition) return;
+
+                    const homeTeam = competition.competitors?.find(c => c.homeAway === 'home');
+                    const awayTeam = competition.competitors?.find(c => c.homeAway === 'away');
+                    if (!homeTeam || !awayTeam) return;
+
+                    const homeScore = homeTeam.score;
+                    const awayScore = awayTeam.score;
+                    const isFinished = competition.status?.type?.completed;
+                    const isLive = competition.status?.type?.state === 'in';
+                    const homeName = homeTeam.team?.shortDisplayName || homeTeam.team?.displayName || 'TBD';
+                    const awayName = awayTeam.team?.shortDisplayName || awayTeam.team?.displayName || 'TBD';
+
+                    if (!shouldIncludeEspnMatch(comp, homeName, awayName, event, competition)) return;
+
+                    allMatches.push({
+                        date: matchDate,
+                        time: matchDate.toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' }),
+                        home: homeName,
+                        away: awayName,
+                        homeCrest: homeTeam.team?.logo,
+                        awayCrest: awayTeam.team?.logo,
+                        competition: comp.name,
+                        channel: comp.channel,
+                        venue: competition.venue?.fullName || competition.venue?.displayName || event.venue?.fullName || event.venue?.displayName || '',
+                        source: 'ESPN',
+                        score: isFinished || isLive ? `${homeScore}-${awayScore}` : null,
+                        live: isLive,
+                        status: isFinished ? 'FINISHED' : (isLive ? 'IN_PLAY' : 'SCHEDULED'),
+                        aggregate: competition.series?.competitors
+                            ? `(agg: ${competition.series.competitors[0]?.aggregateScore}-${competition.series.competitors[1]?.aggregateScore})`
+                            : null
+                    });
+                });
+
+                console.log(`Loaded ${events.length} ${comp.name} matches`);
             }
 
             return allMatches;
