@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="football-policy.js?v=3.12.5"></script>
+    <script src="football-policy.js?v=3.12.6"></script>
     <style>
         * {
             margin: 0;
@@ -2857,9 +2857,9 @@
                 <i data-lucide="search"></i>
                 <input type="search" class="filter-input" id="sport-search" placeholder="Zoek sport, team, competitie of zender..." autocomplete="off" aria-label="Zoek op sport, team, competitie, land, zender of evenement">
             </div>
-            <button class="competition-filter-btn" id="competition-filter-btn" type="button" aria-haspopup="dialog" aria-expanded="false" aria-label="Voetbalcompetities kiezen" hidden>
+            <button class="competition-filter-btn" id="competition-filter-btn" type="button" aria-haspopup="dialog" aria-expanded="false" aria-label="Mijn competities instellen" hidden>
                 <i data-lucide="list-filter"></i>
-                <span class="competition-filter-label">Competities</span>
+                <span class="competition-filter-label">Mijn competities</span>
                 <span class="competition-filter-count" id="competition-filter-count" hidden>0</span>
             </button>
             <button class="results-toggle-btn" id="results-toggle" type="button" aria-pressed="false" title="Uitslagen tonen" aria-label="Uitslagen tonen">
@@ -7240,6 +7240,7 @@
 
         window.SPORT_OP_TV_APP = Object.freeze({
             getCompetitionFilters: () => [...filters.competitions],
+            getFootballCompetitions: () => [...new Set(CONFIG.ESPN_COMPETITIONS.map(item => item.name).filter(Boolean))],
             getFootballCompetitionCounts,
             getSearchEvents,
             getSportFilter: () => currentSportFilter,
@@ -7423,7 +7424,7 @@
         // op verzoek van de gebruiker; zo springt of knippert de agenda niet
         // tijdens lezen en lijkt de app niet spontaan te herstarten.
     </script>
-    <script src="search-enhancements.js?v=3.12.5" defer></script>
-    <script src="release-notes.js?v=3.12.5" defer></script>
+    <script src="search-enhancements.js?v=3.12.6" defer></script>
+    <script src="release-notes.js?v=3.12.6" defer></script>
 </body>
 </html>
