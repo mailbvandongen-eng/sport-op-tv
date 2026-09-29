@@ -8,7 +8,7 @@ const footballPolicy = require(resolve(ROOT_DIR, 'football-policy.js'));
 const AMSTERDAM_TIME_ZONE = 'Europe/Amsterdam';
 const ESPN_BASE_URL = 'https://site.api.espn.com/apis/site/v2/sports/soccer';
 const ESPN_STANDINGS_BASE_URL = 'https://site.api.espn.com/apis/v2/sports/soccer';
-const DEFAULT_DAYS_FORWARD = 30;
+const DEFAULT_DAYS_FORWARD = 7;
 
 function getDatePartsInTimeZone(dateObj, timeZone = AMSTERDAM_TIME_ZONE) {
   const parts = new Intl.DateTimeFormat('en-CA', {
@@ -44,26 +44,40 @@ function getCheckDateKey() {
 }
 
 async function fetchScoreboard(slug, fromDateKey, toDateKey) {
-  const url = `${ESPN_BASE_URL}/${slug}/scoreboard?dates=${toEspnDateKey(fromDateKey)}-${toEspnDateKey(toDateKey)}`;
-  const response = await fetch(url, {
-    headers: {
-      'User-Agent': 'sport-op-tv-football-check/1.0'
-    }
+  const rangeUrl = `${ESPN_BASE_URL}/${slug}/scoreboard?dates=${toEspnDateKey(fromDateKey)}-${toEspnDateKey(toDateKey)}`;
+  const rangeResponse = await fetch(rangeUrl, {
+    headers: { 'User-Agent': 'sport-op-tv-football-check/1.0' }
   });
 
-  let data = {};
-  try {
-    data = await response.json();
-  } catch {
-    data = {};
+  if (rangeResponse.ok) {
+    let data = {};
+    try { data = await rangeResponse.json(); } catch { data = {}; }
+    return { slug, status: rangeResponse.status, ok: true, events: Array.isArray(data.events) ? data.events : [] };
   }
 
-  return {
-    slug,
-    status: response.status,
-    ok: response.ok,
-    events: Array.isArray(data.events) ? data.events : []
-  };
+  if (rangeResponse.status !== 400) {
+    return { slug, status: rangeResponse.status, ok: false, events: [] };
+  }
+
+  const dateKeys = [];
+  for (let dateKey = fromDateKey; dateKey <= toDateKey; dateKey = addDaysToDateKey(dateKey, 1)) {
+    dateKeys.push(dateKey);
+  }
+
+  const daily = await Promise.all(dateKeys.map(async dateKey => {
+    const response = await fetch(`${ESPN_BASE_URL}/${slug}/scoreboard?dates=${toEspnDateKey(dateKey)}`, {
+      headers: { 'User-Agent': 'sport-op-tv-football-check/1.0' }
+    });
+    if (!response.ok) return { ok: false, status: response.status, events: [] };
+    let data = {};
+    try { data = await response.json(); } catch { data = {}; }
+    return { ok: true, status: response.status, events: Array.isArray(data.events) ? data.events : [] };
+  }));
+
+  const failed = daily.find(result => !result.ok);
+  if (failed) return { slug, status: failed.status, ok: false, events: daily.flatMap(result => result.events) };
+
+  return { slug, status: 200, ok: true, events: daily.flatMap(result => result.events) };
 }
 
 async function fetchStandings(slug) {
