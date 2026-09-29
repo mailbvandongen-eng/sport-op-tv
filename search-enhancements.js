@@ -58,6 +58,7 @@
             group: 'Europa',
             competitions: [
                 'Champions League',
+                "Women's Champions League",
                 'Champions League Kwalificatie',
                 'Europa League',
                 'Europa League Kwalificatie',
@@ -568,13 +569,29 @@
     function getCompetitionEntries() {
         const app = getApp();
         const selected = new Set(app?.getCompetitionFilters?.() || []);
-        const entries = new Map((app?.getFootballCompetitionCounts?.() || []).map(item => [
-            item.value,
-            { value: item.value, count: item.count, group: core.competitionGroup(item.value) }
-        ]));
-        selected.forEach(value => {
-            if (!entries.has(value)) entries.set(value, { value, count: 0, group: core.competitionGroup(value) });
+        const counts = new Map((app?.getFootballCompetitionCounts?.() || []).map(item => [item.value, item.count]));
+        const entries = new Map();
+
+        (app?.getFootballCompetitions?.() || []).forEach(value => {
+            entries.set(value, {
+                value,
+                count: counts.get(value) || 0,
+                group: core.competitionGroup(value)
+            });
         });
+
+        counts.forEach((count, value) => {
+            if (!entries.has(value)) {
+                entries.set(value, { value, count, group: core.competitionGroup(value) });
+            }
+        });
+
+        selected.forEach(value => {
+            if (!entries.has(value)) {
+                entries.set(value, { value, count: 0, group: core.competitionGroup(value) });
+            }
+        });
+
         const groupOrder = { Nederland: 0, Europa: 1, Buitenland: 2, Internationaal: 3, Overig: 4 };
         return Array.from(entries.values()).sort((a, b) =>
             (groupOrder[a.group] ?? 9) - (groupOrder[b.group] ?? 9)
@@ -616,9 +633,25 @@
 
         groups.forEach((groupEntries, groupName) => {
             const section = document.createElement('section');
-            const heading = document.createElement('h3');
+            const heading = document.createElement('div');
+            const headingLabel = document.createElement('h3');
+            const onlyGroup = document.createElement('button');
             section.className = 'competition-option-group';
-            heading.textContent = groupName;
+            heading.className = 'competition-option-group-heading';
+            headingLabel.textContent = groupName;
+            onlyGroup.type = 'button';
+            onlyGroup.className = 'competition-option-group-only';
+            onlyGroup.textContent = 'Alleen deze';
+            onlyGroup.addEventListener('click', () => {
+                Promise.resolve(getApp()?.setCompetitionFilters?.(
+                    groupEntries.map(entry => entry.value),
+                    true
+                )).finally(() => {
+                    renderCompetitionOptions();
+                    afterRender();
+                });
+            });
+            heading.append(headingLabel, onlyGroup);
             section.appendChild(heading);
 
             groupEntries.forEach(entry => {
@@ -675,8 +708,8 @@
         competitionButton.setAttribute(
             'aria-label',
             selectedCount
-                ? `Voetbalcompetities kiezen, ${selectedCount} geselecteerd`
-                : 'Voetbalcompetities kiezen'
+                ? `Mijn competities, ${selectedCount} geselecteerd`
+                : 'Mijn competities, alle competities zichtbaar'
         );
         if (competitionCount) {
             competitionCount.textContent = String(selectedCount);
@@ -698,15 +731,15 @@
                 <header>
                     <div>
                         <p class="competition-filter-kicker">Voetbal</p>
-                        <h2 id="competition-filter-title">Competities</h2>
+                        <h2 id="competition-filter-title">Mijn competities</h2>
                     </div>
                     <button type="button" class="competition-filter-close" aria-label="Sluiten">×</button>
                 </header>
-                <p class="competition-filter-help">Vink één of meer competities aan. Niets aangevinkt toont alles.</p>
+                <p class="competition-filter-help">Kies wat jij standaard wilt zien. Je keuze wordt op dit apparaat onthouden. Niets gekozen toont alles.</p>
                 <input type="search" class="competition-filter-search" placeholder="Zoek competitie…" aria-label="Zoek competitie" autocomplete="off">
                 <div class="competition-filter-options"></div>
                 <footer>
-                    <button type="button" class="competition-filter-clear">Alles tonen</button>
+                    <button type="button" class="competition-filter-clear">Alle competities</button>
                     <button type="button" class="competition-filter-done">Gereed</button>
                 </footer>
             </section>
@@ -898,17 +931,37 @@
                 overflow-y: auto;
                 padding: 0 18px 12px;
             }
-            .competition-option-group h3 {
+            .competition-option-group-heading {
                 position: sticky;
                 top: 0;
                 z-index: 1;
-                margin: 0;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 10px;
                 padding: 10px 0 6px;
                 background: var(--card-bg);
+            }
+            .competition-option-group-heading h3 {
+                margin: 0;
                 color: var(--text-secondary);
                 font-size: .7rem;
                 letter-spacing: .06em;
                 text-transform: uppercase;
+            }
+            .competition-option-group-only {
+                padding: 4px 7px;
+                border: 0;
+                border-radius: 7px;
+                background: var(--bg-secondary);
+                color: var(--text-secondary);
+                font: inherit;
+                font-size: .66rem;
+                font-weight: 700;
+                cursor: pointer;
+            }
+            .competition-option-group-only:hover {
+                color: var(--text);
             }
             .competition-option {
                 display: grid;
