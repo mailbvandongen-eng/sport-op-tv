@@ -5008,7 +5008,7 @@
             // Fetch each competition
             for (const comp of CONFIG.ESPN_COMPETITIONS) {
                 try {
-                    const url = `${CONFIG.ESPN_API_URL}/${comp.slug}/scoreboard?dates=${fromDate}-${toDate}&limit=1000`;
+                    const url = `${CONFIG.ESPN_API_URL}/${comp.slug}/scoreboard?dates=${fromDate}-${toDate}`;
                     console.log(`Fetching ${comp.name}...`);
 
                     const response = await fetch(url, {
