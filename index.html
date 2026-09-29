@@ -2945,7 +2945,7 @@
         // ============================================
         const CONFIG = {
             // Cache version - increment to force cache clear after config changes
-            CACHE_VERSION: '3.12.4',
+            CACHE_VERSION: '3.12.5',
 
             // OpenFootball API (gratis, geen key nodig!)
             // https://github.com/openfootball/football.json
@@ -2993,6 +2993,7 @@
                 'KNVB Beker': 'ESPN',
                 'Johan Cruijff Schaal': 'ESPN',
                 'Champions League': 'Ziggo Sport',
+                "Women's Champions League": 'Disney+ / NOS',
                 'Champions League Kwalificatie': 'Ziggo Sport',
                 'Europa League': 'Ziggo Sport',
                 'Europa League Kwalificatie': 'Ziggo Sport',
@@ -7407,14 +7408,11 @@
         window.scrollTo(0, 0); // Always start at top
         renderEvents();
 
-        // Auto-refresh every 5 minutes
-        setInterval(() => {
-            cachedData = createEmptyCachedData();
-            setWorldCupHighlights([]);
-            renderEvents();
-        }, 5 * 60 * 1000);
+        // Geen automatische volledige herbouw meer. Verversen gebeurt alleen
+        // op verzoek van de gebruiker; zo springt of knippert de agenda niet
+        // tijdens lezen en lijkt de app niet spontaan te herstarten.
     </script>
-    <script src="search-enhancements.js?v=3.12.4" defer></script>
-    <script src="release-notes.js?v=3.12.4" defer></script>
+    <script src="search-enhancements.js?v=3.12.5" defer></script>
+    <script src="release-notes.js?v=3.12.5" defer></script>
 </body>
 </html>
