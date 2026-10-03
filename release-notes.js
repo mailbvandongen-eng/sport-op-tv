@@ -101,15 +101,13 @@
     'use strict';
 
     const RELEASE = Object.freeze({
-        version: '3.12.6',
-        date: '29 september 2026',
-        title: 'Mijn competities',
+        version: '3.12.7',
+        date: '4 oktober 2026',
+        title: 'Drie dagen terugkijken',
         notes: [
-            'De voetbalfilter heet nu Mijn competities en is bedoeld als vaste persoonlijke voorkeur.',
-            'Aangevinkte competities worden onthouden en de agenda toont daarna standaard alleen die competities.',
-            'Ook competities zonder wedstrijd in de huidige week blijven instelbaar, zodat voorkeuren niet verdwijnen tussen speelronden.',
-            'Per groep kun je met Alleen deze in één tik bijvoorbeeld alleen Nederland, Europa of interlands kiezen.',
-            'Alle competities zet de persoonlijke selectie uit en toont weer de volledige voetbalagenda.'
+            'De voetbalbron haalt nu ook wedstrijden van de afgelopen drie dagen op, inclusief Europese competities en interlands.',
+            'Met Mijn competities blijven de afgelopen drie dagen aanklikbaar. Een lege dag meldt dat er geen wedstrijden in je selectie zijn.',
+            'Verversen behoudt de gekozen datum, zodat de agenda niet terug springt naar vandaag.'
         ]
     });
 

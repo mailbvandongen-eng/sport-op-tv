@@ -20,5 +20,7 @@ jobs:
         run: node scripts/test-football-selection.mjs
       - name: Test search and competition filters
         run: node scripts/test-search.mjs
+      - name: Test past-day navigation and data queries
+        run: node scripts/test-past-days.mjs
       - name: Check public files for credentials
         run: node scripts/test-public-security.mjs

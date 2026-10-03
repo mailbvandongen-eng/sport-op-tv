@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="football-policy.js?v=3.12.6"></script>
+    <script src="football-policy.js?v=3.12.7"></script>
     <style>
         * {
             margin: 0;
@@ -2945,7 +2945,7 @@
         // ============================================
         const CONFIG = {
             // Cache version - increment to force cache clear after config changes
-            CACHE_VERSION: '3.12.5',
+            CACHE_VERSION: '3.12.7',
 
             // OpenFootball API (gratis, geen key nodig!)
             // https://github.com/openfootball/football.json
@@ -5002,8 +5002,8 @@
             const allMatches = [];
 
             // ESPN documenteert datumqueries per dag. Probeer eerst één compacte
-            // weekrange; als ESPN die weigert, val automatisch terug op losse dagen.
-            const dayKeys = Array.from({ length: 8 }, (_, offset) => getDateStr(offset).replace(/-/g, ''));
+            // periode inclusief de afgelopen drie dagen; bij weigering losse dagen.
+            const dayKeys = buildDateRange(new Date(), 3, 7).map(dateKey => dateKey.replace(/-/g, ''));
             const fromDate = dayKeys[0];
             const toDate = dayKeys[dayKeys.length - 1];
 
@@ -5023,7 +5023,7 @@
                         return [];
                     }
 
-                    console.warn(`ESPN ${comp.name}: weekrange geweigerd, terugval op losse dagen`);
+                    console.warn(`ESPN ${comp.name}: datumrange geweigerd, terugval op losse dagen`);
                     const dailyResults = await Promise.all(dayKeys.map(async dateKey => {
                         const response = await fetch(`${CONFIG.ESPN_API_URL}/${comp.slug}/scoreboard?dates=${dateKey}`);
                         if (!response.ok) return [];
@@ -6375,7 +6375,7 @@
                 await renderResultsView(container, resultDateRange, false);
                 setupScrollSync();
                 setTimeout(() => {
-                    scrollToTodayOrNearest();
+                    scrollToSelectedDateOrToday();
                 }, 100);
                 return;
             }
@@ -6413,11 +6413,13 @@
             const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
             const visibleDateRange = buildDateRange(today, showPast ? 3 : 0, futureDays);
             const competitionFilterActive = currentSportFilter === 'voetbal' && filters.competitions.length > 0;
-            if (!competitionFilterActive) {
-                visibleDateRange.forEach(dateKey => {
-                    if (!eventsByDate[dateKey]) eventsByDate[dateKey] = [];
-                });
-            }
+            visibleDateRange.forEach(dateKey => {
+                // Historische dagen en vandaag moeten ook met Mijn competities
+                // aanklikbaar blijven als de selectie die dag geen wedstrijden heeft.
+                if ((!competitionFilterActive || dateKey <= todayStr) && !eventsByDate[dateKey]) {
+                    eventsByDate[dateKey] = [];
+                }
+            });
 
             const sortedDates = Object.keys(eventsByDate).sort();
 
@@ -6488,7 +6490,7 @@
 
                 // Handle empty days (no events)
                 if (events.length === 0) {
-                    html += `<div class="no-events-day"><p>Geen uitzendingen${currentSportFilter ? ` (${currentSportFilter})` : ''}</p></div>`;
+                    html += `<div class="no-events-day"><p>${competitionFilterActive ? 'Geen wedstrijden in Mijn competities' : `Geen uitzendingen${currentSportFilter ? ` (${currentSportFilter})` : ''}`}</p></div>`;
                     html += `</div>`; // Close day-section
                     return; // Continue to next date
                 }
@@ -6693,10 +6695,19 @@
             // Setup darts accordion click handlers
             setupDartsAccordion();
 
-            // Scroll to "Vandaag" or nearest future date on initial load
+            // Behoud de gekozen datum bij verversen of opnieuw renderen.
             setTimeout(() => {
-                scrollToTodayOrNearest();
+                scrollToSelectedDateOrToday();
             }, 100);
+        }
+
+        function scrollToSelectedDateOrToday() {
+            if (selectedDate && document.querySelector(`.day-section[data-date="${selectedDate}"]`)) {
+                scrollToDate(selectedDate);
+            } else {
+                selectedDate = null;
+                scrollToTodayOrNearest();
+            }
         }
 
         // Scroll to today's section, or the nearest future section if today has no events
@@ -7424,7 +7435,7 @@
         // op verzoek van de gebruiker; zo springt of knippert de agenda niet
         // tijdens lezen en lijkt de app niet spontaan te herstarten.
     </script>
-    <script src="search-enhancements.js?v=3.12.6" defer></script>
-    <script src="release-notes.js?v=3.12.6" defer></script>
+    <script src="search-enhancements.js?v=3.12.7" defer></script>
+    <script src="release-notes.js?v=3.12.7" defer></script>
 </body>
 </html>

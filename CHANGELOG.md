@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.12.7 — 2026-10-04
+- De voetbalbron haalt nu ook wedstrijden van de afgelopen drie dagen op, inclusief Europese competities en interlands.
+- Met Mijn competities blijven de afgelopen drie dagen aanklikbaar. Een lege dag meldt dat er geen wedstrijden in je selectie zijn.
+- Verversen behoudt de gekozen datum, zodat de agenda niet terug springt naar vandaag.
+
 ## 3.12.0 — 2026-09-05
 - Raceconditie bij het laden van zoeken en release notes opgelost; beide werken nu direct bij de eerste opening.
 - Universeel zoeken zoekt tijdelijk in alle sporten en herstelt na wissen de eerdere sportkeuze.
