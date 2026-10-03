@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="football-policy.js?v=3.12.7"></script>
+    <script src="football-policy.js?v=3.12.8"></script>
     <style>
         * {
             margin: 0;
@@ -1595,9 +1595,8 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            position: sticky;
-            top: 160px;
-            z-index: 10;
+            position: static;
+            top: auto;
         }
 
         .day-header svg {
@@ -1642,6 +1641,18 @@
         .match-row .event-info .match-time {
             font-weight: 600;
             min-width: 45px;
+        }
+
+        .match-row .event-location {
+            font-size: 0.74rem;
+            color: var(--text-secondary);
+            line-height: 1.3;
+            overflow-wrap: anywhere;
+        }
+
+        .darts-expandable:focus-visible {
+            outline: 2px solid var(--darts);
+            outline-offset: -2px;
         }
 
         .match-row .event-title {
@@ -1737,7 +1748,8 @@
             }
 
             .day-header {
-                top: 184px;
+                position: static;
+                top: auto;
                 padding: 16px 20px;
                 font-size: 0.92rem;
                 background: linear-gradient(180deg, var(--card-bg) 0%, var(--bg) 100%);
@@ -2945,7 +2957,7 @@
         // ============================================
         const CONFIG = {
             // Cache version - increment to force cache clear after config changes
-            CACHE_VERSION: '3.12.7',
+            CACHE_VERSION: '3.12.8',
 
             // OpenFootball API (gratis, geen key nodig!)
             // https://github.com/openfootball/football.json
@@ -4321,6 +4333,20 @@
         // API FUNCTIONS
         // ============================================
 
+        function getF1SessionLabel(name = '') {
+            const labels = {
+                'Practice 1': 'Vrije training 1',
+                'Practice 2': 'Vrije training 2',
+                'Practice 3': 'Vrije training 3',
+                'Qualifying': 'Kwalificatie',
+                'Sprint Qualifying': 'Sprintkwalificatie',
+                'Sprint Shootout': 'Sprintkwalificatie',
+                'Sprint': 'Sprint',
+                'Race': 'Race'
+            };
+            return labels[name] || name;
+        }
+
         // Fetch F1 sessions from OpenF1 API
         async function fetchF1Sessions() {
             try {
@@ -4330,10 +4356,11 @@
 
                 return sessions.map(session => ({
                     date: new Date(session.date_start),
-                    time: new Date(session.date_start).toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' }),
-                    title: session.session_name,
+                    time: new Date(session.date_start).toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Amsterdam' }),
+                    title: getF1SessionLabel(session.session_name),
                     competition: `GP ${session.country_name}`,
                     circuit: session.circuit_short_name,
+                    location: [session.circuit_short_name, session.location].filter(Boolean).join(' · '),
                     channel: 'Viaplay',
                     type: session.session_type,
                     live: isLiveNow(session.date_start, session.date_end),
@@ -6609,7 +6636,7 @@
                             const competitionLabel = getEventCompetitionLabel(event, comp);
                             let hasFallbackItems = false;
 
-                            html += `<div class="match-row darts-row darts-expandable" data-event-id="${eventId}">`;
+                            html += `<div class="match-row darts-row darts-expandable" data-event-id="${eventId}" role="button" tabindex="0" aria-expanded="false" aria-controls="${eventId}">`;
                             html += `<div class="event-info">`;
                             html += `<span class="match-time">${event.time}</span>`;
                             html += `<div class="event-copy">`;
@@ -6669,6 +6696,9 @@
                                 html += `<span class="event-competition">${competitionLabel}</span>`;
                             }
                             html += `<span class="event-title">${title}</span>`;
+                            if (sportType === 'f1' && (event.location || event.circuit)) {
+                                html += `<span class="event-location">${escapeHtml(event.location || event.circuit)} · Nederlandse tijd</span>`;
+                            }
                             html += getSourceBadgeHtml(event);
                             html += `</div>`;
                             html += `</div>`;
@@ -6893,6 +6923,14 @@
         // Setup darts accordion click handlers
         function setupDartsAccordion() {
             document.querySelectorAll('.darts-expandable').forEach(row => {
+                if (row.dataset.accordionBound) return;
+                row.dataset.accordionBound = '1';
+                row.addEventListener('keydown', event => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        row.click();
+                    }
+                });
                 row.addEventListener('click', () => {
                     const eventId = row.dataset.eventId;
                     const matchesList = document.getElementById(eventId);
@@ -6904,6 +6942,7 @@
                         document.querySelectorAll('.darts-expandable.expanded').forEach(other => {
                             if (other !== row) {
                                 other.classList.remove('expanded');
+                                other.setAttribute('aria-expanded', 'false');
                                 const otherId = other.dataset.eventId;
                                 const otherList = document.getElementById(otherId);
                                 if (otherList) otherList.style.display = 'none';
@@ -6913,9 +6952,11 @@
                         // Toggle current
                         if (isExpanded) {
                             row.classList.remove('expanded');
+                            row.setAttribute('aria-expanded', 'false');
                             matchesList.style.display = 'none';
                         } else {
                             row.classList.add('expanded');
+                            row.setAttribute('aria-expanded', 'true');
                             matchesList.style.display = 'block';
                         }
                     }
@@ -7435,7 +7476,7 @@
         // op verzoek van de gebruiker; zo springt of knippert de agenda niet
         // tijdens lezen en lijkt de app niet spontaan te herstarten.
     </script>
-    <script src="search-enhancements.js?v=3.12.7" defer></script>
-    <script src="release-notes.js?v=3.12.7" defer></script>
+    <script src="search-enhancements.js?v=3.12.8" defer></script>
+    <script src="release-notes.js?v=3.12.8" defer></script>
 </body>
 </html>

@@ -101,13 +101,13 @@
     'use strict';
 
     const RELEASE = Object.freeze({
-        version: '3.12.7',
+        version: '3.12.8',
         date: '4 oktober 2026',
-        title: 'Drie dagen terugkijken',
+        title: 'Darts- en F1-informatie hersteld',
         notes: [
-            'De voetbalbron haalt nu ook wedstrijden van de afgelopen drie dagen op, inclusief Europese competities en interlands.',
-            'Met Mijn competities blijven de afgelopen drie dagen aanklikbaar. Een lege dag meldt dat er geen wedstrijden in je selectie zijn.',
-            'Verversen behoudt de gekozen datum, zodat de agenda niet terug springt naar vandaag.'
+            'Dagkoppen bedekken de wedstrijdregels niet meer: dartsdetails en starttijden zijn weer zichtbaar en aanklikbaar.',
+            'Dartssessies zijn ook met Enter en de spatiebalk te openen en te sluiten.',
+            'F1 toont Nederlandse sessienamen, circuitinformatie en starttijden in Nederlandse tijd.'
         ]
     });
 
