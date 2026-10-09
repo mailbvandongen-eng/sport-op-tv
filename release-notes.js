@@ -101,13 +101,16 @@
     'use strict';
 
     const RELEASE = Object.freeze({
-        version: '3.12.8',
-        date: '4 oktober 2026',
-        title: 'Darts- en F1-informatie hersteld',
+        version: '3.13.0',
+        date: '9 oktober 2026',
+        title: 'Rustig zoeken en eenvoudig filteren',
         notes: [
-            'Dagkoppen bedekken de wedstrijdregels niet meer: dartsdetails en starttijden zijn weer zichtbaar en aanklikbaar.',
-            'Dartssessies zijn ook met Enter en de spatiebalk te openen en te sluiten.',
-            'F1 toont Nederlandse sessienamen, circuitinformatie en starttijden in Nederlandse tijd.'
+            'Compact zoekveld met wisknop. Zoeken blijft binnen je gekozen sport en voetbalfilters.',
+            'Programma en Uitslagen hebben duidelijke knoppen; wisselen ververst de bronnen niet meer onnodig.',
+            'Eén filterpaneel voor teams en competities. Vink aan en pas je keuze toe met Toon wedstrijden.',
+            'Clubs en landenteams zijn gescheiden, met Nederland mannen en vrouwen apart. Keuzes worden onthouden.',
+            'Actieve filters staan onder de zoekbalk en zijn met één tik te verwijderen. Filters gelden ook voor voetbaluitslagen.',
+            'Nederland zoeken verwijst naar het team, niet naar alle Nederlandse competities. De zichtbare maar niet werkende filterknop is hersteld.'
         ]
     });
 
@@ -267,3 +270,4 @@
 
     window.SPORT_OP_TV_RELEASE = RELEASE;
 })();
+

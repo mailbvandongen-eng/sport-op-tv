@@ -122,6 +122,65 @@
         return getCountryInfo(competition)?.group || 'Overig';
     }
 
+    const TEAM_ALIASES = Object.freeze({
+        nederland: 'netherlands holland nl oranje', engeland: 'england',
+        duitsland: 'germany deutschland', spanje: 'spain espana',
+        italie: 'italy italia', frankrijk: 'france', belgie: 'belgium',
+        hongarije: 'hungary', ierland: 'ireland', polen: 'poland',
+        portugal: 'portugal', ajax: 'ajax amsterdam', psv: 'psv eindhoven',
+        az: 'az alkmaar', nec: 'nec nijmegen n e c'
+    });
+
+    function teamInfo(name, competition = '') {
+        const international = competitionGroup(competition) === 'Internationaal';
+        const women = /vrouwen|women|\(w\)|wnt/i.test(`${competition} ${name}`);
+        const raw = String(name || '').replace(/\s*(?:\(w\)|women(?:'s national team)?|vrouwen|mannen|wnt|national team)$/i, '').trim();
+        const key = normalize(raw);
+        const clubKey = key.replace(/^(afc|fc|sc)\s+/, '').replace(/\s+(afc|fc|sc)$/, '').replace(/^n e c(?: nijmegen)?$/, 'nec').replace(/^nec nijmegen$/, 'nec').replace(/^ado den haag$/, 'ado');
+        const canonical = Object.entries(TEAM_ALIASES).find(([value, aliases]) =>
+            value === key || aliases === key ||
+            (international && aliases.split(' ').includes(key)) ||
+            (!international && aliases === key)
+        )?.[0] || (international ? key : clubKey);
+        const labelNames = { nederland: 'Nederland', engeland: 'Engeland', duitsland: 'Duitsland', spanje: 'Spanje', italie: 'Italië', frankrijk: 'Frankrijk', belgie: 'België', hongarije: 'Hongarije', ierland: 'Ierland', polen: 'Polen', ajax: 'Ajax', psv: 'PSV', az: 'AZ', nec: 'NEC' };
+        const label = labelNames[canonical] || raw;
+        const gender = women ? 'vrouwen' : 'mannen';
+        return {
+            value: `${international ? 'land' : 'club'}:${canonical}:${gender}`,
+            label: international || women ? `${label} — ${gender}` : label,
+            group: international ? 'Landenteams' : 'Clubs',
+            aliases: `${raw} ${TEAM_ALIASES[canonical] || ''} ${international ? gender : ''}`
+        };
+    }
+
+    function buildTeams(events = [], selected = [], seeds = []) {
+        const teams = new Map();
+        const add = info => { if (info.value.split(':')[1]) teams.set(info.value, { ...info, count: teams.get(info.value)?.count || 0 }); };
+        seeds.forEach(name => add(teamInfo(name, 'Eredivisie')));
+        ['Nations League', 'Nations League Vrouwen'].forEach(competition => add(teamInfo('Nederland', competition)));
+        events.filter(event => !event.sportType || event.sportType === 'voetbal').forEach(event => {
+            [event.home, event.away].filter(Boolean).forEach(name => {
+                const info = teamInfo(name, event.competition);
+                if (!teams.has(info.value)) add(info);
+                teams.get(info.value).count += 1;
+            });
+        });
+        selected.forEach(value => {
+            if (!teams.has(value)) {
+                const [type, name, gender] = value.split(':');
+                if (name) add({ value, label: `${name} — ${gender}`, group: type === 'land' ? 'Landenteams' : 'Clubs', aliases: name });
+            }
+        });
+        return Array.from(teams.values()).sort((a, b) => a.label.localeCompare(b.label, 'nl'));
+    }
+
+    function matchesFootballFilters(event, filters = {}) {
+        const competitions = filters.competitions || [];
+        const teams = filters.teams || [];
+        return (!competitions.length || competitions.includes(event.competition)) &&
+            (!teams.length || [event.home, event.away].filter(Boolean).some(name => teams.includes(teamInfo(name, event.competition).value)));
+    }
+
     function eventSearchText(event = {}) {
         const sport = getSportInfo(event.sportType);
         const competition = String(event.competition || '').trim();
@@ -137,8 +196,10 @@
             competition,
             event.channel,
             event.location,
-            country?.country,
-            country?.aliases
+            event.sportType === 'voetbal' && event.home ? teamInfo(event.home, competition).label : '',
+            event.sportType === 'voetbal' && event.away ? teamInfo(event.away, competition).label : '',
+            event.sportType === 'voetbal' && event.home ? teamInfo(event.home, competition).aliases : '',
+            event.sportType === 'voetbal' && event.away ? teamInfo(event.away, competition).aliases : ''
         ];
 
         (event.matches || []).forEach(match => {
@@ -178,16 +239,20 @@
             items.set(key, { value: label, type, aliases: String(aliases || '').trim() });
         };
 
-        Object.values(SPORTS).forEach(sport => add(sport.label, 'Sport', sport.aliases));
-
         events.forEach(event => {
-            add(event.home, 'Team');
-            add(event.away, 'Team');
+            if (event.sportType === 'voetbal') {
+                [event.home, event.away].filter(Boolean).forEach(name => {
+                    const info = teamInfo(name, event.competition);
+                    add(info.label, info.group === 'Landenteams' ? 'Landenteam' : 'Club', info.aliases);
+                });
+            } else {
+                add(event.home, 'Speler');
+                add(event.away, 'Speler');
+            }
 
             const competition = String(event.competition || '').trim();
             add(competition, 'Competitie');
             const country = getCountryInfo(competition);
-            if (country) add(country.country, 'Land', country.aliases);
 
             const title = event.title || event.event || event.stage;
             if (normalize(title) !== normalize(competition)) add(title, 'Evenement');
@@ -207,7 +272,7 @@
     function filterSuggestions(items = [], query = '', limit = 7) {
         const needle = normalize(query);
         if (!needle) return [];
-        const typeOrder = { Sport: 0, Team: 1, Speler: 2, Competitie: 3, Land: 4, Zender: 5, Evenement: 6 };
+        const typeOrder = { Club: 0, Landenteam: 1, Speler: 2, Competitie: 3, Zender: 4, Evenement: 5 };
 
         return items
             .filter(item => matchesText(`${item.value} ${item.aliases || ''}`, query))
@@ -238,6 +303,9 @@
 
     return Object.freeze({
         SPORTS,
+        teamInfo,
+        buildTeams,
+        matchesFootballFilters,
         buildSuggestions,
         competitionGroup,
         countCompetitions,
@@ -254,841 +322,302 @@
 
 (function () {
     'use strict';
-
-    if (typeof document === 'undefined' || typeof window === 'undefined') return;
-
+    if (typeof document === 'undefined') return;
     const core = window.SPORT_OP_TV_SEARCH_CORE;
-    let initialized = false;
-    let query = '';
-    let searchInput = null;
-    let suggestionsBox = null;
-    let suggestionItems = [];
-    let activeSuggestionIndex = -1;
-    let observer = null;
-    let scheduled = false;
-    let searchMode = false;
-    let hasRestoreSport = false;
-    let restoreSport = null;
-    let competitionButton = null;
-    let competitionCount = null;
-    let competitionBackdrop = null;
-    let competitionSearch = null;
-    let competitionOptions = null;
-    let previousBodyOverflow = '';
+    const app = () => window.SPORT_OP_TV_APP;
+    let input, suggestions, filterButton, backdrop, options, filterSearch, chips, summary;
+    let query = '', choices = [], active = -1, scheduled = false;
+    let draft = { teams: [], competitions: [] }, tab = 'teams', previousOverflow = '';
+    let returnFocus = null;
 
-    const getApp = () => window.SPORT_OP_TV_APP || null;
-
-    function getRowSportText(row) {
-        if (row.classList.contains('football-slot-match')) return 'Voetbal football soccer';
-        if (row.classList.contains('darts-row')) return 'Darts';
-        if (row.classList.contains('f1-row')) return 'F1 formule 1 formula 1 autosport';
-        if (row.classList.contains('motogp-row')) return 'MotoGP motor motorsport';
-        if (row.classList.contains('handbal-row')) return 'Handbal handball';
-        return row.querySelector('.results-sport-badge')?.textContent || '';
-    }
-
-    function getRowCompetition(row) {
-        return row.dataset.competition
-            || row.querySelector('.football-match-competition, .event-competition, .results-competition span:last-child')?.textContent
-            || row.closest('.competition-group')?.querySelector('.competition-name')?.textContent
-            || '';
-    }
-
-    function getRowSearchText(row) {
-        const competition = String(getRowCompetition(row)).trim();
-        const country = core.getCountryInfo(competition);
-        return [
-            getRowSportText(row),
-            competition,
-            country?.country,
-            country?.aliases,
-            row.textContent || ''
-        ].filter(Boolean).join(' ');
-    }
-
-    function getSearchRows() {
-        return Array.from(document.querySelectorAll([
-            '.football-slot-match',
-            '.match-row.darts-row',
-            '.match-row.f1-row',
-            '.match-row.motogp-row',
-            '.match-row.handbal-row',
-            '.results-row'
-        ].join(', ')));
-    }
-
-    function removeEmptyState() {
-        document.getElementById('search-empty-state')?.remove();
-    }
-
-    function resetVisibility() {
-        document.querySelectorAll('[data-search-hidden]').forEach(node => {
-            node.hidden = false;
-            delete node.dataset.searchHidden;
-        });
-        removeEmptyState();
-    }
-
-    function showEmptyState() {
-        const container = document.getElementById('events-container');
-        if (!container || container.querySelector('.loading, .error-message')) return;
-
-        let empty = document.getElementById('search-empty-state');
-        if (!empty) {
-            empty = document.createElement('div');
-            empty.id = 'search-empty-state';
-            empty.className = 'no-events search-empty-state';
-            const title = document.createElement('h3');
-            const description = document.createElement('p');
-            const clearButton = document.createElement('button');
-            title.className = 'search-empty-title';
-            description.textContent = 'Controleer de spelling of wis de zoekopdracht.';
-            clearButton.type = 'button';
-            clearButton.className = 'search-empty-clear';
-            clearButton.textContent = 'Wis zoeken';
-            clearButton.addEventListener('click', () => clearSearch());
-            empty.append(title, description, clearButton);
-            container.appendChild(empty);
-        }
-        empty.querySelector('.search-empty-title').textContent = `Geen resultaten voor “${query}”`;
-    }
-
-    function applySearch() {
-        if (!query) {
-            resetVisibility();
-            return;
-        }
-
-        const rows = getSearchRows();
-        let visibleRows = 0;
-        rows.forEach(row => {
-            const visible = core.matchesText(getRowSearchText(row), query);
-            row.hidden = !visible;
-            row.dataset.searchHidden = visible ? '0' : '1';
-            if (visible) visibleRows += 1;
-        });
-
-        document.querySelectorAll('.football-slot').forEach(slot => {
-            const matches = Array.from(slot.querySelectorAll('.football-slot-match'));
-            const visible = matches.some(match => !match.hidden);
-            slot.hidden = !visible;
-            slot.dataset.searchHidden = visible ? '0' : '1';
-        });
-
-        document.querySelectorAll('.competition-group').forEach(group => {
-            const matches = Array.from(group.querySelectorAll('.match-row'));
-            const visible = matches.some(match => !match.hidden);
-            group.hidden = !visible;
-            group.dataset.searchHidden = visible ? '0' : '1';
-        });
-
-        document.querySelectorAll('.darts-matches-list').forEach(details => {
-            const trigger = details.previousElementSibling;
-            const visible = trigger?.classList.contains('darts-row') && !trigger.hidden;
-            details.hidden = !visible;
-            details.dataset.searchHidden = visible ? '0' : '1';
-        });
-
-        document.querySelectorAll('.day-section').forEach(day => {
-            const matches = Array.from(day.querySelectorAll('.football-slot-match, .match-row, .results-row'));
-            const visible = matches.some(match => !match.hidden);
-            day.hidden = !visible;
-            day.dataset.searchHidden = visible ? '0' : '1';
-        });
-
-        const resultsSummary = document.querySelector('.results-summary');
-        if (resultsSummary) {
-            resultsSummary.hidden = true;
-            resultsSummary.dataset.searchHidden = '1';
-        }
-
-        if (visibleRows === 0) showEmptyState();
-        else removeEmptyState();
-    }
-
-    function setActiveSuggestion(index) {
-        activeSuggestionIndex = index;
-        const buttons = Array.from(suggestionsBox?.querySelectorAll('.search-suggestion') || []);
-        buttons.forEach((button, buttonIndex) => {
-            const active = buttonIndex === index;
-            button.classList.toggle('is-active', active);
-            button.setAttribute('aria-selected', active ? 'true' : 'false');
-        });
-        if (searchInput) {
-            const activeButton = buttons[index];
-            if (activeButton) searchInput.setAttribute('aria-activedescendant', activeButton.id);
-            else searchInput.removeAttribute('aria-activedescendant');
-        }
-    }
-
+    const el = (tag, className, text) => {
+        const node = document.createElement(tag);
+        if (className) node.className = className;
+        if (text !== undefined) node.textContent = text;
+        return node;
+    };
+    const button = (text, className, handler) => {
+        const node = el('button', className, text);
+        node.type = 'button';
+        if (handler) node.addEventListener('click', handler);
+        return node;
+    };
     function hideSuggestions() {
-        if (!suggestionsBox) return;
-        suggestionsBox.hidden = true;
-        searchInput?.setAttribute('aria-expanded', 'false');
-        setActiveSuggestion(-1);
+        suggestions.hidden = true;
+        input.setAttribute('aria-expanded', 'false');
+        input.removeAttribute('aria-activedescendant');
+        active = -1;
     }
-
-    function collectSuggestions() {
-        const events = getApp()?.getSearchEvents?.() || [];
-        return core.buildSuggestions(events);
-    }
-
-    function renderSuggestions() {
-        if (!suggestionsBox || !searchInput || !query) {
-            hideSuggestions();
-            return;
-        }
-
-        suggestionItems = core.filterSuggestions(collectSuggestions(), query, 7);
-        suggestionsBox.replaceChildren();
-        if (!suggestionItems.length) {
-            hideSuggestions();
-            return;
-        }
-
-        suggestionItems.forEach((item, index) => {
-            const button = document.createElement('button');
-            const value = document.createElement('span');
-            const type = document.createElement('small');
-            button.type = 'button';
-            button.className = 'search-suggestion';
-            button.id = `search-suggestion-${index}`;
-            button.dataset.index = String(index);
-            button.setAttribute('role', 'option');
-            button.setAttribute('aria-selected', 'false');
-            value.textContent = item.value;
-            type.textContent = item.type;
-            button.append(value, type);
-            suggestionsBox.appendChild(button);
+    function updateActive() {
+        Array.from(suggestions.children).forEach((node, i) => {
+            node.classList.toggle('is-active', i === active);
+            node.setAttribute('aria-selected', String(i === active));
         });
-
-        suggestionsBox.hidden = false;
-        searchInput.setAttribute('aria-expanded', 'true');
-        setActiveSuggestion(-1);
+        if (active >= 0) input.setAttribute('aria-activedescendant', `search-choice-${active}`);
+        else input.removeAttribute('aria-activedescendant');
     }
-
-    function afterRender() {
+    function choose(index) {
+        if (!choices[index]) return;
+        input.value = query = choices[index].value;
+        hideSuggestions();
         applySearch();
-        updateCompetitionButton();
-        if (
-            competitionBackdrop &&
-            !competitionBackdrop.hidden &&
-            (!competitionOptions?.children.length || competitionOptions.querySelector('.competition-filter-loading'))
-        ) {
-            renderCompetitionOptions();
+        input.blur();
+    }
+    function renderSuggestions() {
+        choices = core.filterSuggestions(core.buildSuggestions(app()?.getSearchEvents() || []), query, 5);
+        suggestions.replaceChildren();
+        if (!query || !choices.length) return hideSuggestions();
+        choices.forEach((item, index) => {
+            const node = button('', 'search-suggestion', () => choose(index));
+            node.id = `search-choice-${index}`;
+            node.setAttribute('role', 'option');
+            node.setAttribute('aria-selected', 'false');
+            node.append(el('span', '', item.value), el('small', '', item.type));
+            suggestions.append(node);
+        });
+        suggestions.hidden = false;
+        input.setAttribute('aria-expanded', 'true');
+        active = -1;
+    }
+    function applySearch() {
+        const rows = Array.from(document.querySelectorAll('.football-slot-match, .match-row.darts-row, .match-row.f1-row, .match-row.motogp-row, .match-row.handbal-row, .results-row'));
+        let count = 0;
+        rows.forEach(row => {
+            const sport = row.classList.contains('football-slot-match') ? 'voetbal' :
+                ['darts', 'f1', 'motogp', 'handbal'].find(sport => row.classList.contains(`${sport}-row`)) || '';
+            const text = row.dataset.searchText || `${sport} ${row.textContent}`;
+            const visible = !query || core.matchesText(text, query);
+            row.hidden = !visible;
+            row.dataset.searchHidden = String(!visible);
+            if (visible) count++;
+        });
+        document.querySelectorAll('.football-slot, .competition-group, .day-section').forEach(group => {
+            const rows = Array.from(group.querySelectorAll('.football-slot-match, .match-row, .results-row'));
+            group.hidden = !!query && !rows.some(row => !row.hidden);
+            group.dataset.searchHidden = String(group.hidden);
+        });
+        document.querySelectorAll('.darts-matches-list').forEach(details => {
+            details.hidden = !!query && !!details.previousElementSibling?.hidden;
+            details.dataset.searchHidden = String(details.hidden);
+        });
+        const resultSummary = document.querySelector('.results-summary');
+        if (resultSummary) resultSummary.hidden = !!query;
+        if (!query || count || document.getElementById('events-container')?.querySelector('.loading, .error-message')) document.getElementById('search-empty-state')?.remove();
+        document.getElementById('search-clear').hidden = !query;
+        summary.hidden = !query;
+        const container = document.getElementById('events-container');
+        const loading = !!container?.querySelector('.loading, .error-message');
+        summary.textContent = loading ? 'Wedstrijden laden…' : `${count} ${count === 1 ? 'resultaat' : 'resultaten'}`;
+        if (query && !count && !loading && container) {
+            if (document.getElementById('search-empty-state')?.dataset.query === query) return;
+            document.getElementById('search-empty-state')?.remove();
+            const empty = el('div', 'no-events search-empty-state');
+            empty.dataset.query = query;
+            empty.id = 'search-empty-state';
+            empty.append(el('h3', '', `Geen resultaten voor “${query}”`),
+                el('p', '', 'Zoeken gebruikt je gekozen sport en filters.'),
+                button('Wis zoeken', 'filter-secondary', () => clearSearch()));
+            if ((app()?.getFootballFilters().teams.length || app()?.getFootballFilters().competitions.length) && ['voetbal', null].includes(app()?.getSportFilter())) {
+                empty.append(button('Pas filters aan', 'filter-secondary', openDialog));
+            }
+            container.append(empty);
         }
     }
-
+    function clearSearch() {
+        query = input.value = '';
+        hideSuggestions();
+        applySearch();
+        return Promise.resolve();
+    }
+    function updateToolbar() {
+        const visible = ['voetbal', null].includes(app()?.getSportFilter());
+        filterButton.hidden = !visible;
+        const current = app()?.getFootballFilters() || { teams: [], competitions: [] };
+        const count = current.teams.length + current.competitions.length;
+        filterButton.querySelector('span').textContent = count && visible ? `Filters (${count})` : 'Filters';
+        filterButton.classList.toggle('active', count > 0);
+        chips.replaceChildren();
+        if (visible) {
+            const teams = new Map((app()?.getFootballTeams() || []).map(team => [team.value, team.label]));
+            ['teams', 'competitions'].forEach(type => current[type].forEach(value => {
+                const text = type === 'teams' ? teams.get(value) || value : value;
+                const chip = button(`${text} ×`, 'filter-chip', () => {
+                    const next = app().getFootballFilters();
+                    next[type] = next[type].filter(item => item !== value);
+                    app().setFootballFilters(next);
+                    afterRender();
+                });
+                chip.setAttribute('aria-label', `Verwijder filter ${text}`);
+                chips.append(chip);
+            }));
+        }
+        chips.hidden = !visible || !count;
+        if (!visible && !backdrop.hidden) closeDialog();
+    }
+    function afterRender() {
+        updateToolbar();
+        applySearch();
+        if (!backdrop.hidden) renderOptions();
+        if (document.activeElement === input) renderSuggestions();
+    }
     function scheduleAfterRender() {
         if (scheduled) return;
         scheduled = true;
-        requestAnimationFrame(() => {
-            scheduled = false;
-            afterRender();
-        });
+        requestAnimationFrame(() => { scheduled = false; afterRender(); });
     }
-
-    function enterSearchMode() {
-        if (searchMode) {
-            applySearch();
-            return;
-        }
-
-        const app = getApp();
-        searchMode = true;
-        restoreSport = app?.getSportFilter?.() ?? null;
-        hasRestoreSport = true;
-        updateCompetitionButton();
-
-        if (app?.getSportFilter?.() !== null) {
-            Promise.resolve(app.setSportFilter(null, true)).finally(afterRender);
-        } else {
-            applySearch();
-        }
+    function entries() {
+        if (tab === 'teams') return app()?.getFootballTeams(draft.teams) || [];
+        const counts = new Map((app()?.getFootballCompetitionCounts() || []).map(item => [item.value, item.count]));
+        return [...new Set([...(app()?.getFootballCompetitions() || []), ...counts.keys(), ...draft.competitions])].map(value => ({
+            value, label: value, group: core.competitionGroup(value), count: counts.get(value) || 0, aliases: ''
+        }));
     }
-
-    function clearSearch(options = {}) {
-        const { restoreSport: shouldRestore = true, render = true } = options;
-        if (searchInput) searchInput.value = '';
-        query = '';
-        hideSuggestions();
-        resetVisibility();
-
-        const app = getApp();
-        const targetSport = restoreSport;
-        const restoreAvailable = searchMode && hasRestoreSport && shouldRestore;
-        searchMode = false;
-        hasRestoreSport = false;
-        restoreSport = null;
-        updateCompetitionButton();
-
-        if (restoreAvailable && app) {
-            return app.setSportFilter(targetSport, render);
-        }
-        return Promise.resolve();
+    function updateDraftLabel() {
+        const count = draft.teams.length + draft.competitions.length;
+        backdrop.querySelector('.filter-selection-count').textContent = count ? `${draft.teams.length} teams · ${draft.competitions.length} competities` : 'Alles zichtbaar';
+        backdrop.querySelector('.filter-help').textContent = tab === 'teams' ?
+            'Kies clubs of landenteams. Meerdere teams tonen hun wedstrijden. Geen keuze toont alle teams.' :
+            'Kies competities. Met een teamkeuze zie je alleen wedstrijden die aan beide filters voldoen.';
     }
-
-    function selectSuggestion(index) {
-        const item = suggestionItems[index];
-        if (!item || !searchInput) return;
-        searchInput.value = item.value;
-        query = item.value;
-        hideSuggestions();
-        enterSearchMode();
-        searchInput.focus();
-    }
-
-    function handleSearchInput() {
-        query = searchInput.value.trim();
-        if (!query) {
-            clearSearch();
-            return;
-        }
-        renderSuggestions();
-        enterSearchMode();
-    }
-
-    function handleSearchKeydown(event) {
-        const suggestionCount = suggestionItems.length;
-        if (event.key === 'ArrowDown' && suggestionCount) {
-            event.preventDefault();
-            setActiveSuggestion((activeSuggestionIndex + 1) % suggestionCount);
-        } else if (event.key === 'ArrowUp' && suggestionCount) {
-            event.preventDefault();
-            setActiveSuggestion((activeSuggestionIndex - 1 + suggestionCount) % suggestionCount);
-        } else if (event.key === 'Enter' && activeSuggestionIndex >= 0) {
-            event.preventDefault();
-            selectSuggestion(activeSuggestionIndex);
-        } else if (event.key === 'Escape') {
-            event.preventDefault();
-            if (suggestionsBox && !suggestionsBox.hidden) hideSuggestions();
-            else clearSearch();
-        }
-    }
-
-    function getCompetitionEntries() {
-        const app = getApp();
-        const selected = new Set(app?.getCompetitionFilters?.() || []);
-        const counts = new Map((app?.getFootballCompetitionCounts?.() || []).map(item => [item.value, item.count]));
-        const entries = new Map();
-
-        (app?.getFootballCompetitions?.() || []).forEach(value => {
-            entries.set(value, {
-                value,
-                count: counts.get(value) || 0,
-                group: core.competitionGroup(value)
-            });
-        });
-
-        counts.forEach((count, value) => {
-            if (!entries.has(value)) {
-                entries.set(value, { value, count, group: core.competitionGroup(value) });
-            }
-        });
-
-        selected.forEach(value => {
-            if (!entries.has(value)) {
-                entries.set(value, { value, count: 0, group: core.competitionGroup(value) });
-            }
-        });
-
-        const groupOrder = { Nederland: 0, Europa: 1, Buitenland: 2, Internationaal: 3, Overig: 4 };
-        return Array.from(entries.values()).sort((a, b) =>
-            (groupOrder[a.group] ?? 9) - (groupOrder[b.group] ?? 9)
-            || a.value.localeCompare(b.value, 'nl')
-        );
-    }
-
-    function filterCompetitionOptions() {
-        if (!competitionOptions || !competitionSearch) return;
-        const needle = competitionSearch.value;
-        competitionOptions.querySelectorAll('.competition-option').forEach(option => {
-            option.hidden = !core.matchesText(option.dataset.searchValue || '', needle);
-        });
-        competitionOptions.querySelectorAll('.competition-option-group').forEach(group => {
-            group.hidden = !Array.from(group.querySelectorAll('.competition-option')).some(option => !option.hidden);
-        });
-    }
-
-    function renderCompetitionOptions() {
-        if (!competitionOptions) return;
-        const app = getApp();
-        const selected = new Set(app?.getCompetitionFilters?.() || []);
-        const entries = getCompetitionEntries();
-        competitionOptions.replaceChildren();
-
-        if (!entries.length) {
-            const loading = document.createElement('p');
-            loading.className = 'competition-filter-loading';
-            loading.textContent = 'Competities worden geladen…';
-            competitionOptions.appendChild(loading);
-            return;
-        }
-
+    function renderOptions() {
+        const selection = new Set(draft[tab]);
+        let items = entries().filter(item => core.matchesText(`${item.label} ${item.group} ${item.aliases || ''}`, filterSearch.value));
         const groups = new Map();
-        entries.forEach(entry => {
-            if (!groups.has(entry.group)) groups.set(entry.group, []);
-            groups.get(entry.group).push(entry);
+        items.sort((a, b) => Number(selection.has(b.value)) - Number(selection.has(a.value)) || a.label.localeCompare(b.label, 'nl')).forEach(item => {
+            const name = selection.has(item.value) ? 'Geselecteerd' : item.group;
+            if (!groups.has(name)) groups.set(name, []);
+            groups.get(name).push(item);
         });
-
-        groups.forEach((groupEntries, groupName) => {
-            const section = document.createElement('section');
-            const heading = document.createElement('div');
-            const headingLabel = document.createElement('h3');
-            const onlyGroup = document.createElement('button');
-            section.className = 'competition-option-group';
-            heading.className = 'competition-option-group-heading';
-            headingLabel.textContent = groupName;
-            onlyGroup.type = 'button';
-            onlyGroup.className = 'competition-option-group-only';
-            onlyGroup.textContent = 'Alleen deze';
-            onlyGroup.addEventListener('click', () => {
-                Promise.resolve(getApp()?.setCompetitionFilters?.(
-                    groupEntries.map(entry => entry.value),
-                    true
-                )).finally(() => {
-                    renderCompetitionOptions();
-                    afterRender();
+        options.replaceChildren();
+        const order = ['Geselecteerd', 'Landenteams', 'Clubs', 'Nederland', 'Europa', 'Internationaal', 'Buitenland', 'Overig'];
+        Array.from(groups).sort((a,b) => order.indexOf(a[0]) - order.indexOf(b[0])).forEach(([group, items]) => {
+            const section = el('section', 'filter-group');
+            section.append(el('h3', '', group));
+            items.forEach(item => {
+                const label = el('label', 'filter-option');
+                const checkbox = el('input');
+                checkbox.type = 'checkbox'; checkbox.value = item.value; checkbox.checked = selection.has(item.value);
+                checkbox.addEventListener('change', () => {
+                    const chosen = new Set(draft[tab]);
+                    if (checkbox.checked) chosen.add(item.value); else chosen.delete(item.value);
+                    draft[tab] = [...chosen];
+                    updateDraftLabel(); // Keep the list still while selecting.
                 });
-            });
-            heading.append(headingLabel, onlyGroup);
-            section.appendChild(heading);
-
-            groupEntries.forEach(entry => {
-                const label = document.createElement('label');
-                const checkbox = document.createElement('input');
-                const name = document.createElement('span');
-                const count = document.createElement('small');
-                label.className = 'competition-option';
-                label.dataset.searchValue = `${entry.value} ${groupName}`;
-                checkbox.type = 'checkbox';
-                checkbox.value = entry.value;
-                checkbox.checked = selected.has(entry.value);
-                name.textContent = entry.value;
-                count.textContent = String(entry.count);
-                count.setAttribute('aria-label', `${entry.count} wedstrijden`);
+                const name = el('span', '', item.label);
+                const count = el('small', '', String(item.count));
+                count.title = `${item.count} wedstrijden in de geladen agenda`;
                 label.append(checkbox, name, count);
-                section.appendChild(label);
+                section.append(label);
             });
-            competitionOptions.appendChild(section);
+            options.append(section);
         });
-
-        filterCompetitionOptions();
+        if (!items.length) options.append(el('p', 'filter-no-matches', 'Geen matches. Probeer een andere naam.'));
+        updateDraftLabel();
     }
-
-    function closeCompetitionDialog() {
-        if (!competitionBackdrop || competitionBackdrop.hidden) return;
-        competitionBackdrop.hidden = true;
-        competitionButton?.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = previousBodyOverflow;
-        if (competitionButton && !competitionButton.hidden) competitionButton.focus();
+    function closeDialog() {
+        if (backdrop.hidden) return;
+        backdrop.hidden = true;
+        document.body.style.overflow = previousOverflow;
+        filterButton.setAttribute('aria-expanded', 'false');
+        returnFocus?.focus();
     }
-
-    function openCompetitionDialog() {
-        if (!competitionBackdrop || !competitionButton || competitionButton.hidden) return;
-        renderCompetitionOptions();
-        if (competitionSearch) competitionSearch.value = '';
-        filterCompetitionOptions();
-        previousBodyOverflow = document.body.style.overflow;
+    function openDialog() {
+        if (!backdrop.hidden) return;
+        const current = app()?.getFootballFilters();
+        if (!current) return;
+        draft = { teams: [...current.teams], competitions: [...current.competitions] };
+        tab = 'teams';
+        filterSearch.value = '';
+        returnFocus = document.activeElement;
+        backdrop.querySelectorAll('[data-filter-tab]').forEach(node => node.setAttribute('aria-selected', String(node.dataset.filterTab === tab)));
+        filterSearch.placeholder = 'Zoek team…';
+        filterSearch.setAttribute('aria-label', 'Zoek team');
+        renderOptions();
+        previousOverflow = document.body.style.overflow;
         document.body.style.overflow = 'hidden';
-        competitionBackdrop.hidden = false;
-        competitionButton.setAttribute('aria-expanded', 'true');
-        competitionSearch?.focus();
+        backdrop.hidden = false;
+        filterButton.setAttribute('aria-expanded', 'true');
+        backdrop.querySelector('.filter-close').focus(); // Avoid opening the iPhone keyboard before it is needed.
     }
-
-    function updateCompetitionButton() {
-        if (!competitionButton) return;
-        const app = getApp();
-        const selectedCount = app?.getCompetitionFilters?.().length || 0;
-        const visible = app?.getSportFilter?.() === 'voetbal'
-            && !app?.isResultsMode?.()
-            && !searchMode;
-        competitionButton.hidden = !visible;
-        competitionButton.classList.toggle('active', selectedCount > 0);
-        competitionButton.setAttribute(
-            'aria-label',
-            selectedCount
-                ? `Mijn competities, ${selectedCount} geselecteerd`
-                : 'Mijn competities, alle competities zichtbaar'
-        );
-        if (competitionCount) {
-            competitionCount.textContent = String(selectedCount);
-            competitionCount.hidden = selectedCount === 0;
-        }
-        if (!visible) closeCompetitionDialog();
-    }
-
-    function installCompetitionDialog() {
-        competitionButton = document.getElementById('competition-filter-btn');
-        competitionCount = document.getElementById('competition-filter-count');
-        if (!competitionButton) return;
-
-        competitionBackdrop = document.createElement('div');
-        competitionBackdrop.className = 'competition-filter-backdrop';
-        competitionBackdrop.hidden = true;
-        competitionBackdrop.innerHTML = `
-            <section class="competition-filter-dialog" role="dialog" aria-modal="true" aria-labelledby="competition-filter-title">
-                <header>
-                    <div>
-                        <p class="competition-filter-kicker">Voetbal</p>
-                        <h2 id="competition-filter-title">Mijn competities</h2>
-                    </div>
-                    <button type="button" class="competition-filter-close" aria-label="Sluiten">×</button>
-                </header>
-                <p class="competition-filter-help">Kies wat jij standaard wilt zien. Je keuze wordt op dit apparaat onthouden. Niets gekozen toont alles.</p>
-                <input type="search" class="competition-filter-search" placeholder="Zoek competitie…" aria-label="Zoek competitie" autocomplete="off">
-                <div class="competition-filter-options"></div>
-                <footer>
-                    <button type="button" class="competition-filter-clear">Alle competities</button>
-                    <button type="button" class="competition-filter-done">Gereed</button>
-                </footer>
-            </section>
-        `;
-        document.body.appendChild(competitionBackdrop);
-
-        competitionSearch = competitionBackdrop.querySelector('.competition-filter-search');
-        competitionOptions = competitionBackdrop.querySelector('.competition-filter-options');
-        competitionButton.addEventListener('click', openCompetitionDialog);
-        competitionSearch.addEventListener('input', filterCompetitionOptions);
-        competitionBackdrop.querySelector('.competition-filter-close').addEventListener('click', closeCompetitionDialog);
-        competitionBackdrop.querySelector('.competition-filter-done').addEventListener('click', closeCompetitionDialog);
-        competitionBackdrop.querySelector('.competition-filter-clear').addEventListener('click', () => {
-            competitionOptions.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-                checkbox.checked = false;
-            });
-            Promise.resolve(getApp()?.setCompetitionFilters?.([], true)).finally(afterRender);
-            updateCompetitionButton();
+    function installDialog() {
+        backdrop = el('div', 'filter-backdrop');
+        backdrop.hidden = true;
+        backdrop.innerHTML = `
+            <section class="filter-dialog" role="dialog" aria-modal="true" aria-labelledby="filter-title">
+                <div class="filter-heading"><h2 id="filter-title">Voetbalfilters</h2><button type="button" class="filter-close" aria-label="Sluiten zonder toepassen">×</button></div>
+                <div class="filter-tabs" role="tablist" aria-label="Soort filter">
+                    <button type="button" role="tab" id="filter-tab-teams" data-filter-tab="teams" aria-controls="filter-options" aria-selected="true">Teams</button>
+                    <button type="button" role="tab" id="filter-tab-competitions" data-filter-tab="competitions" aria-controls="filter-options" aria-selected="false">Competities</button>
+                </div>
+                <p class="filter-help"></p>
+                <input type="search" class="filter-search" autocomplete="off" placeholder="Zoek team…" aria-label="Zoek team">
+                <div class="filter-options" id="filter-options" role="tabpanel" aria-labelledby="filter-tab-teams"></div>
+                <div class="filter-footer"><p class="filter-selection-count" aria-live="polite"></p><div><button type="button" class="filter-secondary filter-reset">Wis filters</button><button type="button" class="filter-apply">Toon wedstrijden</button></div></div>
+            </section>`;
+        document.body.append(backdrop);
+        options = backdrop.querySelector('.filter-options');
+        filterSearch = backdrop.querySelector('.filter-search');
+        filterSearch.addEventListener('input', renderOptions);
+        filterSearch.addEventListener('keydown', event => { if (event.key === 'Enter') filterSearch.blur(); });
+        backdrop.querySelector('.filter-close').addEventListener('click', closeDialog);
+        backdrop.addEventListener('click', event => { if (event.target === backdrop) closeDialog(); });
+        backdrop.querySelectorAll('[data-filter-tab]').forEach(node => node.addEventListener('click', () => {
+            tab = node.dataset.filterTab;
+            filterSearch.value = '';
+            filterSearch.placeholder = tab === 'teams' ? 'Zoek team…' : 'Zoek competitie…';
+            filterSearch.setAttribute('aria-label', tab === 'teams' ? 'Zoek team' : 'Zoek competitie');
+            options.setAttribute('aria-labelledby', node.id);
+            backdrop.querySelectorAll('[data-filter-tab]').forEach(other => other.setAttribute('aria-selected', String(other === node)));
+            renderOptions();
+        }));
+        backdrop.querySelector('.filter-reset').addEventListener('click', () => {
+            draft = { teams: [], competitions: [] }; renderOptions();
         });
-        competitionOptions.addEventListener('change', event => {
-            if (!event.target.matches('input[type="checkbox"]')) return;
-            const values = Array.from(competitionOptions.querySelectorAll('input[type="checkbox"]:checked'))
-                .map(checkbox => checkbox.value);
-            Promise.resolve(getApp()?.setCompetitionFilters?.(values, true)).finally(afterRender);
-            updateCompetitionButton();
+        backdrop.querySelector('.filter-apply').addEventListener('click', () => {
+            closeDialog();
+            app().setFootballFilters(draft);
+            updateToolbar();
         });
-        competitionBackdrop.addEventListener('click', event => {
-            if (event.target === competitionBackdrop) closeCompetitionDialog();
-        });
-        document.addEventListener('keydown', event => {
-            if (event.key === 'Escape' && !competitionBackdrop.hidden) {
-                event.preventDefault();
-                closeCompetitionDialog();
+        backdrop.addEventListener('keydown', event => {
+            if (event.key === 'Escape') { event.preventDefault(); closeDialog(); }
+            if (event.key === 'Tab') {
+                const nodes = Array.from(backdrop.querySelectorAll('button, input'));
+                const first = nodes[0], last = nodes[nodes.length - 1];
+                if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+                else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
             }
         });
-
-        updateCompetitionButton();
     }
-
-    function installStyles() {
-        if (document.getElementById('universal-search-styles')) return;
-        const style = document.createElement('style');
-        style.id = 'universal-search-styles';
-        style.textContent = `
-            .quick-search { position: relative; }
-            .search-suggestions {
-                position: absolute;
-                z-index: 600;
-                left: 0;
-                right: 0;
-                top: calc(100% + 6px);
-                max-height: min(55vh, 360px);
-                overflow-y: auto;
-                border: 1px solid var(--border);
-                border-radius: 10px;
-                background: var(--card-bg);
-                box-shadow: 0 12px 28px rgba(0,0,0,.24);
-            }
-            .search-suggestions[hidden],
-            .competition-filter-backdrop[hidden] { display: none !important; }
-            .search-suggestion {
-                width: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                gap: 12px;
-                padding: 11px 12px;
-                border: 0;
-                border-bottom: 1px solid var(--border);
-                background: transparent;
-                color: var(--text);
-                font: inherit;
-                text-align: left;
-                cursor: pointer;
-            }
-            .search-suggestion:last-child { border-bottom: 0; }
-            .search-suggestion:hover,
-            .search-suggestion:focus,
-            .search-suggestion.is-active {
-                background: var(--bg-secondary);
-                outline: none;
-            }
-            .search-suggestion small {
-                color: var(--text-secondary);
-                font-size: .68rem;
-                white-space: nowrap;
-            }
-            .competition-filter-btn {
-                min-height: 34px;
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                gap: 7px;
-                padding: 7px 10px;
-                border: 1px solid rgba(255,255,255,.18);
-                border-radius: 6px;
-                background: rgba(255,255,255,.08);
-                color: rgba(255,255,255,.9);
-                font: inherit;
-                font-size: .76rem;
-                font-weight: 700;
-                cursor: pointer;
-            }
-            .competition-filter-btn:hover,
-            .competition-filter-btn.active {
-                background: rgba(34,197,94,.28);
-                border-color: rgba(74,222,128,.7);
-            }
-            .competition-filter-btn svg { width: 17px; height: 17px; }
-            .competition-filter-count {
-                min-width: 19px;
-                height: 19px;
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                padding: 0 5px;
-                border-radius: 10px;
-                background: var(--success, #22c55e);
-                color: #fff;
-                font-size: .68rem;
-                line-height: 1;
-            }
-            .competition-filter-backdrop {
-                position: fixed;
-                inset: 0;
-                z-index: 1900;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                padding: 18px;
-                background: rgba(0,0,0,.6);
-                backdrop-filter: blur(4px);
-            }
-            .competition-filter-dialog {
-                width: min(560px, 100%);
-                max-height: min(82vh, 720px);
-                display: flex;
-                flex-direction: column;
-                overflow: hidden;
-                border: 1px solid var(--border);
-                border-radius: 16px;
-                background: var(--card-bg);
-                color: var(--text);
-                box-shadow: 0 24px 60px rgba(0,0,0,.38);
-            }
-            .competition-filter-dialog > header {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                gap: 16px;
-                padding: 17px 18px 10px;
-            }
-            .competition-filter-dialog h2 { margin: 0; font-size: 1.2rem; }
-            .competition-filter-kicker {
-                margin: 0 0 2px;
-                color: var(--success, #22c55e);
-                font-size: .7rem;
-                font-weight: 800;
-                letter-spacing: .08em;
-                text-transform: uppercase;
-            }
-            .competition-filter-close {
-                width: 38px;
-                height: 38px;
-                border: 0;
-                border-radius: 50%;
-                background: var(--bg-secondary);
-                color: var(--text);
-                font-size: 1.5rem;
-                cursor: pointer;
-            }
-            .competition-filter-help {
-                margin: 0;
-                padding: 0 18px 12px;
-                color: var(--text-secondary);
-                font-size: .78rem;
-            }
-            .competition-filter-search {
-                margin: 0 18px 12px;
-                padding: 10px 12px;
-                border: 1px solid var(--border);
-                border-radius: 9px;
-                background: var(--bg-secondary);
-                color: var(--text);
-                font: inherit;
-            }
-            .competition-filter-options {
-                min-height: 100px;
-                overflow-y: auto;
-                padding: 0 18px 12px;
-            }
-            .competition-option-group-heading {
-                position: sticky;
-                top: 0;
-                z-index: 1;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                gap: 10px;
-                padding: 10px 0 6px;
-                background: var(--card-bg);
-            }
-            .competition-option-group-heading h3 {
-                margin: 0;
-                color: var(--text-secondary);
-                font-size: .7rem;
-                letter-spacing: .06em;
-                text-transform: uppercase;
-            }
-            .competition-option-group-only {
-                padding: 4px 7px;
-                border: 0;
-                border-radius: 7px;
-                background: var(--bg-secondary);
-                color: var(--text-secondary);
-                font: inherit;
-                font-size: .66rem;
-                font-weight: 700;
-                cursor: pointer;
-            }
-            .competition-option-group-only:hover {
-                color: var(--text);
-            }
-            .competition-option {
-                display: grid;
-                grid-template-columns: 22px minmax(0, 1fr) auto;
-                align-items: center;
-                gap: 9px;
-                min-height: 42px;
-                padding: 6px 4px;
-                border-bottom: 1px solid var(--border);
-                cursor: pointer;
-            }
-            .competition-option input {
-                width: 18px;
-                height: 18px;
-                accent-color: var(--success, #22c55e);
-            }
-            .competition-option small {
-                min-width: 26px;
-                padding: 3px 6px;
-                border-radius: 10px;
-                background: var(--bg-secondary);
-                color: var(--text-secondary);
-                text-align: center;
-            }
-            .competition-filter-loading {
-                padding: 22px 0;
-                color: var(--text-secondary);
-                text-align: center;
-            }
-            .competition-filter-dialog > footer {
-                display: flex;
-                justify-content: space-between;
-                gap: 10px;
-                padding: 12px 18px 16px;
-                border-top: 1px solid var(--border);
-            }
-            .competition-filter-dialog > footer button,
-            .search-empty-clear {
-                padding: 10px 14px;
-                border: 0;
-                border-radius: 9px;
-                font: inherit;
-                font-weight: 700;
-                cursor: pointer;
-            }
-            .competition-filter-clear { background: var(--bg-secondary); color: var(--text); }
-            .competition-filter-done,
-            .search-empty-clear { background: var(--success, #22c55e); color: #fff; }
-            .search-empty-state { margin-top: 12px; }
-            .search-empty-title { margin-bottom: 6px; }
-            .search-empty-clear { margin-top: 14px; }
-            @media (max-width: 600px) {
-                .competition-filter-label,
-                .results-toggle-btn span { display: none; }
-                .competition-filter-btn,
-                .results-toggle-btn {
-                    flex: 0 0 38px;
-                    width: 38px;
-                    min-width: 38px;
-                    min-height: 36px;
-                    padding: 0;
-                }
-                .competition-filter-backdrop {
-                    align-items: flex-end;
-                    padding: 0;
-                }
-                .competition-filter-dialog {
-                    width: 100%;
-                    max-height: 86vh;
-                    border-radius: 18px 18px 0 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
-    }
-
-    function startObserver() {
-        if (observer) return;
-        const target = document.getElementById('events-container');
-        if (!target) return;
-        observer = new MutationObserver(scheduleAfterRender);
-        observer.observe(target, { childList: true, subtree: true });
-    }
-
     function init() {
-        if (initialized) return;
-        searchInput = document.getElementById('sport-search');
-        if (!searchInput || !core) return;
-        initialized = true;
-
-        installStyles();
-        suggestionsBox = document.createElement('div');
-        suggestionsBox.className = 'search-suggestions';
-        suggestionsBox.id = 'search-suggestions';
-        suggestionsBox.hidden = true;
-        suggestionsBox.setAttribute('role', 'listbox');
-        searchInput.closest('.quick-search')?.appendChild(suggestionsBox);
-        searchInput.setAttribute('aria-autocomplete', 'list');
-        searchInput.setAttribute('aria-controls', suggestionsBox.id);
-        searchInput.setAttribute('aria-expanded', 'false');
-
-        searchInput.addEventListener('input', handleSearchInput);
-        searchInput.addEventListener('keydown', handleSearchKeydown);
-        searchInput.addEventListener('focus', renderSuggestions);
-        suggestionsBox.addEventListener('click', event => {
-            const button = event.target.closest('.search-suggestion');
-            if (button) selectSuggestion(Number(button.dataset.index));
+        input = document.getElementById('sport-search');
+        if (!input || !core) return;
+        filterButton = document.getElementById('competition-filter-btn');
+        chips = document.getElementById('active-filters');
+        summary = document.getElementById('search-summary');
+        suggestions = el('div', 'search-suggestions');
+        suggestions.id = 'search-suggestions'; suggestions.hidden = true; suggestions.setAttribute('role', 'listbox');
+        input.closest('.quick-search').append(suggestions);
+        input.setAttribute('role', 'combobox');
+        input.setAttribute('aria-autocomplete', 'list');
+        input.setAttribute('aria-controls', suggestions.id);
+        input.setAttribute('aria-expanded', 'false');
+        input.addEventListener('input', () => { query = input.value.trim(); applySearch(); renderSuggestions(); });
+        input.addEventListener('focus', renderSuggestions);
+        input.addEventListener('keydown', event => {
+            if (event.key === 'ArrowDown' && choices.length) { event.preventDefault(); active = (active + 1) % choices.length; updateActive(); }
+            else if (event.key === 'ArrowUp' && choices.length) { event.preventDefault(); active = (active - 1 + choices.length) % choices.length; updateActive(); }
+            else if (event.key === 'Enter') { event.preventDefault(); if (active >= 0) choose(active); else { hideSuggestions(); input.blur(); } }
+            else if (event.key === 'Escape') { event.preventDefault(); if (!suggestions.hidden) hideSuggestions(); else clearSearch(); }
         });
-        document.addEventListener('click', event => {
-            if (!searchInput.closest('.quick-search')?.contains(event.target)) hideSuggestions();
-        });
-
-        installCompetitionDialog();
-        startObserver();
+        document.getElementById('search-clear').addEventListener('click', () => { clearSearch(); input.focus(); });
+        document.addEventListener('click', event => { if (!input.closest('.quick-search').contains(event.target)) hideSuggestions(); });
+        installDialog();
+        filterButton.addEventListener('click', openDialog);
+        const observer = new MutationObserver(scheduleAfterRender);
+        observer.observe(document.getElementById('events-container'), { childList: true, subtree: true });
         afterRender();
-        window.refreshIcons?.();
     }
-
-    window.SPORT_OP_TV_SEARCH = Object.freeze({
-        apply: applySearch,
-        clear: clearSearch,
-        getQuery: () => query
-    });
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init, { once: true });
-    } else {
-        init();
-    }
+    window.SPORT_OP_TV_SEARCH = Object.freeze({ apply: () => input && applySearch(), clear: () => input ? clearSearch() : Promise.resolve(), getQuery: () => query });
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
+    else init();
 })();

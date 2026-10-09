@@ -1,0 +1,57 @@
+/* Compact toolbar and a single, draft-based filter sheet. */
+[hidden], [data-search-hidden="true"] { display: none !important; }
+.results-toggle-row { display: flex; align-items: center; gap: 8px; padding: 0 var(--content-gutter) 10px; }
+.quick-search { flex: 1 1 0; position: relative; min-width: 0; }
+.quick-search .filter-input { height: 44px; padding: 0 42px 0 34px; border-radius: 8px; font-size: 16px; }
+.quick-search > svg { left: 11px; }
+.search-clear { position: absolute; right: 4px; width: 36px; height: 36px; border: 0; background: transparent; color: white; font-size: 23px; cursor: pointer; }
+.competition-filter-btn { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; padding: 0 12px; border: 1px solid rgba(255,255,255,.25); border-radius: 8px; background: rgba(255,255,255,.09); color: white; font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; }
+.competition-filter-btn svg { width: 16px; height: 16px; }
+.competition-filter-btn.active { background: rgba(34,197,94,.22); border-color: #4ade80; }
+.view-mode { width: min(100%, calc(var(--content-width) + var(--content-gutter) * 2)); margin: 0 auto; padding: 0 var(--content-gutter) 8px; display: flex; justify-content: center; gap: 0; }
+.view-mode button { min-height: 36px; min-width: 108px; border: 1px solid rgba(255,255,255,.2); padding: 6px 16px; color: rgba(255,255,255,.8); background: rgba(255,255,255,.06); font: inherit; font-size: 13px; cursor: pointer; }
+.view-mode button:first-child { border-radius: 7px 0 0 7px; }
+.view-mode button:last-child { border-radius: 0 7px 7px 0; }
+.view-mode button.active { background: #fff; color: #1a472a; font-weight: 700; }
+.active-filters { width: min(100%, calc(var(--content-width) + var(--content-gutter) * 2)); margin: 0 auto; padding: 0 var(--content-gutter) 8px; display: flex; gap: 6px; overflow-x: auto; }
+.filter-chip { flex: 0 0 auto; min-height: 32px; border: 1px solid rgba(255,255,255,.25); background: rgba(255,255,255,.1); color: white; padding: 5px 10px; border-radius: 16px; font: inherit; font-size: 12px; cursor: pointer; }
+.search-summary { color: rgba(255,255,255,.85); padding: 0 var(--content-gutter) 8px; max-width: calc(var(--content-width) + var(--content-gutter) * 2); margin: 0 auto; font-size: 12px; }
+.search-suggestions { position: absolute; top: calc(100% + 5px); left: 0; width: min(440px, calc(100vw - var(--content-gutter) * 2)); max-height: min(42dvh, 270px); overflow-y: auto; z-index: 700; border: 1px solid var(--border); border-radius: 10px; background: var(--card-bg); box-shadow: 0 8px 24px rgba(0,0,0,.25); }
+.search-suggestion { display: flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%; min-height: 44px; padding: 10px 12px; border: 0; border-bottom: 1px solid var(--border); background: transparent; color: var(--text); font: inherit; font-size: 14px; text-align: left; cursor: pointer; }
+.search-suggestion small { font-size: 11px; color: var(--text-secondary); flex-shrink: 0; }
+.search-suggestion:hover, .search-suggestion.is-active { background: var(--bg-secondary); }
+.filter-backdrop { position: fixed; inset: 0; z-index: 1900; display: flex; align-items: center; justify-content: center; padding: 20px; background: rgba(0,0,0,.55); }
+.filter-dialog { display: flex; flex-direction: column; width: min(560px,100%); max-height: min(85dvh,760px); background: var(--card-bg); color: var(--text); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,.35); }
+.filter-heading { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px 8px; }
+.filter-heading h2 { font-size: 18px; }
+.filter-close { width: 44px; height: 44px; border: 0; border-radius: 50%; background: var(--bg-secondary); color: var(--text); font-size: 25px; cursor: pointer; }
+.filter-tabs { display: flex; gap: 6px; padding: 0 16px 8px; }
+.filter-tabs button { flex: 1; min-height: 44px; border: 1px solid var(--border); background: var(--bg-secondary); color: var(--text); border-radius: 8px; font: inherit; font-size: 14px; cursor: pointer; }
+.filter-tabs [aria-selected="true"] { background: var(--primary-dark); color: white; border-color: var(--primary-dark); font-weight: 700; }
+.filter-help { padding: 0 16px 10px; color: var(--text-secondary); font-size: 12px; line-height: 1.5; }
+.filter-search { margin: 0 16px 10px; min-height: 44px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-secondary); color: var(--text); font: inherit; font-size: 16px; }
+.filter-options { min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 0 16px 10px; }
+.filter-group h3 { position: sticky; top: 0; padding: 9px 0 5px; background: var(--card-bg); color: var(--text-secondary); font-size: 12px; }
+.filter-option { display: grid; grid-template-columns: 22px minmax(0,1fr) auto; align-items: center; gap: 8px; min-height: 46px; padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 14px; cursor: pointer; }
+.filter-option input { width: 19px; height: 19px; accent-color: var(--primary-dark); }
+.filter-option small { font-size: 11px; color: var(--text-secondary); }
+.filter-footer { padding: 10px 16px max(14px,env(safe-area-inset-bottom)); border-top: 1px solid var(--border); }
+.filter-selection-count { font-size: 12px; color: var(--text-secondary); margin-bottom: 8px; }
+.filter-footer > div { display: flex; gap: 8px; }
+.filter-footer button { min-height: 44px; border: 0; border-radius: 8px; font: inherit; font-size: 13px; cursor: pointer; padding: 10px 12px; }
+.filter-secondary { background: var(--bg-secondary); color: var(--text); border: 1px solid var(--border); border-radius: 8px; min-height: 44px; padding: 10px 12px; font: inherit; font-size: 13px; cursor: pointer; }
+.filter-apply { flex: 1; background: var(--primary-dark); color: white; font-weight: 700 !important; }
+.filter-no-matches { padding: 20px 0; color: var(--text-secondary); }
+.search-empty-state button { margin: 12px 4px 0; }
+@media (max-width: 600px) {
+    .results-toggle-row { gap: 8px; padding: 0 12px 8px; }
+    .competition-filter-btn { width: auto; min-width: 84px; padding: 0 10px; }
+    .competition-filter-btn span { display: inline; }
+    .view-mode { padding-bottom: 8px; }
+    .view-mode button { min-height: 36px; }
+    .filter-backdrop { align-items: flex-end; padding: 0; }
+    .filter-dialog { max-height: 86dvh; width: 100%; border-radius: 18px 18px 0 0; }
+    .sport-buttons-row { gap: 5px; padding-top: 4px; padding-bottom: 7px; }
+}
+/* Keep this last: component display rules must never reveal hidden controls or rows. */
+[hidden], [data-search-hidden="true"], .competition-filter-btn[hidden] { display: none !important; }

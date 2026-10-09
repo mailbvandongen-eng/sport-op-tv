@@ -1,6 +1,8 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
+import { createRequire } from 'node:module';
+const core = createRequire(import.meta.url)('../search-enhancements.js');
 
 process.env.TZ = 'Europe/Amsterdam';
 const source = fs.readFileSync(new URL('../index.html', import.meta.url), 'utf8');
@@ -73,6 +75,7 @@ for (const sport of ['voetbal', 'darts', 'f1', 'motogp', 'handbal', null]) {
         forceRefreshSports: new Set(),
         cachedData: { voetbal: [], f1: [], motogp: [], handbal: [], highlights: [] },
         footballSourceHealth: { successful: 0, failed: 0 },
+        applyFootballFilters: events => events.filter(event => core.matchesFootballFilters(event, { competitions: ['Europa League'] })),
         updateResultsModeControls() {}, showLoading() {}, showError: message => assert.fail(message),
         getStaticDartsEvents: () => [], getStaticMotoGPEvents: () => [], getStaticHandballEvents: () => [],
         fetchPdcDartsSchedule: async () => [], mergeDartsScheduleEvents: () => [],
@@ -90,7 +93,7 @@ for (const sport of ['voetbal', 'darts', 'f1', 'motogp', 'handbal', null]) {
         assert.ok(dates.includes(key), `${sport}: tab ${key}`);
         assert.ok(container.innerHTML.includes(`data-date="${key}"`), `${sport}: section ${key}`);
     }
-    if (sport === 'voetbal') assert.match(container.innerHTML, /Geen wedstrijden in Mijn competities/);
+    if (sport === 'voetbal') assert.match(container.innerHTML, /Geen wedstrijden in je filters/);
     callbacks.forEach(fn => fn());
     assert.equal(scrollTarget, '2026-10-01', `${sport}: refresh should retain selected date`);
     ctx.selectedDate = null;
@@ -109,3 +112,4 @@ for (const [today, first] of [
     assert.equal(vm.runInContext(`buildDateRange(new Date('${today}'), 3, 7)[0]`, ctx), first);
 }
 console.log('Past-day queries, filtered agenda, date retention and calendar boundaries passed.');
+

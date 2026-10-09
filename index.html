@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="football-policy.js?v=3.12.8"></script>
+    <script src="football-policy.js?v=3.13.0"></script>
     <style>
         * {
             margin: 0;
@@ -2834,6 +2834,8 @@
             background: var(--text-secondary);
         }
     </style>
+    <link rel="stylesheet" href="search-ui.css?v=3.13.0">
+    <script src="search-enhancements.js?v=3.13.0" defer></script>
 </head>
 <body>
     <!-- Header Section (dark) -->
@@ -2864,21 +2866,22 @@
             <button class="sport-filter-btn" data-sport="handbal">Handbal</button>
         </div>
 
+        <div class="view-mode" role="group" aria-label="Weergave">
+            <button id="program-toggle" type="button" class="active" aria-pressed="true">Programma</button>
+            <button id="results-toggle" type="button" aria-pressed="false">Uitslagen</button>
+        </div>
         <div class="results-toggle-row">
             <div class="quick-search" role="search">
                 <i data-lucide="search"></i>
-                <input type="search" class="filter-input" id="sport-search" placeholder="Zoek sport, team, competitie of zender..." autocomplete="off" aria-label="Zoek op sport, team, competitie, land, zender of evenement">
+                <input type="search" class="filter-input" id="sport-search" placeholder="Zoek…" autocomplete="off" aria-label="Zoek binnen je sport en filters">
+                <button id="search-clear" class="search-clear" type="button" aria-label="Wis zoeken" hidden>×</button>
             </div>
-            <button class="competition-filter-btn" id="competition-filter-btn" type="button" aria-haspopup="dialog" aria-expanded="false" aria-label="Mijn competities instellen" hidden>
-                <i data-lucide="list-filter"></i>
-                <span class="competition-filter-label">Mijn competities</span>
-                <span class="competition-filter-count" id="competition-filter-count" hidden>0</span>
-            </button>
-            <button class="results-toggle-btn" id="results-toggle" type="button" aria-pressed="false" title="Uitslagen tonen" aria-label="Uitslagen tonen">
-                <i data-lucide="list-checks"></i>
-                <span>Uitslagen tonen</span>
+            <button class="competition-filter-btn" id="competition-filter-btn" type="button" aria-haspopup="dialog" aria-expanded="false">
+                <i data-lucide="list-filter"></i><span>Filters</span>
             </button>
         </div>
+        <div id="active-filters" class="active-filters" aria-label="Actieve voetbalfilters" hidden></div>
+        <p id="search-summary" class="search-summary" aria-live="polite" hidden></p>
 
         <!-- Date Tabs -->
         <div class="date-tabs-container" id="date-tabs-container">
@@ -3419,9 +3422,15 @@
             }
         }
 
-        let filters = { competitions: getStoredCompetitionFilters() };
+        function getStoredTeamFilters() {
+            try {
+                const stored = JSON.parse(localStorage.getItem('selectedFootballTeams') || '[]');
+                return Array.isArray(stored) ? [...new Set(stored.filter(value => typeof value === 'string' && /^(land|club):.+:(mannen|vrouwen)$/.test(value)))] : [];
+            } catch (_) { return []; }
+        }
+        let filters = { competitions: getStoredCompetitionFilters(), teams: getStoredTeamFilters() };
         let worldCupHighlightIndex = new Map();
-        localStorage.removeItem('selectedClubs');
+        // Legacy club preferences are left intact; the new filter has its own storage key.
         function createEmptyCachedData() {
             return {
                 voetbal: null,
@@ -6217,7 +6226,9 @@
             await ensureDartsResultsLoaded(forceRefresh);
             const allResultItems = buildResultItems();
             const visibleDateSet = new Set(visibleDateRange);
-            const resultItems = allResultItems.filter(item => visibleDateSet.has(item.dateKey));
+            const resultItems = allResultItems.filter(item => visibleDateSet.has(item.dateKey)
+                && (!currentSportFilter || item.sportType === currentSportFilter)
+                && (item.sportType !== 'voetbal' || applyFootballFilters([item]).length > 0));
             const knownCount = resultItems.filter(item => hasKnownScore(item.score)).length;
             const pendingCount = resultItems.length - knownCount;
 
@@ -6256,7 +6267,7 @@
                     const competition = item.competition || getResultSportLabel(item.sportType);
                     const teams = item.away ? `${item.home} - ${item.away}` : item.home;
 
-                    html += `<div class="results-row${hasScore ? '' : ' pending-result'}">`;
+                    html += `<div class="results-row${hasScore ? '' : ' pending-result'}" data-search-text="${escapeHtml(getEventSearchText(item))}">`;
                     html += `<div class="results-time">${escapeHtml(item.time || '')}</div>`;
                     html += `<div class="results-main">`;
                     html += `<div class="results-competition"><span class="results-sport-badge">${escapeHtml(getResultSportLabel(item.sportType))}</span><span>${escapeHtml(competition)}</span></div>`;
@@ -6314,8 +6325,8 @@
             today.setHours(0, 0, 0, 0);
             const futureDays = 30;
             const forceAllRefresh = forceRefreshSports.has('all');
-            const forceFootballRefresh = forceAllRefresh || forceRefreshSports.has('voetbal') || resultsMode;
-            const forceDartsRefresh = forceAllRefresh || forceRefreshSports.has('darts') || resultsMode;
+            const forceFootballRefresh = forceAllRefresh || forceRefreshSports.has('voetbal');
+            const forceDartsRefresh = forceAllRefresh || forceRefreshSports.has('darts');
 
             try {
                 const staticDartsData = getStaticDartsEvents();
@@ -6367,9 +6378,7 @@
             let handballEvents = currentSportFilter === null || currentSportFilter === 'handbal' ? [...cachedData.handbal] : [];
 
             // Football: apply the persistent competition filter.
-            if (currentSportFilter === 'voetbal' && filters.competitions && filters.competitions.length > 0) {
-                footballEvents = footballEvents.filter(e => filters.competitions.includes(e.competition));
-            }
+            footballEvents = applyFootballFilters(footballEvents);
 
             let allEvents = [...footballEvents, ...dartsEvents, ...f1Events, ...motoGPEvents, ...handballEvents];
 
@@ -6399,7 +6408,7 @@
             if (resultsMode) {
                 const resultDateRange = buildDateRange(today, 30, 0);
                 generateDateTabs(resultDateRange, today);
-                await renderResultsView(container, resultDateRange, false);
+                await renderResultsView(container, resultDateRange, forceDartsRefresh);
                 setupScrollSync();
                 setTimeout(() => {
                     scrollToSelectedDateOrToday();
@@ -6439,7 +6448,7 @@
 
             const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
             const visibleDateRange = buildDateRange(today, showPast ? 3 : 0, futureDays);
-            const competitionFilterActive = currentSportFilter === 'voetbal' && filters.competitions.length > 0;
+            const competitionFilterActive = currentSportFilter === 'voetbal' && (filters.competitions.length > 0 || (filters.teams || []).length > 0);
             visibleDateRange.forEach(dateKey => {
                 // Historische dagen en vandaag moeten ook met Mijn competities
                 // aanklikbaar blijven als de selectie die dag geen wedstrijden heeft.
@@ -6457,8 +6466,8 @@
                 container.innerHTML = `
                     <div class="no-events">
                         <div class="icon">📺</div>
-                        <h3>${competitionFilterActive ? 'Geen wedstrijden in deze competities' : 'Geen sport gevonden'}</h3>
-                        <p>${competitionFilterActive ? 'Kies een andere competitie of toon alles.' : 'Er zijn geen uitzendingen gevonden voor de komende periode.'}</p>
+                        <h3>${competitionFilterActive ? 'Geen wedstrijden in je filters' : 'Geen sport gevonden'}</h3>
+                        <p>${competitionFilterActive ? 'Pas je filters aan of wis ze om alles te zien.' : 'Er zijn geen uitzendingen gevonden voor de komende periode.'}</p>
                     </div>
                 `;
                 return;
@@ -6517,7 +6526,7 @@
 
                 // Handle empty days (no events)
                 if (events.length === 0) {
-                    html += `<div class="no-events-day"><p>${competitionFilterActive ? 'Geen wedstrijden in Mijn competities' : `Geen uitzendingen${currentSportFilter ? ` (${currentSportFilter})` : ''}`}</p></div>`;
+                    html += `<div class="no-events-day"><p>${competitionFilterActive ? 'Geen wedstrijden in je filters' : `Geen uitzendingen${currentSportFilter ? ` (${currentSportFilter})` : ''}`}</p></div>`;
                     html += `</div>`; // Close day-section
                     return; // Continue to next date
                 }
@@ -6571,7 +6580,7 @@
                             const summaryHtml = getWorldCupSummaryLinkHtml(event);
                             const matchClass = `football-slot-match${event.live ? ' live' : ''}${hasScore ? ' finished' : ''}${summaryHtml ? ' has-summary' : ''}`;
 
-                            html += `<div class="${matchClass}" data-competition="${escapeHtml(event.competition || '')}">`;
+                            html += `<div class="${matchClass}" data-competition="${escapeHtml(event.competition || '')}" data-search-text="${escapeHtml(getEventSearchText(event))}">`;
                             html += `<div class="football-slot-teams">`;
                             if (competitionLabel) {
                                 html += `<div class="football-match-competition">${competitionLabel}</div>`;
@@ -6636,7 +6645,7 @@
                             const competitionLabel = getEventCompetitionLabel(event, comp);
                             let hasFallbackItems = false;
 
-                            html += `<div class="match-row darts-row darts-expandable" data-event-id="${eventId}" role="button" tabindex="0" aria-expanded="false" aria-controls="${eventId}">`;
+                            html += `<div class="match-row darts-row darts-expandable" data-search-text="${escapeHtml(getEventSearchText(event))}" data-event-id="${eventId}" role="button" tabindex="0" aria-expanded="false" aria-controls="${eventId}">`;
                             html += `<div class="event-info">`;
                             html += `<span class="match-time">${event.time}</span>`;
                             html += `<div class="event-copy">`;
@@ -6688,7 +6697,7 @@
                             const title = labelOnlyTitle || getEventPrimaryTitle(event, comp);
                             const competitionLabel = getEventCompetitionLabel(event, comp);
 
-                            html += `<div class="match-row ${sportType}-row">`;
+                            html += `<div class="match-row ${sportType}-row" data-search-text="${escapeHtml(getEventSearchText({...event, sportType}))}">`;
                             html += `<div class="event-info">`;
                             html += `<span class="match-time">${event.time}</span>`;
                             html += `<div class="event-copy">`;
@@ -7236,17 +7245,14 @@
 
         function updateResultsModeControls() {
             document.body.classList.toggle('results-mode', resultsMode);
-            const btn = document.getElementById('results-toggle');
-            if (!btn) return;
-
-            btn.classList.toggle('active', resultsMode);
-            btn.setAttribute('aria-pressed', resultsMode ? 'true' : 'false');
-            btn.setAttribute('title', resultsMode ? 'Programma tonen' : 'Uitslagen tonen');
-            btn.setAttribute('aria-label', resultsMode ? 'Programma tonen' : 'Uitslagen tonen');
-            const label = btn.querySelector('span');
-            if (label) {
-                label.textContent = resultsMode ? 'Programma tonen' : 'Uitslagen tonen';
-            }
+            const programme = document.getElementById('program-toggle');
+            const results = document.getElementById('results-toggle');
+            [programme, results].forEach((button, index) => {
+                if (!button) return;
+                const active = index === 1 ? resultsMode : !resultsMode;
+                button.classList.toggle('active', active);
+                button.setAttribute('aria-pressed', String(active));
+            });
         }
 
         function syncSportFilterButtons() {
@@ -7262,13 +7268,30 @@
             return renderNow ? renderEvents() : Promise.resolve();
         }
 
+        function getEventSearchText(event) {
+            return window.SPORT_OP_TV_SEARCH_CORE?.eventSearchText(event) ||
+                [event.home, event.away, event.competition, event.title, event.channel].filter(Boolean).join(' ');
+        }
+
+        function applyFootballFilters(events) {
+            const core = window.SPORT_OP_TV_SEARCH_CORE;
+            if (!core) return events.filter(event => !filters.competitions.length || filters.competitions.includes(event.competition));
+            return events.filter(event => core.matchesFootballFilters(event, filters));
+        }
+
+        function getFootballTeams(selected = filters.teams) {
+            return window.SPORT_OP_TV_SEARCH_CORE?.buildTeams(cachedData.voetbal || [], selected,
+                ISER_FOOTBALL_POLICY.DUTCH_FOOTBALL_CLUBS) || [];
+        }
+
         function getSearchEvents() {
-            return ['voetbal', 'darts', 'f1', 'motogp', 'handbal'].flatMap(sport =>
-                (cachedData[sport] || []).map(event => ({
-                    ...event,
-                    sportType: event.sportType || sport
-                }))
-            );
+            if (resultsMode) return buildResultItems().filter(event =>
+                (!currentSportFilter || event.sportType === currentSportFilter) &&
+                (event.sportType !== 'voetbal' || applyFootballFilters([event]).length));
+            return ['voetbal', 'darts', 'f1', 'motogp', 'handbal']
+                .filter(sport => !currentSportFilter || sport === currentSportFilter)
+                .flatMap(sport => (sport === 'voetbal' ? applyFootballFilters(cachedData[sport] || []) : cachedData[sport] || [])
+                    .map(event => ({ ...event, sportType: sport })));
         }
 
         function getFootballCompetitionCounts() {
@@ -7280,24 +7303,33 @@
             return Array.from(counts, ([value, count]) => ({ value, count }));
         }
 
-        function setCompetitionFilters(values, renderNow = true) {
-            filters.competitions = [...new Set((values || []).map(value => String(value).trim()).filter(Boolean))];
-            if (filters.competitions.length) {
-                localStorage.setItem('selectedCompetitions', JSON.stringify(filters.competitions));
-            } else {
-                localStorage.removeItem('selectedCompetitions');
-            }
+        function setFootballFilters(next, renderNow = true) {
+            filters = {
+                competitions: [...new Set((next.competitions || []).map(String).filter(Boolean))],
+                teams: [...new Set((next.teams || []).filter(value => typeof value === 'string' && /^(land|club):.+:(mannen|vrouwen)$/.test(value)))]
+            };
+            [['selectedCompetitions', filters.competitions], ['selectedFootballTeams', filters.teams]].forEach(([key, values]) => {
+                if (values.length) localStorage.setItem(key, JSON.stringify(values));
+                else localStorage.removeItem(key);
+            });
             return renderNow ? renderEvents() : Promise.resolve();
+        }
+
+        function setCompetitionFilters(values, renderNow = true) {
+            return setFootballFilters({ ...filters, competitions: values }, renderNow);
         }
 
         window.SPORT_OP_TV_APP = Object.freeze({
             getCompetitionFilters: () => [...filters.competitions],
+            getFootballFilters: () => ({ competitions: [...filters.competitions], teams: [...filters.teams] }),
+            getFootballTeams,
             getFootballCompetitions: () => [...new Set(CONFIG.ESPN_COMPETITIONS.map(item => item.name).filter(Boolean))],
             getFootballCompetitionCounts,
             getSearchEvents,
             getSportFilter: () => currentSportFilter,
             isResultsMode: () => resultsMode,
             renderEvents,
+            setFootballFilters,
             setCompetitionFilters,
             setSportFilter
         });
@@ -7317,7 +7349,7 @@
             localStorage.removeItem('footballCacheTime');
             localStorage.removeItem('footballSource');
             localStorage.removeItem('footballSourceHealth');
-            localStorage.removeItem('selectedClubs');
+            // Legacy club preferences are left intact; the new filter has its own storage key.
 
             Object.keys(localStorage).forEach(key => {
                 if (key.startsWith('standings_')) {
@@ -7406,13 +7438,14 @@
             });
         }
 
-        if (resultsToggleBtn) {
-            resultsToggleBtn.addEventListener('click', () => {
-                resultsMode = !resultsMode;
-                selectedDate = null;
+        [document.getElementById('program-toggle'), resultsToggleBtn].forEach((button, index) => {
+            button?.addEventListener('click', () => {
+                const nextMode = index === 1;
+                if (resultsMode === nextMode) return;
+                resultsMode = nextMode;
                 renderEvents();
             });
-        }
+        });
 
         // Standings sport buttons
         document.querySelectorAll('.standings-sport-btn').forEach(btn => {
@@ -7476,7 +7509,7 @@
         // op verzoek van de gebruiker; zo springt of knippert de agenda niet
         // tijdens lezen en lijkt de app niet spontaan te herstarten.
     </script>
-    <script src="search-enhancements.js?v=3.12.8" defer></script>
-    <script src="release-notes.js?v=3.12.8" defer></script>
+    <script src="release-notes.js?v=3.13.0" defer></script>
 </body>
 </html>
+

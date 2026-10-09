@@ -1,5 +1,14 @@
 # Changelog
 
+## 3.13.0 — 2026-10-09
+- Compact zoekveld met wisknop; zoeken behoudt sportkeuze en voetbalfilters.
+- Duidelijke Programma/Uitslagen-knoppen zonder onnodig verversen bij wisselen.
+- Eén filterpaneel voor teams en competities; wijzigingen pas toepassen via Toon wedstrijden.
+- Clubs en landenteams gescheiden, met Nederland mannen en vrouwen apart; selecties blijven bewaard.
+- Actieve filters zichtbaar en afzonderlijk verwijderbaar; filters werken ook bij voetbaluitslagen.
+- Nederland zoeken verwijst naar het team, niet naar alle Nederlandse competities.
+- Hersteld: verborgen filterknoppen en zoekresultaten werden door CSS toch getoond.
+
 ## 3.12.8 — 2026-10-04
 - Dagkoppen bedekken de wedstrijdregels niet meer: dartsdetails en starttijden zijn weer zichtbaar en aanklikbaar.
 - Dartssessies zijn ook met Enter en de spatiebalk te openen en te sluiten.
@@ -35,3 +44,4 @@
 - Voorbeelden: Ajax, Ziggo, Darts, MotoGP, Champions League.
 - Suggesties toegevoegd tijdens het typen.
 - Zoeklogica ondergebracht in `search-enhancements.js` en geladen via `football-policy.js`.
+
