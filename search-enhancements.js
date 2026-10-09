@@ -131,11 +131,50 @@
         az: 'az alkmaar', nec: 'nec nijmegen n e c'
     });
 
+    // Exact source aliases only: never merge similarly named clubs by fuzzy matching.
+    const CLUB_IDENTITIES = [
+        ['Feyenoord', ['feyenoord rotterdam']], ['FC Twente', ['fc twente 65']],
+        ['Heracles Almelo', ['heracles']], ['Helmond Sport', ['helmond spor']],
+        ['Jong FC Utrecht', ['jong utrecht']], ['MVV Maastricht', ['maastricht', 'mvv']],
+        ['Roda JC Kerkrade', ['roda jc']], ['SC Cambuur', ['sc cambuur leeuwarden', 'cambuur leeuwarden', 'cambuur']],
+        ['Telstar', ['telstar 1963']], ['Willem II', ['willem ii tilburg']],
+        ['Sparta Rotterdam', ['sparta']], ['Fortuna Sittard', ['fortuna']],
+        ['VVV-Venlo', ['vvv venlo']], ['FC Den Bosch', ['den bosch']],
+        ['Excelsior', ['sbv excelsior']],
+        ['Manchester United', ['man united']], ['Manchester City', ['man city']],
+        ['Tottenham Hotspur', ['spurs', 'tottenham']], ['Paris Saint-Germain', ['psg']],
+        ['AS Roma', ['roma']], ['Inter Milan', ['fc internazionale milano inter']],
+        ['FC Barcelona', ['barcelona']], ['Real Madrid', ['real madrid cf']],
+        ['Club Atlético de Madrid', ['atletico', 'atletico madrid']],
+        ['Borussia Dortmund', ['dortmund']], ['FC Bayern München', ['bayern', 'bayern munchen']]
+    ];
+    const NATIONAL_IDENTITIES = [
+        ['Albanië', ['albania']], ['Armenië', ['armenia']], ['Azerbeidzjan', ['azerbaijan']],
+        ['Bosnië-Herzegovina', ['bosnia and herzegovina']], ['Bulgarije', ['bulgaria']],
+        ['Denemarken', ['denmark']], ['Estland', ['estonia']], ['Faeröer', ['faroe islands']],
+        ['Georgië', ['georgia']], ['Griekenland', ['greece']], ['IJsland', ['iceland']],
+        ['Israël', ['israel']], ['Kazachstan', ['kazakhstan']], ['Kroatië', ['croatia']],
+        ['Letland', ['latvia']], ['Litouwen', ['lithuania']], ['Luxemburg', ['luxembourg']],
+        ['Moldavië', ['moldova']], ['Noord-Ierland', ['northern ireland']],
+        ['Noord-Macedonië', ['north macedonia']], ['Noorwegen', ['norway']],
+        ['Oekraïne', ['ukraine']], ['Oostenrijk', ['austria']], ['Roemenië', ['romania']],
+        ['Schotland', ['scotland']], ['Servië', ['serbia']], ['Slovenië', ['slovenia']],
+        ['Slowakije', ['slovakia']], ['Tsjechië', ['czechia', 'czech republic']],
+        ['Turkije', ['turkey', 'turkiye']], ['Wit-Rusland', ['belarus']],
+        ['Zweden', ['sweden']], ['Zwitserland', ['switzerland']]
+    ];
+    function identityFor(name, identities) {
+        const key = normalize(name);
+        return identities.find(([label, aliases]) => normalize(label) === key || aliases.includes(key));
+    }
+
     function teamInfo(name, competition = '') {
-        const international = competitionGroup(competition) === 'Internationaal';
+        const international = competitionGroup(competition) === 'Internationaal' && normalize(competition) !== 'oefenwedstrijd';
         const women = /vrouwen|women|\(w\)|wnt/i.test(`${competition} ${name}`);
         const raw = String(name || '').replace(/\s*(?:\(w\)|women(?:'s national team)?|vrouwen|mannen|wnt|national team)$/i, '').trim();
-        const key = normalize(raw);
+        const identity = identityFor(raw, international ? NATIONAL_IDENTITIES : CLUB_IDENTITIES);
+        const resolved = identity?.[0] || raw;
+        const key = normalize(resolved);
         const clubKey = key.replace(/^(afc|fc|sc)\s+/, '').replace(/\s+(afc|fc|sc)$/, '').replace(/^n e c(?: nijmegen)?$/, 'nec').replace(/^nec nijmegen$/, 'nec').replace(/^ado den haag$/, 'ado');
         const canonical = Object.entries(TEAM_ALIASES).find(([value, aliases]) =>
             value === key || aliases === key ||
@@ -143,13 +182,13 @@
             (!international && aliases === key)
         )?.[0] || (international ? key : clubKey);
         const labelNames = { nederland: 'Nederland', engeland: 'Engeland', duitsland: 'Duitsland', spanje: 'Spanje', italie: 'Italië', frankrijk: 'Frankrijk', belgie: 'België', hongarije: 'Hongarije', ierland: 'Ierland', polen: 'Polen', ajax: 'Ajax', psv: 'PSV', az: 'AZ', nec: 'NEC' };
-        const label = labelNames[canonical] || raw;
+        const label = labelNames[canonical] || resolved;
         const gender = women ? 'vrouwen' : 'mannen';
         return {
             value: `${international ? 'land' : 'club'}:${canonical}:${gender}`,
             label: international || women ? `${label} — ${gender}` : label,
             group: international ? 'Landenteams' : 'Clubs',
-            aliases: `${raw} ${TEAM_ALIASES[canonical] || ''} ${international ? gender : ''}`
+            aliases: `${raw} ${identity?.[1].join(' ') || ''} ${TEAM_ALIASES[canonical] || ''} ${international ? gender : ''}`
         };
     }
 

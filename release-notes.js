@@ -101,14 +101,14 @@
     'use strict';
 
     const RELEASE = Object.freeze({
-        version: '3.13.0',
+        version: '3.13.1',
         date: '9 oktober 2026',
         title: 'Rustig zoeken en eenvoudig filteren',
         notes: [
             'Compact zoekveld met wisknop. Zoeken blijft binnen je gekozen sport en voetbalfilters.',
             'Programma en Uitslagen hebben duidelijke knoppen; wisselen ververst de bronnen niet meer onnodig.',
-            'Eén filterpaneel voor teams en competities. Vink aan en pas je keuze toe met Toon wedstrijden.',
-            'Clubs en landenteams zijn gescheiden, met Nederland mannen en vrouwen apart. Keuzes worden onthouden.',
+            'Eén filterpaneel voor teams en competities uit de getoonde periode, met vaste Nederlandse clubs en ontdubbelde namen. Pas je keuze toe met Toon wedstrijden.',
+            'Clubs en landenteams zijn gescheiden, ook bij oefenwedstrijden. Nederland mannen en vrouwen zijn apart; keuzes worden onthouden.',
             'Actieve filters staan onder de zoekbalk en zijn met één tik te verwijderen. Filters gelden ook voor voetbaluitslagen.',
             'Nederland zoeken verwijst naar het team, niet naar alle Nederlandse competities. De zichtbare maar niet werkende filterknop is hersteld.'
         ]

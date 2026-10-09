@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.13.1 — 2026-10-09
+- Club-oefenwedstrijden blijven bij Clubs in plaats van Landenteams.
+- Teamkeuzes en competitieaantallen gebruiken de getoonde periode (drie dagen terug, dertig vooruit), met vaste Nederlandse clubs en opgeslagen keuzes.
+- Meer exacte club- en landnaamvarianten samengevoegd.
+- Opgeslagen filters gelden direct bij openen, ook bij snel laden uit cache.
+
 ## 3.13.0 — 2026-10-09
 - Compact zoekveld met wisknop; zoeken behoudt sportkeuze en voetbalfilters.
 - Duidelijke Programma/Uitslagen-knoppen zonder onnodig verversen bij wisselen.

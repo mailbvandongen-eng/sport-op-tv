@@ -32,6 +32,10 @@ assert.equal(core.teamInfo('Netherlands Women', 'WK Kwalificatie Vrouwen').value
 assert.equal(core.teamInfo('Nederland Vrouwen', 'WK Kwalificatie Vrouwen').value, 'land:nederland:vrouwen');
 assert.equal(core.teamInfo('Ajax Amsterdam', 'Europa League').value, 'club:ajax:mannen');
 assert.equal(core.teamInfo('Ajax', "Women's Champions League").value, 'club:ajax:vrouwen');
+assert.equal(core.teamInfo('Ajax', 'Oefenwedstrijd').group, 'Clubs');
+assert.equal(core.teamInfo('Feyenoord Rotterdam', 'Eredivisie').value, core.teamInfo('Feyenoord', 'Eredivisie').value);
+assert.equal(core.teamInfo('FC Twente \'65', 'Eredivisie').value, core.teamInfo('FC Twente', 'Eredivisie').value);
+assert.equal(core.teamInfo('Croatia', 'Nations League').value, core.teamInfo('Kroatië', 'Nations League').value);
 assert.equal(core.competitionGroup("Women's Champions League"), 'Europa');
 const teams = core.buildTeams(events, ['club:unseen:mannen'], ['Ajax', 'Ajax Amsterdam', 'PSV']);
 assert.equal(teams.filter(item => item.value === 'club:ajax:mannen').length, 1);
