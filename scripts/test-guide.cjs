@@ -17,7 +17,7 @@ const vc=new VirtualConsole();vc.on('jsdomError',e=>errors.push(e.message));
 const dom=new JSDOM(fs.readFileSync(`${root}/index.html`,'utf8'),{url:'https://test.sport.local/',runScripts:'dangerously',resources:new Local(),pretendToBeVisual:true,virtualConsole:vc,beforeParse(w){
 w.scrollTo=()=>{};w.HTMLElement.prototype.scrollIntoView=function(){};w.IntersectionObserver=class{observe(){}disconnect(){}};
 w.fetch=async url=>{requests.push(String(url));return{ok:true,json:async()=>String(url).includes('openf1')?[]:String(url).includes('nos-highlights')?{highlights:[]}:{data:[],events:[],matches:[]}};};
-w.localStorage.setItem('cacheVersion','3.12.8');w.localStorage.setItem('sportOpTvSeenRelease','3.14.1');
+w.localStorage.setItem('cacheVersion','3.12.8');w.localStorage.setItem('sportOpTvSeenRelease','3.14.2');
 w.localStorage.setItem('footballCache',JSON.stringify(fixtures));w.localStorage.setItem('footballCacheTime',String(Date.now()));
 }});
 const w=dom.window,d=w.document,$=s=>d.querySelector(s);
@@ -106,6 +106,10 @@ assert.ok(fs.readFileSync(`${root}/index.html`,'utf8').indexOf('guide-ui.css')>f
 assert.equal(w.getComputedStyle($('.header-section')).position,'relative');
 assert.equal(w.getComputedStyle($('.guide-date-bar')).position,'sticky');
 assert.equal(w.getComputedStyle($('#sport-search')).height,'44px');
+assert.equal(w.getComputedStyle($('.view-mode')).justifyContent,'flex-start');
+assert.equal(w.getComputedStyle($('.view-mode')).gap,'16px');
+assert.equal(w.getComputedStyle($('#competition-filter-btn')).color,w.getComputedStyle(d.body).color);
+assert.equal(w.getComputedStyle($('#search-clear')).height,'44px');
 assert.equal(errors.length,0,errors.join('\n'));
 console.log('Guide UI: search/sport scope, draft/apply/cancel, preferences, calendar, menu/filter/release focus, axe structural checks and contrast tokens passed.');
 dom.window.close();

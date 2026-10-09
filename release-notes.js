@@ -101,7 +101,7 @@
     'use strict';
 
     const RELEASE = Object.freeze({
-        version: '3.14.1',
+        version: '3.14.2',
         date: '10 oktober 2026',
         title: 'Een rustige tv-gids',
         notes: [

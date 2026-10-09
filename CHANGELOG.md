@@ -1,3 +1,7 @@
+## 3.14.2 — 2026-10-10
+- Definitieve stylesheet na filterstylesheet: filterknop blijft leesbaar, weergavetabs krijgen ruimte en compacte bediening blijft consequent.
+- Extra regressiecontrole op daadwerkelijke CSS-volgorde, tabafstand en knopkleuren.
+
 ## 3.14.1 — 2026-10-10
 - Livecontrole: oude automatische scroll voorbij bediening vervangen door één gekozen dag, met bediening bovenaan.
 - Zoeken doorloopt expliciet alle dagen binnen sport/filters; wissen herstelt de gekozen dag.
