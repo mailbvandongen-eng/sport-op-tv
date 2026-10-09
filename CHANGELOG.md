@@ -1,3 +1,9 @@
+## 3.14.4 — 10 oktober 2026
+
+- Ook dubbele clubnamen uit de Duitse, Franse, Italiaanse en Spaanse bronnen samengevoegd.
+- Exacte bronvarianten getest, met aparte identiteiten voor Paris FC/PSG en eerste teams/reserves.
+- Filters gebruiken nu correct enkelvoud bij één team of competitie.
+
 ## 3.14.3 — 2026-10-10
 - Clubidentiteiten gedeeld tussen filters en bronontdubbeling; ESPN heeft voorrang op OpenFootball.
 - Expliciete brontijdzones en Nederlandse weergavetijd, zomer/wintertijd, eenmalige migratie van oude OpenFootball-cache.

@@ -17,7 +17,7 @@ const vc=new VirtualConsole();vc.on('jsdomError',e=>errors.push(e.message));
 const dom=new JSDOM(fs.readFileSync(`${root}/index.html`,'utf8'),{url:'https://test.sport.local/',runScripts:'dangerously',resources:new Local(),pretendToBeVisual:true,virtualConsole:vc,beforeParse(w){
 w.scrollTo=()=>{};w.HTMLElement.prototype.scrollIntoView=function(){};w.IntersectionObserver=class{observe(){}disconnect(){}};
 w.fetch=async url=>{requests.push(String(url));return{ok:true,json:async()=>String(url).includes('openf1')?[]:String(url).includes('nos-highlights')?{highlights:[]}:{data:[],events:[],matches:[]}};};
-w.localStorage.setItem('cacheVersion','3.12.8');w.localStorage.setItem('sportOpTvSeenRelease','3.14.3');
+w.localStorage.setItem('cacheVersion','3.12.8');w.localStorage.setItem('sportOpTvSeenRelease','3.14.4');
 w.localStorage.setItem('footballCache',JSON.stringify(fixtures));w.localStorage.setItem('footballCacheTime',String(Date.now()));
 }});
 const w=dom.window,d=w.document,$=s=>d.querySelector(s);
@@ -41,7 +41,7 @@ assert.equal(w.SPORT_OP_TV_APP.getFootballFilters().teams.length,0,'Draft must n
 assert.equal(requests.length,initialRequests);
 click('.filter-apply');await settle();assert.equal(visibleRows().length,1);
 assert.equal(JSON.parse(w.localStorage.getItem('selectedFootballTeams'))[0],'land:nederland:vrouwen');
-assert.ok($('#active-filters').textContent.includes('1 teams')); 
+assert.ok($('#active-filters').textContent.includes('1 team ·'));
 click('#results-toggle');await settle();
 assert.equal(w.SPORT_OP_TV_APP.isResultsMode(),true);assert.equal(d.querySelectorAll('.results-row').length,1);
 assert.equal(requests.length,initialRequests,'Switch to results must reuse source data');

@@ -27,6 +27,28 @@ for(const deviceZone of ['UTC','America/New_York','Europe/Amsterdam']) {
   assert.equal(ctx.normalizeFootballData([legacy])[0].time,'18:30');
   const clubPair={...espn,home:'Arsenal',away:'Leeds United'};
   assert.equal(ctx.normalizeFootballData([clubPair,{...clubPair,away:'Leeds'}]).length,1);
+  // Live all-sports route exposed these exact source pairs after clearing United.
+  for (const [competition,home,away,aliasHome,aliasAway] of [
+    ['Serie A','Genoa','Fiorentina','Genoa CFC','ACF Fiorentina'],
+    ['Serie A','Inter Milan','Parma','FC Internazionale Milano','Parma Calcio 1913'],
+    ['Serie A','Napoli','Frosinone','SSC Napoli','Frosinone Calcio'],
+    ['Bundesliga','Mainz','Bayer Leverkusen','1. FSV Mainz 05','Bayer 04 Leverkusen'],
+    ['Bundesliga','Union Berlin','Elversberg','1. Union Berlin','SV 07 Elversberg'],
+    ['Bundesliga','Hoffenheim','Hamburger SV','TSG 1899 Hoffenheim','Hamburg'],
+    ['Bundesliga','Paderborn','VfB Stuttgart','SC Paderborn 07','Stuttgart'],
+    ['Bundesliga','RB Leipzig','Eintracht Frankfurt','RB Leipzig','Frankfurt'],
+    ['Ligue 1','Lille','Le Havre AC','Lille OSC','Le Havre AC'],
+    ['Ligue 1','AS Monaco','Toulouse','Monaco','Toulouse'],
+    ['Ligue 1','Brest','Angers','Stade Brestois 29','Angers SCO'],
+    ['La Liga','FC Barcelona','Getafe','FC Barcelona','Getafe CF'],
+    ['La Liga','Real Madrid','Villarreal','Real Madrid','Villarreal CF']
+  ]) {
+    const first={...espn,competition,home,away};
+    assert.equal(ctx.normalizeFootballData([first,{...first,home:aliasHome,away:aliasAway}]).length,1, `${home}–${away}`);
+  }
+  // Paris FC and PSG, and first team / reserve identities must stay separate.
+  assert.notEqual(core.teamInfo('Paris','Ligue 1').value,core.teamInfo('PSG','Ligue 1').value);
+  assert.notEqual(core.teamInfo('Ajax','Eredivisie').value,core.teamInfo('Jong Ajax','Eerste Divisie').value);
   assert.equal(ctx.normalizeFootballData([espn,{...espn,competition:"Women's Premier League"}]).length,2);
   assert.equal(ctx.normalizeFootballData([espn,{...espn,home:'Spurs',away:'Man United'}]).length,2);
   assert.equal(ctx.normalizeFootballData([espn,{...espn,date:'2026-10-11T16:30:00Z'}]).length,2);

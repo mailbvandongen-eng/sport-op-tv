@@ -151,10 +151,27 @@
         ['Rayo Vallecano', ['rayo', 'rayo vallecano de madrid']], ['Athletic Club', ['athletic', 'athletic bilbao']],
         ['Real Betis', ['betis']], ['Real Sociedad', ['sociedad']], ['RC Celta de Vigo', ['celta', 'celta vigo']],
         ['Deportivo Alavés', ['alaves']], ['CA Osasuna', ['osasuna']], ['RCD Espanyol', ['espanyol']], ['Paris Saint-Germain', ['psg']],
-        ['AS Roma', ['roma']], ['Inter Milan', ['fc internazionale milano inter']],
+        ['AS Roma', ['roma']], ['Inter Milan', ['fc internazionale milano inter', 'fc internazionale milano', 'inter']],
+        ['Genoa', ['genoa cfc']], ['Fiorentina', ['acf fiorentina']],
+        ['Parma', ['parma calcio 1913']], ['Napoli', ['ssc napoli']], ['Frosinone', ['frosinone calcio']],
+        ['AC Milan', ['milan']], ['Juventus', ['juventus fc']], ['Atalanta', ['atalanta bc']],
+        ['Bologna', ['bologna fc 1909']], ['Lazio', ['ss lazio']], ['Torino', ['torino fc']],
+        ['Udinese', ['udinese calcio']], ['Hellas Verona', ['verona']], ['Lecce', ['us lecce']],
         ['FC Barcelona', ['barcelona']], ['Real Madrid', ['real madrid cf']],
+        ['Getafe', ['getafe cf']], ['Villarreal', ['villarreal cf']],
         ['Club Atlético de Madrid', ['atletico', 'atletico madrid']],
-        ['Borussia Dortmund', ['dortmund']], ['FC Bayern München', ['bayern', 'bayern munchen']]
+        ['Borussia Dortmund', ['dortmund']], ['FC Bayern München', ['bayern', 'bayern munchen', 'bayern munich']],
+        ['Mainz', ['1 fsv mainz 05', 'mainz 05']], ['Bayer Leverkusen', ['bayer 04 leverkusen', 'leverkusen']],
+        ['Union Berlin', ['1 union berlin', '1 fc union berlin']], ['Elversberg', ['sv 07 elversberg', 'sv elversberg']],
+        ['Hoffenheim', ['tsg 1899 hoffenheim', 'tsg hoffenheim']], ['Hamburger SV', ['hamburg']],
+        ['Paderborn', ['sc paderborn 07']], ['VfB Stuttgart', ['stuttgart']],
+        ['Eintracht Frankfurt', ['frankfurt']], ['FC Augsburg', ['augsburg']],
+        ['Lille', ['lille osc']], ['AS Monaco', ['monaco']], ['Toulouse', ['toulouse fc']],
+        ['Brest', ['stade brestois 29']], ['Angers', ['angers sco']], ['FC Lorient', ['lorient']],
+        ['Paris FC', ['paris']], ['Le Mans', ['le mans fc']], ['Le Havre AC', ['le havre']],
+        ['Olympique Marseille', ['marseille', 'olympique de marseille']], ['Olympique Lyon', ['lyon', 'olympique lyonnais']],
+        ['Nice', ['ogc nice']], ['Nantes', ['fc nantes']], ['Rennes', ['stade rennais fc', 'stade rennais']],
+        ['Strasbourg', ['rc strasbourg alsace', 'rc strasbourg']], ['Lens', ['rc lens']], ['Auxerre', ['aj auxerre']]
     ];
     const NATIONAL_IDENTITIES = [
         ['Albanië', ['albania']], ['Armenië', ['armenia']], ['Azerbeidzjan', ['azerbaijan']],
@@ -508,7 +525,7 @@
         chips.replaceChildren();
         if (visible && count) {
             const label = sameFilters(current, preferences) ? 'Mijn voorkeuren' : 'Tijdelijk gefilterd';
-            chips.append(el('span', 'filter-context', `${label} · ${current.teams.length} teams · ${current.competitions.length} competities`));
+            chips.append(el('span', 'filter-context', `${label} · ${current.teams.length} ${current.teams.length === 1 ? 'team' : 'teams'} · ${current.competitions.length} ${current.competitions.length === 1 ? 'competitie' : 'competities'}`));
             const teams = new Map((app()?.getFootballTeams() || []).map(team => [team.value, team.label]));
             current.teams.forEach(value => {
                 const label = teams.get(value) || value;
@@ -546,7 +563,7 @@
     }
     function updateDraftLabel() {
         const count = draft.teams.length + draft.competitions.length;
-        backdrop.querySelector('.filter-selection-count').textContent = count ? `${draft.teams.length} teams · ${draft.competitions.length} competities` : 'Alles zichtbaar';
+        backdrop.querySelector('.filter-selection-count').textContent = count ? `${draft.teams.length} ${draft.teams.length === 1 ? 'team' : 'teams'} · ${draft.competitions.length} ${draft.competitions.length === 1 ? 'competitie' : 'competities'}` : 'Alles zichtbaar';
         backdrop.querySelector('.filter-help').textContent = tab === 'teams' ?
             'Kies clubs of landenteams. Meerdere teams tonen hun wedstrijden. Geen keuze toont alle teams.' :
             'Kies competities. Met een teamkeuze zie je alleen wedstrijden die aan beide filters voldoen.';

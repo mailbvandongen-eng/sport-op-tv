@@ -101,7 +101,7 @@
     'use strict';
 
     const RELEASE = Object.freeze({
-        version: '3.14.3',
+        version: '3.14.4',
         date: '10 oktober 2026',
         title: 'Eén wedstrijd, de juiste tijd, filters die werken',
         notes: [
