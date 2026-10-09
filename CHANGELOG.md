@@ -1,3 +1,8 @@
+## 3.14.1 — 2026-10-10
+- Livecontrole: oude automatische scroll voorbij bediening vervangen door één gekozen dag, met bediening bovenaan.
+- Zoeken doorloopt expliciet alle dagen binnen sport/filters; wissen herstelt de gekozen dag.
+- Datum blijft gekozen zonder scroll-observer die onverwacht dagen wisselt.
+
 ## 3.14.0 — 2026-10-10
 - Herindeling als tv-gids: rustige sporttabs, compacte wedstrijdregels en één accentkleur.
 - Alleen datumregel blijft vast; vorige/volgende dag, native kalender en Vandaag.

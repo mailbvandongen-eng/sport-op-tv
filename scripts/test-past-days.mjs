@@ -82,7 +82,7 @@ for (const sport of ['voetbal', 'darts', 'f1', 'motogp', 'handbal', null]) {
         sanitizeFootballMatches: events => events, filterReliableFootballMatches: events => events,
         countUpcomingFootballMatches: () => 0, setWorldCupHighlights() {},
         generateDateTabs: value => { dates = value; },
-        setupScrollSync() {}, setupDartsAccordion() {},
+        syncGuideDate() {}, setupScrollSync() {}, setupDartsAccordion() {},
         isSameDay: (a, b) => a.toDateString() === b.toDateString(), formatDate: d => d.toDateString(),
         setTimeout: fn => { callbacks.push(fn); },
         scrollToDate: key => { scrollTarget = key; }, scrollToTodayOrNearest: () => { scrollTarget = 'today'; }

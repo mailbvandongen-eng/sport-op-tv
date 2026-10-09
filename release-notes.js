@@ -101,13 +101,13 @@
     'use strict';
 
     const RELEASE = Object.freeze({
-        version: '3.14.0',
+        version: '3.14.1',
         date: '10 oktober 2026',
         title: 'Een rustige tv-gids',
         notes: [
             'Nieuwe overzichtelijke indeling met één accentkleur, rustige sporttabs en compacte wedstrijdregels: tijd, teams en zender direct zichtbaar.',
-            'Alleen de datumregel blijft staan tijdens scrollen. Kies een dag met pijlen of de kalender; Vandaag brengt je terug.',
-            'Zoeken blijft binnen je sport en filters. Grote filterchips zijn vervangen door een korte samenvatting.',
+            'De gids opent op één gekozen dag, met de bediening direct zichtbaar. Alleen de datumregel blijft staan tijdens scrollen. Kies een dag met pijlen of kalender.',
+            'Zoeken toont resultaten over alle dagen, binnen je sport en filters. Grote filterchips zijn vervangen door een korte samenvatting.',
             'Bewaar teams en competities als Mijn voorkeuren. Tijdelijke filters en Alles tonen veranderen die voorkeuren niet.',
             'Thema, verversen en standen staan samen onder Meer. Menu en filters ondersteunen toetsenbordbediening en focusherstel.',
             'Grotere aanraakvlakken, beter contrast, afbrekende lange namen en ondersteuning voor verminderde beweging.'

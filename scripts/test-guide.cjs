@@ -17,7 +17,7 @@ const vc=new VirtualConsole();vc.on('jsdomError',e=>errors.push(e.message));
 const dom=new JSDOM(fs.readFileSync(`${root}/index.html`,'utf8'),{url:'https://test.sport.local/',runScripts:'dangerously',resources:new Local(),pretendToBeVisual:true,virtualConsole:vc,beforeParse(w){
 w.scrollTo=()=>{};w.HTMLElement.prototype.scrollIntoView=function(){};w.IntersectionObserver=class{observe(){}disconnect(){}};
 w.fetch=async url=>{requests.push(String(url));return{ok:true,json:async()=>String(url).includes('openf1')?[]:String(url).includes('nos-highlights')?{highlights:[]}:{data:[],events:[],matches:[]}};};
-w.localStorage.setItem('cacheVersion','3.12.8');w.localStorage.setItem('sportOpTvSeenRelease','3.14.0');
+w.localStorage.setItem('cacheVersion','3.12.8');w.localStorage.setItem('sportOpTvSeenRelease','3.14.1');
 w.localStorage.setItem('footballCache',JSON.stringify(fixtures));w.localStorage.setItem('footballCacheTime',String(Date.now()));
 }});
 const w=dom.window,d=w.document,$=s=>d.querySelector(s);
@@ -70,8 +70,12 @@ click('#competition-filter-btn'); click('.filter-reset'); click('.filter-apply')
 assert.equal(visibleRows().length,4);
 assert.deepEqual(JSON.parse(w.localStorage.getItem('sportOpTvFootballPreferences')), saved);
 // Native calendar, arrows and today use the same date selection.
+assert.equal(d.querySelectorAll('.current-guide-day').length,1);
+assert.equal(w.getComputedStyle(d.querySelector('.day-section:not(.current-guide-day)')).display,'none');
+input('#sport-search','Ajax'); assert.equal(d.body.dataset.guideSearch,'true');
+assert.ok($('#search-summary').textContent.includes('alle dagen')); click('#search-clear');
 const initialDate=$('#guide-date').value;
-click('#date-prev'); assert.notEqual($('#guide-date').value,initialDate);
+click('#date-prev'); assert.equal(d.querySelectorAll('.current-guide-day').length,1); assert.notEqual($('#guide-date').value,initialDate);
 click('#date-next'); assert.equal($('#guide-date').value,initialDate);
 click('#date-today'); assert.equal($('#guide-date').value,initialDate);
 assert.equal(!!$('.header-section').inert,false);

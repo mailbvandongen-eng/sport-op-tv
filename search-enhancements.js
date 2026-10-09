@@ -420,6 +420,7 @@
         active = -1;
     }
     function applySearch() {
+        document.body.dataset.guideSearch = String(!!query);
         const rows = Array.from(document.querySelectorAll('.football-slot-match, .match-row.darts-row, .match-row.f1-row, .match-row.motogp-row, .match-row.handbal-row, .results-row'));
         let count = 0;
         rows.forEach(row => {
@@ -447,7 +448,7 @@
         summary.hidden = !query;
         const container = document.getElementById('events-container');
         const loading = !!container?.querySelector('.loading, .error-message');
-        summary.textContent = loading ? 'Wedstrijden laden…' : `${count} ${count === 1 ? 'resultaat' : 'resultaten'}`;
+        summary.textContent = loading ? 'Wedstrijden laden…' : `${count} ${count === 1 ? 'resultaat' : 'resultaten'} · alle dagen`;
         if (query && !count && !loading && container) {
             if (document.getElementById('search-empty-state')?.dataset.query === query) return;
             document.getElementById('search-empty-state')?.remove();

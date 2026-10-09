@@ -95,3 +95,8 @@ html { scroll-padding-top: 56px; }
 .results-row .results-score { grid-column: 3; justify-self: end; align-self: start; }
 .version-footer.release-notes-link { display: inline-flex; align-items: center; min-height: 44px; padding: 6px 12px; }
 [hidden], [data-search-hidden="true"] { display: none !important; }
+
+.day-section:not(.current-guide-day) { display: none; }
+body[data-guide-search="true"] .day-section { display: block; }
+body[data-guide-search="true"] .day-section.current-guide-day > .day-header,
+body[data-guide-search="true"] .day-section.current-guide-day > .results-day-header { display: flex; }
