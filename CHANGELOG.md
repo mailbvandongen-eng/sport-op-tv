@@ -1,3 +1,11 @@
+## 3.14.0 — 2026-10-10
+- Herindeling als tv-gids: rustige sporttabs, compacte wedstrijdregels en één accentkleur.
+- Alleen datumregel blijft vast; vorige/volgende dag, native kalender en Vandaag.
+- Korte filtersamenvatting; bestaande keuzes eenmalig overgenomen als Mijn voorkeuren. Voorkeuren bewaren/herstellen zonder tijdelijke filters te vermengen.
+- Thema, verversen en standen onder Meer; focusherstel, achtergrond inert en Escape/Tab-bediening.
+- Aanraakvlakken van 44 CSS-pixels, contrast, reflow en verminderde beweging.
+- Bronnen, sportgebonden zoekfunctie en wedstrijdcache behouden.
+
 # Changelog
 
 ## 3.13.1 — 2026-10-09

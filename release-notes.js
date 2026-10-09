@@ -101,16 +101,16 @@
     'use strict';
 
     const RELEASE = Object.freeze({
-        version: '3.13.1',
-        date: '9 oktober 2026',
-        title: 'Rustig zoeken en eenvoudig filteren',
+        version: '3.14.0',
+        date: '10 oktober 2026',
+        title: 'Een rustige tv-gids',
         notes: [
-            'Compact zoekveld met wisknop. Zoeken blijft binnen je gekozen sport en voetbalfilters.',
-            'Programma en Uitslagen hebben duidelijke knoppen; wisselen ververst de bronnen niet meer onnodig.',
-            'Eén filterpaneel voor teams en competities uit de getoonde periode, met vaste Nederlandse clubs en ontdubbelde namen. Pas je keuze toe met Toon wedstrijden.',
-            'Clubs en landenteams zijn gescheiden, ook bij oefenwedstrijden. Nederland mannen en vrouwen zijn apart; keuzes worden onthouden.',
-            'Actieve filters staan onder de zoekbalk en zijn met één tik te verwijderen. Filters gelden ook voor voetbaluitslagen.',
-            'Nederland zoeken verwijst naar het team, niet naar alle Nederlandse competities. De zichtbare maar niet werkende filterknop is hersteld.'
+            'Nieuwe overzichtelijke indeling met één accentkleur, rustige sporttabs en compacte wedstrijdregels: tijd, teams en zender direct zichtbaar.',
+            'Alleen de datumregel blijft staan tijdens scrollen. Kies een dag met pijlen of de kalender; Vandaag brengt je terug.',
+            'Zoeken blijft binnen je sport en filters. Grote filterchips zijn vervangen door een korte samenvatting.',
+            'Bewaar teams en competities als Mijn voorkeuren. Tijdelijke filters en Alles tonen veranderen die voorkeuren niet.',
+            'Thema, verversen en standen staan samen onder Meer. Menu en filters ondersteunen toetsenbordbediening en focusherstel.',
+            'Grotere aanraakvlakken, beter contrast, afbrekende lange namen en ondersteuning voor verminderde beweging.'
         ]
     });
 
@@ -181,9 +181,10 @@
                 width: 100%;
                 margin-top: 18px;
                 padding: 10px 14px;
+                min-height: 44px;
                 border: 0;
                 border-radius: 9px;
-                background: var(--primary, #22c55e);
+                background: #166534;
                 color: #fff;
                 font: inherit;
                 font-weight: 700;
@@ -199,13 +200,16 @@
     }
 
     function closeReleaseNotes(backdrop, markSeen) {
-        if (markSeen) localStorage.setItem(STORAGE_KEY, RELEASE.version);
+        if (markSeen) { try { localStorage.setItem(STORAGE_KEY, RELEASE.version); } catch (_) {} }
+        backdrop.releaseBackground?.forEach(([node, inert]) => { node.inert = inert; });
+        document.body.style.overflow = backdrop.previousOverflow || '';
         backdrop.remove();
+        backdrop.returnFocus?.focus();
     }
 
     function showReleaseNotes(markSeenOnClose = true) {
         const existing = document.querySelector('.release-notes-backdrop');
-        if (existing) existing.remove();
+        if (existing) closeReleaseNotes(existing, false);
 
         const backdrop = document.createElement('div');
         backdrop.className = 'release-notes-backdrop';
@@ -219,16 +223,22 @@
                 <button type="button" class="release-notes-close">Begrepen</button>
             </section>`;
 
+        backdrop.returnFocus = document.activeElement;
+        backdrop.previousOverflow = document.body.style.overflow;
+        backdrop.releaseBackground = [...document.body.children].filter(node => !['SCRIPT', 'STYLE', 'LINK'].includes(node.tagName)).map(node => [node, node.inert]);
+        backdrop.releaseBackground.forEach(([node]) => { node.inert = true; });
+        document.body.style.overflow = 'hidden';
         document.body.appendChild(backdrop);
         const closeButton = backdrop.querySelector('.release-notes-close');
         closeButton.focus();
+        backdrop.addEventListener('keydown', event => { if (event.key === 'Tab') { event.preventDefault(); closeButton.focus(); } });
         closeButton.addEventListener('click', () => closeReleaseNotes(backdrop, markSeenOnClose));
         backdrop.addEventListener('click', event => {
             if (event.target === backdrop) closeReleaseNotes(backdrop, markSeenOnClose);
         });
-        document.addEventListener('keydown', function onKeydown(event) {
+        backdrop.addEventListener('keydown', function onKeydown(event) {
             if (event.key !== 'Escape' || !document.body.contains(backdrop)) return;
-            document.removeEventListener('keydown', onKeydown);
+            backdrop.removeEventListener('keydown', onKeydown);
             closeReleaseNotes(backdrop, markSeenOnClose);
         });
     }
@@ -257,7 +267,9 @@
         initialized = true;
         installStyles();
         installVersionLink();
-        if (localStorage.getItem(STORAGE_KEY) !== RELEASE.version) {
+        let seen;
+        try { seen = localStorage.getItem(STORAGE_KEY); } catch (_) {}
+        if (seen !== RELEASE.version) {
             setTimeout(() => showReleaseNotes(true), 250);
         }
     }

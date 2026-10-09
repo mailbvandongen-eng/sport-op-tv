@@ -16,6 +16,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Install UI test dependencies
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Test guide interactions and accessibility
+        run: npm run test:ui
       - name: Test football selection
         run: node scripts/test-football-selection.mjs
       - name: Test search and competition filters
@@ -26,3 +30,4 @@ jobs:
         run: node scripts/test-sport-details.mjs
       - name: Check public files for credentials
         run: node scripts/test-public-security.mjs
+

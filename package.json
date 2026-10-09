@@ -1,0 +1,6 @@
+{
+  "name": "sport-op-tv-checks",
+  "private": true,
+  "scripts": { "test:ui": "node scripts/test-guide.cjs" },
+  "devDependencies": { "jsdom": "26.1.0", "axe-core": "4.11.0" }
+}

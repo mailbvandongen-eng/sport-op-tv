@@ -368,6 +368,7 @@
     let query = '', choices = [], active = -1, scheduled = false;
     let draft = { teams: [], competitions: [] }, tab = 'teams', previousOverflow = '';
     let returnFocus = null;
+    let modalBackground = [];
 
     const el = (tag, className, text) => {
         const node = document.createElement(tag);
@@ -468,29 +469,44 @@
         applySearch();
         return Promise.resolve();
     }
+    const preferenceKey = 'sportOpTvFootballPreferences';
+    function getPreferences() {
+        try {
+            const saved = JSON.parse(localStorage.getItem(preferenceKey));
+            if (saved && Array.isArray(saved.teams) && Array.isArray(saved.competitions)) return saved;
+        } catch (_) { /* Storage is optional. */ }
+        const initial = app()?.getFootballFilters() || { teams: [], competitions: [] };
+        savePreferences(initial);
+        return initial;
+    }
+    function savePreferences(value) {
+        try { localStorage.setItem(preferenceKey, JSON.stringify(value)); } catch (_) { /* Keep usable without storage. */ }
+    }
+    function sameFilters(a, b) {
+        return ['teams', 'competitions'].every(key => [...a[key]].sort().join('\n') === [...b[key]].sort().join('\n'));
+    }
     function updateToolbar() {
-        const visible = ['voetbal', null].includes(app()?.getSportFilter());
+        const sport = app()?.getSportFilter();
+        document.querySelectorAll('.sport-filter-btn').forEach(node => node.setAttribute('aria-pressed', String(node.dataset.sport === sport)));
+        input.placeholder = `Zoek in ${core.getSportInfo(sport)?.label || 'sport'}…`;
+        const visible = ['voetbal', null].includes(sport);
         filterButton.hidden = !visible;
         const current = app()?.getFootballFilters() || { teams: [], competitions: [] };
         const count = current.teams.length + current.competitions.length;
-        filterButton.querySelector('span').textContent = count && visible ? `Filters (${count})` : 'Filters';
+        const preferences = getPreferences();
+        filterButton.querySelector('span').textContent = 'Filters';
         filterButton.classList.toggle('active', count > 0);
         chips.replaceChildren();
-        if (visible) {
-            const teams = new Map((app()?.getFootballTeams() || []).map(team => [team.value, team.label]));
-            ['teams', 'competitions'].forEach(type => current[type].forEach(value => {
-                const text = type === 'teams' ? teams.get(value) || value : value;
-                const chip = button(`${text} ×`, 'filter-chip', () => {
-                    const next = app().getFootballFilters();
-                    next[type] = next[type].filter(item => item !== value);
-                    app().setFootballFilters(next);
-                    afterRender();
-                });
-                chip.setAttribute('aria-label', `Verwijder filter ${text}`);
-                chips.append(chip);
-            }));
+        if (visible && count) {
+            const label = sameFilters(current, preferences) ? 'Mijn voorkeuren' : 'Tijdelijk gefilterd';
+            chips.append(el('span', 'filter-context', `${label} · ${current.teams.length} teams · ${current.competitions.length} competities`));
+            chips.append(button('Wijzig', 'filter-chip', openDialog));
+            chips.append(button('Alles', 'filter-show-all', () => { app().setFootballFilters({ teams: [], competitions: [] }); afterRender(); }));
+        } else if (visible && preferences.teams.length + preferences.competitions.length) {
+            chips.append(el('span', 'filter-context', 'Alle wedstrijden'));
+            chips.append(button('Mijn voorkeuren', 'filter-chip', () => { app().setFootballFilters(getPreferences()); afterRender(); }));
         }
-        chips.hidden = !visible || !count;
+        chips.hidden = !visible || !chips.childNodes.length;
         if (!visible && !backdrop.hidden) closeDialog();
     }
     function afterRender() {
@@ -556,6 +572,8 @@
     function closeDialog() {
         if (backdrop.hidden) return;
         backdrop.hidden = true;
+        modalBackground.forEach(([node, inert]) => { node.inert = inert; });
+        modalBackground = [];
         document.body.style.overflow = previousOverflow;
         filterButton.setAttribute('aria-expanded', 'false');
         returnFocus?.focus();
@@ -567,13 +585,15 @@
         draft = { teams: [...current.teams], competitions: [...current.competitions] };
         tab = 'teams';
         filterSearch.value = '';
-        returnFocus = document.activeElement;
+        returnFocus = filterButton;
         backdrop.querySelectorAll('[data-filter-tab]').forEach(node => node.setAttribute('aria-selected', String(node.dataset.filterTab === tab)));
         filterSearch.placeholder = 'Zoek team…';
         filterSearch.setAttribute('aria-label', 'Zoek team');
         renderOptions();
         previousOverflow = document.body.style.overflow;
         document.body.style.overflow = 'hidden';
+        modalBackground = [...document.body.children].filter(node => node !== backdrop && !['SCRIPT', 'STYLE', 'LINK'].includes(node.tagName)).map(node => [node, node.inert]);
+        modalBackground.forEach(([node]) => { node.inert = true; });
         backdrop.hidden = false;
         filterButton.setAttribute('aria-expanded', 'true');
         backdrop.querySelector('.filter-close').focus(); // Avoid opening the iPhone keyboard before it is needed.
@@ -583,7 +603,7 @@
         backdrop.hidden = true;
         backdrop.innerHTML = `
             <section class="filter-dialog" role="dialog" aria-modal="true" aria-labelledby="filter-title">
-                <div class="filter-heading"><h2 id="filter-title">Voetbalfilters</h2><button type="button" class="filter-close" aria-label="Sluiten zonder toepassen">×</button></div>
+                <div class="filter-heading"><h2 id="filter-title">Teams en competities</h2><button type="button" class="filter-close" aria-label="Sluiten zonder toepassen">×</button></div>
                 <div class="filter-tabs" role="tablist" aria-label="Soort filter">
                     <button type="button" role="tab" id="filter-tab-teams" data-filter-tab="teams" aria-controls="filter-options" aria-selected="true">Teams</button>
                     <button type="button" role="tab" id="filter-tab-competitions" data-filter-tab="competitions" aria-controls="filter-options" aria-selected="false">Competities</button>
@@ -591,6 +611,7 @@
                 <p class="filter-help"></p>
                 <input type="search" class="filter-search" autocomplete="off" placeholder="Zoek team…" aria-label="Zoek team">
                 <div class="filter-options" id="filter-options" role="tabpanel" aria-labelledby="filter-tab-teams"></div>
+                <div class="filter-preferences"><button type="button" class="filter-load-preferences">Gebruik mijn voorkeuren</button><button type="button" class="filter-save-preferences">Bewaar als voorkeur</button></div>
                 <div class="filter-footer"><p class="filter-selection-count" aria-live="polite"></p><div><button type="button" class="filter-secondary filter-reset">Wis filters</button><button type="button" class="filter-apply">Toon wedstrijden</button></div></div>
             </section>`;
         document.body.append(backdrop);
@@ -609,6 +630,8 @@
             backdrop.querySelectorAll('[data-filter-tab]').forEach(other => other.setAttribute('aria-selected', String(other === node)));
             renderOptions();
         }));
+        backdrop.querySelector('.filter-load-preferences').addEventListener('click', () => { const saved = getPreferences(); draft = { teams: [...saved.teams], competitions: [...saved.competitions] }; renderOptions(); });
+        backdrop.querySelector('.filter-save-preferences').addEventListener('click', () => { savePreferences(draft); closeDialog(); app().setFootballFilters(draft); afterRender(); });
         backdrop.querySelector('.filter-reset').addEventListener('click', () => {
             draft = { teams: [], competitions: [] }; renderOptions();
         });
