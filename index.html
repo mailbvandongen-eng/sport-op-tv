@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="football-policy.js?v=3.14.2"></script>
+    <script src="football-policy.js?v=3.14.3"></script>
     <style>
         * {
             margin: 0;
@@ -2834,9 +2834,9 @@
             background: var(--text-secondary);
         }
     </style>
-    <link rel="stylesheet" href="search-ui.css?v=3.14.2">
-    <link rel="stylesheet" href="guide-ui.css?v=3.14.2">
-    <script src="search-enhancements.js?v=3.14.2"></script>
+    <link rel="stylesheet" href="search-ui.css?v=3.14.3">
+    <link rel="stylesheet" href="guide-ui.css?v=3.14.3">
+    <script src="search-enhancements.js?v=3.14.3"></script>
 </head>
 <body>
     <a class="skip-link" href="#events-container">Naar wedstrijden</a>
@@ -2933,7 +2933,7 @@
             <div class="api-status" id="api-status">
                 <span class="live-dot"></span> <span class="status-text">Laden...</span>
             </div>
-            <p class="version-footer">v3.14.2</p>
+            <p class="version-footer">v3.14.3</p>
         </footer>
     </div>
 
@@ -2970,12 +2970,12 @@
 
             // Competities van OpenFootball (nationale competities)
             OPENFOOTBALL_LEAGUES: [
-                { file: 'nl.1.json', name: 'Eredivisie', channel: 'ESPN' },
-                { file: 'en.1.json', name: 'Premier League', channel: 'Viaplay' },
-                { file: 'de.1.json', name: 'Bundesliga', channel: 'Viaplay' },
-                { file: 'es.1.json', name: 'La Liga', channel: 'Ziggo Sport' },
-                { file: 'it.1.json', name: 'Serie A', channel: 'Ziggo Sport' },
-                { file: 'fr.1.json', name: 'Ligue 1', channel: 'Ziggo Sport' },
+                { timeZone: 'Europe/Amsterdam', file: 'nl.1.json', name: 'Eredivisie', channel: 'ESPN' },
+                { timeZone: 'Europe/London', file: 'en.1.json', name: 'Premier League', channel: 'Viaplay' },
+                { timeZone: 'Europe/Berlin', file: 'de.1.json', name: 'Bundesliga', channel: 'Viaplay' },
+                { timeZone: 'Europe/Madrid', file: 'es.1.json', name: 'La Liga', channel: 'Ziggo Sport' },
+                { timeZone: 'Europe/Rome', file: 'it.1.json', name: 'Serie A', channel: 'Ziggo Sport' },
+                { timeZone: 'Europe/Paris', file: 'fr.1.json', name: 'Ligue 1', channel: 'Ziggo Sport' },
             ],
 
             // ESPN API (gratis, geen key nodig!)
@@ -4728,8 +4728,39 @@
         }
 
         function getLocalDateKey(dateLike) {
-            const date = new Date(dateLike);
-            return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+            return new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Amsterdam', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(dateLike));
+        }
+
+        function sourceLocalFootballDate(dateKey, time, timeZone) {
+            const [year, month, day] = dateKey.split('-').map(Number);
+            const [hour, minute] = (time || '12:00').split(':').map(Number);
+            const wallClock = Date.UTC(year, month - 1, day, hour, minute);
+            let instant = wallClock;
+            const formatter = new Intl.DateTimeFormat('en-GB', { timeZone, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23' });
+            for (let i = 0; i < 3; i++) {
+                const parts = Object.fromEntries(formatter.formatToParts(new Date(instant)).map(part => [part.type, part.value]));
+                const represented = Date.UTC(+parts.year, +parts.month - 1, +parts.day, +parts.hour, +parts.minute, +parts.second);
+                instant += wallClock - represented;
+            }
+            return new Date(instant);
+        }
+        function footballAmsterdamTime(date) {
+            return new Date(date).toLocaleTimeString('nl-NL', { timeZone: 'Europe/Amsterdam', hour: '2-digit', minute: '2-digit' });
+        }
+        function normalizeFootballTiming(match) {
+            const result = { ...match, date: new Date(match.date) };
+            // Migrate only old OpenFootball records: their time was stored as if it were Dutch.
+            const league = CONFIG.OPENFOOTBALL_LEAGUES?.find(item => item.name === match.competition);
+            if (!match.footballTimingVersion && !match.source && !match.isStatic && !match.isFallbackConfirmed && league) {
+                result.date = sourceLocalFootballDate(getLocalDateKey(match.date), /^\d{2}:\d{2}$/.test(match.time || '') ? match.time : null, league.timeZone);
+                result.source = 'OpenFootball';
+            }
+            if (!match.isStatic && !match.isFallbackConfirmed && /^\d{2}:\d{2}$/.test(match.time || '')) result.time = footballAmsterdamTime(result.date);
+            result.footballTimingVersion = 1;
+            return result;
+        }
+        function normalizeFootballData(matches) {
+            return dedupeFootballMatches(matches.filter(match => match?.home && match?.away && match?.date && !Number.isNaN(new Date(match.date).getTime())).map(normalizeFootballTiming));
         }
 
         function addDaysToDateKey(dateKey, days) {
@@ -4761,7 +4792,7 @@
 
             const footballMatchReliabilityScore = (match) => {
                 let score = 0;
-                if (!match.isStatic && !match.isFallbackConfirmed) score += 100;
+                if (!match.isStatic && !match.isFallbackConfirmed) score += match.source === 'ESPN' ? 200 : 100;
                 if (match.isFallbackConfirmed) score += 20;
                 if (match.isStatic) score -= 20;
                 if (match.status === 'FINISHED') score += 20;
@@ -4771,9 +4802,8 @@
                 return score;
             };
 
-            const normalizeFootballDedupeTeamName = (name = '') => {
-                const normalized = normalizeFootballClubNameForMatching(name);
-                return getTeamFlagCode(name) || normalized || String(name || '').toLowerCase().trim();
+            const normalizeFootballDedupeTeamName = (name = '', competition = '') => {
+                return window.SPORT_OP_TV_SEARCH_CORE?.teamInfo(name, competition).value || normalizeFootballClubNameForMatching(name);
             };
 
             const deduped = new Map();
@@ -4784,8 +4814,8 @@
                 const key = [
                     dateStr,
                     competitionKey,
-                    normalizeFootballDedupeTeamName(match.home),
-                    normalizeFootballDedupeTeamName(match.away)
+                    normalizeFootballDedupeTeamName(match.home, match.competition),
+                    normalizeFootballDedupeTeamName(match.away, match.competition)
                 ].join('|');
 
                 const existing = deduped.get(key);
@@ -4794,7 +4824,11 @@
                 }
             });
 
-            return [...deduped.values()];
+            return [...deduped.values()].map(match => {
+                const core = window.SPORT_OP_TV_SEARCH_CORE;
+                const name = value => core?.teamInfo(value, match.competition).group === 'Clubs' ? core.teamInfo(value, match.competition).label : value;
+                return { ...match, home: name(match.home), away: name(match.away) };
+            });
         }
 
         function normalizeInternationalTeamName(name = '') {
@@ -4882,7 +4916,7 @@
         }
 
         function sanitizeFootballMatches(matches) {
-            return matches.filter(match => {
+            return normalizeFootballData(matches).filter(match => {
                 if (!match || !match.home || !match.away || !match.date) return false;
                 if (!hasConcreteFootballParticipants(match)) return false;
                 return true;
@@ -4925,7 +4959,9 @@
                 console.log('Using cached football data');
                 restoreFootballSourceHealth(cacheTime);
                 const data = JSON.parse(cached);
-                return data.map(m => normalizeFootballMatchChannel({ ...m, date: new Date(m.date) }));
+                const repaired = normalizeFootballData(data).map(normalizeFootballMatchChannel);
+                localStorage.setItem('footballCache', JSON.stringify(repaired));
+                return repaired;
             }
 
             footballSourceHealth = { successful: 0, failed: 0, updatedAt: null, fromCache: false };
@@ -4950,12 +4986,15 @@
 
                     if (data.matches && Array.isArray(data.matches)) {
                         data.matches.forEach(match => {
-                            const matchDate = new Date(match.date + 'T' + (match.time || '15:00'));
+                            const matchDate = sourceLocalFootballDate(match.date, match.time, league.timeZone);
                             const hasScore = match.score && match.score.ft;
 
                             matches.push({
                                 date: matchDate,
-                                time: match.time || '15:00',
+                                time: match.time ? footballAmsterdamTime(matchDate) : 'Tijd onbekend',
+                                source: 'OpenFootball',
+                                sourceTimeZone: league.timeZone,
+                                footballTimingVersion: 1,
                                 home: match.team1.replace(' FC', '').replace(' AFC', ''),
                                 away: match.team2.replace(' FC', '').replace(' AFC', ''),
                                 competition: league.name,
@@ -5018,7 +5057,9 @@
                 restoreFootballSourceHealth(cacheTime);
                 localStorage.setItem('footballSource', 'cache');
                 const data = JSON.parse(cached);
-                return data.map(m => normalizeFootballMatchChannel({ ...m, date: new Date(m.date) }));
+                const repaired = normalizeFootballData(data).map(normalizeFootballMatchChannel);
+                localStorage.setItem('footballCache', JSON.stringify(repaired));
+                return repaired;
             }
 
             // No cache - use static fallback data
@@ -5100,7 +5141,8 @@
 
                     allMatches.push({
                         date: matchDate,
-                        time: matchDate.toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' }),
+                        time: footballAmsterdamTime(matchDate),
+                        footballTimingVersion: 1,
                         home: homeName,
                         away: awayName,
                         homeCrest: homeTeam.team?.logo,
@@ -7555,7 +7597,7 @@
         // op verzoek van de gebruiker; zo springt of knippert de agenda niet
         // tijdens lezen en lijkt de app niet spontaan te herstarten.
     </script>
-    <script src="release-notes.js?v=3.14.2" defer></script>
+    <script src="release-notes.js?v=3.14.3" defer></script>
 </body>
 </html>
 

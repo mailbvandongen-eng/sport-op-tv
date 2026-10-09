@@ -20,6 +20,8 @@ jobs:
         run: npm ci --ignore-scripts --no-audit --no-fund
       - name: Test guide interactions and accessibility
         run: npm run test:ui
+      - name: Test fixture identity and Dutch start times
+        run: node scripts/test-football-integrity.mjs
       - name: Test football selection
         run: node scripts/test-football-selection.mjs
       - name: Test search and competition filters

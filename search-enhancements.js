@@ -142,7 +142,15 @@
         ['VVV-Venlo', ['vvv venlo']], ['FC Den Bosch', ['den bosch']],
         ['Excelsior', ['sbv excelsior']],
         ['Manchester United', ['man united']], ['Manchester City', ['man city']],
-        ['Tottenham Hotspur', ['spurs', 'tottenham']], ['Paris Saint-Germain', ['psg']],
+        ['Tottenham Hotspur', ['spurs', 'tottenham']],
+        ['Leeds United', ['leeds']], ['Newcastle United', ['newcastle']],
+        ['West Ham United', ['west ham']], ['Nottingham Forest', ['nottingham']],
+        ['Wolverhampton Wanderers', ['wolves', 'wolverhampton']], ['Leicester City', ['leicester']],
+        ['Ipswich Town', ['ipswich']], ['Hull City', ['hull']], ['Coventry City', ['coventry']],
+        ['Brighton & Hove Albion', ['brighton', 'brighton and hove albion']], ['AFC Bournemouth', ['bournemouth']],
+        ['Rayo Vallecano', ['rayo', 'rayo vallecano de madrid']], ['Athletic Club', ['athletic', 'athletic bilbao']],
+        ['Real Betis', ['betis']], ['Real Sociedad', ['sociedad']], ['RC Celta de Vigo', ['celta', 'celta vigo']],
+        ['Deportivo Alavés', ['alaves']], ['CA Osasuna', ['osasuna']], ['RCD Espanyol', ['espanyol']], ['Paris Saint-Germain', ['psg']],
         ['AS Roma', ['roma']], ['Inter Milan', ['fc internazionale milano inter']],
         ['FC Barcelona', ['barcelona']], ['Real Madrid', ['real madrid cf']],
         ['Club Atlético de Madrid', ['atletico', 'atletico madrid']],
@@ -501,8 +509,16 @@
         if (visible && count) {
             const label = sameFilters(current, preferences) ? 'Mijn voorkeuren' : 'Tijdelijk gefilterd';
             chips.append(el('span', 'filter-context', `${label} · ${current.teams.length} teams · ${current.competitions.length} competities`));
-            chips.append(button('Wijzig', 'filter-chip', openDialog));
-            chips.append(button('Alles', 'filter-show-all', () => { app().setFootballFilters({ teams: [], competitions: [] }); afterRender(); }));
+            const teams = new Map((app()?.getFootballTeams() || []).map(team => [team.value, team.label]));
+            current.teams.forEach(value => {
+                const label = teams.get(value) || value;
+                const remove = button(`${label} ×`, 'filter-chip filter-remove-team', () => {
+                    const next = app().getFootballFilters(); next.teams = next.teams.filter(team => team !== value);
+                    app().setFootballFilters(next); afterRender();
+                });
+                remove.setAttribute('aria-label', `Verwijder teamfilter ${label}`); chips.append(remove);
+            });
+            chips.append(button('Wis filters', 'filter-show-all', () => { clearSearch(); app().setFootballFilters({ teams: [], competitions: [] }); afterRender(); filterButton.focus(); }));
         } else if (visible && preferences.teams.length + preferences.competitions.length) {
             chips.append(el('span', 'filter-context', 'Alle wedstrijden'));
             chips.append(button('Mijn voorkeuren', 'filter-chip', () => { app().setFootballFilters(getPreferences()); afterRender(); }));
@@ -572,6 +588,7 @@
     }
     function closeDialog() {
         if (backdrop.hidden) return;
+        if (backdrop.open && typeof backdrop.close === 'function') backdrop.close();
         backdrop.hidden = true;
         modalBackground.forEach(([node, inert]) => { node.inert = inert; });
         modalBackground = [];
@@ -593,17 +610,23 @@
         renderOptions();
         previousOverflow = document.body.style.overflow;
         document.body.style.overflow = 'hidden';
-        modalBackground = [...document.body.children].filter(node => node !== backdrop && !['SCRIPT', 'STYLE', 'LINK'].includes(node.tagName)).map(node => [node, node.inert]);
-        modalBackground.forEach(([node]) => { node.inert = true; });
         backdrop.hidden = false;
+        if (typeof backdrop.showModal === 'function') {
+            backdrop.showModal();
+        } else {
+            modalBackground = [...document.body.children].filter(node => node !== backdrop && !['SCRIPT', 'STYLE', 'LINK'].includes(node.tagName)).map(node => [node, node.inert]);
+            modalBackground.forEach(([node]) => { node.inert = true; });
+        }
         filterButton.setAttribute('aria-expanded', 'true');
         backdrop.querySelector('.filter-close').focus(); // Avoid opening the iPhone keyboard before it is needed.
     }
     function installDialog() {
-        backdrop = el('div', 'filter-backdrop');
+        backdrop = el('dialog', 'filter-backdrop');
+        backdrop.setAttribute('aria-labelledby', 'filter-title');
+        backdrop.addEventListener('cancel', event => { event.preventDefault(); closeDialog(); });
         backdrop.hidden = true;
         backdrop.innerHTML = `
-            <section class="filter-dialog" role="dialog" aria-modal="true" aria-labelledby="filter-title">
+            <section class="filter-dialog">
                 <div class="filter-heading"><h2 id="filter-title">Teams en competities</h2><button type="button" class="filter-close" aria-label="Sluiten zonder toepassen">×</button></div>
                 <div class="filter-tabs" role="tablist" aria-label="Soort filter">
                     <button type="button" role="tab" id="filter-tab-teams" data-filter-tab="teams" aria-controls="filter-options" aria-selected="true">Teams</button>

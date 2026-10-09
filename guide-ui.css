@@ -100,3 +100,9 @@ html { scroll-padding-top: 56px; }
 body[data-guide-search="true"] .day-section { display: block; }
 body[data-guide-search="true"] .day-section.current-guide-day > .day-header,
 body[data-guide-search="true"] .day-section.current-guide-day > .results-day-header { display: flex; }
+
+/* Native modal enters the browser top layer, including on iPhone/PWA. */
+dialog.filter-backdrop { width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; border: 0; color: var(--text); }
+dialog.filter-backdrop::backdrop { background: transparent; }
+.filter-remove-team { border: 1px solid var(--text-secondary); padding-inline: 8px; border-radius: 6px; }
+.filter-show-all { text-decoration: underline; text-underline-offset: 3px; }

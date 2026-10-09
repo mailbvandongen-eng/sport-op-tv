@@ -101,16 +101,15 @@
     'use strict';
 
     const RELEASE = Object.freeze({
-        version: '3.14.2',
+        version: '3.14.3',
         date: '10 oktober 2026',
-        title: 'Een rustige tv-gids',
+        title: 'Eén wedstrijd, de juiste tijd, filters die werken',
         notes: [
-            'Nieuwe overzichtelijke indeling met één accentkleur, rustige sporttabs en compacte wedstrijdregels: tijd, teams en zender direct zichtbaar.',
-            'De gids opent op één gekozen dag, met de bediening direct zichtbaar. Alleen de datumregel blijft staan tijdens scrollen. Kies een dag met pijlen of kalender.',
-            'Zoeken toont resultaten over alle dagen, binnen je sport en filters. Grote filterchips zijn vervangen door een korte samenvatting.',
-            'Bewaar teams en competities als Mijn voorkeuren. Tijdelijke filters en Alles tonen veranderen die voorkeuren niet.',
-            'Thema, verversen en standen staan samen onder Meer. Menu en filters ondersteunen toetsenbordbediening en focusherstel.',
-            'Grotere aanraakvlakken, beter contrast, afbrekende lange namen en ondersteuning voor verminderde beweging.'
+            'Dubbele wedstrijden uit verschillende bronnen samengevoegd, ook bij afkortingen zoals Man United/Manchester United en Spurs/Tottenham Hotspur.',
+            'Britse lokale tijden worden naar Nederlandse tijd omgerekend, met zomer- en wintertijd. Bestaande wedstrijdcache wordt hersteld zonder je instellingen te wissen.',
+            'Een expliciete knop Wis filters maakt alle actieve filters en zoektekst leeg. Een teamfilter kun je ook afzonderlijk verwijderen.',
+            'Filters openen als een native dialoog boven de pagina, met sluiten, Escape en focusherstel. Voorkeuren blijven behouden.',
+            'Onbekende starttijden worden niet meer als 15.00 uur verzonnen.'
         ]
     });
 

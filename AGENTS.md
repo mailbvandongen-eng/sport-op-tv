@@ -12,3 +12,7 @@ Bij iedere functionele wijziging aan de app:
 7. Controleer na de wijziging dat de publieke GitHub Pages-versie de nieuwe bestanden daadwerkelijk serveert.
 
 Geen functionele wijziging afronden zonder versiebump en release notes.
+
+
+## Kwaliteit vóór uitbreiding — verzoek Bob, 2026-10-10
+Een nieuwe layout of feature mag bestaande bediening en inhoud niet verslechteren. Test vóór publicatie echte gebruikersroutes, ook opgeslagen filters en oude cache. Controleer dubbele wedstrijden, naamaliassen, Nederlandse starttijd (zomer/winter) en een direct zichtbare uitweg uit zoeken/filters. Een groene testset zonder controle van die routes is onvoldoende. Leg gevonden regressies vast als tests. Meld eerlijk welke apparaatcontrole niet uitgevoerd is.

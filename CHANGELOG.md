@@ -1,3 +1,10 @@
+## 3.14.3 — 2026-10-10
+- Clubidentiteiten gedeeld tussen filters en bronontdubbeling; ESPN heeft voorrang op OpenFootball.
+- Expliciete brontijdzones en Nederlandse weergavetijd, zomer/wintertijd, eenmalige migratie van oude OpenFootball-cache.
+- Cache en renderpad beide ontdubbeld; geen verzonnen 15.00 voor ontbrekende starttijd.
+- Native filterdialoog in top layer, zichtbare Wis filters en afzonderlijke teamverwijdering.
+- Bestaande voorkeuren behouden.
+
 ## 3.14.2 — 2026-10-10
 - Definitieve stylesheet na filterstylesheet: filterknop blijft leesbaar, weergavetabs krijgen ruimte en compacte bediening blijft consequent.
 - Extra regressiecontrole op daadwerkelijke CSS-volgorde, tabafstand en knopkleuren.
