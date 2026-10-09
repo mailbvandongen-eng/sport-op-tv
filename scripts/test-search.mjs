@@ -95,5 +95,6 @@ assert.match(css, /\[hidden\].*display: none !important/s);
 const version = release.match(/version: '([^']+)'/)[1];
 for (const file of ['search-enhancements.js', 'release-notes.js', 'football-policy.js', 'search-ui.css']) assert.ok(index.includes(`${file}?v=${version}`));
 assert.match(index, /id="search-clear"/);
+assert.match(index, /<script src="search-enhancements\.js\?v=[^"]+"><\/script>/, 'Filter core must load before initial cached render');
 assert.match(index, /id="program-toggle"/);
 console.log('Scoped search, men/women teams, combined filters, storage, API and results rendering passed.');
