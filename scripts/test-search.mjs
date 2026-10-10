@@ -96,7 +96,7 @@ assert.doesNotMatch(code, /app\.setSportFilter\(null|setSportFilter\(null/);
 assert.doesNotMatch(index, /forceRefreshSports\.has\('voetbal'\) \|\| resultsMode/);
 assert.doesNotMatch(index, /forceRefreshSports\.has\('darts'\) \|\| resultsMode/);
 assert.match(css, /\[hidden\].*display: none !important/s);
-const version = release.match(/version: '([^']+)'/)[1];
+const version = release.match(/["']?version["']?\s*:\s*["']([^"']+)["']/)[1];
 for (const file of ['search-enhancements.js', 'release-notes.js', 'football-policy.js', 'search-ui.css']) assert.ok(index.includes(`${file}?v=${version}`));
 assert.match(index, /id="search-clear"/);
 assert.match(index, /<script src="search-enhancements\.js\?v=[^"]+"><\/script>/, 'Filter core must load before initial cached render');
