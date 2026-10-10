@@ -1,3 +1,9 @@
+## 3.15.2 — 10 oktober 2026
+
+- Wijzigingsscherm zoals Detect: vaste kop met sluitknop, scrollbare versiekaarten en een vaste knop Gezien.
+- Nieuwste versie bovenaan met Nieuw-label; eerdere updates blijven terug te lezen.
+- Eén keer automatisch per nieuwe versie; opnieuw openen via het versienummer. Agenda en filters blijven behouden.
+
 ## 3.15.1 — 10 oktober 2026
 
 - Ingesprongen wedstrijdachtergrond rechtgetrokken: vlak sluit aan onder de datumbalk, terwijl tijd en zender dezelfde binnenmarge als de header behouden.

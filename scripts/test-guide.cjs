@@ -17,7 +17,7 @@ const vc=new VirtualConsole();vc.on('jsdomError',e=>errors.push(e.message));
 const dom=new JSDOM(fs.readFileSync(`${root}/index.html`,'utf8'),{url:'https://test.sport.local/',runScripts:'dangerously',resources:new Local(),pretendToBeVisual:true,virtualConsole:vc,beforeParse(w){
 w.scrollTo=()=>{};w.HTMLElement.prototype.scrollIntoView=function(){};w.IntersectionObserver=class{observe(){}disconnect(){}};
 w.fetch=async url=>{requests.push(String(url));return{ok:true,json:async()=>String(url).includes('openf1')?[]:String(url).includes('nos-highlights')?{highlights:[]}:{data:[],events:[],matches:[]}};};
-w.localStorage.setItem('cacheVersion','3.12.8');w.localStorage.setItem('sportOpTvSeenRelease','3.15.1');
+w.localStorage.setItem('cacheVersion','3.12.8');w.localStorage.setItem('sportOpTvSeenRelease','3.15.2');
 w.localStorage.setItem('footballCache',JSON.stringify(fixtures));w.localStorage.setItem('footballCacheTime',String(Date.now()));
 }});
 const w=dom.window,d=w.document,$=s=>d.querySelector(s);
@@ -93,7 +93,13 @@ w.localStorage.removeItem('sportOpTvSeenRelease');
 $('.version-footer').click(); assert.ok($('.release-notes-backdrop'));
 assert.equal($('.header-section').inert,true);
 $('.release-notes-close').dispatchEvent(new w.KeyboardEvent('keydown',{key:'Tab',bubbles:true}));
+assert.equal(d.activeElement,$('.release-notes-dismiss'));
+$('.release-notes-dismiss').dispatchEvent(new w.KeyboardEvent('keydown',{key:'Tab',shiftKey:true,bubbles:true}));
 assert.equal(d.activeElement,$('.release-notes-close'));
+assert.equal($('.release-notes-header h2').textContent,'Wijzigingen');
+assert.equal($('.release-notes-close').textContent,'Gezien');
+assert.ok(d.querySelectorAll('.release-notes-entry').length > 3);
+assert.equal(d.querySelectorAll('.release-notes-badge').length,1);
 click('.release-notes-close'); assert.equal(!!$('.header-section').inert,false);
 // Audit structural/ARIA rules; JSDOM has no pixel layout, so contrast is checked from tokens below.
 w.eval(require('axe-core').source);

@@ -10,7 +10,7 @@ class Local extends ResourceLoader{fetch(url){let name=new URL(url).pathname.spl
 const vc=new VirtualConsole();vc.on('jsdomError',e=>errors.push(e.message));
 const dom=new JSDOM(fs.readFileSync(path.join(root,'index.html'),'utf8'),{url:'https://sport.test/',runScripts:'dangerously',resources:new Local(),pretendToBeVisual:true,virtualConsole:vc,beforeParse(w){
 w.scrollTo=()=>{};w.HTMLElement.prototype.scrollIntoView=function(){};w.IntersectionObserver=class{observe(){}disconnect(){}};
-w.localStorage.setItem('sportOpTvSeenRelease','3.15.1');w.localStorage.setItem('cacheVersion','3.12.8');w.localStorage.setItem('sportStandingsFavorites','{broken');
+w.localStorage.setItem('sportOpTvSeenRelease','3.15.2');w.localStorage.setItem('cacheVersion','3.12.8');w.localStorage.setItem('sportStandingsFavorites','{broken');
 w.localStorage.setItem('selectedCompetitions','["Eredivisie"]');
 w.fetch=async url=>{url=String(url);requests.push(url);if(url.includes('standings.json')){if(fail)throw Error('offline');return{ok:true,json:async()=>snapshots};}if(url.includes('/standings?')){if(fail)throw Error('offline');if(hold){hold=false;await new Promise(r=>release=r);}return{ok:true,json:async()=>football};}if(url.includes('jolpi.ca'))return{ok:true,json:async()=>f1};return{ok:true,json:async()=>url.includes('openf1')?[]:{events:[],matches:[],data:[],highlights:[]}};};
 }});
