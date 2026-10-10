@@ -28,3 +28,5 @@
 .side-menu-header{position:sticky;top:0;background:var(--bg);z-index:2;}
 
 .standings-name-filter{display:flex;flex-direction:column;gap:6px;font-size:.8rem;font-weight:600;margin:14px 0;}.standings-name-filter input{min-height:44px;font:inherit;font-size:1rem;padding:8px 10px;color:var(--text);background:var(--bg);border:1px solid var(--text-secondary);border-radius:8px;} .standings-card [hidden]{display:none!important;}
+
+.standings-card .pts{color:var(--guide-accent);}

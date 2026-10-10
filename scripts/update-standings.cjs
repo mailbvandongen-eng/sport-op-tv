@@ -18,7 +18,7 @@ if(!groups.some(g=>g.rows.length))throw Error('Geen valide tabel');return{season
 }
 async function collect(item){let result;
 if(item.kind==='football'){result=core.football(await get(`https://site.api.espn.com/apis/v2/sports/soccer/${item.slug}/standings?region=nl&lang=nl`,true));if(item.tournament&&result.year){const data=await get(`https://site.api.espn.com/apis/site/v2/sports/soccer/${item.slug}/scoreboard?dates=${result.year}&limit=1000`,true);result.matches=core.matches(data);result.archived=result.matches.length>0&&result.matches.every(e=>e.completed)||result.year<new Date().getFullYear();}}
-else if(item.kind==='f1')result=core.f1(await get(item.url,true),item);
+else if(item.kind==='f1'){result=core.f1(await get(item.url,true),item);try{const calendar=await get(`https://api.jolpi.ca/ergast/f1/${result.year}.json`,true);result.matches=(calendar.MRData?.RaceTable?.Races||[]).map(r=>({date:r.date+'T'+(r.time||'12:00:00Z'),time:r.time?'confirmed':'TBD',event:r.raceName,round:'Race '+r.round,completed:Date.parse(r.date+'T'+(r.time||'12:00:00Z'))<Date.now()}));}catch{result.note='Racekalender kon niet worden opgehaald.';}}
 else result=parseHTML(await get(item.url),item);
 if(!result.groups?.some(g=>g.rows.length))throw Error('Geen valide stand');return{...result,source:item.source,sourceUrl:item.url,fetchedAt:new Date().toISOString()};
 }

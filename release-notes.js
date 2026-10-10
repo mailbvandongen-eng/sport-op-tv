@@ -101,7 +101,7 @@
     'use strict';
 
     const RELEASE = Object.freeze({
-        version: '3.15.0',
+        version: '3.15.1',
         date: '10 oktober 2026',
         title: 'Jouw standen en toernooien onder Meer',
         notes: [
@@ -109,6 +109,8 @@
             'F1-coureurs en constructeurs via een werkende bron; darts Order of Merit en Premier League, MotoGP en handbal Champions League en EK/WK dames/heren.',
             'Favorieten en de laatst bekeken competitie worden per browser bewaard. Tik op een naam voor bijbehorende wedstrijden of races.',
             'Seizoen, bron, ophaaltijd en peildatum zijn zichtbaar. Verouderde gegevens en bronfouten krijgen een duidelijke melding; geen verzonnen noodstanden.',
+            'Wedstrijdvlakken sluiten aan onder de datumbalk; tijd en zender houden aan beide kanten een nette binnenmarge, ook in donker thema.',
+            'F1 toont ook de racekalender. Sessienamen blijven zichtbaar en onbekende MotoGP-tijden worden niet als 12.00 uur weergegeven.',
             'Standen verversen behoudt je tab en herstart de app niet. Instellingen staan apart; agenda en filters blijven behouden.'
         ]
     });

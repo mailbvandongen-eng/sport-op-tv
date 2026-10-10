@@ -1,3 +1,10 @@
+## 3.15.1 — 10 oktober 2026
+
+- Ingesprongen wedstrijdachtergrond rechtgetrokken: vlak sluit aan onder de datumbalk, terwijl tijd en zender dezelfde binnenmarge als de header behouden.
+- F1-racekalender uit Jolpica beschikbaar in naamdetails en bij volgende races.
+- Racenamen en sessietitels behouden in details; onbekende tijden expliciet weergegeven.
+- Punten in de stand gebruiken het leesbare accent voor licht en donker thema.
+
 ## 3.15.0 — 10 oktober 2026
 
 - Meer is een standenmenu met sport/competitiekeuze, favorieten, laatst bekeken stand en instellingen onderaan.

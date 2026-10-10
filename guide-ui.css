@@ -106,3 +106,11 @@ dialog.filter-backdrop { width: 100%; height: 100%; max-width: none; max-height:
 dialog.filter-backdrop::backdrop { background: transparent; }
 .filter-remove-team { border: 1px solid var(--text-secondary); padding-inline: 8px; border-radius: 6px; }
 .filter-show-all { text-decoration: underline; text-underline-offset: 3px; }
+
+/* The list spans its container gutters; text keeps the same inset as the header.
+   The legacy card background must not expose strips with text on the card edge. */
+.football-day-list {
+    margin-inline: calc(-1 * var(--content-gutter));
+    padding-inline: var(--content-gutter);
+    border: 0;
+}
