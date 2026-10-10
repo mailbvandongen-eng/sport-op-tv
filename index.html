@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="football-policy.js?v=3.14.4"></script>
+    <script src="football-policy.js?v=3.15.0"></script>
     <style>
         * {
             margin: 0;
@@ -2834,9 +2834,10 @@
             background: var(--text-secondary);
         }
     </style>
-    <link rel="stylesheet" href="search-ui.css?v=3.14.4">
-    <link rel="stylesheet" href="guide-ui.css?v=3.14.4">
-    <script src="search-enhancements.js?v=3.14.4"></script>
+    <link rel="stylesheet" href="search-ui.css?v=3.15.0">
+    <link rel="stylesheet" href="guide-ui.css?v=3.15.0">
+    <script src="search-enhancements.js?v=3.15.0"></script>
+    <link rel="stylesheet" href="standings-menu.css?v=3.15.0">
 </head>
 <body>
     <a class="skip-link" href="#events-container">Naar wedstrijden</a>
@@ -2900,27 +2901,21 @@
                 <button class="close-menu-btn" id="close-menu-btn" aria-label="Sluit menu">×</button>
             </div>
             <div class="side-menu-content">
-                <div class="guide-settings">
-                    <button type="button" id="theme-toggle"><i data-lucide="sun"></i><span>Thema wisselen</span></button>
-                    <button type="button" id="refresh-data"><i data-lucide="refresh-cw"></i><span>Gegevens verversen</span></button>
-                </div>
-                <!-- Standen sectie -->
                 <div class="menu-section">
-                    <div class="menu-section-header">
-                        <h3 class="menu-section-title">Standen & WK 2026</h3>
-                        <button class="refresh-standings-btn" id="refresh-standings" title="Ververs alle data">↻</button>
+                    <div class="menu-section-header"><h3 class="menu-section-title">Standen & toernooien</h3><button class="refresh-standings-btn" id="refresh-standings" type="button" aria-label="Ververs deze stand" title="Ververs deze stand">↻</button></div>
+                    <div id="standings-favorites"></div>
+                    <div class="standings-controls">
+                        <label>Sport<select id="standings-sport-select"></select></label>
+                        <label>Competitie<select id="standings-competition"></select></label>
+                        <button id="standings-favorite" type="button" aria-label="Voeg toe aan favorieten">☆</button>
                     </div>
-                    <div class="standings-sport-buttons">
-                        <button class="standings-sport-btn active" data-standings-sport="voetbal">Voetbal</button>
-                        <button class="standings-sport-btn" data-standings-sport="darts">Darts</button>
-                        <button class="standings-sport-btn" data-standings-sport="f1">F1</button>
-                        <button class="standings-sport-btn" data-standings-sport="motogp">MotoGP</button>
-                        <button class="standings-sport-btn" data-standings-sport="handbal">Handbal</button>
-                    </div>
-                    <!-- Standen content -->
                     <div class="standings-tabs" id="standings-tabs-menu"></div>
-                    <div id="standings-content-menu"></div>
+                    <div id="standings-content-menu" aria-live="polite"></div>
                 </div>
+                <details class="menu-settings"><summary>Instellingen</summary><div class="guide-settings">
+                    <button type="button" id="theme-toggle"><i data-lucide="sun"></i><span>Thema wisselen</span></button>
+                    <button type="button" id="refresh-data"><i data-lucide="refresh-cw"></i><span>Agenda verversen</span></button>
+                </div></details>
             </div>
         </div>
 
@@ -2933,7 +2928,7 @@
             <div class="api-status" id="api-status">
                 <span class="live-dot"></span> <span class="status-text">Laden...</span>
             </div>
-            <p class="version-footer">v3.14.4</p>
+            <p class="version-footer">v3.15.0</p>
         </footer>
     </div>
 
@@ -5166,350 +5161,6 @@
             return allMatches;
         }
 
-        // Fetch football standings with caching
-        async function fetchFootballStandings(leagueId) {
-            // Check cache first (valid for 24 hours)
-            const cacheKey = `standings_${leagueId}`;
-            const cached = localStorage.getItem(cacheKey);
-            const cacheTime = localStorage.getItem(cacheKey + '_time');
-
-            if (cached && cacheTime && (Date.now() - parseInt(cacheTime)) < 24 * 60 * 60 * 1000) {
-                console.log(`Using cached standings for league ${leagueId}`);
-                return JSON.parse(cached);
-            }
-
-            const espnSlug = ISER_FOOTBALL_POLICY.ESPN_STANDINGS[leagueId];
-            if (espnSlug) {
-                try {
-                    const response = await fetch(`${CONFIG.ESPN_STANDINGS_API_URL}/${espnSlug}/standings?region=nl&lang=nl`);
-                    if (response.ok) {
-                        const data = await response.json();
-                        const entries = (data.children || []).flatMap(group => group?.standings?.entries || []);
-                        const standings = entries.map(entry => {
-                            const stat = name => entry.stats?.find(item => item.name === name)?.value || 0;
-                            return {
-                                rank: stat('rank'),
-                                team: {
-                                    name: entry.team?.displayName || entry.team?.name || 'Onbekend',
-                                    logo: entry.team?.logos?.[0]?.href || ''
-                                },
-                                all: { win: stat('wins'), draw: stat('ties'), lose: stat('losses') },
-                                goalsDiff: stat('pointDifferential'),
-                                points: stat('points')
-                            };
-                        }).filter(team => team.rank > 0);
-
-                        if (standings.length > 0) {
-                            localStorage.setItem(cacheKey, JSON.stringify(standings));
-                            localStorage.setItem(cacheKey + '_time', Date.now().toString());
-                            localStorage.setItem(cacheKey + '_source', 'ESPN');
-                            console.log(`Standings for ${leagueId} fetched from ESPN`);
-                            return standings;
-                        }
-                    }
-                } catch (error) {
-                    console.error('ESPN standings fetch error:', error);
-                }
-            }
-
-            // API failed - use cached data if available (even if old)
-            if (cached) {
-                console.log(`Using old cached standings for ${leagueId}`);
-                return JSON.parse(cached);
-            }
-
-            // No cache - use static fallback
-            console.log(`Using static standings for ${leagueId}`);
-            return getStaticStandings(leagueId);
-        }
-
-        // Static standings fallback (February 2026 data)
-        function getStaticStandings(leagueId) {
-            const standings = {
-                // Eredivisie (bijgewerkt 8 feb 2026)
-                88: [
-                    { rank: 1, team: { name: 'PSV', logo: '' }, all: { win: 18, draw: 2, lose: 1 }, goalsDiff: 39, points: 56 },
-                    { rank: 2, team: { name: 'NEC', logo: '' }, all: { win: 12, draw: 5, lose: 4 }, goalsDiff: 21, points: 41 },
-                    { rank: 3, team: { name: 'Feyenoord', logo: '' }, all: { win: 12, draw: 3, lose: 6 }, goalsDiff: 19, points: 39 },
-                    { rank: 4, team: { name: 'Ajax', logo: '' }, all: { win: 10, draw: 8, lose: 3 }, goalsDiff: 13, points: 38 },
-                    { rank: 5, team: { name: 'AZ', logo: '' }, all: { win: 10, draw: 3, lose: 8 }, goalsDiff: 8, points: 33 },
-                    { rank: 6, team: { name: 'FC Twente', logo: '' }, all: { win: 9, draw: 5, lose: 7 }, goalsDiff: 5, points: 32 },
-                    { rank: 7, team: { name: 'FC Utrecht', logo: '' }, all: { win: 9, draw: 4, lose: 8 }, goalsDiff: 3, points: 31 },
-                    { rank: 8, team: { name: 'Sparta Rotterdam', logo: '' }, all: { win: 8, draw: 6, lose: 7 }, goalsDiff: 0, points: 30 },
-                ],
-                // Premier League (bijgewerkt 8 feb 2026)
-                39: [
-                    { rank: 1, team: { name: 'Arsenal', logo: '' }, all: { win: 17, draw: 5, lose: 3 }, goalsDiff: 32, points: 56 },
-                    { rank: 2, team: { name: 'Manchester City', logo: '' }, all: { win: 14, draw: 5, lose: 5 }, goalsDiff: 26, points: 47 },
-                    { rank: 3, team: { name: 'Aston Villa', logo: '' }, all: { win: 14, draw: 5, lose: 6 }, goalsDiff: 9, points: 47 },
-                    { rank: 4, team: { name: 'Manchester United', logo: '' }, all: { win: 12, draw: 8, lose: 5 }, goalsDiff: 10, points: 44 },
-                    { rank: 5, team: { name: 'Chelsea', logo: '' }, all: { win: 12, draw: 7, lose: 6 }, goalsDiff: 17, points: 43 },
-                    { rank: 6, team: { name: 'Liverpool', logo: '' }, all: { win: 11, draw: 6, lose: 7 }, goalsDiff: 6, points: 39 },
-                    { rank: 7, team: { name: 'Newcastle', logo: '' }, all: { win: 10, draw: 8, lose: 7 }, goalsDiff: 5, points: 38 },
-                    { rank: 8, team: { name: 'Brighton', logo: '' }, all: { win: 10, draw: 6, lose: 9 }, goalsDiff: 3, points: 36 },
-                ],
-                // Bundesliga
-                78: [
-                    { rank: 1, team: { name: 'Bayern München', logo: '' }, all: { win: 14, draw: 4, lose: 2 }, goalsDiff: 32, points: 46 },
-                    { rank: 2, team: { name: 'Bayer Leverkusen', logo: '' }, all: { win: 13, draw: 5, lose: 2 }, goalsDiff: 28, points: 44 },
-                    { rank: 3, team: { name: 'Eintracht Frankfurt', logo: '' }, all: { win: 11, draw: 5, lose: 4 }, goalsDiff: 18, points: 38 },
-                    { rank: 4, team: { name: 'RB Leipzig', logo: '' }, all: { win: 10, draw: 6, lose: 4 }, goalsDiff: 14, points: 36 },
-                    { rank: 5, team: { name: 'Borussia Dortmund', logo: '' }, all: { win: 10, draw: 5, lose: 5 }, goalsDiff: 15, points: 35 },
-                    { rank: 6, team: { name: 'Mainz 05', logo: '' }, all: { win: 9, draw: 6, lose: 5 }, goalsDiff: 6, points: 33 },
-                    { rank: 7, team: { name: 'Freiburg', logo: '' }, all: { win: 9, draw: 5, lose: 6 }, goalsDiff: 4, points: 32 },
-                    { rank: 8, team: { name: 'Werder Bremen', logo: '' }, all: { win: 8, draw: 5, lose: 7 }, goalsDiff: 0, points: 29 },
-                ],
-                // La Liga
-                140: [
-                    { rank: 1, team: { name: 'Barcelona', logo: '' }, all: { win: 16, draw: 4, lose: 2 }, goalsDiff: 35, points: 52 },
-                    { rank: 2, team: { name: 'Real Madrid', logo: '' }, all: { win: 14, draw: 5, lose: 3 }, goalsDiff: 25, points: 47 },
-                    { rank: 3, team: { name: 'Atlético Madrid', logo: '' }, all: { win: 13, draw: 5, lose: 4 }, goalsDiff: 18, points: 44 },
-                    { rank: 4, team: { name: 'Athletic Bilbao', logo: '' }, all: { win: 11, draw: 7, lose: 4 }, goalsDiff: 14, points: 40 },
-                    { rank: 5, team: { name: 'Villarreal', logo: '' }, all: { win: 10, draw: 7, lose: 5 }, goalsDiff: 10, points: 37 },
-                    { rank: 6, team: { name: 'Real Betis', logo: '' }, all: { win: 9, draw: 8, lose: 5 }, goalsDiff: 6, points: 35 },
-                    { rank: 7, team: { name: 'Real Sociedad', logo: '' }, all: { win: 8, draw: 9, lose: 5 }, goalsDiff: 4, points: 33 },
-                    { rank: 8, team: { name: 'Mallorca', logo: '' }, all: { win: 8, draw: 7, lose: 7 }, goalsDiff: 0, points: 31 },
-                ],
-                // Serie A
-                135: [
-                    { rank: 1, team: { name: 'Napoli', logo: '' }, all: { win: 16, draw: 4, lose: 2 }, goalsDiff: 28, points: 52 },
-                    { rank: 2, team: { name: 'Inter', logo: '' }, all: { win: 15, draw: 5, lose: 2 }, goalsDiff: 30, points: 50 },
-                    { rank: 3, team: { name: 'Atalanta', logo: '' }, all: { win: 14, draw: 4, lose: 4 }, goalsDiff: 24, points: 46 },
-                    { rank: 4, team: { name: 'Lazio', logo: '' }, all: { win: 13, draw: 4, lose: 5 }, goalsDiff: 16, points: 43 },
-                    { rank: 5, team: { name: 'Juventus', logo: '' }, all: { win: 10, draw: 10, lose: 2 }, goalsDiff: 14, points: 40 },
-                    { rank: 6, team: { name: 'Fiorentina', logo: '' }, all: { win: 10, draw: 6, lose: 6 }, goalsDiff: 8, points: 36 },
-                    { rank: 7, team: { name: 'Bologna', logo: '' }, all: { win: 9, draw: 7, lose: 6 }, goalsDiff: 5, points: 34 },
-                    { rank: 8, team: { name: 'AC Milan', logo: '' }, all: { win: 9, draw: 6, lose: 7 }, goalsDiff: 6, points: 33 },
-                ],
-                // Ligue 1
-                61: [
-                    { rank: 1, team: { name: 'PSG', logo: '' }, all: { win: 16, draw: 4, lose: 2 }, goalsDiff: 35, points: 52 },
-                    { rank: 2, team: { name: 'Marseille', logo: '' }, all: { win: 13, draw: 5, lose: 4 }, goalsDiff: 18, points: 44 },
-                    { rank: 3, team: { name: 'Monaco', logo: '' }, all: { win: 12, draw: 5, lose: 5 }, goalsDiff: 12, points: 41 },
-                    { rank: 4, team: { name: 'Lille', logo: '' }, all: { win: 11, draw: 6, lose: 5 }, goalsDiff: 10, points: 39 },
-                    { rank: 5, team: { name: 'Lyon', logo: '' }, all: { win: 10, draw: 7, lose: 5 }, goalsDiff: 8, points: 37 },
-                    { rank: 6, team: { name: 'Nice', logo: '' }, all: { win: 9, draw: 8, lose: 5 }, goalsDiff: 5, points: 35 },
-                    { rank: 7, team: { name: 'Lens', logo: '' }, all: { win: 9, draw: 6, lose: 7 }, goalsDiff: 3, points: 33 },
-                    { rank: 8, team: { name: 'Strasbourg', logo: '' }, all: { win: 8, draw: 7, lose: 7 }, goalsDiff: 0, points: 31 },
-                ],
-                // Champions League - League Phase eindstand (top 8 direct naar R16)
-                2: [
-                    { rank: 1, team: { name: 'Arsenal', logo: '' }, all: { win: 6, draw: 2, lose: 0 }, goalsDiff: 14, points: 20 },
-                    { rank: 2, team: { name: 'Bayern München', logo: '' }, all: { win: 6, draw: 1, lose: 1 }, goalsDiff: 12, points: 19 },
-                    { rank: 3, team: { name: 'Liverpool', logo: '' }, all: { win: 6, draw: 1, lose: 1 }, goalsDiff: 11, points: 19 },
-                    { rank: 4, team: { name: 'Tottenham', logo: '' }, all: { win: 5, draw: 2, lose: 1 }, goalsDiff: 8, points: 17 },
-                    { rank: 5, team: { name: 'Barcelona', logo: '' }, all: { win: 5, draw: 2, lose: 1 }, goalsDiff: 10, points: 17 },
-                    { rank: 6, team: { name: 'Chelsea', logo: '' }, all: { win: 5, draw: 1, lose: 2 }, goalsDiff: 7, points: 16 },
-                    { rank: 7, team: { name: 'Sporting CP', logo: '' }, all: { win: 5, draw: 1, lose: 2 }, goalsDiff: 6, points: 16 },
-                    { rank: 8, team: { name: 'Manchester City', logo: '' }, all: { win: 5, draw: 1, lose: 2 }, goalsDiff: 5, points: 16 },
-                ]
-            };
-            return standings[leagueId] || [];
-        }
-
-        // Fetch F1 standings from Ergast API
-        // F1 2026 static data (seizoen start 8 maart)
-        const f1_2026_drivers = [
-            { position: 1, Driver: { givenName: 'Lando', familyName: 'Norris' }, Constructors: [{ name: 'McLaren' }], points: 0 },
-            { position: 2, Driver: { givenName: 'Oscar', familyName: 'Piastri' }, Constructors: [{ name: 'McLaren' }], points: 0 },
-            { position: 3, Driver: { givenName: 'Max', familyName: 'Verstappen' }, Constructors: [{ name: 'Red Bull' }], points: 0 },
-            { position: 4, Driver: { givenName: 'Yuki', familyName: 'Tsunoda' }, Constructors: [{ name: 'Red Bull' }], points: 0 },
-            { position: 5, Driver: { givenName: 'Charles', familyName: 'Leclerc' }, Constructors: [{ name: 'Ferrari' }], points: 0 },
-            { position: 6, Driver: { givenName: 'Lewis', familyName: 'Hamilton' }, Constructors: [{ name: 'Ferrari' }], points: 0 },
-            { position: 7, Driver: { givenName: 'George', familyName: 'Russell' }, Constructors: [{ name: 'Mercedes' }], points: 0 },
-            { position: 8, Driver: { givenName: 'Kimi', familyName: 'Antonelli' }, Constructors: [{ name: 'Mercedes' }], points: 0 },
-            { position: 9, Driver: { givenName: 'Fernando', familyName: 'Alonso' }, Constructors: [{ name: 'Aston Martin' }], points: 0 },
-            { position: 10, Driver: { givenName: 'Lance', familyName: 'Stroll' }, Constructors: [{ name: 'Aston Martin' }], points: 0 },
-            { position: 11, Driver: { givenName: 'Pierre', familyName: 'Gasly' }, Constructors: [{ name: 'Alpine' }], points: 0 },
-            { position: 12, Driver: { givenName: 'Jack', familyName: 'Doohan' }, Constructors: [{ name: 'Alpine' }], points: 0 },
-            { position: 13, Driver: { givenName: 'Alex', familyName: 'Albon' }, Constructors: [{ name: 'Williams' }], points: 0 },
-            { position: 14, Driver: { givenName: 'Carlos', familyName: 'Sainz' }, Constructors: [{ name: 'Williams' }], points: 0 },
-            { position: 15, Driver: { givenName: 'Nico', familyName: 'Hülkenberg' }, Constructors: [{ name: 'Sauber' }], points: 0 },
-            { position: 16, Driver: { givenName: 'Gabriel', familyName: 'Bortoleto' }, Constructors: [{ name: 'Sauber' }], points: 0 },
-            { position: 17, Driver: { givenName: 'Liam', familyName: 'Lawson' }, Constructors: [{ name: 'RB' }], points: 0 },
-            { position: 18, Driver: { givenName: 'Isack', familyName: 'Hadjar' }, Constructors: [{ name: 'RB' }], points: 0 },
-            { position: 19, Driver: { givenName: 'Esteban', familyName: 'Ocon' }, Constructors: [{ name: 'Haas' }], points: 0 },
-            { position: 20, Driver: { givenName: 'Oliver', familyName: 'Bearman' }, Constructors: [{ name: 'Haas' }], points: 0 },
-        ];
-
-        const f1_2026_constructors = [
-            { position: 1, Constructor: { name: 'McLaren' }, points: 0 },
-            { position: 2, Constructor: { name: 'Ferrari' }, points: 0 },
-            { position: 3, Constructor: { name: 'Red Bull' }, points: 0 },
-            { position: 4, Constructor: { name: 'Mercedes' }, points: 0 },
-            { position: 5, Constructor: { name: 'Aston Martin' }, points: 0 },
-            { position: 6, Constructor: { name: 'Alpine' }, points: 0 },
-            { position: 7, Constructor: { name: 'Williams' }, points: 0 },
-            { position: 8, Constructor: { name: 'RB' }, points: 0 },
-            { position: 9, Constructor: { name: 'Haas' }, points: 0 },
-            { position: 10, Constructor: { name: 'Sauber' }, points: 0 },
-        ];
-
-        async function fetchF1Standings() {
-            try {
-                const [driversRes, constructorsRes] = await Promise.all([
-                    fetch('https://ergast.com/api/f1/current/driverStandings.json'),
-                    fetch('https://ergast.com/api/f1/current/constructorStandings.json')
-                ]);
-                const driversData = await driversRes.json();
-                const constructorsData = await constructorsRes.json();
-
-                const drivers = driversData.MRData.StandingsTable.StandingsLists[0]?.DriverStandings || [];
-                const constructors = constructorsData.MRData.StandingsTable.StandingsLists[0]?.ConstructorStandings || [];
-
-                // Use API data if available, otherwise use static 2026 data
-                return {
-                    drivers: drivers.length > 0 ? drivers : f1_2026_drivers,
-                    constructors: constructors.length > 0 ? constructors : f1_2026_constructors
-                };
-            } catch (e) {
-                console.error('F1 standings error:', e);
-                // Return static 2026 data on error
-                return { drivers: f1_2026_drivers, constructors: f1_2026_constructors };
-            }
-        }
-
-        // PL Darts standings - Na Night 1 Newcastle (5 feb 2026)
-        // Punten: 5 = avondwinnaar, 3 = finalist, 2 = halve finale verliezer
-        const plDartsStandings = [
-            { pos: 1, name: 'Michael van Gerwen', played: 1, sf: 1, f: 1, w: 1, pts: 5 },
-            { pos: 2, name: 'Gian van Veen', played: 1, sf: 1, f: 1, w: 0, pts: 3 },
-            { pos: 3, name: 'Luke Humphries', played: 1, sf: 1, f: 0, w: 0, pts: 2 },
-            { pos: 4, name: 'Jonny Clayton', played: 1, sf: 1, f: 0, w: 0, pts: 2 },
-            { pos: 5, name: 'Luke Littler', played: 1, sf: 0, f: 0, w: 0, pts: 0 },
-            { pos: 6, name: 'Stephen Bunting', played: 1, sf: 0, f: 0, w: 0, pts: 0 },
-            { pos: 7, name: 'Josh Rock', played: 1, sf: 0, f: 0, w: 0, pts: 0 },
-            { pos: 8, name: 'Gerwyn Price', played: 1, sf: 0, f: 0, w: 0, pts: 0 }
-        ];
-
-        // WK 2026 Groepen (11 juni - 19 juli 2026, USA/Mexico/Canada)
-        const wk2026Groups = {
-            'A': ['Mexico', 'Zuid-Afrika', 'Zuid-Korea', 'UEFA PO D'],
-            'B': ['Canada', 'Zwitserland', 'Qatar', 'UEFA PO A'],
-            'C': ['Brazilië', 'Marokko', 'Haïti', 'Schotland'],
-            'D': ['Verenigde Staten', 'Paraguay', 'Australië', 'UEFA PO C'],
-            'E': ['Duitsland', 'Curaçao', 'Ivoorkust', 'Ecuador'],
-            'F': ['Nederland', 'Japan', 'Tunesië', 'UEFA PO B'],
-            'G': ['België', 'Egypte', 'Iran', 'Nieuw-Zeeland'],
-            'H': ['Spanje', 'Kaapverdië', 'Saudi-Arabië', 'Uruguay'],
-            'I': ['Frankrijk', 'Senegal', 'Noorwegen', 'Intercont. PO 2'],
-            'J': ['Argentinië', 'Algerije', 'Oostenrijk', 'Jordanië'],
-            'K': ['Portugal', 'Oezbekistan', 'Colombia', 'Intercont. PO 1'],
-            'L': ['Engeland', 'Kroatië', 'Ghana', 'Panama']
-        };
-
-        // WK 2026 Schema - Nederland wedstrijden + knockout rondes
-        const wk2026Schedule = {
-            nederland: [
-                { date: '14 juni', time: '21:00', home: 'Nederland', away: 'Japan', city: 'Philadelphia', stage: 'Groep F' },
-                { date: '20 juni', time: '18:00', home: 'Nederland', away: 'UEFA PO B', city: 'Philadelphia', stage: 'Groep F' },
-                { date: '25 juni', time: '21:00', home: 'Tunesië', away: 'Nederland', city: 'Kansas City', stage: 'Groep F' }
-            ],
-            knockout: [
-                { stage: 'Ronde van 32', dates: '28 juni - 3 juli' },
-                { stage: 'Ronde van 16', dates: '4 - 7 juli' },
-                { stage: 'Kwartfinales', dates: '9 & 11 juli' },
-                { stage: 'Halve finales', dates: '14 & 15 juli' },
-                { stage: 'Troostfinale', dates: '18 juli' },
-                { stage: 'Finale', dates: '19 juli', city: 'New Jersey (MetLife Stadium)' }
-            ],
-            openingMatches: [
-                { date: '11 juni', time: '21:00', home: 'Mexico', away: 'Zuid-Afrika', city: 'Mexico City', stage: 'Groep A - Opening' },
-                { date: '12 juni', time: '18:00', home: 'Canada', away: 'Zwitserland', city: 'Toronto', stage: 'Groep B' },
-                { date: '12 juni', time: '21:00', home: 'Verenigde Staten', away: 'Paraguay', city: 'Los Angeles', stage: 'Groep D' }
-            ]
-        };
-
-        // Functie om WK groepen te renderen
-        function renderWK2026Groups() {
-            const matches = (cachedData.voetbal || [])
-                .filter(match => match.competition === 'WK' && !match.isStatic)
-                .sort((a, b) => new Date(a.date) - new Date(b.date));
-
-            if (matches.length === 0) {
-                return `<div class="standings-container">
-                    <div class="standings-title">WK 2026 Schema</div>
-                    <div class="no-events"><p>Geen betrouwbaar WK-schema geladen. Gebruik de verversknop om de actuele data opnieuw op te halen.</p></div>
-                </div>`;
-            }
-
-            let dynamicHtml = '<div class="standings-container">';
-            dynamicHtml += '<div class="standings-title" style="color:var(--football);">WK 2026 Schema</div>';
-            dynamicHtml += '<table class="standings-table"><tr><th>Datum</th><th>Tijd</th><th>Wedstrijd</th><th>Zender</th></tr>';
-
-            matches.forEach(match => {
-                const matchDate = new Date(match.date);
-                const dateLabel = matchDate.toLocaleDateString('nl-NL', { weekday: 'short', day: 'numeric', month: 'short' });
-                const isNetherlands = match.home === 'Nederland' || match.away === 'Nederland' || match.home === 'Netherlands' || match.away === 'Netherlands';
-                const summaryHtml = getWorldCupSummaryLinkHtml(match, 'standings-summary-icon');
-                dynamicHtml += `<tr class="${isNetherlands ? 'highlight-row' : ''}">
-                    <td>${dateLabel}</td>
-                    <td>${match.time}</td>
-                    <td>${match.home} - ${match.away}${summaryHtml}${match.venue ? `<br><small>${match.venue}</small>` : ''}</td>
-                    <td>${normalizeChannelList(match.channel)}</td>
-                </tr>`;
-            });
-
-            dynamicHtml += '</table></div>';
-            return dynamicHtml;
-
-            let html = '<div class="standings-container">';
-
-            // Nederland schema
-            html += '<div class="standings-title" style="color:var(--darts);">🇳🇱 Nederland - WK 2026 Schema</div>';
-            html += '<table class="standings-table"><tr><th>Datum</th><th>Wedstrijd</th><th>Stad</th></tr>';
-            wk2026Schedule.nederland.forEach(m => {
-                html += `<tr class="highlight-row">
-                    <td>${m.date}<br><small>${m.time}</small></td>
-                    <td><strong>${m.home}</strong> - ${m.away}</td>
-                    <td>${m.city}</td>
-                </tr>`;
-            });
-            html += '</table>';
-
-            // Knockout schema
-            html += '<div class="standings-title" style="margin-top:20px;">Knockout Rondes</div>';
-            html += '<table class="standings-table"><tr><th>Ronde</th><th>Data</th><th>Locatie</th></tr>';
-            wk2026Schedule.knockout.forEach(k => {
-                html += `<tr>
-                    <td>${k.stage}</td>
-                    <td>${k.dates}</td>
-                    <td>${k.city || 'Diverse steden'}</td>
-                </tr>`;
-            });
-            html += '</table>';
-
-            // Opening wedstrijden
-            html += '<div class="standings-title" style="margin-top:20px;">Opening Wedstrijden</div>';
-            html += '<table class="standings-table"><tr><th>Datum</th><th>Wedstrijd</th><th>Stad</th></tr>';
-            wk2026Schedule.openingMatches.forEach(m => {
-                html += `<tr>
-                    <td>${m.date}<br><small>${m.time}</small></td>
-                    <td>${m.home} - ${m.away}<br><small>${m.stage}</small></td>
-                    <td>${m.city}</td>
-                </tr>`;
-            });
-            html += '</table>';
-
-            // Alle groepen
-            html += '<div class="standings-title" style="margin-top:20px;">Alle Groepen</div>';
-            html += '<div class="wk-groups-grid">';
-
-            for (const [group, teams] of Object.entries(wk2026Groups)) {
-                const isNLGroup = group === 'F';
-                html += `<div class="wk-group-card ${isNLGroup ? 'highlight' : ''}">`;
-                html += `<div class="wk-group-title ${isNLGroup ? 'highlight' : ''}">Groep ${group}</div>`;
-                teams.forEach((team, i) => {
-                    const isNL = team === 'Nederland';
-                    html += `<div class="wk-team ${isNL ? 'highlight' : ''}">${team}</div>`;
-                });
-                html += '</div>';
-            }
-
-            html += '</div></div>';
-            return html;
-        }
-
         // Get static darts events
         function getStaticDartsEvents() {
             const events = [];
@@ -7040,262 +6691,9 @@
         // Selected date for tabs - always start with today
         let selectedDate = null; // null means "today"
 
-        // Render standings in menu
-        async function renderStandingsInMenu() {
-            await renderStandings('standings-tabs-menu', 'standings-content-menu');
-        }
-
-        function renderMotoGPOverview() {
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
-            const includeFrom = new Date(today);
-            includeFrom.setDate(includeFrom.getDate() - 2);
-
-            const events = motoGPCalendar
-                .map(event => ({ ...event, dateObj: new Date(event.date + 'T12:00:00') }))
-                .filter(event => event.dateObj >= includeFrom)
-                .sort((a, b) => a.dateObj - b.dateObj);
-
-            let html = '<div class="standings-title" style="color:var(--motogp);">MotoGP 2026 Kalender</div>';
-            html += '<table class="standings-table"><tr><th>Datum</th><th>Grand Prix</th><th>Zender</th></tr>';
-            events.forEach(event => {
-                html += `<tr>
-                    <td>${formatDate(event.dateObj)}</td>
-                    <td>${event.event}<br><small>${event.location}</small></td>
-                    <td>${event.channel}</td>
-                </tr>`;
-            });
-            html += '</table>';
-            return html;
-        }
-
-        function renderHandballOverview() {
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
-
-            const events = handballCalendar
-                .map(event => ({ ...event, dateObj: new Date(event.date + 'T' + event.time) }))
-                .filter(event => event.dateObj >= today)
-                .sort((a, b) => a.dateObj - b.dateObj);
-
-            let html = '<div class="standings-title" style="color:var(--handbal);">Handbal - EHF TV</div>';
-            if (events.length === 0) {
-                html += '<div class="no-events"><p>Geen bevestigde EHF TV-wedstrijden in de komende periode.</p></div>';
-                return html;
-            }
-
-            html += '<table class="standings-table"><tr><th>Datum</th><th>Wedstrijd</th><th>Zender</th></tr>';
-            events.forEach(event => {
-                html += `<tr>
-                    <td>${formatDate(event.dateObj)}<br><small>${event.time}</small></td>
-                    <td>${event.event}<br><small>${event.location}</small></td>
-                    <td>${event.channel}</td>
-                </tr>`;
-            });
-            html += '</table>';
-            return html;
-        }
-
-        // Render standings
-        async function renderStandings(tabsId = 'standings-tabs-menu', contentId = 'standings-content-menu') {
-            const tabsContainer = document.getElementById(tabsId);
-            const contentContainer = document.getElementById(contentId);
-
-            if (standingsSport === 'voetbal') {
-                // Football standings - show tabs for each league
-                const leagues = [
-                    { id: 'wk2026', name: 'WK 2026' },
-                    { id: 88, name: 'Eredivisie' },
-                    { id: 39, name: 'Premier League' },
-                    { id: 78, name: 'Bundesliga' },
-                    { id: 140, name: 'La Liga' },
-                    { id: 135, name: 'Serie A' },
-                    { id: 61, name: 'Ligue 1' },
-                    { id: 2, name: 'Champions League' }
-                ];
-
-                tabsContainer.innerHTML = leagues.map((l, i) =>
-                    `<button class="standings-tab ${i === 0 ? 'active' : ''}" data-league="${l.id}">${l.name}</button>`
-                ).join('');
-
-                contentContainer.innerHTML = '<div class="loading"><div class="spinner"></div><p>Stand ophalen...</p></div>';
-
-                // Load first league
-                await loadFootballStandings(leagues[0].id, leagues[0].name, contentId);
-
-                // Add tab handlers
-                tabsContainer.querySelectorAll('.standings-tab').forEach(tab => {
-                    tab.addEventListener('click', async () => {
-                        tabsContainer.querySelectorAll('.standings-tab').forEach(t => t.classList.remove('active'));
-                        tab.classList.add('active');
-                        const leagueId = tab.dataset.league;
-                        // Handle both numeric IDs and string IDs (like 'wk2026')
-                        const league = leagues.find(l => String(l.id) === leagueId);
-                        if (league) {
-                            await loadFootballStandings(league.id, league.name, contentId);
-                        }
-                    });
-                });
-
-            } else if (standingsSport === 'darts') {
-                tabsContainer.innerHTML = '<button class="standings-tab active">Premier League</button>';
-                contentContainer.innerHTML = renderDartsStandings();
-
-            } else if (standingsSport === 'f1') {
-                tabsContainer.innerHTML = `
-                    <button class="standings-tab active" data-type="drivers">Coureurs</button>
-                    <button class="standings-tab" data-type="constructors">Constructeurs</button>
-                `;
-                contentContainer.innerHTML = '<div class="loading"><div class="spinner"></div><p>Stand ophalen...</p></div>';
-
-                const f1Data = await fetchF1Standings();
-                renderF1Standings(f1Data, 'drivers', contentId);
-
-                tabsContainer.querySelectorAll('.standings-tab').forEach(tab => {
-                    tab.addEventListener('click', () => {
-                        tabsContainer.querySelectorAll('.standings-tab').forEach(t => t.classList.remove('active'));
-                        tab.classList.add('active');
-                        renderF1Standings(f1Data, tab.dataset.type, contentId);
-                    });
-                });
-            } else if (standingsSport === 'motogp') {
-                tabsContainer.innerHTML = '<button class="standings-tab active">Kalender</button>';
-                contentContainer.innerHTML = renderMotoGPOverview();
-
-            } else if (standingsSport === 'handbal') {
-                tabsContainer.innerHTML = '<button class="standings-tab active">EHF TV</button>';
-                contentContainer.innerHTML = renderHandballOverview();
-            }
-        }
-
-        async function loadFootballStandings(leagueId, leagueName, contentId = 'standings-content-menu') {
-            const contentContainer = document.getElementById(contentId);
-
-            // Special case: WK 2026 groups
-            if (leagueId === 'wk2026') {
-                if (!cachedData.voetbal) {
-                    const footballData = await fetchFootballMatches();
-                    cachedData.voetbal = filterReliableFootballMatches(sanitizeFootballMatches(footballData || []));
-                    cachedData.voetbal.forEach(e => e.sportType = 'voetbal');
-                }
-                if (!cachedData.highlights) {
-                    cachedData.highlights = await fetchWorldCupHighlights();
-                } else {
-                    setWorldCupHighlights(cachedData.highlights);
-                }
-                contentContainer.innerHTML = renderWK2026Groups();
-                return;
-            }
-
-            contentContainer.innerHTML = '<div class="loading"><div class="spinner"></div><p>Stand ophalen...</p></div>';
-
-            const standings = await fetchFootballStandings(leagueId);
-            console.log(`Standings for ${leagueName} (${leagueId}):`, standings);
-
-            if (!standings || standings.length === 0) {
-                console.warn(`No standings data for ${leagueName}`);
-                contentContainer.innerHTML = '<div class="no-events"><p>Geen stand beschikbaar</p></div>';
-                return;
-            }
-
-            // Check if using cached/static data
-            const cacheKey = `standings_${leagueId}`;
-            const cacheTime = localStorage.getItem(cacheKey + '_time');
-            const isStatic = !cacheTime;
-
-            let html = `<div class="standings-container">
-                <div class="standings-title">${leagueName}${isStatic ? ' <span style="font-size:0.7em;color:#999;">(snapshot)</span>' : ''}</div>
-                <table class="standings-table">
-                    <tr><th class="pos">#</th><th>Club</th><th class="stats">W</th><th class="stats">G</th><th class="stats">V</th><th class="stats">+/-</th><th class="pts">Ptn</th></tr>`;
-
-            standings.forEach(team => {
-                const logo = team.team.logo ? `<img src="${team.team.logo}" class="team-logo" alt="">` : '';
-                html += `<tr>
-                    <td class="pos">${team.rank}</td>
-                    <td><div class="team">${logo}${team.team.name}</div></td>
-                    <td class="stats">${team.all.win}</td>
-                    <td class="stats">${team.all.draw}</td>
-                    <td class="stats">${team.all.lose}</td>
-                    <td class="stats">${team.goalsDiff > 0 ? '+' : ''}${team.goalsDiff}</td>
-                    <td class="pts">${team.points}</td>
-                </tr>`;
-            });
-
-            html += '</table></div>';
-            contentContainer.innerHTML = html;
-        }
-
-        function renderDartsStandings() {
-            let html = `<div class="standings-container">
-                <div class="standings-title">Premier League Darts 2026 <span style="font-size:0.7em;color:#999;">(na Night 1)</span></div>
-                <table class="standings-table">
-                    <tr><th class="pos">#</th><th>Speler</th><th class="stats">GS</th><th class="stats">HF</th><th class="stats">F</th><th class="stats">W</th><th class="pts">Ptn</th></tr>`;
-
-            plDartsStandings.forEach(player => {
-                html += `<tr>
-                    <td class="pos">${player.pos}</td>
-                    <td>${player.name}</td>
-                    <td class="stats">${player.played}</td>
-                    <td class="stats">${player.sf}</td>
-                    <td class="stats">${player.f}</td>
-                    <td class="stats">${player.w}</td>
-                    <td class="pts">${player.pts}</td>
-                </tr>`;
-            });
-
-            html += '</table></div>';
-            return html;
-        }
-
-        function renderF1Standings(data, type, contentId = 'standings-content-menu') {
-            const contentContainer = document.getElementById(contentId);
-
-            if (type === 'drivers') {
-                if (!data.drivers.length) {
-                    contentContainer.innerHTML = '<div class="no-events"><p>Kon coureurs stand niet ophalen</p></div>';
-                    return;
-                }
-
-                let html = `<div class="standings-container">
-                    <div class="standings-title">F1 Coureurs Kampioenschap 2026</div>
-                    <table class="standings-table">
-                        <tr><th class="pos">#</th><th>Coureur</th><th>Team</th><th class="pts">Ptn</th></tr>`;
-
-                data.drivers.forEach(d => {
-                    html += `<tr>
-                        <td class="pos">${d.position}</td>
-                        <td>${d.Driver.givenName} ${d.Driver.familyName}</td>
-                        <td>${d.Constructors[0]?.name || ''}</td>
-                        <td class="pts">${d.points}</td>
-                    </tr>`;
-                });
-
-                html += '</table></div>';
-                contentContainer.innerHTML = html;
-
-            } else {
-                if (!data.constructors.length) {
-                    contentContainer.innerHTML = '<div class="no-events"><p>Kon constructeurs stand niet ophalen</p></div>';
-                    return;
-                }
-
-                let html = `<div class="standings-container">
-                    <div class="standings-title">F1 Constructeurs Kampioenschap 2026</div>
-                    <table class="standings-table">
-                        <tr><th class="pos">#</th><th>Team</th><th class="pts">Ptn</th></tr>`;
-
-                data.constructors.forEach(c => {
-                    html += `<tr>
-                        <td class="pos">${c.position}</td>
-                        <td>${c.Constructor.name}</td>
-                        <td class="pts">${c.points}</td>
-                    </tr>`;
-                });
-
-                html += '</table></div>';
-                contentContainer.innerHTML = html;
-            }
-        }
+        // Standings have isolated state and never mutate agenda filters.
+        function renderStandingsInMenu() { return window.SPORT_STANDINGS_MENU?.open(); }
+        window.SPORT_STANDINGS_CONTEXT = { events: sport => cachedData[sport] || [] };
 
         // ============================================
         // EVENT LISTENERS
@@ -7535,24 +6933,6 @@
             });
         });
 
-        // Standings sport buttons
-        document.querySelectorAll('.standings-sport-btn').forEach(btn => {
-            btn.addEventListener('click', async () => {
-                document.querySelectorAll('.standings-sport-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                standingsSport = btn.dataset.standingsSport;
-                await renderStandingsInMenu();
-            });
-        });
-
-        const refreshStandingsBtn = document.getElementById('refresh-standings');
-        if (refreshStandingsBtn) {
-            refreshStandingsBtn.addEventListener('click', function() {
-                this.classList.add('loading');
-                reloadWithFreshData();
-            });
-        }
-
         // Sport filter buttons
         document.querySelectorAll('.sport-filter-btn').forEach(btn => {
             btn.addEventListener('click', () => {
@@ -7597,7 +6977,9 @@
         // op verzoek van de gebruiker; zo springt of knippert de agenda niet
         // tijdens lezen en lijkt de app niet spontaan te herstarten.
     </script>
-    <script src="release-notes.js?v=3.14.4" defer></script>
+    <script src="standings-config.js?v=3.15.0" defer></script>
+    <script src="standings-menu.js?v=3.15.0" defer></script>
+    <script src="release-notes.js?v=3.15.0" defer></script>
 </body>
 </html>
 

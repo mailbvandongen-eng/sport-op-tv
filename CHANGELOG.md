@@ -1,3 +1,12 @@
+## 3.15.0 — 10 oktober 2026
+
+- Meer is een standenmenu met sport/competitiekeuze, favorieten, laatst bekeken stand en instellingen onderaan.
+- Eredivisie, Premier League, Champions/Europa/Conference League; WK/EK/Nations League dames en heren met groepsstanden, schema, uitslagen en bevestigde knock-outwedstrijden.
+- F1 via Jolpica, PDC Order of Merit via Darts Rankings, Premier League darts via Mastercaller, MotoGP via officiële statistieken en handbal Champions League en EK/WK dames/heren via EHF.
+- Bron, seizoen, ophaaltijd, peildatum, archief en bronfouten zichtbaar; oude februari/noodtabellen verwijderd.
+- Dagelijks meerdere bronupdates met behoud van laatste betrouwbare gegevens; handmatig verversen herstart de app niet.
+- Geïsoleerde standenstate, bescherming tegen verlate antwoorden bij tabwissels en naamdetails zonder agenda/filters te veranderen.
+
 ## 3.14.4 — 10 oktober 2026
 
 - Ook dubbele clubnamen uit de Duitse, Franse, Italiaanse en Spaanse bronnen samengevoegd.

@@ -101,15 +101,15 @@
     'use strict';
 
     const RELEASE = Object.freeze({
-        version: '3.14.4',
+        version: '3.15.0',
         date: '10 oktober 2026',
-        title: 'Eén wedstrijd, de juiste tijd, filters die werken',
+        title: 'Jouw standen en toernooien onder Meer',
         notes: [
-            'Dubbele wedstrijden uit verschillende bronnen samengevoegd, ook bij afkortingen zoals Man United/Manchester United en Spurs/Tottenham Hotspur.',
-            'Britse lokale tijden worden naar Nederlandse tijd omgerekend, met zomer- en wintertijd. Bestaande wedstrijdcache wordt hersteld zonder je instellingen te wissen.',
-            'Een expliciete knop Wis filters maakt alle actieve filters en zoektekst leeg. Een teamfilter kun je ook afzonderlijk verwijderen.',
-            'Filters openen als een native dialoog boven de pagina, met sluiten, Escape en focusherstel. Voorkeuren blijven behouden.',
-            'Onbekende starttijden worden niet meer als 15.00 uur verzonnen.'
+            'Standen voor Eredivisie, Premier League, Champions League, Europa League en Conference League; WK, EK en Nations League met dames en heren.',
+            'F1-coureurs en constructeurs via een werkende bron; darts Order of Merit en Premier League, MotoGP en handbal Champions League en EK/WK dames/heren.',
+            'Favorieten en de laatst bekeken competitie worden per browser bewaard. Tik op een naam voor bijbehorende wedstrijden of races.',
+            'Seizoen, bron, ophaaltijd en peildatum zijn zichtbaar. Verouderde gegevens en bronfouten krijgen een duidelijke melding; geen verzonnen noodstanden.',
+            'Standen verversen behoudt je tab en herstart de app niet. Instellingen staan apart; agenda en filters blijven behouden.'
         ]
     });
 

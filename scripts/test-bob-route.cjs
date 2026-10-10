@@ -13,13 +13,13 @@ const fixtures=[
 ];
 const competitions=['Premier League',...Array.from({length:28},(_,i)=>`Competitie ${i}`)];
 class Local extends ResourceLoader {
-fetch(url){const name=new URL(url).pathname.split('/').pop();if(['football-policy.js','search-enhancements.js','release-notes.js','search-ui.css','guide-ui.css'].includes(name))return Promise.resolve(Buffer.from(fs.readFileSync(`${root}/${name}`)));return null;}
+fetch(url){const name=new URL(url).pathname.split('/').pop();if(['football-policy.js','search-enhancements.js','release-notes.js','search-ui.css','guide-ui.css','standings-config.js','standings-menu.js','standings-menu.css'].includes(name))return Promise.resolve(Buffer.from(fs.readFileSync(`${root}/${name}`)));return null;}
 }
 const vc=new VirtualConsole();vc.on('jsdomError',e=>errors.push(e.message));
 const dom=new JSDOM(fs.readFileSync(`${root}/index.html`,'utf8'),{url:'https://test.sport.local/',runScripts:'dangerously',resources:new Local(),pretendToBeVisual:true,virtualConsole:vc,beforeParse(w){
 w.scrollTo=()=>{};w.HTMLElement.prototype.scrollIntoView=function(){};w.IntersectionObserver=class{observe(){}disconnect(){}};
 w.fetch=async url=>{requests.push(String(url));return{ok:true,json:async()=>String(url).includes('openf1')?[]:String(url).includes('nos-highlights')?{highlights:[]}:{data:[],events:[],matches:[]}};};
-w.localStorage.setItem('cacheVersion','3.12.8');w.localStorage.setItem('sportOpTvSeenRelease','3.14.4');
+w.localStorage.setItem('cacheVersion','3.12.8');w.localStorage.setItem('sportOpTvSeenRelease','3.15.0');
 w.localStorage.setItem('selectedCompetitions',JSON.stringify(competitions));
 w.localStorage.setItem('selectedFootballTeams',JSON.stringify(['club:manchester united:mannen']));
 w.localStorage.setItem('sportOpTvFootballPreferences',JSON.stringify({teams:[],competitions}));

@@ -1,0 +1,63 @@
+(function(){
+'use strict';
+const core=window.SPORT_STANDINGS_CORE,items=core.items,$=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const read=(key,fallback)=>{try{return JSON.parse(localStorage.getItem(key))??fallback;}catch{return fallback;}};
+const save=(key,value)=>{try{localStorage.setItem(key,JSON.stringify(value));}catch{}};
+const savedFavorites=read('sportStandingsFavorites', ['eredivisie','f1-drivers']);
+let favorites=new Set((Array.isArray(savedFavorites)?savedFavorites:[]).filter(id=>items.some(i=>i.id===id)));
+let selected=read('sportStandingsLast',null),view='stand',serial=0,lastData=null;
+let snapshot=null,snapshotTime=0;
+function choice(){return items.find(i=>i.id===selected)||items.find(i=>i.sport===window.SPORT_OP_TV_APP?.getSportFilter())||items[0];}
+function date(value){let d=new Date(value);return Number.isFinite(d.getTime())?d.toLocaleString('nl-NL',{timeZone:'Europe/Amsterdam',dateStyle:'medium',timeStyle:'short'}):'onbekend';}
+async function request(url){const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),12000);try{const r=await fetch(url,{signal:controller.signal,cache:'no-store'});if(!r.ok)throw Error(`HTTP ${r.status}`);return await r.json();}finally{clearTimeout(timer);}}
+async function snapshots(force){if(snapshot&&!force&&Date.now()-snapshotTime<15*60000)return snapshot;const d=await request(`data/standings.json?v=${Date.now()}`);if(d.schema!==1||!d.items)throw Error('Onbekend gegevensformaat');snapshot=d;snapshotTime=Date.now();return d;}
+function usable(d){return d&&Array.isArray(d.groups)&&d.groups.some(g=>Array.isArray(g.rows)&&g.rows.length)&&Number.isFinite(Date.parse(d.fetchedAt));}
+async function dataFor(item,force){const key=`sportStandingsData:${item.id}`,local=read(key,null);let stored;
+try{stored=(await snapshots(force)).items[item.id];}catch{}
+let best=[stored,local].filter(usable).sort((a,b)=>Date.parse(b.fetchedAt)-Date.parse(a.fetchedAt))[0]||null;
+if(item.kind==='football'||item.kind==='f1'){
+if(!force&&usable(local)&&Date.now()-Date.parse(local.fetchedAt)<15*60000)return local;
+try{const raw=await request(item.kind==='football'?`https://site.api.espn.com/apis/v2/sports/soccer/${item.slug}/standings?region=nl&lang=nl`:item.url);let d=item.kind==='football'?core.football(raw):core.f1(raw,item);if(!d.groups?.some(g=>g.rows.length))throw Error('Lege stand');d={...d,source:item.source,sourceUrl:item.url,fetchedAt:new Date().toISOString(),matches:best?.year===d.year?best.matches:[],archived:best?.year===d.year?best.archived:d.year<new Date().getFullYear()};save(key,d);return d;}catch{if(best)return{...best,error:'Bron kon niet opnieuw worden opgehaald'};}
+}else if(best){save(key,best);return best;}
+return{...best,source:item.source,sourceUrl:item.url,error:stored?.error||'Geen betrouwbare stand beschikbaar'};
+}
+function controls(item){
+const allSports={voetbal:'Voetbal',darts:'Darts',f1:'F1',motogp:'MotoGP',handbal:'Handbal'};
+$('standings-favorites').innerHTML=favorites.size?`<p class="standings-label">Mijn favorieten</p><div class="standings-favorite-list">${[...favorites].map(id=>{const i=items.find(x=>x.id===id);return `<button type="button" data-favorite-open="${id}" aria-pressed="${id===item.id}">${esc(i.sport==='f1'?'F1 · '+i.name:i.sport==='motogp'?'MotoGP · '+i.name:i.name)}</button>`;}).join('')}</div>`:'<p class="standings-hint">Gebruik ☆ om competities bij je favorieten te zetten.</p>';
+$('standings-sport-select').innerHTML=Object.entries(allSports).map(([id,label])=>`<option value="${id}" ${id===item.sport?'selected':''}>${label}</option>`).join('');
+$('standings-competition').innerHTML=items.filter(i=>i.sport===item.sport).map(i=>`<option value="${i.id}" ${i.id===item.id?'selected':''}>${esc(i.name)}</option>`).join('');
+const star=$('standings-favorite');star.textContent=favorites.has(item.id)?'★':'☆';star.setAttribute('aria-label',`${favorites.has(item.id)?'Verwijder':'Voeg toe'} ${item.name} ${favorites.has(item.id)?'uit':'aan'} favorieten`);star.setAttribute('aria-pressed',String(favorites.has(item.id)));
+$('standings-tabs-menu').innerHTML=item.tournament?['stand','schema','uitslagen','knockout'].map(id=>`<button type="button" class="standings-tab ${view===id?'active':''}" aria-pressed="${view===id}" data-standings-view="${id}">${{stand:'Groepsstanden',schema:'Schema',uitslagen:'Uitslagen',knockout:'Knock-out'}[id]}</button>`).join(''):'';
+}
+function matchHTML(events){if(!events.length)return '<p class="standings-hint">Geen wedstrijden beschikbaar in de opgehaalde bron.</p>';return `<ol class="standings-matches">${events.map(e=>`<li><span>${esc(date(e.date))}${e.round?` · ${esc({'group-stage':'Groepsfase','league-phase':'Competitiefase','round-of-32':'Ronde van 32','round-of-16':'Achtste finales','quarterfinals':'Kwartfinales','semifinals':'Halve finales','final':'Finale','3rd-place-match':'Troostfinale','relegation-playoffs':'Promotie/degradatie'}[e.round]||e.round)}`:''}</span><strong>${esc(e.home&&e.away?`${e.home} – ${e.away}`:e.name||e.event||'Wedstrijd')}</strong>${e.score?`<b>${esc(e.score)}</b>`:''}</li>`).join('')}</ol>`;}
+function render(item,d){const area=$('standings-content-menu');let stale=usable(d)&&Date.now()-Date.parse(d.fetchedAt)>24*3600000;
+let html=`<section class="standings-card"><h3>${esc(item.sport==='f1'?'F1 · '+item.name:item.sport==='motogp'?'MotoGP · '+item.name:item.name)}</h3><p class="standings-meta">${esc(d.season||'Seizoen onbekend')}${d.round?` · na race ${esc(d.round)}`:''}${d.archived?' · Eindstand / archief':''}</p>`;
+html+=`<p class="standings-meta">Bron: <a href="${esc(item.url)}" target="_blank" rel="noopener noreferrer">${esc(d.source||item.source)}</a>${d.fetchedAt?` · Opgehaald ${esc(date(d.fetchedAt))}`:''}</p>`;
+if(d.asOf)html+=`<p class="standings-meta">Peildatum ranking: ${esc(new Date(d.asOf).toLocaleDateString('nl-NL',{dateStyle:'long',timeZone:'Europe/Amsterdam'}))}</p>`;
+if(d.error||stale)html+=`<p class="standings-warning" role="status">${esc(d.error||'Gegevens zijn ouder dan 24 uur')}.${usable(d)?' Je ziet de laatst opgehaalde stand.':''} <a href="${esc(item.url)}" target="_blank" rel="noopener noreferrer">Controleer de bron ↗</a></p>`;
+if(!['football','f1'].includes(item.kind)&&!d.archived)html+='<p class="standings-hint">De bron wordt circa elke zes uur opnieuw opgehaald. Verversen laadt de nieuwste beschikbare versie.</p>';
+if(d.note)html+=`<p class="standings-hint">${esc(d.note)}</p>`;
+if(view!=='stand'&&item.tournament){let matches=d.matches||[];if(view==='schema'&&!d.archived)matches=matches.filter(e=>!e.completed);if(view==='uitslagen')matches=matches.filter(e=>e.completed).slice().reverse();if(view==='knockout')matches=matches.filter(e=>/knock|final|round.of|ronde van|quarter|semi|3rd.place|playoff/i.test(e.round));html+=matchHTML(matches);if(view==='knockout')html+='<p class="standings-hint">Alleen bevestigde wedstrijden uit de bron; onbekende deelnemers worden niet ingevuld.</p>';
+}else if(usable(d)){
+html+='<label class="standings-name-filter">Zoek een naam<input type="search" data-standings-name-filter placeholder="Club, land, coureur of speler"></label>';
+const league=['football','handball','darts-league'].includes(item.kind),money=item.kind==='merit',rankingOnly=item.kind==='finalranking';
+for(const g of d.groups){html+=`<h4>${esc(g.name)}</h4><div class="standings-table-scroll" tabindex="0" role="region" aria-label="${esc(g.name)}"><table class="standings-table"><thead><tr><th scope="col">#</th><th scope="col">${league?'Team':'Naam'}</th>${league?'<th scope="col">GS</th><th scope="col" class="standings-extra">W</th><th scope="col" class="standings-extra">G</th><th scope="col" class="standings-extra">V</th><th scope="col" class="standings-extra">+/-</th>':''}${rankingOnly?'':`<th scope="col">${money?'Prijzengeld':'Ptn'}</th>`}</tr></thead><tbody>`;
+g.rows.forEach(r=>{html+=`<tr><td>${esc(r.rank)}</td><td><button type="button" class="standings-name" data-participant="${esc(r.name)}">${esc(r.name)}</button>${r.team?`<small class="standings-team">${esc(r.team)}</small>`:''}</td>${league?`<td>${esc(r.played??'–')}</td>${['wins','draws','losses','diff'].map(k=>`<td class="standings-extra">${esc(r[k]??'–')}</td>`).join('')}`:''}${rankingOnly?'':`<td class="pts">${money?'£'+Number(r.points).toLocaleString('en-GB'):esc(r.points??'–')}</td>`}</tr>`;});html+='</tbody></table></div>';}
+html+='<p class="standings-hint">Tik op een naam voor wedstrijden of races.</p>';
+}else if(!d.error)html+='<p>Geen betrouwbare stand beschikbaar.</p>';
+if(item.sport==='motogp'){const races=window.SPORT_STANDINGS_CONTEXT?.events('motogp')||[];const upcoming=races.filter(e=>Date.parse(e.date)>=Date.now()).sort((a,b)=>Date.parse(a.date)-Date.parse(b.date)).slice(0,5);html+='<h4>Volgende sessies</h4>'+matchHTML(upcoming);}
+html+='<div id="standings-participant-detail"></div></section>';area.innerHTML=html;
+}
+async function open(id,force=false){const item=items.find(i=>i.id===id)||choice();selected=item.id;lastData=null;save('sportStandingsLast',selected);if(!item.tournament)view='stand';controls(item);const token=++serial;const btn=$('refresh-standings');btn.disabled=true;btn.textContent='…';$('standings-content-menu').innerHTML='<p role="status" class="standings-hint">Stand ophalen…</p>';try{const d=await dataFor(item,force);if(token!==serial)return;lastData=d;render(item,d);}catch{if(token===serial)render(item,{error:'Stand kon niet worden geladen'});}finally{if(token===serial){btn.disabled=false;btn.textContent='↻';}}}
+function participant(name){const item=choice();const normalize=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'');const target=normalize(name),events=[...(lastData?.matches||[]),...(window.SPORT_STANDINGS_CONTEXT?.events(item.sport)||[])];const seen=new Set();const matches=events.filter(e=>{const names=[e.home,e.away,e.name,e.event].filter(Boolean).map(normalize);return ((item.sport==='f1'||item.sport==='motogp')||names.some(n=>n.includes(target)||target.includes(n)))&&!seen.has(`${e.date}|${e.home}|${e.away}|${e.event}`)&&!!seen.add(`${e.date}|${e.home}|${e.away}|${e.event}`);}).sort((a,b)=>Date.parse(b.date)-Date.parse(a.date)).slice(0,20);
+$('standings-participant-detail').innerHTML=`<h4>${esc(name)}</h4>${['f1','motogp'].includes(item.sport)?'<p class="standings-hint">Racekalender van deze klasse; deelname per coureur wordt hier niet bevestigd.</p>':''}${matchHTML(matches)}<a class="standings-source-link" href="${esc(item.url)}" target="_blank" rel="noopener noreferrer">Meer bij ${esc(item.source)} ↗</a>`;$('standings-participant-detail').scrollIntoView({block:'nearest'});}
+$('standings-sport-select').addEventListener('change',e=>{view='stand';open(items.find(i=>i.sport===e.target.value).id);});$('standings-competition').addEventListener('change',e=>{view='stand';open(e.target.value);});
+$('standings-favorite').addEventListener('click',()=>{const item=choice();favorites.has(item.id)?favorites.delete(item.id):favorites.add(item.id);save('sportStandingsFavorites',[...favorites]);controls(item);});
+$('standings-favorites').addEventListener('click',e=>{const b=e.target.closest('[data-favorite-open]');if(b){view='stand';open(b.dataset.favoriteOpen);}});
+$('standings-tabs-menu').addEventListener('click',e=>{const b=e.target.closest('[data-standings-view]');if(b&&lastData){view=b.dataset.standingsView;controls(choice());render(choice(),lastData);}});
+$('standings-content-menu').addEventListener('input',e=>{if(!e.target.matches('[data-standings-name-filter]'))return;const q=e.target.value.toLocaleLowerCase('nl').trim();$('standings-content-menu').querySelectorAll('tbody tr').forEach(row=>row.hidden=!row.querySelector('[data-participant]').textContent.toLocaleLowerCase('nl').includes(q));});
+$('standings-content-menu').addEventListener('click',e=>{const b=e.target.closest('[data-participant]');if(b)participant(b.dataset.participant);});
+$('refresh-standings').addEventListener('click',()=>open(selected,true));
+window.SPORT_STANDINGS_MENU={open:()=>open(choice().id),refresh:()=>open(choice().id,true)};
+})();

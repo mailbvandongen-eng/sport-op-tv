@@ -13,7 +13,7 @@ function between(start, end) {
     return source.slice(from, to);
 }
 const dateHelpers = between('        function getLocalDateKey(', '        function dedupeFootballMatches(');
-const fetcher = between('        async function fetchESPNMatches(', '        // Fetch football standings');
+const fetcher = between('        async function fetchESPNMatches(', '        // Get static darts events');
 const renderer = between('        async function renderEvents(', "        // Scroll to today's section");
 class Clock extends Date {
     constructor(...args) { super(...(args.length ? args : ['2026-10-04T00:26:00+02:00'])); }
