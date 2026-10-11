@@ -213,7 +213,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/eng.1",
-      "fetchedAt": "2026-10-10T21:38:02.289Z"
+      "fetchedAt": "2026-10-11T05:40:27.762Z"
     },
     "eredivisie": {
       "season": "2026-27 VriendenLoterij Eredivisie",
@@ -407,7 +407,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/ned.1",
-      "fetchedAt": "2026-10-10T21:38:02.098Z"
+      "fetchedAt": "2026-10-11T05:40:27.727Z"
     },
     "champions": {
       "season": "2026-27 UEFA Champions League",
@@ -781,7 +781,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.champions",
-      "fetchedAt": "2026-10-10T21:38:02.170Z"
+      "fetchedAt": "2026-10-11T05:40:27.788Z"
     },
     "europa": {
       "season": "2026-27 UEFA Europa League",
@@ -1155,7 +1155,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.europa",
-      "fetchedAt": "2026-10-10T21:38:02.162Z"
+      "fetchedAt": "2026-10-11T05:40:27.776Z"
     },
     "conference": {
       "season": "2026-27 UEFA Conference League",
@@ -1529,7 +1529,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.europa.conf",
-      "fetchedAt": "2026-10-10T21:38:02.393Z"
+      "fetchedAt": "2026-10-11T05:40:27.948Z"
     },
     "wk": {
       "season": "2026 Wereldkampioenschap",
@@ -3121,7 +3121,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/fifa.world",
-      "fetchedAt": "2026-10-10T21:38:02.572Z"
+      "fetchedAt": "2026-10-11T05:40:28.069Z"
     },
     "ek": {
       "season": "2024 UEFA Europees Kampioenschap",
@@ -3913,7 +3913,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.euro",
-      "fetchedAt": "2026-10-10T21:38:02.532Z"
+      "fetchedAt": "2026-10-11T05:40:28.017Z"
     },
     "nations": {
       "season": "2026 UEFA Nations League",
@@ -6135,7 +6135,7 @@
       "archived": false,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.nations",
-      "fetchedAt": "2026-10-10T21:38:02.551Z"
+      "fetchedAt": "2026-10-11T05:40:28.030Z"
     },
     "wk-vrouwen": {
       "season": "2023 FIFA Wereldkampioenschap Vrouwen",
@@ -7147,7 +7147,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/fifa.wwc",
-      "fetchedAt": "2026-10-10T21:38:02.855Z"
+      "fetchedAt": "2026-10-11T05:40:28.495Z"
     },
     "nations-vrouwen": {
       "season": "2025 UEFA Women's Nations League",
@@ -9459,7 +9459,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.w.nations",
-      "fetchedAt": "2026-10-10T21:38:02.779Z"
+      "fetchedAt": "2026-10-11T05:40:28.355Z"
     },
     "ek-vrouwen": {
       "season": "2025 Europees Kampioenschap Voetbal Vrouwen",
@@ -9961,12 +9961,12 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.weuro",
-      "fetchedAt": "2026-10-10T21:38:02.758Z"
+      "fetchedAt": "2026-10-11T05:40:28.640Z"
     },
     "f1-drivers": {
       "season": "2026",
       "year": 2026,
-      "round": "16",
+      "round": "17",
       "groups": [
         {
           "name": "Kampioenschap",
@@ -9975,7 +9975,7 @@
               "rank": 1,
               "name": "Andrea Kimi Antonelli",
               "team": "Mercedes",
-              "points": 320,
+              "points": 325,
               "wins": 8
             },
             {
@@ -9989,29 +9989,29 @@
               "rank": 3,
               "name": "Lewis Hamilton",
               "team": "Ferrari",
-              "points": 214,
+              "points": 221,
               "wins": 1
             },
             {
               "rank": 4,
               "name": "Charles Leclerc",
               "team": "Ferrari",
-              "points": 191,
+              "points": 197,
               "wins": 1
             },
             {
               "rank": 5,
-              "name": "Lando Norris",
-              "team": "McLaren",
-              "points": 188,
-              "wins": 2
+              "name": "Max Verstappen",
+              "team": "Red Bull",
+              "points": 196,
+              "wins": 1
             },
             {
               "rank": 6,
-              "name": "Max Verstappen",
-              "team": "Red Bull",
-              "points": 188,
-              "wins": 1
+              "name": "Lando Norris",
+              "team": "McLaren",
+              "points": 189,
+              "wins": 2
             },
             {
               "rank": 7,
@@ -10031,7 +10031,7 @@
               "rank": 9,
               "name": "Liam Lawson",
               "team": "RB F1 Team, Red Bull",
-              "points": 65,
+              "points": 69,
               "wins": 0
             },
             {
@@ -10059,7 +10059,7 @@
               "rank": 13,
               "name": "Oliver Bearman",
               "team": "Haas F1 Team",
-              "points": 20,
+              "points": 23,
               "wins": 0
             },
             {
@@ -10073,7 +10073,7 @@
               "rank": 15,
               "name": "Nico Hülkenberg",
               "team": "Audi",
-              "points": 7,
+              "points": 9,
               "wins": 0
             },
             {
@@ -10300,12 +10300,12 @@
       ],
       "source": "Jolpica",
       "sourceUrl": "https://api.jolpi.ca/ergast/f1/current/driverStandings.json",
-      "fetchedAt": "2026-10-10T21:38:02.656Z"
+      "fetchedAt": "2026-10-11T05:40:28.337Z"
     },
     "f1-constructors": {
       "season": "2026",
       "year": 2026,
-      "round": "16",
+      "round": "17",
       "groups": [
         {
           "name": "Kampioenschap",
@@ -10314,35 +10314,35 @@
               "rank": 1,
               "name": "Mercedes",
               "team": "",
-              "points": 556,
+              "points": 561,
               "wins": 11
             },
             {
               "rank": 2,
               "name": "Ferrari",
               "team": "",
-              "points": 405,
+              "points": 418,
               "wins": 2
             },
             {
               "rank": 3,
               "name": "McLaren",
               "team": "",
-              "points": 316,
+              "points": 317,
               "wins": 2
             },
             {
               "rank": 4,
               "name": "Red Bull",
               "team": "",
-              "points": 298,
+              "points": 306,
               "wins": 1
             },
             {
               "rank": 5,
               "name": "RB F1 Team",
               "team": "",
-              "points": 90,
+              "points": 94,
               "wins": 0
             },
             {
@@ -10356,14 +10356,14 @@
               "rank": 7,
               "name": "Haas F1 Team",
               "team": "",
-              "points": 27,
+              "points": 30,
               "wins": 0
             },
             {
               "rank": 8,
               "name": "Audi",
               "team": "",
-              "points": 17,
+              "points": 19,
               "wins": 0
             },
             {
@@ -10555,7 +10555,7 @@
       ],
       "source": "Jolpica",
       "sourceUrl": "https://api.jolpi.ca/ergast/f1/current/constructorStandings.json",
-      "fetchedAt": "2026-10-10T21:38:02.878Z"
+      "fetchedAt": "2026-10-11T05:40:29.140Z"
     },
     "darts-premier": {
       "season": "2026",
@@ -10644,7 +10644,7 @@
       "archived": true,
       "source": "Mastercaller",
       "sourceUrl": "https://mastercaller.nl/toernooien/premier-league/2026/stand",
-      "fetchedAt": "2026-10-10T21:38:04.443Z"
+      "fetchedAt": "2026-10-11T05:40:29.988Z"
     },
     "darts-merit": {
       "season": "2026",
@@ -11751,7 +11751,7 @@
       "archived": false,
       "source": "Darts Rankings",
       "sourceUrl": "https://www.dartsrankings.com/lastranking",
-      "fetchedAt": "2026-10-10T21:38:04.129Z"
+      "fetchedAt": "2026-10-11T05:40:29.893Z"
     },
     "motogp-riders": {
       "season": "2026",
@@ -11960,7 +11960,7 @@
       "archived": false,
       "source": "MotoGP",
       "sourceUrl": "https://stats.motogp.com/en/world-standing",
-      "fetchedAt": "2026-10-10T21:38:05.408Z"
+      "fetchedAt": "2026-10-11T05:40:33.325Z"
     },
     "handbal-men": {
       "season": "2026/27",
@@ -12242,7 +12242,7 @@
       "archived": false,
       "source": "EHF",
       "sourceUrl": "https://ehfcl.eurohandball.com/men/2026-27/standings/",
-      "fetchedAt": "2026-10-10T21:38:07.201Z"
+      "fetchedAt": "2026-10-11T05:40:35.069Z"
     },
     "handbal-women": {
       "season": "2026/27",
@@ -12424,7 +12424,7 @@
       "archived": false,
       "source": "EHF",
       "sourceUrl": "https://ehfcl.eurohandball.com/women/2026-27/standings/",
-      "fetchedAt": "2026-10-10T21:38:08.812Z"
+      "fetchedAt": "2026-10-11T05:40:36.848Z"
     },
     "handbal-euro-men": {
       "season": "2026",
@@ -12836,7 +12836,7 @@
       "archived": true,
       "source": "EHF",
       "sourceUrl": "https://ehfeuro.eurohandball.com/men/2026/standings/Xg2Ubz1_S9dxy0p0unxCBg/final-tournament/",
-      "fetchedAt": "2026-10-10T21:38:07.648Z"
+      "fetchedAt": "2026-10-11T05:40:35.168Z"
     },
     "handbal-euro-women": {
       "season": "2024",
@@ -13248,7 +13248,7 @@
       "archived": true,
       "source": "EHF",
       "sourceUrl": "https://ehfeuro.eurohandball.com/women/2024/standings/R-saEwRJFutIKedhnRuDpg/FinalTournament/",
-      "fetchedAt": "2026-10-10T21:38:07.949Z"
+      "fetchedAt": "2026-10-11T05:40:35.497Z"
     },
     "handbal-world-men": {
       "season": "2025",
@@ -13425,7 +13425,7 @@
       "archived": true,
       "source": "IHF",
       "sourceUrl": "https://www.ihf.info/media-center/events/29th-ihf-mens-world-championship",
-      "fetchedAt": "2026-10-10T21:38:07.830Z"
+      "fetchedAt": "2026-10-11T05:40:36.028Z"
     },
     "handbal-world-women": {
       "season": "2025",
@@ -13602,7 +13602,7 @@
       "archived": true,
       "source": "IHF",
       "sourceUrl": "https://www.ihf.info/index.php/media-center/events/27th-ihf-womens-world-championship",
-      "fetchedAt": "2026-10-10T21:38:09.350Z"
+      "fetchedAt": "2026-10-11T05:40:37.082Z"
     }
   }
 }
