@@ -1,3 +1,8 @@
+## 3.15.3 — 11 oktober 2026
+
+- Wijzigingen niet meer tonen bewaart je keuze voor alle toekomstige versies op dit apparaat.
+- Via het versienummer blijven wijzigingen bereikbaar; daar kun je automatisch tonen weer aanzetten.
+
 ## 3.15.2 — 10 oktober 2026
 
 - Wijzigingsscherm zoals Detect: vaste kop met sluitknop, scrollbare versiekaarten en een vaste knop Gezien.

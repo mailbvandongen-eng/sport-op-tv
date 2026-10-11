@@ -101,6 +101,7 @@
     'use strict';
 
     const RELEASES = [
+    {version: '3.15.3', date: '11 oktober 2026', title: 'Wijzigingen op jouw moment', notes: ['Met Wijzigingen niet meer tonen zet je het automatische wijzigingsscherm uit, ook voor toekomstige versies.', 'Via het versienummer onderaan kun je wijzigingen blijven bekijken en automatisch tonen weer aanzetten.']},
     {
         "version": "3.15.2",
         "date": "10 oktober 2026",
@@ -279,6 +280,13 @@
     const RELEASE = Object.freeze(RELEASES[0]);
 
     const STORAGE_KEY = 'sportOpTvSeenRelease';
+    const HIDE_CHANGES_KEY = 'sportOpTvHideAutomaticChanges';
+    let hideChangesFallback = null;
+    function changesHidden() {
+        if (hideChangesFallback !== null) return hideChangesFallback;
+        try { return localStorage.getItem(HIDE_CHANGES_KEY) === 'yes'; }
+        catch (_) { return false; }
+    }
 
     function escapeHtml(value) {
         return String(value)
@@ -313,6 +321,8 @@
             .release-notes-entry li:last-child { margin-bottom:0; }
             .release-notes-check { flex-shrink:0; width:16px; height:16px; margin-top:4px; color:var(--guide-accent,#166534); }
             .release-notes-footer { flex-shrink:0; padding:12px 16px; border-top:1px solid var(--border,#ddd); }
+            .release-notes-preference { display:flex; align-items:center; gap:8px; min-height:44px; margin-bottom:8px; font-size:.9rem; cursor:pointer; }
+            .release-notes-save-error { font-size:.85rem; margin:0 0 8px; }
             .release-notes-close { width:100%; min-height:44px; padding:10px 14px; border:0; border-radius:9px; background:#166534; color:#fff; font:inherit; font-weight:700; cursor:pointer; }
             [data-theme="dark"] .release-notes-backdrop { --release-latest-bg:#17352b; }
             .release-notes-dialog :focus-visible { outline:3px solid var(--guide-accent,#166534); outline-offset:2px; }
@@ -353,7 +363,7 @@
                         <ul>${entry.notes.map(note => `<li>${check}<span>${escapeHtml(note)}</span></li>`).join('')}</ul>
                     </article>`).join('')}
                 </div>
-                <footer class="release-notes-footer"><button type="button" class="release-notes-close">Gezien</button></footer>
+                <footer class="release-notes-footer"><label class="release-notes-preference"><input type="checkbox" class="release-notes-hide" ${changesHidden() ? 'checked' : ''}>Wijzigingen niet meer tonen</label><p class="release-notes-save-error" role="alert" hidden>De keuze geldt nu, maar kon niet op dit apparaat worden opgeslagen.</p><button type="button" class="release-notes-close">Gezien</button></footer>
             </section>`;
 
         backdrop.returnFocus = document.activeElement;
@@ -362,6 +372,13 @@
         backdrop.releaseBackground.forEach(([node]) => { node.inert = true; });
         document.body.style.overflow = 'hidden';
         document.body.appendChild(backdrop);
+        const preference = backdrop.querySelector('.release-notes-hide');
+        preference.addEventListener('change', () => {
+            hideChangesFallback = preference.checked;
+            let saved = true;
+            try { localStorage.setItem(HIDE_CHANGES_KEY, preference.checked ? 'yes' : 'no'); hideChangesFallback = null; } catch (_) { saved = false; }
+            backdrop.querySelector('.release-notes-save-error').hidden = saved;
+        });
         const closeButton = backdrop.querySelector('.release-notes-close');
         closeButton.focus();
         const dismissButton = backdrop.querySelector('.release-notes-dismiss');
@@ -408,8 +425,8 @@
         installVersionLink();
         let seen;
         try { seen = localStorage.getItem(STORAGE_KEY); } catch (_) {}
-        if (seen !== RELEASE.version) {
-            setTimeout(() => showReleaseNotes(true), 250);
+        if (!changesHidden() && seen !== RELEASE.version) {
+            setTimeout(() => { if (!changesHidden()) showReleaseNotes(true); }, 250);
         }
     }
 
