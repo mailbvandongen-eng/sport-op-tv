@@ -213,7 +213,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/eng.1",
-      "fetchedAt": "2026-10-13T14:05:56.228Z"
+      "fetchedAt": "2026-10-13T22:40:15.116Z"
     },
     "eredivisie": {
       "season": "2026-27 VriendenLoterij Eredivisie",
@@ -407,7 +407,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/ned.1",
-      "fetchedAt": "2026-10-13T14:05:56.191Z"
+      "fetchedAt": "2026-10-13T22:40:15.149Z"
     },
     "champions": {
       "season": "2026-27 UEFA Champions League",
@@ -418,6 +418,46 @@
           "rows": [
             {
               "rank": 1,
+              "name": "Barcelona",
+              "played": 2,
+              "wins": 2,
+              "draws": 0,
+              "losses": 0,
+              "diff": 7,
+              "points": 6
+            },
+            {
+              "rank": 2,
+              "name": "Sporting CP",
+              "played": 2,
+              "wins": 2,
+              "draws": 0,
+              "losses": 0,
+              "diff": 4,
+              "points": 6
+            },
+            {
+              "rank": 3,
+              "name": "Arsenal",
+              "played": 2,
+              "wins": 2,
+              "draws": 0,
+              "losses": 0,
+              "diff": 4,
+              "points": 6
+            },
+            {
+              "rank": 4,
+              "name": "Bayern München",
+              "played": 2,
+              "wins": 1,
+              "draws": 1,
+              "losses": 0,
+              "diff": 5,
+              "points": 4
+            },
+            {
+              "rank": 5,
               "name": "Paris Saint-Germain",
               "played": 1,
               "wins": 1,
@@ -427,37 +467,7 @@
               "points": 3
             },
             {
-              "rank": 2,
-              "name": "Bayern München",
-              "played": 1,
-              "wins": 1,
-              "draws": 0,
-              "losses": 0,
-              "diff": 5,
-              "points": 3
-            },
-            {
-              "rank": 3,
-              "name": "Barcelona",
-              "played": 1,
-              "wins": 1,
-              "draws": 0,
-              "losses": 0,
-              "diff": 4,
-              "points": 3
-            },
-            {
-              "rank": 4,
-              "name": "Manchester United",
-              "played": 1,
-              "wins": 1,
-              "draws": 0,
-              "losses": 0,
-              "diff": 4,
-              "points": 3
-            },
-            {
-              "rank": 5,
+              "rank": 6,
               "name": "Como",
               "played": 1,
               "wins": 1,
@@ -467,17 +477,17 @@
               "points": 3
             },
             {
-              "rank": 6,
-              "name": "Sporting CP",
-              "played": 1,
+              "rank": 7,
+              "name": "Manchester United",
+              "played": 2,
               "wins": 1,
               "draws": 0,
-              "losses": 0,
+              "losses": 1,
               "diff": 2,
               "points": 3
             },
             {
-              "rank": 7,
+              "rank": 8,
               "name": "VfB Stuttgart",
               "played": 1,
               "wins": 1,
@@ -487,7 +497,7 @@
               "points": 3
             },
             {
-              "rank": 8,
+              "rank": 9,
               "name": "Manchester City",
               "played": 1,
               "wins": 1,
@@ -497,7 +507,17 @@
               "points": 3
             },
             {
-              "rank": 9,
+              "rank": 10,
+              "name": "Villarreal",
+              "played": 2,
+              "wins": 1,
+              "draws": 0,
+              "losses": 1,
+              "diff": 1,
+              "points": 3
+            },
+            {
+              "rank": 11,
               "name": "Aston Villa",
               "played": 1,
               "wins": 1,
@@ -507,17 +527,7 @@
               "points": 3
             },
             {
-              "rank": 10,
-              "name": "Lens",
-              "played": 1,
-              "wins": 1,
-              "draws": 0,
-              "losses": 0,
-              "diff": 1,
-              "points": 3
-            },
-            {
-              "rank": 11,
+              "rank": 12,
               "name": "Real Betis",
               "played": 1,
               "wins": 1,
@@ -527,7 +537,17 @@
               "points": 3
             },
             {
-              "rank": 12,
+              "rank": 13,
+              "name": "Atlético de Madrid",
+              "played": 2,
+              "wins": 1,
+              "draws": 0,
+              "losses": 1,
+              "diff": 1,
+              "points": 3
+            },
+            {
+              "rank": 14,
               "name": "Borussia Dortmund",
               "played": 1,
               "wins": 1,
@@ -537,7 +557,7 @@
               "points": 3
             },
             {
-              "rank": 13,
+              "rank": 15,
               "name": "Liverpool",
               "played": 1,
               "wins": 1,
@@ -547,7 +567,7 @@
               "points": 3
             },
             {
-              "rank": 14,
+              "rank": 16,
               "name": "Real Madrid",
               "played": 1,
               "wins": 1,
@@ -557,17 +577,7 @@
               "points": 3
             },
             {
-              "rank": 15,
-              "name": "Arsenal",
-              "played": 1,
-              "wins": 1,
-              "draws": 0,
-              "losses": 0,
-              "diff": 1,
-              "points": 3
-            },
-            {
-              "rank": 16,
+              "rank": 17,
               "name": "AEK Athene",
               "played": 1,
               "wins": 1,
@@ -577,7 +587,47 @@
               "points": 3
             },
             {
-              "rank": 17,
+              "rank": 18,
+              "name": "Club Brugge",
+              "played": 2,
+              "wins": 1,
+              "draws": 0,
+              "losses": 1,
+              "diff": 0,
+              "points": 3
+            },
+            {
+              "rank": 19,
+              "name": "Lens",
+              "played": 2,
+              "wins": 1,
+              "draws": 0,
+              "losses": 1,
+              "diff": -1,
+              "points": 3
+            },
+            {
+              "rank": 20,
+              "name": "RB Leipzig",
+              "played": 2,
+              "wins": 1,
+              "draws": 0,
+              "losses": 1,
+              "diff": -2,
+              "points": 3
+            },
+            {
+              "rank": 21,
+              "name": "Sabah FK",
+              "played": 2,
+              "wins": 1,
+              "draws": 0,
+              "losses": 1,
+              "diff": -2,
+              "points": 3
+            },
+            {
+              "rank": 22,
               "name": "AS Roma",
               "played": 1,
               "wins": 0,
@@ -587,7 +637,7 @@
               "points": 1
             },
             {
-              "rank": 18,
+              "rank": 23,
               "name": "Shakhtar Donetsk",
               "played": 1,
               "wins": 0,
@@ -597,7 +647,7 @@
               "points": 1
             },
             {
-              "rank": 19,
+              "rank": 24,
               "name": "Fenerbahce",
               "played": 1,
               "wins": 0,
@@ -607,74 +657,24 @@
               "points": 1
             },
             {
-              "rank": 20,
+              "rank": 25,
               "name": "PSV",
-              "played": 1,
+              "played": 2,
               "wins": 0,
               "draws": 1,
-              "losses": 0,
-              "diff": 0,
+              "losses": 1,
+              "diff": -1,
               "points": 1
             },
             {
-              "rank": 21,
-              "name": "Villarreal",
-              "played": 1,
-              "wins": 0,
-              "draws": 0,
-              "losses": 1,
-              "diff": -1,
-              "points": 0
-            },
-            {
-              "rank": 22,
-              "name": "Club Brugge",
-              "played": 1,
-              "wins": 0,
-              "draws": 0,
-              "losses": 1,
-              "diff": -1,
-              "points": 0
-            },
-            {
-              "rank": 23,
-              "name": "Lille",
-              "played": 1,
-              "wins": 0,
-              "draws": 0,
-              "losses": 1,
-              "diff": -1,
-              "points": 0
-            },
-            {
-              "rank": 24,
-              "name": "Slavia Praag",
-              "played": 1,
-              "wins": 0,
-              "draws": 0,
-              "losses": 1,
-              "diff": -1,
-              "points": 0
-            },
-            {
-              "rank": 25,
-              "name": "Atlético de Madrid",
-              "played": 1,
-              "wins": 0,
-              "draws": 0,
-              "losses": 1,
-              "diff": -1,
-              "points": 0
-            },
-            {
               "rank": 26,
-              "name": "Internazionale",
-              "played": 1,
+              "name": "Viking FK",
+              "played": 2,
               "wins": 0,
-              "draws": 0,
+              "draws": 1,
               "losses": 1,
-              "diff": -1,
-              "points": 0
+              "diff": -2,
+              "points": 1
             },
             {
               "rank": 27,
@@ -688,36 +688,16 @@
             },
             {
               "rank": 28,
-              "name": "Napoli",
-              "played": 1,
+              "name": "Internazionale",
+              "played": 2,
               "wins": 0,
               "draws": 0,
-              "losses": 1,
-              "diff": -1,
+              "losses": 2,
+              "diff": -2,
               "points": 0
             },
             {
               "rank": 29,
-              "name": "Galatasaray",
-              "played": 1,
-              "wins": 0,
-              "draws": 0,
-              "losses": 1,
-              "diff": -2,
-              "points": 0
-            },
-            {
-              "rank": 30,
-              "name": "Viking FK",
-              "played": 1,
-              "wins": 0,
-              "draws": 0,
-              "losses": 1,
-              "diff": -2,
-              "points": 0
-            },
-            {
-              "rank": 31,
               "name": "FC Porto",
               "played": 1,
               "wins": 0,
@@ -727,13 +707,33 @@
               "points": 0
             },
             {
-              "rank": 32,
-              "name": "RB Leipzig",
-              "played": 1,
+              "rank": 30,
+              "name": "Slavia Praag",
+              "played": 2,
               "wins": 0,
               "draws": 0,
-              "losses": 1,
+              "losses": 2,
               "diff": -3,
+              "points": 0
+            },
+            {
+              "rank": 31,
+              "name": "Napoli",
+              "played": 2,
+              "wins": 0,
+              "draws": 0,
+              "losses": 2,
+              "diff": -3,
+              "points": 0
+            },
+            {
+              "rank": 32,
+              "name": "Lille",
+              "played": 2,
+              "wins": 0,
+              "draws": 0,
+              "losses": 2,
+              "diff": -4,
               "points": 0
             },
             {
@@ -748,12 +748,12 @@
             },
             {
               "rank": 34,
-              "name": "Sabah FK",
-              "played": 1,
+              "name": "Galatasaray",
+              "played": 2,
               "wins": 0,
               "draws": 0,
-              "losses": 1,
-              "diff": -4,
+              "losses": 2,
+              "diff": -5,
               "points": 0
             },
             {
@@ -781,7 +781,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.champions",
-      "fetchedAt": "2026-10-13T14:05:56.284Z"
+      "fetchedAt": "2026-10-13T22:40:15.112Z"
     },
     "europa": {
       "season": "2026-27 UEFA Europa League",
@@ -1155,7 +1155,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.europa",
-      "fetchedAt": "2026-10-13T14:05:56.298Z"
+      "fetchedAt": "2026-10-13T22:40:15.157Z"
     },
     "conference": {
       "season": "2026-27 UEFA Conference League",
@@ -1529,7 +1529,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.europa.conf",
-      "fetchedAt": "2026-10-13T14:05:56.437Z"
+      "fetchedAt": "2026-10-13T22:40:15.241Z"
     },
     "wk": {
       "season": "2026 Wereldkampioenschap",
@@ -3121,7 +3121,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/fifa.world",
-      "fetchedAt": "2026-10-13T14:05:56.823Z"
+      "fetchedAt": "2026-10-13T22:40:15.407Z"
     },
     "ek": {
       "season": "2024 UEFA Europees Kampioenschap",
@@ -3913,7 +3913,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.euro",
-      "fetchedAt": "2026-10-13T14:05:57.341Z"
+      "fetchedAt": "2026-10-13T22:40:15.458Z"
     },
     "nations": {
       "season": "2026 UEFA Nations League",
@@ -6135,7 +6135,7 @@
       "archived": false,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.nations",
-      "fetchedAt": "2026-10-13T14:05:56.524Z"
+      "fetchedAt": "2026-10-13T22:40:15.484Z"
     },
     "wk-vrouwen": {
       "season": "2023 FIFA Wereldkampioenschap Vrouwen",
@@ -7147,7 +7147,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/fifa.wwc",
-      "fetchedAt": "2026-10-13T14:05:57.722Z"
+      "fetchedAt": "2026-10-13T22:40:15.739Z"
     },
     "nations-vrouwen": {
       "season": "2025 UEFA Women's Nations League",
@@ -9459,7 +9459,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.w.nations",
-      "fetchedAt": "2026-10-13T14:05:57.559Z"
+      "fetchedAt": "2026-10-13T22:40:15.868Z"
     },
     "ek-vrouwen": {
       "season": "2025 Europees Kampioenschap Voetbal Vrouwen",
@@ -9961,7 +9961,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.weuro",
-      "fetchedAt": "2026-10-13T14:05:57.716Z"
+      "fetchedAt": "2026-10-13T22:40:15.767Z"
     },
     "f1-drivers": {
       "season": "2026",
@@ -10300,7 +10300,7 @@
       ],
       "source": "Jolpica",
       "sourceUrl": "https://api.jolpi.ca/ergast/f1/current/driverStandings.json",
-      "fetchedAt": "2026-10-13T14:05:57.591Z"
+      "fetchedAt": "2026-10-13T22:40:15.718Z"
     },
     "f1-constructors": {
       "season": "2026",
@@ -10555,7 +10555,7 @@
       ],
       "source": "Jolpica",
       "sourceUrl": "https://api.jolpi.ca/ergast/f1/current/constructorStandings.json",
-      "fetchedAt": "2026-10-13T14:05:57.780Z"
+      "fetchedAt": "2026-10-13T22:40:16.384Z"
     },
     "darts-premier": {
       "season": "2026",
@@ -10644,7 +10644,7 @@
       "archived": true,
       "source": "Mastercaller",
       "sourceUrl": "https://mastercaller.nl/toernooien/premier-league/2026/stand",
-      "fetchedAt": "2026-10-13T14:05:59.509Z"
+      "fetchedAt": "2026-10-13T22:40:17.227Z"
     },
     "darts-merit": {
       "season": "2026",
@@ -11751,7 +11751,7 @@
       "archived": false,
       "source": "Darts Rankings",
       "sourceUrl": "https://www.dartsrankings.com/lastranking",
-      "fetchedAt": "2026-10-13T14:05:59.025Z"
+      "fetchedAt": "2026-10-13T22:40:17.310Z"
     },
     "motogp-riders": {
       "season": "2026",
@@ -11960,7 +11960,7 @@
       "archived": false,
       "source": "MotoGP",
       "sourceUrl": "https://stats.motogp.com/en/world-standing",
-      "fetchedAt": "2026-10-13T14:06:00.232Z"
+      "fetchedAt": "2026-10-13T22:40:18.780Z"
     },
     "handbal-men": {
       "season": "2026/27",
@@ -12242,7 +12242,7 @@
       "archived": false,
       "source": "EHF",
       "sourceUrl": "https://ehfcl.eurohandball.com/men/2026-27/standings/",
-      "fetchedAt": "2026-10-13T14:06:02.266Z"
+      "fetchedAt": "2026-10-13T22:40:20.662Z"
     },
     "handbal-women": {
       "season": "2026/27",
@@ -12424,7 +12424,7 @@
       "archived": false,
       "source": "EHF",
       "sourceUrl": "https://ehfcl.eurohandball.com/women/2026-27/standings/",
-      "fetchedAt": "2026-10-13T14:06:03.822Z"
+      "fetchedAt": "2026-10-13T22:40:22.935Z"
     },
     "handbal-euro-men": {
       "season": "2026",
@@ -12836,7 +12836,7 @@
       "archived": true,
       "source": "EHF",
       "sourceUrl": "https://ehfeuro.eurohandball.com/men/2026/standings/Xg2Ubz1_S9dxy0p0unxCBg/final-tournament/",
-      "fetchedAt": "2026-10-13T14:06:02.101Z"
+      "fetchedAt": "2026-10-13T22:40:20.202Z"
     },
     "handbal-euro-women": {
       "season": "2024",
@@ -13248,7 +13248,7 @@
       "archived": true,
       "source": "EHF",
       "sourceUrl": "https://ehfeuro.eurohandball.com/women/2024/standings/R-saEwRJFutIKedhnRuDpg/FinalTournament/",
-      "fetchedAt": "2026-10-13T14:06:02.366Z"
+      "fetchedAt": "2026-10-13T22:40:20.777Z"
     },
     "handbal-world-men": {
       "season": "2025",
@@ -13425,7 +13425,7 @@
       "archived": true,
       "source": "IHF",
       "sourceUrl": "https://www.ihf.info/media-center/events/29th-ihf-mens-world-championship",
-      "fetchedAt": "2026-10-13T14:06:02.892Z"
+      "fetchedAt": "2026-10-13T22:40:22.136Z"
     },
     "handbal-world-women": {
       "season": "2025",
@@ -13602,7 +13602,7 @@
       "archived": true,
       "source": "IHF",
       "sourceUrl": "https://www.ihf.info/index.php/media-center/events/27th-ihf-womens-world-championship",
-      "fetchedAt": "2026-10-13T14:06:04.245Z"
+      "fetchedAt": "2026-10-13T22:40:23.397Z"
     }
   }
 }
