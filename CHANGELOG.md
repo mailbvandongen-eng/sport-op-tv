@@ -1,3 +1,8 @@
+## 3.16.0 — 14 oktober 2026
+
+- Handbalagenda: alleen EHF Champions League Men, met officiële affiches en Nederlandse starttijden.
+- Aanklikbaar EHFTV en automatische schemaverversing iedere zes uur met fallback bij bronstoringen.
+
 ## 3.15.3 — 11 oktober 2026
 
 - Wijzigingen niet meer tonen bewaart je keuze voor alle toekomstige versies op dit apparaat.

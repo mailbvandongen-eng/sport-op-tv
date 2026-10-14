@@ -1,0 +1,38 @@
+name: Update handball
+on:
+  schedule:
+    - cron: '15 */6 * * *'
+  workflow_dispatch:
+  push:
+    branches: [master]
+    paths: [scripts/update-handball.cjs, .github/workflows/update-handball.yml]
+permissions:
+  contents: write
+  pages: write
+concurrency:
+  group: handball-update
+  cancel-in-progress: false
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - run: node scripts/update-handball.cjs
+      - name: Save verified snapshots
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/handball-men.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Update verified handball snapshots'
+            git pull --rebase origin master
+            git push origin HEAD:master
+          fi
+      - name: Publish refreshed data to Pages
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api --method POST repos/${{ github.repository }}/pages/builds

@@ -32,6 +32,8 @@ jobs:
         run: node scripts/test-sport-details.mjs
       - name: Test standings and menu persistence
         run: node scripts/test-standings.cjs
+      - name: Test handball schedule and fallback
+        run: node scripts/test-handball.cjs && node scripts/test-handball-ui.cjs
       - name: Check public files for credentials
         run: node scripts/test-public-security.mjs
 

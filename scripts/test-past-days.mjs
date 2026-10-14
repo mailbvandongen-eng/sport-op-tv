@@ -77,7 +77,7 @@ for (const sport of ['voetbal', 'darts', 'f1', 'motogp', 'handbal', null]) {
         footballSourceHealth: { successful: 0, failed: 0 },
         applyFootballFilters: events => events.filter(event => core.matchesFootballFilters(event, { competitions: ['Europa League'] })),
         updateResultsModeControls() {}, showLoading() {}, showError: message => assert.fail(message),
-        getStaticDartsEvents: () => [], getStaticMotoGPEvents: () => [], getStaticHandballEvents: () => [],
+        getStaticDartsEvents: () => [], getStaticMotoGPEvents: () => [], getStaticHandballEvents: () => [], fetchHandballEvents: async () => [],
         fetchPdcDartsSchedule: async () => [], mergeDartsScheduleEvents: () => [],
         sanitizeFootballMatches: events => events, filterReliableFootballMatches: events => events,
         countUpcomingFootballMatches: () => 0, setWorldCupHighlights() {},
