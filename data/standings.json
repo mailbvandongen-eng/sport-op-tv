@@ -213,7 +213,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/eng.1",
-      "fetchedAt": "2026-10-15T16:55:39.127Z"
+      "fetchedAt": "2026-10-15T21:19:09.631Z"
     },
     "eredivisie": {
       "season": "2026-27 VriendenLoterij Eredivisie",
@@ -407,7 +407,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/ned.1",
-      "fetchedAt": "2026-10-15T16:55:39.125Z"
+      "fetchedAt": "2026-10-15T21:19:09.630Z"
     },
     "champions": {
       "season": "2026-27 UEFA Champions League",
@@ -781,7 +781,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.champions",
-      "fetchedAt": "2026-10-15T16:55:39.328Z"
+      "fetchedAt": "2026-10-15T21:19:09.755Z"
     },
     "europa": {
       "season": "2026-27 UEFA Europa League",
@@ -793,361 +793,361 @@
             {
               "rank": 1,
               "name": "Juventus",
-              "played": 1,
-              "wins": 1,
+              "played": 2,
+              "wins": 2,
               "draws": 0,
               "losses": 0,
-              "diff": 5,
-              "points": 3
+              "diff": 6,
+              "points": 6
             },
             {
               "rank": 2,
-              "name": "Crystal Palace",
-              "played": 1,
-              "wins": 1,
+              "name": "Bayer Leverkusen",
+              "played": 2,
+              "wins": 2,
               "draws": 0,
               "losses": 0,
-              "diff": 4,
-              "points": 3
+              "diff": 6,
+              "points": 6
             },
             {
               "rank": 3,
-              "name": "Sparta Praag",
-              "played": 1,
-              "wins": 1,
+              "name": "Benfica",
+              "played": 2,
+              "wins": 2,
               "draws": 0,
               "losses": 0,
-              "diff": 3,
-              "points": 3
+              "diff": 5,
+              "points": 6
             },
             {
               "rank": 4,
               "name": "Besiktas",
-              "played": 1,
-              "wins": 1,
+              "played": 2,
+              "wins": 2,
               "draws": 0,
               "losses": 0,
-              "diff": 3,
-              "points": 3
+              "diff": 4,
+              "points": 6
             },
             {
               "rank": 5,
-              "name": "Union St.-Gilloise",
-              "played": 1,
-              "wins": 1,
+              "name": "AFC Bournemouth",
+              "played": 2,
+              "wins": 2,
               "draws": 0,
               "losses": 0,
-              "diff": 3,
-              "points": 3
+              "diff": 4,
+              "points": 6
             },
             {
               "rank": 6,
-              "name": "Ferencvaros",
-              "played": 1,
-              "wins": 1,
+              "name": "Omonia Nicosia",
+              "played": 2,
+              "wins": 2,
               "draws": 0,
               "losses": 0,
-              "diff": 2,
-              "points": 3
+              "diff": 4,
+              "points": 6
             },
             {
               "rank": 7,
-              "name": "Benfica",
-              "played": 1,
-              "wins": 1,
+              "name": "Ferencvaros",
+              "played": 2,
+              "wins": 2,
               "draws": 0,
               "losses": 0,
-              "diff": 2,
-              "points": 3
+              "diff": 3,
+              "points": 6
             },
             {
               "rank": 8,
-              "name": "Bayer Leverkusen",
-              "played": 1,
-              "wins": 1,
+              "name": "Lyon",
+              "played": 2,
+              "wins": 2,
               "draws": 0,
               "losses": 0,
               "diff": 2,
-              "points": 3
+              "points": 6
             },
             {
               "rank": 9,
-              "name": "OFI Crete",
-              "played": 1,
-              "wins": 1,
+              "name": "Sunderland",
+              "played": 2,
+              "wins": 2,
               "draws": 0,
               "losses": 0,
               "diff": 2,
-              "points": 3
+              "points": 6
             },
             {
               "rank": 10,
-              "name": "AFC Bournemouth",
-              "played": 1,
-              "wins": 1,
+              "name": "Olympiacos",
+              "played": 2,
+              "wins": 2,
               "draws": 0,
               "losses": 0,
-              "diff": 1,
-              "points": 3
+              "diff": 2,
+              "points": 6
             },
             {
               "rank": 11,
-              "name": "Lyon",
-              "played": 1,
+              "name": "Sparta Praag",
+              "played": 2,
               "wins": 1,
-              "draws": 0,
+              "draws": 1,
               "losses": 0,
-              "diff": 1,
-              "points": 3
+              "diff": 3,
+              "points": 4
             },
             {
               "rank": 12,
-              "name": "Torreense",
-              "played": 1,
+              "name": "Union St.-Gilloise",
+              "played": 2,
               "wins": 1,
-              "draws": 0,
+              "draws": 1,
               "losses": 0,
-              "diff": 1,
-              "points": 3
+              "diff": 3,
+              "points": 4
             },
             {
               "rank": 13,
-              "name": "Olympiacos",
-              "played": 1,
+              "name": "Stade Rennais",
+              "played": 2,
               "wins": 1,
-              "draws": 0,
+              "draws": 1,
               "losses": 0,
               "diff": 1,
-              "points": 3
+              "points": 4
             },
             {
               "rank": 14,
-              "name": "RB Salzburg",
-              "played": 1,
+              "name": "Dinamo Zagreb",
+              "played": 2,
               "wins": 1,
-              "draws": 0,
+              "draws": 1,
               "losses": 0,
               "diff": 1,
-              "points": 3
+              "points": 4
             },
             {
               "rank": 15,
-              "name": "Omonia Nicosia",
-              "played": 1,
+              "name": "Crystal Palace",
+              "played": 2,
               "wins": 1,
               "draws": 0,
-              "losses": 0,
-              "diff": 1,
+              "losses": 1,
+              "diff": 3,
               "points": 3
             },
             {
               "rank": 16,
-              "name": "Sunderland",
-              "played": 1,
+              "name": "AC Milan",
+              "played": 2,
               "wins": 1,
               "draws": 0,
-              "losses": 0,
-              "diff": 1,
+              "losses": 1,
+              "diff": 2,
               "points": 3
             },
             {
               "rank": 17,
-              "name": "Dinamo Zagreb",
-              "played": 1,
-              "wins": 0,
-              "draws": 1,
-              "losses": 0,
-              "diff": 0,
-              "points": 1
+              "name": "Jagiellonia Bialystok",
+              "played": 2,
+              "wins": 1,
+              "draws": 0,
+              "losses": 1,
+              "diff": 1,
+              "points": 3
             },
             {
               "rank": 18,
-              "name": "Hapoel Be'er",
-              "played": 1,
-              "wins": 0,
-              "draws": 1,
-              "losses": 0,
-              "diff": 0,
-              "points": 1
+              "name": "OFI Crete",
+              "played": 2,
+              "wins": 1,
+              "draws": 0,
+              "losses": 1,
+              "diff": 1,
+              "points": 3
             },
             {
               "rank": 19,
-              "name": "Stade Rennais",
-              "played": 1,
-              "wins": 0,
-              "draws": 1,
-              "losses": 0,
+              "name": "Torreense",
+              "played": 2,
+              "wins": 1,
+              "draws": 0,
+              "losses": 1,
               "diff": 0,
-              "points": 1
+              "points": 3
             },
             {
               "rank": 20,
-              "name": "SK Sturm Graz",
-              "played": 1,
-              "wins": 0,
-              "draws": 1,
-              "losses": 0,
+              "name": "AZ",
+              "played": 2,
+              "wins": 1,
+              "draws": 0,
+              "losses": 1,
               "diff": 0,
-              "points": 1
+              "points": 3
             },
             {
               "rank": 21,
-              "name": "Jagiellonia Bialystok",
-              "played": 1,
-              "wins": 0,
+              "name": "RB Salzburg",
+              "played": 2,
+              "wins": 1,
               "draws": 0,
               "losses": 1,
-              "diff": -1,
-              "points": 0
+              "diff": -3,
+              "points": 3
             },
             {
               "rank": 22,
-              "name": "Anderlecht",
-              "played": 1,
+              "name": "Lillestrom",
+              "played": 2,
               "wins": 0,
-              "draws": 0,
+              "draws": 1,
               "losses": 1,
               "diff": -1,
-              "points": 0
+              "points": 1
             },
             {
               "rank": 23,
-              "name": "Lillestrom",
-              "played": 1,
+              "name": "Real Sociedad",
+              "played": 2,
               "wins": 0,
-              "draws": 0,
+              "draws": 1,
               "losses": 1,
               "diff": -1,
-              "points": 0
+              "points": 1
             },
             {
               "rank": 24,
-              "name": "Real Sociedad",
-              "played": 1,
+              "name": "Hapoel Be'er",
+              "played": 2,
               "wins": 0,
-              "draws": 0,
+              "draws": 1,
               "losses": 1,
               "diff": -1,
-              "points": 0
+              "points": 1
             },
             {
               "rank": 25,
-              "name": "AZ",
-              "played": 1,
+              "name": "Levski Sofia",
+              "played": 2,
               "wins": 0,
-              "draws": 0,
+              "draws": 1,
               "losses": 1,
               "diff": -1,
-              "points": 0
+              "points": 1
             },
             {
               "rank": 26,
-              "name": "Celta Vigo",
-              "played": 1,
+              "name": "SK Sturm Graz",
+              "played": 2,
               "wins": 0,
-              "draws": 0,
+              "draws": 1,
               "losses": 1,
-              "diff": -1,
-              "points": 0
+              "diff": -3,
+              "points": 1
             },
             {
               "rank": 27,
-              "name": "Levski Sofia",
-              "played": 1,
+              "name": "N.E.C.",
+              "played": 2,
               "wins": 0,
-              "draws": 0,
+              "draws": 1,
               "losses": 1,
-              "diff": -1,
-              "points": 0
+              "diff": -5,
+              "points": 1
             },
             {
               "rank": 28,
-              "name": "Celtic",
-              "played": 1,
+              "name": "Anderlecht",
+              "played": 2,
               "wins": 0,
               "draws": 0,
-              "losses": 1,
+              "losses": 2,
               "diff": -2,
               "points": 0
             },
             {
               "rank": 29,
-              "name": "AC Milan",
-              "played": 1,
+              "name": "Celta Vigo",
+              "played": 2,
               "wins": 0,
               "draws": 0,
-              "losses": 1,
+              "losses": 2,
               "diff": -2,
               "points": 0
             },
             {
               "rank": 30,
-              "name": "NK Celje",
-              "played": 1,
+              "name": "1899 Hoffenheim",
+              "played": 2,
               "wins": 0,
               "draws": 0,
-              "losses": 1,
-              "diff": -2,
+              "losses": 2,
+              "diff": -3,
               "points": 0
             },
             {
               "rank": 31,
-              "name": "1899 Hoffenheim",
-              "played": 1,
+              "name": "Marseille",
+              "played": 2,
               "wins": 0,
               "draws": 0,
-              "losses": 1,
-              "diff": -2,
+              "losses": 2,
+              "diff": -4,
               "points": 0
             },
             {
               "rank": 32,
-              "name": "Marseille",
-              "played": 1,
+              "name": "Viktoria Plzen",
+              "played": 2,
               "wins": 0,
               "draws": 0,
-              "losses": 1,
-              "diff": -3,
+              "losses": 2,
+              "diff": -4,
               "points": 0
             },
             {
               "rank": 33,
               "name": "Ararat-Armenia",
-              "played": 1,
+              "played": 2,
               "wins": 0,
               "draws": 0,
-              "losses": 1,
-              "diff": -3,
+              "losses": 2,
+              "diff": -5,
               "points": 0
             },
             {
               "rank": 34,
-              "name": "Viktoria Plzen",
-              "played": 1,
+              "name": "Celtic",
+              "played": 2,
               "wins": 0,
               "draws": 0,
-              "losses": 1,
-              "diff": -3,
+              "losses": 2,
+              "diff": -5,
               "points": 0
             },
             {
               "rank": 35,
-              "name": "Lech Poznan",
-              "played": 1,
+              "name": "NK Celje",
+              "played": 2,
               "wins": 0,
               "draws": 0,
-              "losses": 1,
-              "diff": -4,
+              "losses": 2,
+              "diff": -5,
               "points": 0
             },
             {
               "rank": 36,
-              "name": "N.E.C.",
-              "played": 1,
+              "name": "Lech Poznan",
+              "played": 2,
               "wins": 0,
               "draws": 0,
-              "losses": 1,
-              "diff": -5,
+              "losses": 2,
+              "diff": -8,
               "points": 0
             }
           ]
@@ -1155,7 +1155,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.europa",
-      "fetchedAt": "2026-10-15T16:55:39.267Z"
+      "fetchedAt": "2026-10-15T21:19:09.762Z"
     },
     "conference": {
       "season": "2026-27 UEFA Conference League",
@@ -1166,26 +1166,136 @@
           "rows": [
             {
               "rank": 1,
-              "name": "AGF",
-              "played": 0,
-              "wins": 0,
+              "name": "Trabzonspor",
+              "played": 1,
+              "wins": 1,
               "draws": 0,
               "losses": 0,
-              "diff": 0,
-              "points": 0
+              "diff": 2,
+              "points": 3
             },
             {
               "rank": 2,
-              "name": "Ajax",
-              "played": 0,
-              "wins": 0,
+              "name": "Mjällby AIF",
+              "played": 1,
+              "wins": 1,
               "draws": 0,
               "losses": 0,
-              "diff": 0,
-              "points": 0
+              "diff": 2,
+              "points": 3
             },
             {
               "rank": 3,
+              "name": "FC Lugano",
+              "played": 1,
+              "wins": 1,
+              "draws": 0,
+              "losses": 0,
+              "diff": 1,
+              "points": 3
+            },
+            {
+              "rank": 4,
+              "name": "AS Monaco",
+              "played": 1,
+              "wins": 1,
+              "draws": 0,
+              "losses": 0,
+              "diff": 1,
+              "points": 3
+            },
+            {
+              "rank": 5,
+              "name": "Hajduk Split",
+              "played": 1,
+              "wins": 1,
+              "draws": 0,
+              "losses": 0,
+              "diff": 1,
+              "points": 3
+            },
+            {
+              "rank": 6,
+              "name": "Panathinaikos",
+              "played": 1,
+              "wins": 1,
+              "draws": 0,
+              "losses": 0,
+              "diff": 1,
+              "points": 3
+            },
+            {
+              "rank": 7,
+              "name": "KAA Gent",
+              "played": 1,
+              "wins": 1,
+              "draws": 0,
+              "losses": 0,
+              "diff": 1,
+              "points": 3
+            },
+            {
+              "rank": 8,
+              "name": "Getafe",
+              "played": 1,
+              "wins": 0,
+              "draws": 1,
+              "losses": 0,
+              "diff": 0,
+              "points": 1
+            },
+            {
+              "rank": 9,
+              "name": "Kairat Almaty",
+              "played": 1,
+              "wins": 0,
+              "draws": 1,
+              "losses": 0,
+              "diff": 0,
+              "points": 1
+            },
+            {
+              "rank": 10,
+              "name": "FC Midtjylland",
+              "played": 1,
+              "wins": 0,
+              "draws": 1,
+              "losses": 0,
+              "diff": 0,
+              "points": 1
+            },
+            {
+              "rank": 11,
+              "name": "Egnatia",
+              "played": 1,
+              "wins": 0,
+              "draws": 1,
+              "losses": 0,
+              "diff": 0,
+              "points": 1
+            },
+            {
+              "rank": 12,
+              "name": "Riga FC",
+              "played": 1,
+              "wins": 0,
+              "draws": 1,
+              "losses": 0,
+              "diff": 0,
+              "points": 1
+            },
+            {
+              "rank": 13,
+              "name": "CSU Craiova",
+              "played": 1,
+              "wins": 0,
+              "draws": 1,
+              "losses": 0,
+              "diff": 0,
+              "points": 1
+            },
+            {
+              "rank": 14,
               "name": "Atalanta",
               "played": 0,
               "wins": 0,
@@ -1195,17 +1305,7 @@
               "points": 0
             },
             {
-              "rank": 4,
-              "name": "Borac Banja Luka",
-              "played": 0,
-              "wins": 0,
-              "draws": 0,
-              "losses": 0,
-              "diff": 0,
-              "points": 0
-            },
-            {
-              "rank": 5,
+              "rank": 15,
               "name": "SK Brann",
               "played": 0,
               "wins": 0,
@@ -1215,7 +1315,7 @@
               "points": 0
             },
             {
-              "rank": 6,
+              "rank": 16,
               "name": "Brighton & Hove Albion",
               "played": 0,
               "wins": 0,
@@ -1225,27 +1325,7 @@
               "points": 0
             },
             {
-              "rank": 7,
-              "name": "CSKA Sofia",
-              "played": 0,
-              "wins": 0,
-              "draws": 0,
-              "losses": 0,
-              "diff": 0,
-              "points": 0
-            },
-            {
-              "rank": 8,
-              "name": "Egnatia",
-              "played": 0,
-              "wins": 0,
-              "draws": 0,
-              "losses": 0,
-              "diff": 0,
-              "points": 0
-            },
-            {
-              "rank": 9,
+              "rank": 17,
               "name": "FC Kopenhagen",
               "played": 0,
               "wins": 0,
@@ -1255,7 +1335,7 @@
               "points": 0
             },
             {
-              "rank": 10,
+              "rank": 18,
               "name": "SC Freiburg",
               "played": 0,
               "wins": 0,
@@ -1265,37 +1345,7 @@
               "points": 0
             },
             {
-              "rank": 11,
-              "name": "KAA Gent",
-              "played": 0,
-              "wins": 0,
-              "draws": 0,
-              "losses": 0,
-              "diff": 0,
-              "points": 0
-            },
-            {
-              "rank": 12,
-              "name": "Getafe",
-              "played": 0,
-              "wins": 0,
-              "draws": 0,
-              "losses": 0,
-              "diff": 0,
-              "points": 0
-            },
-            {
-              "rank": 13,
-              "name": "Hajduk Split",
-              "played": 0,
-              "wins": 0,
-              "draws": 0,
-              "losses": 0,
-              "diff": 0,
-              "points": 0
-            },
-            {
-              "rank": 14,
+              "rank": 19,
               "name": "Heart of Midlothian",
               "played": 0,
               "wins": 0,
@@ -1305,7 +1355,7 @@
               "points": 0
             },
             {
-              "rank": 15,
+              "rank": 20,
               "name": "Iberia 1999",
               "played": 0,
               "wins": 0,
@@ -1315,17 +1365,7 @@
               "points": 0
             },
             {
-              "rank": 16,
-              "name": "Inter D'Escaldes",
-              "played": 0,
-              "wins": 0,
-              "draws": 0,
-              "losses": 0,
-              "diff": 0,
-              "points": 0
-            },
-            {
-              "rank": 17,
+              "rank": 21,
               "name": "Jablonec",
               "played": 0,
               "wins": 0,
@@ -1335,17 +1375,7 @@
               "points": 0
             },
             {
-              "rank": 18,
-              "name": "Kairat Almaty",
-              "played": 0,
-              "wins": 0,
-              "draws": 0,
-              "losses": 0,
-              "diff": 0,
-              "points": 0
-            },
-            {
-              "rank": 19,
+              "rank": 22,
               "name": "Kauno Zalgiris",
               "played": 0,
               "wins": 0,
@@ -1355,17 +1385,7 @@
               "points": 0
             },
             {
-              "rank": 20,
-              "name": "KuPS Kuopio",
-              "played": 0,
-              "wins": 0,
-              "draws": 0,
-              "losses": 0,
-              "diff": 0,
-              "points": 0
-            },
-            {
-              "rank": 21,
+              "rank": 23,
               "name": "Lincoln Red Imps",
               "played": 0,
               "wins": 0,
@@ -1375,47 +1395,7 @@
               "points": 0
             },
             {
-              "rank": 22,
-              "name": "FC Lugano",
-              "played": 0,
-              "wins": 0,
-              "draws": 0,
-              "losses": 0,
-              "diff": 0,
-              "points": 0
-            },
-            {
-              "rank": 23,
-              "name": "FC Midtjylland",
-              "played": 0,
-              "wins": 0,
-              "draws": 0,
-              "losses": 0,
-              "diff": 0,
-              "points": 0
-            },
-            {
               "rank": 24,
-              "name": "Mjällby AIF",
-              "played": 0,
-              "wins": 0,
-              "draws": 0,
-              "losses": 0,
-              "diff": 0,
-              "points": 0
-            },
-            {
-              "rank": 25,
-              "name": "AS Monaco",
-              "played": 0,
-              "wins": 0,
-              "draws": 0,
-              "losses": 0,
-              "diff": 0,
-              "points": 0
-            },
-            {
-              "rank": 26,
               "name": "FC Nordsjælland",
               "played": 0,
               "wins": 0,
@@ -1425,7 +1405,7 @@
               "points": 0
             },
             {
-              "rank": 27,
+              "rank": 25,
               "name": "Pafos",
               "played": 0,
               "wins": 0,
@@ -1435,37 +1415,7 @@
               "points": 0
             },
             {
-              "rank": 28,
-              "name": "Panathinaikos",
-              "played": 0,
-              "wins": 0,
-              "draws": 0,
-              "losses": 0,
-              "diff": 0,
-              "points": 0
-            },
-            {
-              "rank": 29,
-              "name": "Rode Ster Belgrado",
-              "played": 0,
-              "wins": 0,
-              "draws": 0,
-              "losses": 0,
-              "diff": 0,
-              "points": 0
-            },
-            {
-              "rank": 30,
-              "name": "Riga FC",
-              "played": 0,
-              "wins": 0,
-              "draws": 0,
-              "losses": 0,
-              "diff": 0,
-              "points": 0
-            },
-            {
-              "rank": 31,
+              "rank": 26,
               "name": "Sint-Truidense",
               "played": 0,
               "wins": 0,
@@ -1475,7 +1425,7 @@
               "points": 0
             },
             {
-              "rank": 32,
+              "rank": 27,
               "name": "Braga",
               "played": 0,
               "wins": 0,
@@ -1485,7 +1435,7 @@
               "points": 0
             },
             {
-              "rank": 33,
+              "rank": 28,
               "name": "FC Thun",
               "played": 0,
               "wins": 0,
@@ -1495,17 +1445,7 @@
               "points": 0
             },
             {
-              "rank": 34,
-              "name": "Trabzonspor",
-              "played": 0,
-              "wins": 0,
-              "draws": 0,
-              "losses": 0,
-              "diff": 0,
-              "points": 0
-            },
-            {
-              "rank": 35,
+              "rank": 29,
               "name": "FC Twente",
               "played": 0,
               "wins": 0,
@@ -1515,13 +1455,73 @@
               "points": 0
             },
             {
-              "rank": 36,
-              "name": "CSU Craiova",
-              "played": 0,
+              "rank": 30,
+              "name": "Rode Ster Belgrado",
+              "played": 1,
               "wins": 0,
               "draws": 0,
-              "losses": 0,
-              "diff": 0,
+              "losses": 1,
+              "diff": -1,
+              "points": 0
+            },
+            {
+              "rank": 31,
+              "name": "Ajax",
+              "played": 1,
+              "wins": 0,
+              "draws": 0,
+              "losses": 1,
+              "diff": -1,
+              "points": 0
+            },
+            {
+              "rank": 32,
+              "name": "Borac Banja Luka",
+              "played": 1,
+              "wins": 0,
+              "draws": 0,
+              "losses": 1,
+              "diff": -1,
+              "points": 0
+            },
+            {
+              "rank": 33,
+              "name": "CSKA Sofia",
+              "played": 1,
+              "wins": 0,
+              "draws": 0,
+              "losses": 1,
+              "diff": -1,
+              "points": 0
+            },
+            {
+              "rank": 34,
+              "name": "AGF",
+              "played": 1,
+              "wins": 0,
+              "draws": 0,
+              "losses": 1,
+              "diff": -1,
+              "points": 0
+            },
+            {
+              "rank": 35,
+              "name": "KuPS Kuopio",
+              "played": 1,
+              "wins": 0,
+              "draws": 0,
+              "losses": 1,
+              "diff": -2,
+              "points": 0
+            },
+            {
+              "rank": 36,
+              "name": "Inter D'Escaldes",
+              "played": 1,
+              "wins": 0,
+              "draws": 0,
+              "losses": 1,
+              "diff": -2,
               "points": 0
             }
           ]
@@ -1529,7 +1529,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.europa.conf",
-      "fetchedAt": "2026-10-15T16:55:39.437Z"
+      "fetchedAt": "2026-10-15T21:19:09.872Z"
     },
     "wk": {
       "season": "2026 Wereldkampioenschap",
@@ -3121,7 +3121,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/fifa.world",
-      "fetchedAt": "2026-10-15T16:55:39.605Z"
+      "fetchedAt": "2026-10-15T21:19:09.932Z"
     },
     "ek": {
       "season": "2024 UEFA Europees Kampioenschap",
@@ -3913,7 +3913,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.euro",
-      "fetchedAt": "2026-10-15T16:55:39.521Z"
+      "fetchedAt": "2026-10-15T21:19:10.092Z"
     },
     "nations": {
       "season": "2026 UEFA Nations League",
@@ -6135,7 +6135,7 @@
       "archived": false,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.nations",
-      "fetchedAt": "2026-10-15T16:55:39.538Z"
+      "fetchedAt": "2026-10-15T21:19:09.950Z"
     },
     "wk-vrouwen": {
       "season": "2023 FIFA Wereldkampioenschap Vrouwen",
@@ -7147,7 +7147,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/fifa.wwc",
-      "fetchedAt": "2026-10-15T16:55:39.908Z"
+      "fetchedAt": "2026-10-15T21:19:10.383Z"
     },
     "nations-vrouwen": {
       "season": "2025 UEFA Women's Nations League",
@@ -9459,7 +9459,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.w.nations",
-      "fetchedAt": "2026-10-15T16:55:39.974Z"
+      "fetchedAt": "2026-10-15T21:19:10.486Z"
     },
     "ek-vrouwen": {
       "season": "2025 Europees Kampioenschap Voetbal Vrouwen",
@@ -9961,7 +9961,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.weuro",
-      "fetchedAt": "2026-10-15T16:55:39.902Z"
+      "fetchedAt": "2026-10-15T21:19:10.388Z"
     },
     "f1-drivers": {
       "season": "2026",
@@ -10300,7 +10300,7 @@
       ],
       "source": "Jolpica",
       "sourceUrl": "https://api.jolpi.ca/ergast/f1/current/driverStandings.json",
-      "fetchedAt": "2026-10-15T16:55:39.862Z"
+      "fetchedAt": "2026-10-15T21:19:10.657Z"
     },
     "f1-constructors": {
       "season": "2026",
@@ -10555,7 +10555,7 @@
       ],
       "source": "Jolpica",
       "sourceUrl": "https://api.jolpi.ca/ergast/f1/current/constructorStandings.json",
-      "fetchedAt": "2026-10-15T16:55:40.467Z"
+      "fetchedAt": "2026-10-15T21:19:11.170Z"
     },
     "darts-premier": {
       "season": "2026",
@@ -10644,7 +10644,7 @@
       "archived": true,
       "source": "Mastercaller",
       "sourceUrl": "https://mastercaller.nl/toernooien/premier-league/2026/stand",
-      "fetchedAt": "2026-10-15T16:55:41.520Z"
+      "fetchedAt": "2026-10-15T21:19:12.173Z"
     },
     "darts-merit": {
       "season": "2026",
@@ -10661,12 +10661,12 @@
             {
               "rank": 2,
               "name": "Luke Humphries",
-              "points": 1081000
+              "points": 1096000
             },
             {
               "rank": 3,
               "name": "Gian van Veen",
-              "points": 1029750
+              "points": 1039750
             },
             {
               "rank": 4,
@@ -10675,23 +10675,23 @@
             },
             {
               "rank": 5,
+              "name": "Jonny Clayton",
+              "points": 719000
+            },
+            {
+              "rank": 6,
               "name": "James Wade",
               "points": 686250
             },
             {
-              "rank": 6,
-              "name": "Jonny Clayton",
-              "points": 684000
-            },
-            {
               "rank": 7,
-              "name": "Danny Noppert",
-              "points": 615000
+              "name": "Josh Rock",
+              "points": 618000
             },
             {
               "rank": 8,
-              "name": "Josh Rock",
-              "points": 613000
+              "name": "Danny Noppert",
+              "points": 615000
             },
             {
               "rank": 9,
@@ -10726,7 +10726,7 @@
             {
               "rank": 15,
               "name": "Ross Smith",
-              "points": 562250
+              "points": 567250
             },
             {
               "rank": 16,
@@ -10746,22 +10746,22 @@
             {
               "rank": 19,
               "name": "Krzysztof Ratajski",
-              "points": 440000
+              "points": 445000
             },
             {
               "rank": 20,
               "name": "Dirk van Duijvenbode",
-              "points": 427500
+              "points": 435500
             },
             {
               "rank": 21,
               "name": "Damon Heta",
-              "points": 413250
+              "points": 418250
             },
             {
               "rank": 22,
               "name": "Rob Cross",
-              "points": 397000
+              "points": 402000
             },
             {
               "rank": 23,
@@ -10775,13 +10775,13 @@
             },
             {
               "rank": 25,
-              "name": "Cameron Menzies",
-              "points": 375000
+              "name": "Kevin Doets",
+              "points": 376500
             },
             {
               "rank": 26,
-              "name": "Kevin Doets",
-              "points": 373000
+              "name": "Cameron Menzies",
+              "points": 375000
             },
             {
               "rank": 27,
@@ -10801,7 +10801,7 @@
             {
               "rank": 30,
               "name": "Dave Chisnall",
-              "points": 280750
+              "points": 284250
             },
             {
               "rank": 31,
@@ -10815,13 +10815,13 @@
             },
             {
               "rank": 33,
-              "name": "Mike De Decker",
-              "points": 274000
+              "name": "William O'Connor",
+              "points": 277000
             },
             {
               "rank": 34,
-              "name": "William O'Connor",
-              "points": 273500
+              "name": "Mike De Decker",
+              "points": 274000
             },
             {
               "rank": 35,
@@ -10830,18 +10830,18 @@
             },
             {
               "rank": 36,
-              "name": "Peter Wright",
-              "points": 237000
+              "name": "Michael Smith",
+              "points": 241250
             },
             {
               "rank": 37,
               "name": "Niko Springer",
-              "points": 236250
+              "points": 239750
             },
             {
-              "rank": 37,
-              "name": "Michael Smith",
-              "points": 236250
+              "rank": 38,
+              "name": "Peter Wright",
+              "points": 237000
             },
             {
               "rank": 39,
@@ -10866,12 +10866,12 @@
             {
               "rank": 43,
               "name": "Jeffrey de Graaf",
-              "points": 184250
+              "points": 189250
             },
             {
               "rank": 44,
               "name": "Raymond van Barneveld",
-              "points": 180250
+              "points": 182250
             },
             {
               "rank": 45,
@@ -10880,18 +10880,18 @@
             },
             {
               "rank": 46,
+              "name": "Karel Sedlacek",
+              "points": 177250
+            },
+            {
+              "rank": 47,
               "name": "James Hurrell",
               "points": 175250
             },
             {
-              "rank": 47,
+              "rank": 48,
               "name": "Gabriel Clemens",
               "points": 171500
-            },
-            {
-              "rank": 48,
-              "name": "Karel Sedlacek",
-              "points": 169250
             },
             {
               "rank": 49,
@@ -10925,13 +10925,13 @@
             },
             {
               "rank": 55,
-              "name": "Keane Barry",
-              "points": 152250
+              "name": "Mensur Suljovic",
+              "points": 159500
             },
             {
               "rank": 56,
-              "name": "Mensur Suljovic",
-              "points": 149500
+              "name": "Keane Barry",
+              "points": 152250
             },
             {
               "rank": 57,
@@ -10951,17 +10951,17 @@
             {
               "rank": 60,
               "name": "Alan Soutar",
-              "points": 127000
+              "points": 129000
             },
             {
               "rank": 61,
-              "name": "Rob Owen",
-              "points": 123250
+              "name": "Bradley Brooks",
+              "points": 127500
             },
             {
               "rank": 62,
-              "name": "Bradley Brooks",
-              "points": 119500
+              "name": "Rob Owen",
+              "points": 125250
             },
             {
               "rank": 63,
@@ -10975,18 +10975,18 @@
             },
             {
               "rank": 65,
-              "name": "Max Hopp",
-              "points": 113000
+              "name": "Nick Kenny",
+              "points": 115000
             },
             {
-              "rank": 65,
-              "name": "Nick Kenny",
-              "points": 113000
+              "rank": 66,
+              "name": "Mario Vandenbogaerde",
+              "points": 114000
             },
             {
               "rank": 67,
-              "name": "Mario Vandenbogaerde",
-              "points": 112000
+              "name": "Max Hopp",
+              "points": 113000
             },
             {
               "rank": 68,
@@ -11006,12 +11006,12 @@
             {
               "rank": 71,
               "name": "Cristo Reyes",
-              "points": 87000
+              "points": 95000
             },
             {
               "rank": 72,
               "name": "Maik Kuivenhoven",
-              "points": 82000
+              "points": 85500
             },
             {
               "rank": 73,
@@ -11020,13 +11020,13 @@
             },
             {
               "rank": 74,
-              "name": "Beau Greaves",
-              "points": 72000
+              "name": "Tom Bissell",
+              "points": 76250
             },
             {
               "rank": 75,
-              "name": "Tom Bissell",
-              "points": 71250
+              "name": "Beau Greaves",
+              "points": 72000
             },
             {
               "rank": 76,
@@ -11220,33 +11220,38 @@
             },
             {
               "rank": 114,
+              "name": "Sietse Lap",
+              "points": 23250
+            },
+            {
+              "rank": 115,
               "name": "Tommy Lishman",
               "points": 23000
             },
             {
-              "rank": 115,
+              "rank": 116,
               "name": "Niall Culleton",
               "points": 22750
             },
             {
-              "rank": 116,
+              "rank": 117,
               "name": "Scott Waites",
               "points": 22500
             },
             {
-              "rank": 117,
+              "rank": 118,
               "name": "Jack Tweddell",
               "points": 21750
             },
             {
-              "rank": 118,
+              "rank": 119,
               "name": "Arno Merk",
               "points": 21500
             },
             {
-              "rank": 119,
-              "name": "Sietse Lap",
-              "points": 21250
+              "rank": 120,
+              "name": "Stefan Bellmont",
+              "points": 20000
             },
             {
               "rank": 120,
@@ -11254,39 +11259,34 @@
               "points": 20000
             },
             {
-              "rank": 121,
+              "rank": 122,
               "name": "Rhys Griffin",
               "points": 19250
             },
             {
-              "rank": 121,
+              "rank": 122,
               "name": "Adam Leek",
               "points": 19250
             },
             {
-              "rank": 123,
+              "rank": 124,
               "name": "Derek Coulson",
               "points": 19000
             },
             {
-              "rank": 124,
+              "rank": 125,
               "name": "Steve Lennon",
               "points": 17750
             },
             {
-              "rank": 125,
+              "rank": 126,
               "name": "Stephen Rosney",
               "points": 17000
             },
             {
-              "rank": 126,
+              "rank": 127,
               "name": "Stefaan Henderyck",
               "points": 16750
-            },
-            {
-              "rank": 127,
-              "name": "Stefan Bellmont",
-              "points": 16500
             },
             {
               "rank": 128,
@@ -11425,6 +11425,16 @@
             },
             {
               "rank": 155,
+              "name": "Gyorgy Jehirszki",
+              "points": 4000
+            },
+            {
+              "rank": 155,
+              "name": "Jani Haavisto",
+              "points": 4000
+            },
+            {
+              "rank": 155,
               "name": "Finn Behrens",
               "points": 4000
             },
@@ -11439,319 +11449,324 @@
               "points": 4000
             },
             {
-              "rank": 158,
+              "rank": 160,
               "name": "Ted Evetts",
               "points": 3750
             },
             {
-              "rank": 158,
+              "rank": 160,
               "name": "Aden Kirk",
               "points": 3750
             },
             {
-              "rank": 158,
+              "rank": 160,
               "name": "Filip Bereza",
               "points": 3750
             },
             {
-              "rank": 158,
+              "rank": 160,
               "name": "Scott Campbell",
               "points": 3750
             },
             {
-              "rank": 162,
+              "rank": 164,
               "name": "Laszlo Kadar",
               "points": 3500
             },
             {
-              "rank": 162,
+              "rank": 164,
               "name": "Valters Melderis",
               "points": 3500
             },
             {
-              "rank": 164,
+              "rank": 166,
               "name": "Archie Self",
               "points": 3250
             },
             {
-              "rank": 165,
+              "rank": 167,
               "name": "Patrik Williams",
               "points": 3000
             },
             {
-              "rank": 166,
+              "rank": 168,
               "name": "Gilbert van der Meijden",
               "points": 2500
             },
             {
-              "rank": 166,
+              "rank": 168,
               "name": "Graham Hall",
               "points": 2500
             },
             {
-              "rank": 168,
+              "rank": 170,
+              "name": "Alex Fehlmann",
+              "points": 2000
+            },
+            {
+              "rank": 170,
+              "name": "Bruno Stoeckli",
+              "points": 2000
+            },
+            {
+              "rank": 170,
+              "name": "Roman Wellinger",
+              "points": 2000
+            },
+            {
+              "rank": 170,
               "name": "Jaimy Jacobs",
               "points": 2000
             },
             {
-              "rank": 168,
+              "rank": 170,
               "name": "Jeroen Caron",
               "points": 2000
             },
             {
-              "rank": 168,
+              "rank": 170,
               "name": "Kevin Lankhuizen",
               "points": 2000
             },
             {
-              "rank": 168,
+              "rank": 170,
               "name": "Michael Hansen",
               "points": 2000
             },
             {
-              "rank": 168,
+              "rank": 170,
               "name": "Petr Tous",
               "points": 2000
             },
             {
-              "rank": 168,
+              "rank": 170,
               "name": "David Rosi",
               "points": 2000
             },
             {
-              "rank": 168,
+              "rank": 170,
               "name": "Jiri Brejcha",
               "points": 2000
             },
             {
-              "rank": 168,
+              "rank": 170,
               "name": "Martin Homola",
               "points": 2000
             },
             {
-              "rank": 168,
+              "rank": 170,
               "name": "Andras Borbely",
               "points": 2000
             },
             {
-              "rank": 168,
+              "rank": 170,
               "name": "David Pisek",
               "points": 2000
             },
             {
-              "rank": 168,
+              "rank": 170,
               "name": "Milan Biro",
               "points": 2000
             },
             {
-              "rank": 168,
+              "rank": 170,
               "name": "Jaimy Van de Weerd",
               "points": 2000
             },
             {
-              "rank": 168,
+              "rank": 170,
               "name": "Michal Smejda",
               "points": 2000
             },
             {
-              "rank": 168,
+              "rank": 170,
               "name": "Mio Varila",
               "points": 2000
             },
             {
-              "rank": 168,
+              "rank": 170,
               "name": "Adrian Dudek",
               "points": 2000
             },
             {
-              "rank": 168,
+              "rank": 170,
               "name": "Gabriel Varaljay",
               "points": 2000
             },
             {
-              "rank": 168,
+              "rank": 170,
               "name": "Jan Sliacky",
               "points": 2000
             },
             {
-              "rank": 168,
+              "rank": 170,
               "name": "Juraj Holub",
               "points": 2000
             },
             {
-              "rank": 168,
+              "rank": 170,
               "name": "Peter Kelemen",
               "points": 2000
             },
             {
-              "rank": 168,
+              "rank": 170,
               "name": "Jason Riedtke",
               "points": 2000
             },
             {
-              "rank": 168,
+              "rank": 170,
               "name": "Teemu Harju",
               "points": 2000
             },
             {
-              "rank": 168,
-              "name": "Gyorgy Jehirszki",
-              "points": 2000
-            },
-            {
-              "rank": 168,
+              "rank": 170,
               "name": "Liam Maendl-Lawrance",
               "points": 2000
             },
             {
-              "rank": 168,
+              "rank": 170,
               "name": "Aaron Hardy",
               "points": 2000
             },
             {
-              "rank": 168,
+              "rank": 170,
               "name": "Nick Zwittnigg",
               "points": 2000
             },
             {
-              "rank": 168,
+              "rank": 170,
               "name": "Zoran Lerchbacher",
               "points": 2000
             },
             {
-              "rank": 168,
+              "rank": 170,
               "name": "Michael Hurtz",
               "points": 2000
             },
             {
-              "rank": 168,
+              "rank": 170,
               "name": "Petr Krivka",
               "points": 2000
             },
             {
-              "rank": 168,
+              "rank": 170,
               "name": "Robin Masino",
               "points": 2000
             },
             {
-              "rank": 168,
+              "rank": 170,
               "name": "Kevin Troppmann",
               "points": 2000
             },
             {
-              "rank": 168,
+              "rank": 170,
               "name": "Francois Schweyen",
               "points": 2000
             },
             {
-              "rank": 168,
-              "name": "Jani Haavisto",
-              "points": 2000
-            },
-            {
-              "rank": 168,
+              "rank": 170,
               "name": "Pascal Devroey",
               "points": 2000
             },
             {
-              "rank": 168,
+              "rank": 170,
               "name": "Florian Hempel",
               "points": 2000
             },
             {
-              "rank": 168,
+              "rank": 170,
               "name": "Florian Preis",
               "points": 2000
             },
             {
-              "rank": 168,
+              "rank": 170,
               "name": "Wojciech Brulinski",
               "points": 2000
             },
             {
-              "rank": 168,
+              "rank": 170,
               "name": "Sam Spivey",
               "points": 2000
             },
             {
-              "rank": 168,
+              "rank": 170,
               "name": "Andreas Harrysson",
               "points": 2000
             },
             {
-              "rank": 168,
+              "rank": 170,
               "name": "Dawid Robak",
               "points": 2000
             },
             {
-              "rank": 168,
+              "rank": 170,
               "name": "Krzysztof Kciuk",
               "points": 2000
             },
             {
-              "rank": 168,
+              "rank": 170,
               "name": "Miroslaw Grudziecki",
               "points": 2000
             },
             {
-              "rank": 168,
+              "rank": 170,
               "name": "Piotr Maciejczak",
               "points": 2000
             },
             {
-              "rank": 210,
+              "rank": 213,
               "name": "Danny Trueman",
               "points": 1250
             },
             {
-              "rank": 210,
+              "rank": 213,
               "name": "Matthias Ehlers",
               "points": 1250
             },
             {
-              "rank": 210,
+              "rank": 213,
               "name": "Jack Todd",
               "points": 1250
             },
             {
-              "rank": 210,
+              "rank": 213,
               "name": "Jamai van den Herik",
               "points": 1250
             },
             {
-              "rank": 210,
+              "rank": 213,
               "name": "Oliver King",
               "points": 1250
             },
             {
-              "rank": 210,
+              "rank": 213,
               "name": "Ron Meulenkamp",
               "points": 1250
             },
             {
-              "rank": 210,
+              "rank": 213,
               "name": "Samuel Whittaker",
               "points": 1250
             },
             {
-              "rank": 217,
+              "rank": 220,
               "name": "Danny van Trijp",
               "points": 750
             },
             {
-              "rank": 217,
+              "rank": 220,
               "name": "Jesus Salate",
               "points": 750
             }
           ]
         }
       ],
-      "asOf": "October 4, 2026",
+      "asOf": "October 11, 2026",
       "note": "Prijzengeld over twee jaar. Laatst gepubliceerde ranking; geen live prognose.",
       "archived": false,
       "source": "Darts Rankings",
       "sourceUrl": "https://www.dartsrankings.com/lastranking",
-      "fetchedAt": "2026-10-15T16:55:41.260Z"
+      "fetchedAt": "2026-10-15T21:19:11.932Z"
     },
     "motogp-riders": {
       "season": "2026",
@@ -11960,7 +11975,7 @@
       "archived": false,
       "source": "MotoGP",
       "sourceUrl": "https://stats.motogp.com/en/world-standing",
-      "fetchedAt": "2026-10-15T16:55:43.114Z"
+      "fetchedAt": "2026-10-15T21:19:13.279Z"
     },
     "handbal-men": {
       "season": "2026/27",
@@ -12107,41 +12122,41 @@
             {
               "rank": 1,
               "name": "Sporting Clube de Portugal",
-              "played": 3,
-              "wins": 2,
+              "played": 4,
+              "wins": 3,
               "draws": 1,
               "losses": 0,
-              "diff": 18,
-              "points": 5
+              "diff": 24,
+              "points": 7
             },
             {
-              "rank": 2,
+              "rank": 1,
               "name": "GOG",
-              "played": 3,
-              "wins": 2,
+              "played": 4,
+              "wins": 3,
               "draws": 0,
               "losses": 1,
-              "diff": -3,
-              "points": 4
+              "diff": 6,
+              "points": 6
             },
             {
               "rank": 3,
               "name": "OTP Bank - PICK Szeged",
-              "played": 3,
+              "played": 4,
               "wins": 1,
               "draws": 1,
-              "losses": 1,
-              "diff": 9,
+              "losses": 2,
+              "diff": 3,
               "points": 3
             },
             {
               "rank": 4,
               "name": "IFK Kristianstad",
-              "played": 3,
+              "played": 4,
               "wins": 0,
               "draws": 0,
-              "losses": 3,
-              "diff": -24,
+              "losses": 4,
+              "diff": -33,
               "points": 0
             }
           ]
@@ -12152,41 +12167,41 @@
             {
               "rank": 1,
               "name": "Barça",
-              "played": 3,
-              "wins": 3,
+              "played": 4,
+              "wins": 4,
               "draws": 0,
               "losses": 0,
-              "diff": 19,
-              "points": 6
+              "diff": 33,
+              "points": 8
             },
             {
               "rank": 2,
               "name": "SAH - Aarhus",
-              "played": 3,
-              "wins": 1,
+              "played": 4,
+              "wins": 2,
               "draws": 1,
               "losses": 1,
-              "diff": -7,
-              "points": 3
+              "diff": 1,
+              "points": 5
             },
             {
               "rank": 3,
               "name": "Montpellier Handball",
-              "played": 3,
+              "played": 4,
               "wins": 1,
               "draws": 0,
-              "losses": 2,
-              "diff": -1,
+              "losses": 3,
+              "diff": -9,
               "points": 2
             },
             {
               "rank": 4,
               "name": "Dinamo Bucuresti",
-              "played": 3,
+              "played": 4,
               "wins": 0,
               "draws": 1,
-              "losses": 2,
-              "diff": -11,
+              "losses": 3,
+              "diff": -25,
               "points": 1
             }
           ]
@@ -12242,7 +12257,7 @@
       "archived": false,
       "source": "EHF",
       "sourceUrl": "https://ehfcl.eurohandball.com/men/2026-27/standings/",
-      "fetchedAt": "2026-10-15T16:55:44.575Z"
+      "fetchedAt": "2026-10-15T21:19:14.999Z"
     },
     "handbal-women": {
       "season": "2026/27",
@@ -12424,7 +12439,7 @@
       "archived": false,
       "source": "EHF",
       "sourceUrl": "https://ehfcl.eurohandball.com/women/2026-27/standings/",
-      "fetchedAt": "2026-10-15T16:55:46.260Z"
+      "fetchedAt": "2026-10-15T21:19:16.775Z"
     },
     "handbal-euro-men": {
       "season": "2026",
@@ -12836,7 +12851,7 @@
       "archived": true,
       "source": "EHF",
       "sourceUrl": "https://ehfeuro.eurohandball.com/men/2026/standings/Xg2Ubz1_S9dxy0p0unxCBg/final-tournament/",
-      "fetchedAt": "2026-10-15T16:55:44.870Z"
+      "fetchedAt": "2026-10-15T21:19:14.890Z"
     },
     "handbal-euro-women": {
       "season": "2024",
@@ -13248,7 +13263,7 @@
       "archived": true,
       "source": "EHF",
       "sourceUrl": "https://ehfeuro.eurohandball.com/women/2024/standings/R-saEwRJFutIKedhnRuDpg/FinalTournament/",
-      "fetchedAt": "2026-10-15T16:55:44.985Z"
+      "fetchedAt": "2026-10-15T21:19:15.563Z"
     },
     "handbal-world-men": {
       "season": "2025",
@@ -13425,7 +13440,7 @@
       "archived": true,
       "source": "IHF",
       "sourceUrl": "https://www.ihf.info/media-center/events/29th-ihf-mens-world-championship",
-      "fetchedAt": "2026-10-15T16:55:45.379Z"
+      "fetchedAt": "2026-10-15T21:19:15.884Z"
     },
     "handbal-world-women": {
       "season": "2025",
@@ -13602,7 +13617,7 @@
       "archived": true,
       "source": "IHF",
       "sourceUrl": "https://www.ihf.info/index.php/media-center/events/27th-ihf-womens-world-championship",
-      "fetchedAt": "2026-10-15T16:55:46.924Z"
+      "fetchedAt": "2026-10-15T21:19:17.359Z"
     }
   }
 }
