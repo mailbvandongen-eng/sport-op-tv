@@ -2,7 +2,7 @@
   "schema": 1,
   "competition": "EHF Champions League Men",
   "sourceUrl": "https://ehfcl.eurohandball.com/men/2026-27/matches/",
-  "fetchedAt": "2026-10-15T21:19:27.124Z",
+  "fetchedAt": "2026-10-16T04:25:33.771Z",
   "matches": [
     {
       "id": "202711020101025",
@@ -618,7 +618,7 @@
       "location": "Bucuresti",
       "channel": "EHFTV",
       "source": "EHF confirmed",
-      "completed": false
+      "completed": true
     },
     {
       "id": "202711020101047",
@@ -632,7 +632,7 @@
       "location": "Svendborg",
       "channel": "EHFTV",
       "source": "EHF confirmed",
-      "completed": false
+      "completed": true
     },
     {
       "id": "202711020101008",
@@ -646,7 +646,7 @@
       "location": "Porto",
       "channel": "EHFTV",
       "source": "EHF confirmed",
-      "completed": false
+      "completed": true
     },
     {
       "id": "202711020101057",
@@ -660,7 +660,7 @@
       "location": "Montpellier",
       "channel": "EHFTV",
       "source": "EHF confirmed",
-      "completed": false
+      "completed": true
     },
     {
       "id": "202711020101037",
@@ -672,6 +672,34 @@
       "away": "OTP Bank - PICK Szeged",
       "competition": "EHF Champions League Men",
       "location": "Lisboa",
+      "channel": "EHFTV",
+      "source": "EHF confirmed",
+      "completed": true
+    },
+    {
+      "id": "202711020101059",
+      "date": "2026-10-21",
+      "utc": "2026-10-21T16:45:00Z",
+      "time": "18:45",
+      "event": "Dinamo Bucuresti vs SAH - Aarhus",
+      "home": "Dinamo Bucuresti",
+      "away": "SAH - Aarhus",
+      "competition": "EHF Champions League Men",
+      "location": "Bucuresti",
+      "channel": "EHFTV",
+      "source": "EHF confirmed",
+      "completed": false
+    },
+    {
+      "id": "202711020101032",
+      "date": "2026-10-21",
+      "utc": "2026-10-21T16:45:00Z",
+      "time": "18:45",
+      "event": "HC Zagreb vs Paris Saint-Germain",
+      "home": "HC Zagreb",
+      "away": "Paris Saint-Germain",
+      "competition": "EHF Champions League Men",
+      "location": "Zagreb",
       "channel": "EHFTV",
       "source": "EHF confirmed",
       "completed": false
@@ -700,34 +728,6 @@
       "away": "FC Porto",
       "competition": "EHF Champions League Men",
       "location": "Belgrade",
-      "channel": "EHFTV",
-      "source": "EHF confirmed",
-      "completed": false
-    },
-    {
-      "id": "202711020101059",
-      "date": "2026-10-21",
-      "utc": "2026-10-21T16:45:00Z",
-      "time": "18:45",
-      "event": "Dinamo Bucuresti vs SAH - Aarhus",
-      "home": "Dinamo Bucuresti",
-      "away": "SAH - Aarhus",
-      "competition": "EHF Champions League Men",
-      "location": "Bucuresti",
-      "channel": "EHFTV",
-      "source": "EHF confirmed",
-      "completed": false
-    },
-    {
-      "id": "202711020101032",
-      "date": "2026-10-21",
-      "utc": "2026-10-21T16:45:00Z",
-      "time": "18:45",
-      "event": "HC Zagreb vs Paris Saint-Germain",
-      "home": "HC Zagreb",
-      "away": "Paris Saint-Germain",
-      "competition": "EHF Champions League Men",
-      "location": "Zagreb",
       "channel": "EHFTV",
       "source": "EHF confirmed",
       "completed": false
