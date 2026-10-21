@@ -92,15 +92,13 @@
         event.matches = patch.matches;
     });
 
-    if (typeof renderEvents === 'function') {
-        setTimeout(() => renderEvents(), 0);
-    }
 })();
 
 (function () {
     'use strict';
 
     const RELEASES = [
+    {version: '3.16.1', date: '21 oktober 2026', title: 'Sport op TV opent sneller', notes: ['Bij openen laadt de app alleen de gekozen sport; Voetbal hoeft niet meer op Darts, F1 en Handbal te wachten.', 'Bewaarde voetbalwedstrijden blijven direct zichtbaar terwijl verlopen gegevens op de achtergrond worden bijgewerkt.', 'De ESPN-competities worden met begrensde gelijktijdigheid opgehaald in plaats van één voor één.']},
     {version: '3.16.0', date: '14 oktober 2026', title: 'Champions League handbal voor Rick', notes: ['De handbalagenda toont alleen EHF Champions League Men: echte wedstrijden en Nederlandse starttijden uit de officiële EHF-bron.', 'EHFTV is aanklikbaar. Het schema wordt iedere zes uur bijgewerkt; bij een storing blijft het laatst opgehaalde schema beschikbaar.']},
     {version: '3.15.3', date: '11 oktober 2026', title: 'Wijzigingen op jouw moment', notes: ['Met Wijzigingen niet meer tonen zet je het automatische wijzigingsscherm uit, ook voor toekomstige versies.', 'Via het versienummer onderaan kun je wijzigingen blijven bekijken en automatisch tonen weer aanzetten.']},
     {

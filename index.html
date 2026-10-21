@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="football-policy.js?v=3.16.0"></script>
+    <script src="football-policy.js?v=3.16.1"></script>
     <style>
         * {
             margin: 0;
@@ -2834,10 +2834,10 @@
             background: var(--text-secondary);
         }
     </style>
-    <link rel="stylesheet" href="search-ui.css?v=3.16.0">
-    <link rel="stylesheet" href="guide-ui.css?v=3.16.0">
-    <script src="search-enhancements.js?v=3.16.0"></script>
-    <link rel="stylesheet" href="standings-menu.css?v=3.16.0">
+    <link rel="stylesheet" href="search-ui.css?v=3.16.1">
+    <link rel="stylesheet" href="guide-ui.css?v=3.16.1">
+    <script src="search-enhancements.js?v=3.16.1"></script>
+    <link rel="stylesheet" href="standings-menu.css?v=3.16.1">
 </head>
 <body>
     <a class="skip-link" href="#events-container">Naar wedstrijden</a>
@@ -3445,6 +3445,8 @@
             ...createEmptyCachedData()
         };
         let footballSourceHealth = { successful: 0, failed: 0, updatedAt: null, fromCache: false };
+        let footballBackgroundRefreshQueued = false;
+        let footballBackgroundRefreshPromise = null;
 
         function restoreFootballSourceHealth(cacheTime) {
             try {
@@ -4318,7 +4320,7 @@
         // Fetch F1 sessions from OpenF1 API
         async function fetchF1Sessions() {
             try {
-                const response = await fetch(`${CONFIG.F1_API_URL}/sessions?year=2026`);
+                const response = await fetch(`${CONFIG.F1_API_URL}/sessions?year=2026`, { signal: AbortSignal.timeout(8000) });
                 if (!response.ok) throw new Error('F1 API error');
                 const sessions = await response.json();
 
@@ -4639,7 +4641,8 @@
             try {
                 const separator = CONFIG.WORLD_CUP_HIGHLIGHTS_URL.includes('?') ? '&' : '?';
                 const response = await fetch(`${CONFIG.WORLD_CUP_HIGHLIGHTS_URL}${separator}v=${Date.now()}`, {
-                    cache: 'no-store'
+                    cache: 'no-store',
+                    signal: AbortSignal.timeout(8000)
                 });
 
                 if (!response.ok) {
@@ -4912,13 +4915,24 @@
             const cacheTime = localStorage.getItem('footballCacheTime');
             const cacheValid = !options.force && cached && cacheTime && (Date.now() - parseInt(cacheTime)) < 1 * 60 * 60 * 1000;
 
-            if (cacheValid) {
-                console.log('Using cached football data');
-                restoreFootballSourceHealth(cacheTime);
-                const data = JSON.parse(cached);
-                const repaired = normalizeFootballData(data).map(normalizeFootballMatchChannel);
-                localStorage.setItem('footballCache', JSON.stringify(repaired));
-                return repaired;
+            if (cached) {
+                try {
+                    const data = JSON.parse(cached);
+                    const repaired = normalizeFootballData(data).map(normalizeFootballMatchChannel);
+                    restoreFootballSourceHealth(cacheTime);
+                    localStorage.setItem('footballCache', JSON.stringify(repaired));
+                    if (cacheValid) {
+                        console.log('Using cached football data');
+                        return repaired;
+                    }
+                    if (!options.force) {
+                        console.log('Using stale football cache while scheduling a background refresh');
+                        if (!footballBackgroundRefreshPromise) footballBackgroundRefreshQueued = true;
+                        return repaired;
+                    }
+                } catch (error) {
+                    console.warn('Could not read football cache:', error);
+                }
             }
 
             footballSourceHealth = { successful: 0, failed: 0, updatedAt: null, fromCache: false };
@@ -4929,7 +4943,7 @@
                 try {
                     const url = `${CONFIG.OPENFOOTBALL_REPO}/${getOpenFootballSeason()}/${league.file}`;
                     console.log(`Fetching ${league.name} from ${url}`);
-                    const response = await fetch(url);
+                    const response = await fetch(url, { signal: AbortSignal.timeout(8000) });
 
                     if (!response.ok) {
                         console.warn(`Failed to fetch ${league.name}: ${response.status}`);
@@ -4972,19 +4986,19 @@
                 }
             });
 
+            const espnPromise = fetchESPNMatches().catch(error => {
+                console.warn('Could not fetch ESPN matches:', error);
+                return [];
+            });
             const results = await Promise.all(leaguePromises);
             results.forEach(matches => allMatches.push(...matches));
 
             console.log(`OpenFootball matches loaded: ${allMatches.length}`);
 
             // Fetch additional football competitions from ESPN API
-            try {
-                const espnMatches = await fetchESPNMatches();
-                allMatches.push(...espnMatches);
-                console.log(`Added ${espnMatches.length} additional football matches from ESPN`);
-            } catch (e) {
-                console.warn('Could not fetch ESPN matches:', e);
-            }
+            const espnMatches = await espnPromise;
+            allMatches.push(...espnMatches);
+            console.log(`Added ${espnMatches.length} additional football matches from ESPN`);
 
             const staticFallbackMatches = getStaticFootballMatches();
             allMatches.push(...staticFallbackMatches);
@@ -5025,6 +5039,26 @@
             return getStaticFootballMatches();
         }
 
+        function refreshStaleFootballDataInBackground() {
+            if (!footballBackgroundRefreshQueued || footballBackgroundRefreshPromise) return;
+            footballBackgroundRefreshQueued = false;
+            const cacheTimeBeforeRefresh = Number(localStorage.getItem('footballCacheTime')) || 0;
+            footballBackgroundRefreshPromise = fetchFootballMatches({ force: true })
+                .then(freshMatches => {
+                    const cacheTimeAfterRefresh = Number(localStorage.getItem('footballCacheTime')) || 0;
+                    if (cacheTimeAfterRefresh <= cacheTimeBeforeRefresh || !Array.isArray(freshMatches) || !freshMatches.length) return;
+                    footballBackgroundRefreshQueued = false;
+                    cachedData.voetbal = freshMatches;
+                    if (currentSportFilter === 'voetbal' || currentSportFilter === null) {
+                        return renderEvents();
+                    }
+                })
+                .catch(error => console.warn('Background football refresh failed:', error))
+                .finally(() => {
+                    footballBackgroundRefreshPromise = null;
+                });
+        }
+
         // Helper function for date strings
         function getDateStr(daysFromNow) {
             const d = new Date();
@@ -5043,10 +5077,28 @@
             const fromDate = dayKeys[0];
             const toDate = dayKeys[dayKeys.length - 1];
 
+            // ESPN is a public endpoint. Keep requests concurrent, but cap the
+            // number in flight so a full schedule refresh does not flood it.
+            const maxConcurrentEspnRequests = 6;
+            let activeEspnRequests = 0;
+            const waitingEspnRequests = [];
+            async function fetchEspnWithLimit(url) {
+                if (activeEspnRequests >= maxConcurrentEspnRequests) {
+                    await new Promise(resolve => waitingEspnRequests.push(resolve));
+                }
+                activeEspnRequests += 1;
+                try {
+                    return await fetch(url, { signal: AbortSignal.timeout(8000) });
+                } finally {
+                    activeEspnRequests -= 1;
+                    waitingEspnRequests.shift()?.();
+                }
+            }
+
             async function fetchCompetitionEvents(comp) {
                 const rangeUrl = `${CONFIG.ESPN_API_URL}/${comp.slug}/scoreboard?dates=${fromDate}-${toDate}`;
                 try {
-                    const rangeResponse = await fetch(rangeUrl);
+                    const rangeResponse = await fetchEspnWithLimit(rangeUrl);
                     if (rangeResponse.ok) {
                         footballSourceHealth.successful += 1;
                         const data = await rangeResponse.json();
@@ -5061,7 +5113,7 @@
 
                     console.warn(`ESPN ${comp.name}: datumrange geweigerd, terugval op losse dagen`);
                     const dailyResults = await Promise.all(dayKeys.map(async dateKey => {
-                        const response = await fetch(`${CONFIG.ESPN_API_URL}/${comp.slug}/scoreboard?dates=${dateKey}`);
+                        const response = await fetchEspnWithLimit(`${CONFIG.ESPN_API_URL}/${comp.slug}/scoreboard?dates=${dateKey}`);
                         if (!response.ok) return [];
                         const data = await response.json();
                         return Array.isArray(data.events) ? data.events : [];
@@ -5075,8 +5127,12 @@
                 }
             }
 
-            for (const comp of CONFIG.ESPN_COMPETITIONS) {
-                const events = await fetchCompetitionEvents(comp);
+            const competitionResults = await Promise.all(CONFIG.ESPN_COMPETITIONS.map(async comp => ({
+                comp,
+                events: await fetchCompetitionEvents(comp)
+            })));
+
+            for (const { comp, events } of competitionResults) {
 
                 events.forEach(event => {
                     const matchDate = new Date(event.date);
@@ -5610,7 +5666,8 @@
             try {
                 const separator = CONFIG.PDC_FIXTURES_URL.includes('?') ? '&' : '?';
                 const response = await fetch(`${CONFIG.PDC_FIXTURES_URL}${separator}v=${Date.now()}`, {
-                    cache: 'no-store'
+                    cache: 'no-store',
+                    signal: AbortSignal.timeout(8000)
                 });
                 if (!response.ok) throw new Error(`PDC fixtures ${response.status}`);
                 const data = await response.json();
@@ -5899,7 +5956,11 @@
         }
 
         async function renderResultsView(container, visibleDateRange = [], forceRefresh = false) {
-            await ensureDartsResultsLoaded(forceRefresh);
+            const renderGeneration = renderEventsGeneration;
+            if (!currentSportFilter || currentSportFilter === 'darts') {
+                await ensureDartsResultsLoaded(forceRefresh);
+            }
+            if (renderGeneration !== renderEventsGeneration) return;
             const allResultItems = buildResultItems();
             const visibleDateSet = new Set(visibleDateRange);
             const resultItems = allResultItems.filter(item => visibleDateSet.has(item.dateKey)
@@ -5986,10 +6047,12 @@
         // Current sport filter (null = all sports)
         let currentSportFilter = 'voetbal'; // Start with voetbal active
         let forceRefreshSports = new Set();
+        let renderEventsGeneration = 0;
         let scrollSyncObserver = null;
         let scrollSyncPausedUntil = 0;
 
         async function renderEvents() {
+            const renderGeneration = ++renderEventsGeneration;
             const container = document.getElementById('events-container');
             container.className = `events-container${showScores ? ' show-scores' : ''}`;
             document.body.dataset.sportView = currentSportFilter || 'all';
@@ -6003,55 +6066,72 @@
             const forceAllRefresh = forceRefreshSports.has('all');
             const forceFootballRefresh = forceAllRefresh || forceRefreshSports.has('voetbal');
             const forceDartsRefresh = forceAllRefresh || forceRefreshSports.has('darts');
+            const loadAllSports = currentSportFilter === null;
+            const loadFootball = loadAllSports || currentSportFilter === 'voetbal';
+            const loadDarts = loadAllSports || currentSportFilter === 'darts';
+            const loadF1 = loadAllSports || currentSportFilter === 'f1';
+            const loadHandball = loadAllSports || currentSportFilter === 'handbal';
 
             try {
                 const staticDartsData = getStaticDartsEvents();
                 const freshMotoGPData = getStaticMotoGPEvents();
                 const freshHandballData = getStaticHandballEvents();
                 const [footballData, pdcDartsData, f1Data, motoGPData, handballData, highlightData] = await Promise.all([
-                    forceFootballRefresh ? fetchFootballMatches({ force: true }) : (cachedData.voetbal || fetchFootballMatches()),
-                    fetchPdcDartsSchedule({ force: forceDartsRefresh }),
-                    cachedData.f1 || fetchF1Sessions(),
+                    loadFootball
+                        ? (forceFootballRefresh ? fetchFootballMatches({ force: true }) : fetchFootballMatches())
+                        : Promise.resolve(cachedData.voetbal || []),
+                    loadDarts ? fetchPdcDartsSchedule({ force: forceDartsRefresh }) : Promise.resolve([]),
+                    loadF1 ? (cachedData.f1 || fetchF1Sessions()) : Promise.resolve(cachedData.f1),
                     Promise.resolve(cachedData.motogp || freshMotoGPData),
-                    !forceAllRefresh && !forceRefreshSports.has('handbal') && cachedData.handbal?.every(e => e.competition === 'EHF Champions League Men') ? cachedData.handbal : fetchHandballEvents(),
-                    cachedData.highlights || fetchWorldCupHighlights()
+                    loadHandball
+                        ? (!forceAllRefresh && !forceRefreshSports.has('handbal') && cachedData.handbal?.every(e => e.competition === 'EHF Champions League Men')
+                            ? cachedData.handbal
+                            : fetchHandballEvents())
+                        : Promise.resolve(cachedData.handbal),
+                    loadFootball ? (cachedData.highlights || fetchWorldCupHighlights()) : Promise.resolve(cachedData.highlights)
                 ]);
+
+                if (renderGeneration !== renderEventsGeneration) return;
 
                 const sanitizedFootballData = sanitizeFootballMatches(footballData || []);
                 const reliableFootballData = filterReliableFootballMatches(sanitizedFootballData);
                 const sanitizedUpcomingCount = countUpcomingFootballMatches(sanitizedFootballData, today);
                 const reliableUpcomingCount = countUpcomingFootballMatches(reliableFootballData, today);
 
-                cachedData.voetbal = sanitizedUpcomingCount > reliableUpcomingCount
-                    ? sanitizedFootballData
-                    : reliableFootballData;
+                if (loadFootball) {
+                    cachedData.voetbal = sanitizedUpcomingCount > reliableUpcomingCount
+                        ? sanitizedFootballData
+                        : reliableFootballData;
+                    cachedData.highlights = highlightData || [];
+                }
                 cachedData.darts = mergeDartsScheduleEvents(staticDartsData, pdcDartsData || []);
-                cachedData.f1 = f1Data || [];
+                if (loadF1) cachedData.f1 = f1Data || [];
                 cachedData.motogp = motoGPData || freshMotoGPData || [];
-                cachedData.handbal = handballData || freshHandballData || [];
-                cachedData.highlights = highlightData || [];
-                setWorldCupHighlights(cachedData.highlights);
+                if (loadHandball) cachedData.handbal = handballData || freshHandballData || [];
+                setWorldCupHighlights(cachedData.highlights || []);
 
-                cachedData.voetbal.forEach(e => e.sportType = 'voetbal');
+                (cachedData.voetbal || []).forEach(e => e.sportType = 'voetbal');
                 cachedData.darts.forEach(e => e.sportType = 'darts');
-                cachedData.f1.forEach(e => e.sportType = 'f1');
+                (cachedData.f1 || []).forEach(e => e.sportType = 'f1');
                 cachedData.motogp.forEach(e => e.sportType = 'motogp');
-                cachedData.handbal.forEach(e => e.sportType = 'handbal');
+                (cachedData.handbal || []).forEach(e => e.sportType = 'handbal');
 
             } catch (error) {
                 console.error('Fetch error:', error);
-                showError('Kon data niet ophalen. Probeer het later opnieuw.');
+                if (renderGeneration === renderEventsGeneration) {
+                    showError('Kon data niet ophalen. Probeer het later opnieuw.');
+                }
                 return;
             } finally {
-                forceRefreshSports.clear();
+                if (renderGeneration === renderEventsGeneration) forceRefreshSports.clear();
             }
 
             // Apply sport filter
-            let footballEvents = currentSportFilter === null || currentSportFilter === 'voetbal' ? [...cachedData.voetbal] : [];
+            let footballEvents = currentSportFilter === null || currentSportFilter === 'voetbal' ? [...(cachedData.voetbal || [])] : [];
             let dartsEvents = currentSportFilter === null || currentSportFilter === 'darts' ? [...cachedData.darts] : [];
-            let f1Events = currentSportFilter === null || currentSportFilter === 'f1' ? [...cachedData.f1] : [];
+            let f1Events = currentSportFilter === null || currentSportFilter === 'f1' ? [...(cachedData.f1 || [])] : [];
             let motoGPEvents = currentSportFilter === null || currentSportFilter === 'motogp' ? [...cachedData.motogp] : [];
-            let handballEvents = currentSportFilter === null || currentSportFilter === 'handbal' ? [...cachedData.handbal] : [];
+            let handballEvents = currentSportFilter === null || currentSportFilter === 'handbal' ? [...(cachedData.handbal || [])] : [];
 
             // Football: apply the persistent competition filter.
             footballEvents = applyFootballFilters(footballEvents);
@@ -6061,11 +6141,11 @@
             // Update API status
             const statusEl = document.getElementById('api-status');
             const sources = [];
-            if (cachedData.voetbal.length > 0) sources.push('Voetbal');
+            if (Array.isArray(cachedData.voetbal) && cachedData.voetbal.length > 0) sources.push('Voetbal');
             if (cachedData.darts.length > 0) sources.push('Darts');
-            if (cachedData.f1.length > 0) sources.push('F1');
+            if (Array.isArray(cachedData.f1) && cachedData.f1.length > 0) sources.push('F1');
             if (cachedData.motogp.length > 0) sources.push('MotoGP');
-            if (cachedData.handbal.length > 0) sources.push('Handbal');
+            if (Array.isArray(cachedData.handbal) && cachedData.handbal.length > 0) sources.push('Handbal');
             const checkedSources = footballSourceHealth.successful + footballSourceHealth.failed;
             const updatedTime = footballSourceHealth.updatedAt
                 ? new Intl.DateTimeFormat('nl-NL', { hour: '2-digit', minute: '2-digit' }).format(new Date(footballSourceHealth.updatedAt))
@@ -6085,10 +6165,12 @@
                 const resultDateRange = buildDateRange(today, 30, 0);
                 generateDateTabs(resultDateRange, today);
                 await renderResultsView(container, resultDateRange, forceDartsRefresh);
+                if (renderGeneration !== renderEventsGeneration) return;
                 setupScrollSync();
                 setTimeout(() => {
                     scrollToSelectedDateOrToday();
                 }, 100);
+                setTimeout(refreshStaleFootballDataInBackground, 0);
                 return;
             }
 
@@ -6146,6 +6228,7 @@
                         <p>${competitionFilterActive ? 'Pas je filters aan of wis ze om alles te zien.' : 'Er zijn geen uitzendingen gevonden voor de komende periode.'}</p>
                     </div>
                 `;
+                setTimeout(refreshStaleFootballDataInBackground, 0);
                 return;
             }
 
@@ -6412,6 +6495,8 @@
 
             // Setup darts accordion click handlers
             setupDartsAccordion();
+
+            setTimeout(refreshStaleFootballDataInBackground, 0);
 
             // Behoud de gekozen datum bij verversen of opnieuw renderen.
             setTimeout(() => {
@@ -6959,9 +7044,9 @@
         // op verzoek van de gebruiker; zo springt of knippert de agenda niet
         // tijdens lezen en lijkt de app niet spontaan te herstarten.
     </script>
-    <script src="standings-config.js?v=3.16.0" defer></script>
-    <script src="standings-menu.js?v=3.16.0" defer></script>
-    <script src="release-notes.js?v=3.16.0" defer></script>
+    <script src="standings-config.js?v=3.16.1" defer></script>
+    <script src="standings-menu.js?v=3.16.1" defer></script>
+    <script src="release-notes.js?v=3.16.1" defer></script>
 </body>
 </html>
 

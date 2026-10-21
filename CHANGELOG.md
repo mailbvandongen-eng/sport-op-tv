@@ -1,3 +1,10 @@
+## 3.16.1 — 21 oktober 2026
+
+- Bij openen laadt de app alleen de gekozen sport; Voetbal wacht niet meer op Darts, F1 en Handbal.
+- Verlopen voetbalcache blijft direct zichtbaar terwijl actuele gegevens op de achtergrond worden opgehaald.
+- ESPN-competities worden met maximaal zes gelijktijdige verzoeken opgehaald in plaats van één voor één.
+- De oude Darts-kalenderpatch start de volledige agenda niet nogmaals bij het openen.
+
 ## 3.16.0 — 14 oktober 2026
 
 - Handbalagenda: alleen EHF Champions League Men, met officiële affiches en Nederlandse starttijden.
