@@ -213,7 +213,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/eng.1",
-      "fetchedAt": "2026-10-21T17:07:04.787Z"
+      "fetchedAt": "2026-10-21T21:37:30.735Z"
     },
     "eredivisie": {
       "season": "2026-27 VriendenLoterij Eredivisie",
@@ -407,7 +407,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/ned.1",
-      "fetchedAt": "2026-10-21T17:07:04.784Z"
+      "fetchedAt": "2026-10-21T21:37:30.721Z"
     },
     "champions": {
       "season": "2026-27 UEFA Champions League",
@@ -428,6 +428,16 @@
             },
             {
               "rank": 2,
+              "name": "Aston Villa",
+              "played": 3,
+              "wins": 3,
+              "draws": 0,
+              "losses": 0,
+              "diff": 9,
+              "points": 9
+            },
+            {
+              "rank": 3,
               "name": "Liverpool",
               "played": 3,
               "wins": 3,
@@ -437,7 +447,27 @@
               "points": 9
             },
             {
-              "rank": 3,
+              "rank": 4,
+              "name": "Real Madrid",
+              "played": 3,
+              "wins": 3,
+              "draws": 0,
+              "losses": 0,
+              "diff": 5,
+              "points": 9
+            },
+            {
+              "rank": 5,
+              "name": "Real Betis",
+              "played": 3,
+              "wins": 3,
+              "draws": 0,
+              "losses": 0,
+              "diff": 3,
+              "points": 9
+            },
+            {
+              "rank": 6,
               "name": "VfB Stuttgart",
               "played": 3,
               "wins": 2,
@@ -447,17 +477,17 @@
               "points": 7
             },
             {
-              "rank": 4,
-              "name": "Aston Villa",
-              "played": 2,
+              "rank": 7,
+              "name": "Arsenal",
+              "played": 3,
               "wins": 2,
-              "draws": 0,
+              "draws": 1,
               "losses": 0,
-              "diff": 7,
-              "points": 6
+              "diff": 4,
+              "points": 7
             },
             {
-              "rank": 5,
+              "rank": 8,
               "name": "Barcelona",
               "played": 3,
               "wins": 2,
@@ -467,7 +497,17 @@
               "points": 6
             },
             {
-              "rank": 6,
+              "rank": 9,
+              "name": "Como",
+              "played": 3,
+              "wins": 2,
+              "draws": 0,
+              "losses": 1,
+              "diff": 5,
+              "points": 6
+            },
+            {
+              "rank": 10,
               "name": "Manchester City",
               "played": 3,
               "wins": 2,
@@ -477,47 +517,27 @@
               "points": 6
             },
             {
-              "rank": 7,
-              "name": "Sporting CP",
-              "played": 2,
-              "wins": 2,
-              "draws": 0,
-              "losses": 0,
-              "diff": 4,
-              "points": 6
-            },
-            {
-              "rank": 8,
-              "name": "Arsenal",
-              "played": 2,
-              "wins": 2,
-              "draws": 0,
-              "losses": 0,
-              "diff": 4,
-              "points": 6
-            },
-            {
-              "rank": 9,
-              "name": "Real Madrid",
-              "played": 2,
-              "wins": 2,
-              "draws": 0,
-              "losses": 0,
-              "diff": 2,
-              "points": 6
-            },
-            {
-              "rank": 10,
-              "name": "Real Betis",
-              "played": 2,
-              "wins": 2,
-              "draws": 0,
-              "losses": 0,
-              "diff": 2,
-              "points": 6
-            },
-            {
               "rank": 11,
+              "name": "Club Brugge",
+              "played": 3,
+              "wins": 2,
+              "draws": 0,
+              "losses": 1,
+              "diff": 3,
+              "points": 6
+            },
+            {
+              "rank": 12,
+              "name": "Sporting CP",
+              "played": 3,
+              "wins": 2,
+              "draws": 0,
+              "losses": 1,
+              "diff": 3,
+              "points": 6
+            },
+            {
+              "rank": 13,
               "name": "Borussia Dortmund",
               "played": 3,
               "wins": 2,
@@ -527,17 +547,17 @@
               "points": 6
             },
             {
-              "rank": 12,
+              "rank": 14,
               "name": "Bayern München",
-              "played": 2,
+              "played": 3,
               "wins": 1,
-              "draws": 1,
+              "draws": 2,
               "losses": 0,
               "diff": 5,
-              "points": 4
+              "points": 5
             },
             {
-              "rank": 13,
+              "rank": 15,
               "name": "AS Roma",
               "played": 3,
               "wins": 1,
@@ -547,17 +567,7 @@
               "points": 4
             },
             {
-              "rank": 14,
-              "name": "Shakhtar Donetsk",
-              "played": 2,
-              "wins": 1,
-              "draws": 1,
-              "losses": 0,
-              "diff": 2,
-              "points": 4
-            },
-            {
-              "rank": 15,
+              "rank": 16,
               "name": "Atlético de Madrid",
               "played": 3,
               "wins": 1,
@@ -567,7 +577,17 @@
               "points": 4
             },
             {
-              "rank": 16,
+              "rank": 17,
+              "name": "Shakhtar Donetsk",
+              "played": 3,
+              "wins": 1,
+              "draws": 1,
+              "losses": 1,
+              "diff": 1,
+              "points": 4
+            },
+            {
+              "rank": 18,
               "name": "PSV",
               "played": 3,
               "wins": 1,
@@ -575,26 +595,6 @@
               "losses": 1,
               "diff": 0,
               "points": 4
-            },
-            {
-              "rank": 17,
-              "name": "Como",
-              "played": 2,
-              "wins": 1,
-              "draws": 0,
-              "losses": 1,
-              "diff": 2,
-              "points": 3
-            },
-            {
-              "rank": 18,
-              "name": "Manchester United",
-              "played": 2,
-              "wins": 1,
-              "draws": 0,
-              "losses": 1,
-              "diff": 2,
-              "points": 3
             },
             {
               "rank": 19,
@@ -608,21 +608,21 @@
             },
             {
               "rank": 20,
-              "name": "Club Brugge",
-              "played": 2,
+              "name": "Internazionale",
+              "played": 3,
               "wins": 1,
               "draws": 0,
-              "losses": 1,
-              "diff": 0,
+              "losses": 2,
+              "diff": -1,
               "points": 3
             },
             {
               "rank": 21,
-              "name": "Lens",
-              "played": 2,
+              "name": "Manchester United",
+              "played": 3,
               "wins": 1,
               "draws": 0,
-              "losses": 1,
+              "losses": 2,
               "diff": -1,
               "points": 3
             },
@@ -638,21 +638,21 @@
             },
             {
               "rank": 23,
-              "name": "RB Leipzig",
-              "played": 2,
+              "name": "Galatasaray",
+              "played": 3,
               "wins": 1,
               "draws": 0,
-              "losses": 1,
-              "diff": -2,
+              "losses": 2,
+              "diff": -3,
               "points": 3
             },
             {
               "rank": 24,
-              "name": "Feyenoord",
-              "played": 2,
+              "name": "LASK Linz",
+              "played": 3,
               "wins": 1,
               "draws": 0,
-              "losses": 1,
+              "losses": 2,
               "diff": -3,
               "points": 3
             },
@@ -668,6 +668,26 @@
             },
             {
               "rank": 26,
+              "name": "Feyenoord",
+              "played": 3,
+              "wins": 1,
+              "draws": 0,
+              "losses": 2,
+              "diff": -4,
+              "points": 3
+            },
+            {
+              "rank": 27,
+              "name": "Lens",
+              "played": 3,
+              "wins": 1,
+              "draws": 0,
+              "losses": 2,
+              "diff": -4,
+              "points": 3
+            },
+            {
+              "rank": 28,
               "name": "Bodo/Glimt",
               "played": 3,
               "wins": 1,
@@ -677,7 +697,7 @@
               "points": 3
             },
             {
-              "rank": 27,
+              "rank": 29,
               "name": "AEK Athene",
               "played": 3,
               "wins": 1,
@@ -687,7 +707,17 @@
               "points": 3
             },
             {
-              "rank": 28,
+              "rank": 30,
+              "name": "RB Leipzig",
+              "played": 3,
+              "wins": 1,
+              "draws": 0,
+              "losses": 2,
+              "diff": -5,
+              "points": 3
+            },
+            {
+              "rank": 31,
               "name": "Fenerbahce",
               "played": 3,
               "wins": 0,
@@ -697,17 +727,7 @@
               "points": 2
             },
             {
-              "rank": 29,
-              "name": "Viking FK",
-              "played": 2,
-              "wins": 0,
-              "draws": 1,
-              "losses": 1,
-              "diff": -2,
-              "points": 1
-            },
-            {
-              "rank": 30,
+              "rank": 32,
               "name": "Slavia Praag",
               "played": 3,
               "wins": 0,
@@ -717,27 +737,17 @@
               "points": 1
             },
             {
-              "rank": 31,
-              "name": "Internazionale",
-              "played": 2,
+              "rank": 33,
+              "name": "Viking FK",
+              "played": 3,
               "wins": 0,
-              "draws": 0,
-              "losses": 2,
-              "diff": -2,
-              "points": 0
-            },
-            {
-              "rank": 32,
-              "name": "LASK Linz",
-              "played": 2,
-              "wins": 0,
-              "draws": 0,
+              "draws": 1,
               "losses": 2,
               "diff": -4,
-              "points": 0
+              "points": 1
             },
             {
-              "rank": 33,
+              "rank": 34,
               "name": "FC Porto",
               "played": 3,
               "wins": 0,
@@ -747,23 +757,13 @@
               "points": 0
             },
             {
-              "rank": 34,
-              "name": "Lille",
-              "played": 2,
-              "wins": 0,
-              "draws": 0,
-              "losses": 2,
-              "diff": -4,
-              "points": 0
-            },
-            {
               "rank": 35,
-              "name": "Galatasaray",
-              "played": 2,
+              "name": "Lille",
+              "played": 3,
               "wins": 0,
               "draws": 0,
-              "losses": 2,
-              "diff": -5,
+              "losses": 3,
+              "diff": -6,
               "points": 0
             },
             {
@@ -781,7 +781,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.champions",
-      "fetchedAt": "2026-10-21T17:07:04.800Z"
+      "fetchedAt": "2026-10-21T21:37:30.726Z"
     },
     "europa": {
       "season": "2026-27 UEFA Europa League",
@@ -1155,7 +1155,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.europa",
-      "fetchedAt": "2026-10-21T17:07:04.845Z"
+      "fetchedAt": "2026-10-21T21:37:30.724Z"
     },
     "conference": {
       "season": "2026-27 UEFA Conference League",
@@ -1529,7 +1529,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.europa.conf",
-      "fetchedAt": "2026-10-21T17:07:04.991Z"
+      "fetchedAt": "2026-10-21T21:37:30.913Z"
     },
     "wk": {
       "season": "2026 Wereldkampioenschap",
@@ -3121,7 +3121,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/fifa.world",
-      "fetchedAt": "2026-10-21T17:07:05.098Z"
+      "fetchedAt": "2026-10-21T21:37:31.043Z"
     },
     "ek": {
       "season": "2024 UEFA Europees Kampioenschap",
@@ -3913,7 +3913,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.euro",
-      "fetchedAt": "2026-10-21T17:07:05.297Z"
+      "fetchedAt": "2026-10-21T21:37:31.001Z"
     },
     "nations": {
       "season": "2026 UEFA Nations League",
@@ -6135,7 +6135,7 @@
       "archived": false,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.nations",
-      "fetchedAt": "2026-10-21T17:07:05.226Z"
+      "fetchedAt": "2026-10-21T21:37:31.220Z"
     },
     "wk-vrouwen": {
       "season": "2023 FIFA Wereldkampioenschap Vrouwen",
@@ -7147,7 +7147,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/fifa.wwc",
-      "fetchedAt": "2026-10-21T17:07:05.687Z"
+      "fetchedAt": "2026-10-21T21:37:31.467Z"
     },
     "nations-vrouwen": {
       "season": "2025 UEFA Women's Nations League",
@@ -9459,7 +9459,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.w.nations",
-      "fetchedAt": "2026-10-21T17:07:05.673Z"
+      "fetchedAt": "2026-10-21T21:37:31.755Z"
     },
     "ek-vrouwen": {
       "season": "2025 Europees Kampioenschap Voetbal Vrouwen",
@@ -9961,7 +9961,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.weuro",
-      "fetchedAt": "2026-10-21T17:07:05.846Z"
+      "fetchedAt": "2026-10-21T21:37:31.521Z"
     },
     "f1-drivers": {
       "season": "2026",
@@ -10300,7 +10300,7 @@
       ],
       "source": "Jolpica",
       "sourceUrl": "https://api.jolpi.ca/ergast/f1/current/driverStandings.json",
-      "fetchedAt": "2026-10-21T17:07:05.461Z"
+      "fetchedAt": "2026-10-21T21:37:31.340Z"
     },
     "f1-constructors": {
       "season": "2026",
@@ -10555,7 +10555,7 @@
       ],
       "source": "Jolpica",
       "sourceUrl": "https://api.jolpi.ca/ergast/f1/current/constructorStandings.json",
-      "fetchedAt": "2026-10-21T17:07:05.961Z"
+      "fetchedAt": "2026-10-21T21:37:32.253Z"
     },
     "darts-premier": {
       "season": "2026",
@@ -10644,7 +10644,9 @@
       "archived": true,
       "source": "Mastercaller",
       "sourceUrl": "https://mastercaller.nl/toernooien/premier-league/2026/stand",
-      "fetchedAt": "2026-10-21T17:07:07.189Z"
+      "fetchedAt": "2026-10-21T17:07:07.189Z",
+      "error": "Bron tijdelijk niet beschikbaar",
+      "attemptedAt": "2026-10-21T21:37:32.389Z"
     },
     "darts-merit": {
       "season": "2026",
@@ -11766,7 +11768,7 @@
       "archived": false,
       "source": "Darts Rankings",
       "sourceUrl": "https://www.dartsrankings.com/lastranking",
-      "fetchedAt": "2026-10-21T17:07:07.083Z"
+      "fetchedAt": "2026-10-21T21:37:33.082Z"
     },
     "motogp-riders": {
       "season": "2026",
@@ -11975,7 +11977,7 @@
       "archived": false,
       "source": "MotoGP",
       "sourceUrl": "https://stats.motogp.com/en/world-standing",
-      "fetchedAt": "2026-10-21T17:07:09.693Z"
+      "fetchedAt": "2026-10-21T21:37:34.697Z"
     },
     "handbal-men": {
       "season": "2026/27",
@@ -11987,42 +11989,42 @@
             {
               "rank": 1,
               "name": "One Veszprém HC",
-              "played": 4,
-              "wins": 4,
+              "played": 5,
+              "wins": 5,
               "draws": 0,
               "losses": 0,
-              "diff": 35,
-              "points": 8
+              "diff": 39,
+              "points": 10
             },
             {
               "rank": 2,
               "name": "Füchse Berlin",
-              "played": 4,
+              "played": 5,
               "wins": 3,
               "draws": 0,
-              "losses": 1,
-              "diff": 16,
+              "losses": 2,
+              "diff": 12,
               "points": 6
             },
             {
               "rank": 3,
               "name": "FC Porto",
-              "played": 4,
+              "played": 5,
               "wins": 1,
-              "draws": 0,
+              "draws": 1,
               "losses": 3,
               "diff": -15,
-              "points": 2
+              "points": 3
             },
             {
               "rank": 4,
               "name": "RK Partizan AdmiralBet",
-              "played": 4,
+              "played": 5,
               "wins": 0,
-              "draws": 0,
+              "draws": 1,
               "losses": 4,
               "diff": -36,
-              "points": 0
+              "points": 1
             }
           ]
         },
@@ -12042,11 +12044,11 @@
             {
               "rank": 2,
               "name": "HBC Nantes",
-              "played": 4,
+              "played": 5,
               "wins": 3,
               "draws": 0,
-              "losses": 1,
-              "diff": 5,
+              "losses": 2,
+              "diff": -1,
               "points": 6
             },
             {
@@ -12062,12 +12064,12 @@
             {
               "rank": 4,
               "name": "HC Vardar 1961",
-              "played": 4,
-              "wins": 0,
+              "played": 5,
+              "wins": 1,
               "draws": 0,
               "losses": 4,
-              "diff": -10,
-              "points": 0
+              "diff": -4,
+              "points": 2
             }
           ]
         },
@@ -12076,42 +12078,42 @@
           "rows": [
             {
               "rank": 1,
-              "name": "Paris Saint-Germain",
-              "played": 4,
-              "wins": 3,
+              "name": "Aalborg Håndbold",
+              "played": 5,
+              "wins": 4,
               "draws": 1,
               "losses": 0,
-              "diff": 26,
-              "points": 7
+              "diff": 25,
+              "points": 9
             },
             {
               "rank": 2,
-              "name": "Aalborg Håndbold",
-              "played": 4,
+              "name": "Paris Saint-Germain",
+              "played": 5,
               "wins": 3,
               "draws": 1,
-              "losses": 0,
-              "diff": 21,
+              "losses": 1,
+              "diff": 25,
               "points": 7
             },
             {
               "rank": 3,
               "name": "HC Zagreb",
-              "played": 4,
-              "wins": 1,
+              "played": 5,
+              "wins": 2,
               "draws": 0,
               "losses": 3,
-              "diff": -13,
-              "points": 2
+              "diff": -12,
+              "points": 4
             },
             {
               "rank": 4,
               "name": "RK Celje Pivovarna Laško",
-              "played": 4,
+              "played": 5,
               "wins": 0,
               "draws": 0,
-              "losses": 4,
-              "diff": -34,
+              "losses": 5,
+              "diff": -38,
               "points": 0
             }
           ]
@@ -12177,15 +12179,25 @@
             {
               "rank": 2,
               "name": "SAH - Aarhus",
-              "played": 4,
+              "played": 5,
               "wins": 2,
               "draws": 1,
-              "losses": 1,
-              "diff": 1,
+              "losses": 2,
+              "diff": -13,
               "points": 5
             },
             {
               "rank": 3,
+              "name": "Dinamo Bucuresti",
+              "played": 5,
+              "wins": 1,
+              "draws": 1,
+              "losses": 3,
+              "diff": -11,
+              "points": 3
+            },
+            {
+              "rank": 4,
               "name": "Montpellier Handball",
               "played": 4,
               "wins": 1,
@@ -12193,16 +12205,6 @@
               "losses": 3,
               "diff": -9,
               "points": 2
-            },
-            {
-              "rank": 4,
-              "name": "Dinamo Bucuresti",
-              "played": 4,
-              "wins": 0,
-              "draws": 1,
-              "losses": 3,
-              "diff": -25,
-              "points": 1
             }
           ]
         },
@@ -12222,21 +12224,21 @@
             {
               "rank": 2,
               "name": "Industria Kielce",
-              "played": 4,
-              "wins": 2,
+              "played": 5,
+              "wins": 3,
               "draws": 0,
               "losses": 2,
-              "diff": 0,
-              "points": 4
+              "diff": 2,
+              "points": 6
             },
             {
               "rank": 3,
               "name": "HC Kriens-Luzern",
-              "played": 4,
+              "played": 5,
               "wins": 2,
               "draws": 0,
-              "losses": 2,
-              "diff": -1,
+              "losses": 3,
+              "diff": -3,
               "points": 4
             },
             {
@@ -12257,7 +12259,7 @@
       "archived": false,
       "source": "EHF",
       "sourceUrl": "https://ehfcl.eurohandball.com/men/2026-27/standings/",
-      "fetchedAt": "2026-10-21T17:07:11.023Z"
+      "fetchedAt": "2026-10-21T21:37:36.361Z"
     },
     "handbal-women": {
       "season": "2026/27",
@@ -12439,7 +12441,7 @@
       "archived": false,
       "source": "EHF",
       "sourceUrl": "https://ehfcl.eurohandball.com/women/2026-27/standings/",
-      "fetchedAt": "2026-10-21T17:07:12.810Z"
+      "fetchedAt": "2026-10-21T21:37:37.696Z"
     },
     "handbal-euro-men": {
       "season": "2026",
@@ -12851,7 +12853,7 @@
       "archived": true,
       "source": "EHF",
       "sourceUrl": "https://ehfeuro.eurohandball.com/men/2026/standings/Xg2Ubz1_S9dxy0p0unxCBg/final-tournament/",
-      "fetchedAt": "2026-10-21T17:07:10.919Z"
+      "fetchedAt": "2026-10-21T21:37:36.498Z"
     },
     "handbal-euro-women": {
       "season": "2024",
@@ -13263,7 +13265,7 @@
       "archived": true,
       "source": "EHF",
       "sourceUrl": "https://ehfeuro.eurohandball.com/women/2024/standings/R-saEwRJFutIKedhnRuDpg/FinalTournament/",
-      "fetchedAt": "2026-10-21T17:07:12.009Z"
+      "fetchedAt": "2026-10-21T21:37:36.860Z"
     },
     "handbal-world-men": {
       "season": "2025",
@@ -13440,7 +13442,7 @@
       "archived": true,
       "source": "IHF",
       "sourceUrl": "https://www.ihf.info/media-center/events/29th-ihf-mens-world-championship",
-      "fetchedAt": "2026-10-21T17:07:11.919Z"
+      "fetchedAt": "2026-10-21T21:37:36.727Z"
     },
     "handbal-world-women": {
       "season": "2025",
@@ -13617,7 +13619,7 @@
       "archived": true,
       "source": "IHF",
       "sourceUrl": "https://www.ihf.info/index.php/media-center/events/27th-ihf-womens-world-championship",
-      "fetchedAt": "2026-10-21T17:07:13.751Z"
+      "fetchedAt": "2026-10-21T21:37:38.165Z"
     }
   }
 }
