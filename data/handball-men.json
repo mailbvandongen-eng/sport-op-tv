@@ -2,7 +2,7 @@
   "schema": 1,
   "competition": "EHF Champions League Men",
   "sourceUrl": "https://ehfcl.eurohandball.com/men/2026-27/matches/",
-  "fetchedAt": "2026-10-21T21:37:41.448Z",
+  "fetchedAt": "2026-10-22T04:37:10.663Z",
   "matches": [
     {
       "id": "202711020101025",
@@ -688,7 +688,7 @@
       "location": "Bucuresti",
       "channel": "EHFTV",
       "source": "EHF confirmed",
-      "completed": false
+      "completed": true
     },
     {
       "id": "202711020101032",
@@ -702,7 +702,7 @@
       "location": "Zagreb",
       "channel": "EHFTV",
       "source": "EHF confirmed",
-      "completed": false
+      "completed": true
     },
     {
       "id": "202711020101001",
@@ -716,7 +716,7 @@
       "location": "Veszprem",
       "channel": "EHFTV",
       "source": "EHF confirmed",
-      "completed": false
+      "completed": true
     },
     {
       "id": "202711020101012",
@@ -730,7 +730,7 @@
       "location": "Belgrade",
       "channel": "EHFTV",
       "source": "EHF confirmed",
-      "completed": false
+      "completed": true
     },
     {
       "id": "202711020101029",
@@ -744,7 +744,7 @@
       "location": "Aalborg Ost",
       "channel": "EHFTV",
       "source": "EHF confirmed",
-      "completed": false
+      "completed": true
     },
     {
       "id": "202711020101017",
@@ -758,7 +758,7 @@
       "location": "Nantes",
       "channel": "EHFTV",
       "source": "EHF confirmed",
-      "completed": false
+      "completed": true
     },
     {
       "id": "202711020101070",
@@ -772,7 +772,7 @@
       "location": "Kriens",
       "channel": "EHFTV",
       "source": "EHF confirmed",
-      "completed": false
+      "completed": true
     },
     {
       "id": "202711020101019",
@@ -845,20 +845,6 @@
       "completed": false
     },
     {
-      "id": "202711020101004",
-      "date": "2026-10-28",
-      "utc": "2026-10-28T17:45:00Z",
-      "time": "18:45",
-      "event": "FC Porto vs One Veszprém HC",
-      "home": "FC Porto",
-      "away": "One Veszprém HC",
-      "competition": "EHF Champions League Men",
-      "location": "Porto",
-      "channel": "EHFTV",
-      "source": "EHF confirmed",
-      "completed": false
-    },
-    {
       "id": "202711020101022",
       "date": "2026-10-28",
       "utc": "2026-10-28T17:45:00Z",
@@ -887,29 +873,15 @@
       "completed": false
     },
     {
-      "id": "202711020101036",
+      "id": "202711020101004",
       "date": "2026-10-28",
-      "utc": "2026-10-28T19:45:00Z",
-      "time": "20:45",
-      "event": "RK Celje Pivovarna Laško vs HC Zagreb",
-      "home": "RK Celje Pivovarna Laško",
-      "away": "HC Zagreb",
+      "utc": "2026-10-28T17:45:00Z",
+      "time": "18:45",
+      "event": "FC Porto vs One Veszprém HC",
+      "home": "FC Porto",
+      "away": "One Veszprém HC",
       "competition": "EHF Champions League Men",
-      "location": "Celje",
-      "channel": "EHFTV",
-      "source": "EHF confirmed",
-      "completed": false
-    },
-    {
-      "id": "202711020101065",
-      "date": "2026-10-28",
-      "utc": "2026-10-28T19:45:00Z",
-      "time": "20:45",
-      "event": "SC Magdeburg vs HC Kriens-Luzern",
-      "home": "SC Magdeburg",
-      "away": "HC Kriens-Luzern",
-      "competition": "EHF Champions League Men",
-      "location": "Magdeburg",
+      "location": "Porto",
       "channel": "EHFTV",
       "source": "EHF confirmed",
       "completed": false
@@ -938,6 +910,34 @@
       "away": "Aalborg Håndbold",
       "competition": "EHF Champions League Men",
       "location": "Paris",
+      "channel": "EHFTV",
+      "source": "EHF confirmed",
+      "completed": false
+    },
+    {
+      "id": "202711020101036",
+      "date": "2026-10-28",
+      "utc": "2026-10-28T19:45:00Z",
+      "time": "20:45",
+      "event": "RK Celje Pivovarna Laško vs HC Zagreb",
+      "home": "RK Celje Pivovarna Laško",
+      "away": "HC Zagreb",
+      "competition": "EHF Champions League Men",
+      "location": "Celje",
+      "channel": "EHFTV",
+      "source": "EHF confirmed",
+      "completed": false
+    },
+    {
+      "id": "202711020101065",
+      "date": "2026-10-28",
+      "utc": "2026-10-28T19:45:00Z",
+      "time": "20:45",
+      "event": "SC Magdeburg vs HC Kriens-Luzern",
+      "home": "SC Magdeburg",
+      "away": "HC Kriens-Luzern",
+      "competition": "EHF Champions League Men",
+      "location": "Magdeburg",
       "channel": "EHFTV",
       "source": "EHF confirmed",
       "completed": false
@@ -1008,6 +1008,34 @@
       "away": "Barça",
       "competition": "EHF Champions League Men",
       "location": "Aarhus",
+      "channel": "EHFTV",
+      "source": "EHF confirmed",
+      "completed": false
+    },
+    {
+      "id": "202711020105004",
+      "date": "2027-03-24",
+      "utc": null,
+      "time": "TBD",
+      "event": "P02-B vs P02-A",
+      "home": "P02-B",
+      "away": "P02-A",
+      "competition": "EHF Champions League Men",
+      "location": "",
+      "channel": "EHFTV",
+      "source": "EHF confirmed",
+      "completed": false
+    },
+    {
+      "id": "202711020105005",
+      "date": "2027-03-24",
+      "utc": null,
+      "time": "TBD",
+      "event": "P03-A vs P03-B",
+      "home": "P03-A",
+      "away": "P03-B",
+      "competition": "EHF Champions League Men",
+      "location": "",
       "channel": "EHFTV",
       "source": "EHF confirmed",
       "completed": false
@@ -1097,13 +1125,13 @@
       "completed": false
     },
     {
-      "id": "202711020105004",
-      "date": "2027-03-24",
+      "id": "202711020107002",
+      "date": "2027-06-12",
       "utc": null,
       "time": "TBD",
-      "event": "P02-B vs P02-A",
-      "home": "P02-B",
-      "away": "P02-A",
+      "event": "P03-A vs P03-B",
+      "home": "P03-A",
+      "away": "P03-B",
       "competition": "EHF Champions League Men",
       "location": "",
       "channel": "EHFTV",
@@ -1111,13 +1139,13 @@
       "completed": false
     },
     {
-      "id": "202711020105005",
-      "date": "2027-03-24",
+      "id": "202711020107004",
+      "date": "2027-06-12",
       "utc": null,
       "time": "TBD",
-      "event": "P03-A vs P03-B",
-      "home": "P03-A",
-      "away": "P03-B",
+      "event": "W.M01 vs W.M02",
+      "home": "W.M01",
+      "away": "W.M02",
       "competition": "EHF Champions League Men",
       "location": "",
       "channel": "EHFTV",
@@ -1146,34 +1174,6 @@
       "event": "P01-A vs P01-B",
       "home": "P01-A",
       "away": "P01-B",
-      "competition": "EHF Champions League Men",
-      "location": "",
-      "channel": "EHFTV",
-      "source": "EHF confirmed",
-      "completed": false
-    },
-    {
-      "id": "202711020107002",
-      "date": "2027-06-12",
-      "utc": null,
-      "time": "TBD",
-      "event": "P03-A vs P03-B",
-      "home": "P03-A",
-      "away": "P03-B",
-      "competition": "EHF Champions League Men",
-      "location": "",
-      "channel": "EHFTV",
-      "source": "EHF confirmed",
-      "completed": false
-    },
-    {
-      "id": "202711020107004",
-      "date": "2027-06-12",
-      "utc": null,
-      "time": "TBD",
-      "event": "W.M01 vs W.M02",
-      "home": "W.M01",
-      "away": "W.M02",
       "competition": "EHF Champions League Men",
       "location": "",
       "channel": "EHFTV",
