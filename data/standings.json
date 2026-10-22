@@ -213,7 +213,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/eng.1",
-      "fetchedAt": "2026-10-22T04:37:12.604Z"
+      "fetchedAt": "2026-10-22T11:45:07.360Z"
     },
     "eredivisie": {
       "season": "2026-27 VriendenLoterij Eredivisie",
@@ -407,7 +407,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/ned.1",
-      "fetchedAt": "2026-10-22T04:37:12.586Z"
+      "fetchedAt": "2026-10-22T11:45:07.342Z"
     },
     "champions": {
       "season": "2026-27 UEFA Champions League",
@@ -781,7 +781,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.champions",
-      "fetchedAt": "2026-10-22T04:37:12.582Z"
+      "fetchedAt": "2026-10-22T11:45:07.357Z"
     },
     "europa": {
       "season": "2026-27 UEFA Europa League",
@@ -1155,7 +1155,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.europa",
-      "fetchedAt": "2026-10-22T04:37:12.655Z"
+      "fetchedAt": "2026-10-22T11:45:07.368Z"
     },
     "conference": {
       "season": "2026-27 UEFA Conference League",
@@ -1529,7 +1529,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.europa.conf",
-      "fetchedAt": "2026-10-22T04:37:12.780Z"
+      "fetchedAt": "2026-10-22T11:45:07.487Z"
     },
     "wk": {
       "season": "2026 Wereldkampioenschap",
@@ -3121,7 +3121,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/fifa.world",
-      "fetchedAt": "2026-10-22T04:37:12.950Z"
+      "fetchedAt": "2026-10-22T11:45:07.719Z"
     },
     "ek": {
       "season": "2024 UEFA Europees Kampioenschap",
@@ -3913,7 +3913,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.euro",
-      "fetchedAt": "2026-10-22T04:37:12.982Z"
+      "fetchedAt": "2026-10-22T11:45:07.994Z"
     },
     "nations": {
       "season": "2026 UEFA Nations League",
@@ -6135,7 +6135,7 @@
       "archived": false,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.nations",
-      "fetchedAt": "2026-10-22T04:37:12.976Z"
+      "fetchedAt": "2026-10-22T11:45:07.603Z"
     },
     "wk-vrouwen": {
       "season": "2023 FIFA Wereldkampioenschap Vrouwen",
@@ -7147,7 +7147,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/fifa.wwc",
-      "fetchedAt": "2026-10-22T04:37:13.173Z"
+      "fetchedAt": "2026-10-22T11:45:08.166Z"
     },
     "nations-vrouwen": {
       "season": "2025 UEFA Women's Nations League",
@@ -9459,7 +9459,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.w.nations",
-      "fetchedAt": "2026-10-22T04:37:13.381Z"
+      "fetchedAt": "2026-10-22T11:45:08.643Z"
     },
     "ek-vrouwen": {
       "season": "2025 Europees Kampioenschap Voetbal Vrouwen",
@@ -9961,7 +9961,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.weuro",
-      "fetchedAt": "2026-10-22T04:37:13.136Z"
+      "fetchedAt": "2026-10-22T11:45:08.240Z"
     },
     "f1-drivers": {
       "season": "2026",
@@ -10300,7 +10300,7 @@
       ],
       "source": "Jolpica",
       "sourceUrl": "https://api.jolpi.ca/ergast/f1/current/driverStandings.json",
-      "fetchedAt": "2026-10-22T04:37:13.129Z"
+      "fetchedAt": "2026-10-22T11:45:08.520Z"
     },
     "f1-constructors": {
       "season": "2026",
@@ -10555,7 +10555,7 @@
       ],
       "source": "Jolpica",
       "sourceUrl": "https://api.jolpi.ca/ergast/f1/current/constructorStandings.json",
-      "fetchedAt": "2026-10-22T04:37:13.445Z"
+      "fetchedAt": "2026-10-22T11:45:08.719Z"
     },
     "darts-premier": {
       "season": "2026",
@@ -10646,7 +10646,7 @@
       "sourceUrl": "https://mastercaller.nl/toernooien/premier-league/2026/stand",
       "fetchedAt": "2026-10-21T17:07:07.189Z",
       "error": "Bron tijdelijk niet beschikbaar",
-      "attemptedAt": "2026-10-22T04:37:13.873Z"
+      "attemptedAt": "2026-10-22T11:45:09.141Z"
     },
     "darts-merit": {
       "season": "2026",
@@ -10658,152 +10658,152 @@
             {
               "rank": 1,
               "name": "Luke Littler",
-              "points": 3124000
+              "points": 3113500
             },
             {
               "rank": 2,
               "name": "Luke Humphries",
-              "points": 1096000
+              "points": 1062500
             },
             {
               "rank": 3,
               "name": "Gian van Veen",
-              "points": 1039750
+              "points": 1045750
             },
             {
               "rank": 4,
               "name": "Gerwyn Price",
-              "points": 793000
+              "points": 787000
             },
             {
               "rank": 5,
               "name": "Jonny Clayton",
-              "points": 719000
+              "points": 706000
             },
             {
               "rank": 6,
               "name": "James Wade",
-              "points": 686250
+              "points": 681250
             },
             {
               "rank": 7,
-              "name": "Josh Rock",
-              "points": 618000
+              "name": "Danny Noppert",
+              "points": 623500
             },
             {
               "rank": 8,
-              "name": "Danny Noppert",
-              "points": 615000
+              "name": "Josh Rock",
+              "points": 606500
             },
             {
               "rank": 9,
-              "name": "Michael van Gerwen",
-              "points": 608500
-            },
-            {
-              "rank": 10,
               "name": "Gary Anderson",
               "points": 591750
             },
             {
+              "rank": 10,
+              "name": "Michael van Gerwen",
+              "points": 587500
+            },
+            {
               "rank": 11,
               "name": "Nathan Aspinall",
-              "points": 583000
+              "points": 584500
             },
             {
               "rank": 12,
               "name": "Wessel Nijman",
-              "points": 577000
+              "points": 577500
             },
             {
               "rank": 13,
               "name": "Stephen Bunting",
-              "points": 570750
+              "points": 576250
             },
             {
               "rank": 14,
-              "name": "Ryan Searle",
-              "points": 569750
+              "name": "Ross Smith",
+              "points": 572250
             },
             {
               "rank": 15,
-              "name": "Ross Smith",
-              "points": 567250
+              "name": "Ryan Searle",
+              "points": 570250
             },
             {
               "rank": 16,
               "name": "Jermaine Wattimena",
-              "points": 547750
+              "points": 543750
             },
             {
               "rank": 17,
               "name": "Chris Dobey",
-              "points": 537250
+              "points": 534750
             },
             {
               "rank": 18,
               "name": "Luke Woodhouse",
-              "points": 511000
+              "points": 514000
             },
             {
               "rank": 19,
               "name": "Krzysztof Ratajski",
-              "points": 445000
+              "points": 440000
             },
             {
               "rank": 20,
               "name": "Dirk van Duijvenbode",
-              "points": 435500
+              "points": 434000
             },
             {
               "rank": 21,
               "name": "Damon Heta",
-              "points": 418250
+              "points": 418750
             },
             {
               "rank": 22,
               "name": "Rob Cross",
-              "points": 402000
+              "points": 398500
             },
             {
               "rank": 23,
               "name": "Martin Schindler",
-              "points": 392750
+              "points": 391250
             },
             {
               "rank": 24,
               "name": "Ryan Joyce",
-              "points": 391000
+              "points": 390000
             },
             {
               "rank": 25,
-              "name": "Kevin Doets",
-              "points": 376500
+              "name": "Cameron Menzies",
+              "points": 378500
             },
             {
               "rank": 26,
-              "name": "Cameron Menzies",
-              "points": 375000
+              "name": "Kevin Doets",
+              "points": 375250
             },
             {
               "rank": 27,
               "name": "Andrew Gilding",
-              "points": 358750
+              "points": 359250
             },
             {
               "rank": 28,
-              "name": "Daryl Gurney",
-              "points": 305000
+              "name": "Niels Zonneveld",
+              "points": 316750
             },
             {
               "rank": 29,
-              "name": "Niels Zonneveld",
-              "points": 291250
+              "name": "Daryl Gurney",
+              "points": 303500
             },
             {
               "rank": 30,
               "name": "Dave Chisnall",
-              "points": 284250
+              "points": 285250
             },
             {
               "rank": 31,
@@ -10812,92 +10812,92 @@
             },
             {
               "rank": 32,
-              "name": "Ritchie Edhouse",
-              "points": 278000
+              "name": "William O'Connor",
+              "points": 279500
             },
             {
               "rank": 33,
-              "name": "William O'Connor",
-              "points": 277000
+              "name": "Ritchie Edhouse",
+              "points": 274500
             },
             {
               "rank": 34,
               "name": "Mike De Decker",
-              "points": 274000
+              "points": 268500
             },
             {
               "rank": 35,
               "name": "Ricardo Pietreczko",
-              "points": 245500
+              "points": 243500
             },
             {
               "rank": 36,
-              "name": "Michael Smith",
-              "points": 241250
-            },
-            {
-              "rank": 37,
               "name": "Niko Springer",
               "points": 239750
             },
             {
+              "rank": 37,
+              "name": "Michael Smith",
+              "points": 235750
+            },
+            {
               "rank": 38,
               "name": "Peter Wright",
-              "points": 237000
+              "points": 234500
             },
             {
               "rank": 39,
               "name": "Callan Rydz",
-              "points": 194000
+              "points": 193250
             },
             {
-              "rank": 40,
+              "rank": 39,
               "name": "Justin Hood",
               "points": 193250
             },
             {
               "rank": 41,
-              "name": "Martin Lukeman",
-              "points": 192500
+              "name": "Jeffrey de Graaf",
+              "points": 190750
             },
             {
               "rank": 42,
               "name": "Mickey Mansell",
-              "points": 191250
+              "points": 189750
             },
             {
               "rank": 43,
-              "name": "Jeffrey de Graaf",
-              "points": 189250
+              "name": "Martin Lukeman",
+              "points": 187500
             },
             {
               "rank": 44,
-              "name": "Raymond van Barneveld",
-              "points": 182250
+              "name": "Karel Sedlacek",
+              "points": 180750
             },
             {
               "rank": 45,
-              "name": "Madars Razma",
-              "points": 177750
+              "name": "Raymond van Barneveld",
+              "points": 176250
             },
             {
               "rank": 46,
-              "name": "Karel Sedlacek",
-              "points": 177250
+              "name": "James Hurrell",
+              "points": 175750
             },
             {
               "rank": 47,
-              "name": "James Hurrell",
-              "points": 175250
+              "name": "Madars Razma",
+              "points": 174000
             },
             {
               "rank": 48,
-              "name": "Gabriel Clemens",
-              "points": 171500
+              "name": "Scott Williams",
+              "points": 170000
             },
             {
               "rank": 49,
-              "name": "Scott Williams",
+              "name": "Gabriel Clemens",
               "points": 167500
             },
             {
@@ -10907,43 +10907,43 @@
             },
             {
               "rank": 51,
-              "name": "Kim Huybrechts",
-              "points": 166500
+              "name": "Brendan Dolan",
+              "points": 166000
             },
             {
               "rank": 52,
+              "name": "Sebastian Bialecki",
+              "points": 165500
+            },
+            {
+              "rank": 53,
               "name": "Ricky Evans",
               "points": 165000
             },
             {
-              "rank": 53,
-              "name": "Brendan Dolan",
-              "points": 163000
-            },
-            {
               "rank": 54,
-              "name": "Sebastian Bialecki",
-              "points": 162000
+              "name": "Mensur Suljovic",
+              "points": 155500
             },
             {
               "rank": 55,
-              "name": "Mensur Suljovic",
-              "points": 159500
+              "name": "Kim Huybrechts",
+              "points": 152000
             },
             {
               "rank": 56,
               "name": "Keane Barry",
-              "points": 152250
+              "points": 147750
             },
             {
               "rank": 57,
               "name": "Ian White",
-              "points": 145000
+              "points": 143500
             },
             {
               "rank": 58,
               "name": "Richard Veenstra",
-              "points": 138750
+              "points": 138250
             },
             {
               "rank": 59,
@@ -10952,42 +10952,42 @@
             },
             {
               "rank": 60,
-              "name": "Alan Soutar",
-              "points": 129000
-            },
-            {
-              "rank": 61,
               "name": "Bradley Brooks",
               "points": 127500
             },
             {
+              "rank": 61,
+              "name": "Alan Soutar",
+              "points": 124000
+            },
+            {
               "rank": 62,
               "name": "Rob Owen",
-              "points": 125250
+              "points": 123000
             },
             {
               "rank": 63,
               "name": "Ryan Meikle",
-              "points": 119250
+              "points": 118250
             },
             {
               "rank": 64,
               "name": "Lukas Wenig",
-              "points": 117250
+              "points": 116250
             },
             {
               "rank": 65,
               "name": "Nick Kenny",
-              "points": 115000
+              "points": 116000
             },
             {
               "rank": 66,
-              "name": "Mario Vandenbogaerde",
-              "points": 114000
+              "name": "Max Hopp",
+              "points": 115000
             },
             {
               "rank": 67,
-              "name": "Max Hopp",
+              "name": "Mario Vandenbogaerde",
               "points": 113000
             },
             {
@@ -10998,17 +10998,17 @@
             {
               "rank": 69,
               "name": "Thibault Tricole",
-              "points": 101750
+              "points": 100750
             },
             {
               "rank": 70,
-              "name": "Wesley Plaisier",
-              "points": 98000
+              "name": "Cristo Reyes",
+              "points": 100000
             },
             {
               "rank": 71,
-              "name": "Cristo Reyes",
-              "points": 95000
+              "name": "Wesley Plaisier",
+              "points": 98000
             },
             {
               "rank": 72,
@@ -11067,12 +11067,12 @@
             },
             {
               "rank": 83,
-              "name": "Oskar Lukasiak",
+              "name": "Charlie Manby",
               "points": 47250
             },
             {
               "rank": 83,
-              "name": "Charlie Manby",
+              "name": "Oskar Lukasiak",
               "points": 47250
             },
             {
@@ -11082,13 +11082,13 @@
             },
             {
               "rank": 86,
-              "name": "Thomas Lovely",
-              "points": 43000
+              "name": "Jimmy van Schie",
+              "points": 45000
             },
             {
               "rank": 87,
-              "name": "Jimmy van Schie",
-              "points": 41500
+              "name": "Thomas Lovely",
+              "points": 43000
             },
             {
               "rank": 88,
@@ -11152,17 +11152,17 @@
             },
             {
               "rank": 100,
+              "name": "Owen Bates",
+              "points": 31750
+            },
+            {
+              "rank": 101,
               "name": "David Sharp",
               "points": 31250
             },
             {
-              "rank": 101,
+              "rank": 102,
               "name": "Jeffrey De Zwaan",
-              "points": 29750
-            },
-            {
-              "rank": 101,
-              "name": "Owen Bates",
               "points": 29750
             },
             {
@@ -11187,28 +11187,28 @@
             },
             {
               "rank": 107,
+              "name": "Stephen Burton",
+              "points": 28000
+            },
+            {
+              "rank": 108,
               "name": "Dennie Olde Kalter",
               "points": 27500
             },
             {
-              "rank": 108,
+              "rank": 109,
               "name": "Chris Landman",
               "points": 26750
             },
             {
-              "rank": 109,
+              "rank": 110,
               "name": "Benjamin Pratnemer",
               "points": 26500
             },
             {
-              "rank": 110,
+              "rank": 111,
               "name": "Tommy Morris",
               "points": 26250
-            },
-            {
-              "rank": 111,
-              "name": "Stephen Burton",
-              "points": 26000
             },
             {
               "rank": 112,
@@ -11367,51 +11367,51 @@
             },
             {
               "rank": 143,
+              "name": "Jonas Masalin",
+              "points": 7500
+            },
+            {
+              "rank": 143,
               "name": "Michael Unterbuchner",
               "points": 7500
             },
             {
-              "rank": 144,
+              "rank": 145,
               "name": "Jan Schmidt",
               "points": 7000
             },
             {
-              "rank": 144,
+              "rank": 145,
               "name": "Patrik Kovacs",
               "points": 7000
             },
             {
-              "rank": 146,
+              "rank": 147,
               "name": "Pero Ljubic",
               "points": 6500
             },
             {
-              "rank": 147,
+              "rank": 148,
               "name": "Christopher Wickenden",
               "points": 6250
             },
             {
-              "rank": 148,
+              "rank": 149,
               "name": "Johan Engstrom",
               "points": 6000
             },
             {
-              "rank": 149,
+              "rank": 150,
               "name": "Nandor Major",
               "points": 5500
             },
             {
-              "rank": 149,
-              "name": "Jonas Masalin",
-              "points": 5500
-            },
-            {
-              "rank": 149,
+              "rank": 150,
               "name": "Dragutin Horvat",
               "points": 5500
             },
             {
-              "rank": 149,
+              "rank": 150,
               "name": "Marcel Hausotter",
               "points": 5500
             },
@@ -11424,6 +11424,11 @@
               "rank": 154,
               "name": "Oliver Mitchell",
               "points": 4250
+            },
+            {
+              "rank": 155,
+              "name": "Krzysztof Kciuk",
+              "points": 4000
             },
             {
               "rank": 155,
@@ -11451,324 +11456,329 @@
               "points": 4000
             },
             {
-              "rank": 160,
+              "rank": 161,
               "name": "Ted Evetts",
               "points": 3750
             },
             {
-              "rank": 160,
+              "rank": 161,
               "name": "Aden Kirk",
               "points": 3750
             },
             {
-              "rank": 160,
+              "rank": 161,
               "name": "Filip Bereza",
               "points": 3750
             },
             {
-              "rank": 160,
+              "rank": 161,
               "name": "Scott Campbell",
               "points": 3750
             },
             {
-              "rank": 164,
+              "rank": 165,
+              "name": "Heine Uuldriks",
+              "points": 3500
+            },
+            {
+              "rank": 165,
               "name": "Laszlo Kadar",
               "points": 3500
             },
             {
-              "rank": 164,
+              "rank": 165,
               "name": "Valters Melderis",
               "points": 3500
             },
             {
-              "rank": 166,
+              "rank": 168,
               "name": "Archie Self",
               "points": 3250
             },
             {
-              "rank": 167,
+              "rank": 169,
               "name": "Patrik Williams",
               "points": 3000
             },
             {
-              "rank": 168,
+              "rank": 170,
               "name": "Gilbert van der Meijden",
               "points": 2500
             },
             {
-              "rank": 168,
+              "rank": 170,
               "name": "Graham Hall",
               "points": 2500
             },
             {
-              "rank": 170,
+              "rank": 172,
+              "name": "Maikel Verberk",
+              "points": 2000
+            },
+            {
+              "rank": 172,
               "name": "Alex Fehlmann",
               "points": 2000
             },
             {
-              "rank": 170,
+              "rank": 172,
               "name": "Bruno Stoeckli",
               "points": 2000
             },
             {
-              "rank": 170,
+              "rank": 172,
               "name": "Roman Wellinger",
               "points": 2000
             },
             {
-              "rank": 170,
+              "rank": 172,
               "name": "Jaimy Jacobs",
               "points": 2000
             },
             {
-              "rank": 170,
+              "rank": 172,
               "name": "Jeroen Caron",
               "points": 2000
             },
             {
-              "rank": 170,
+              "rank": 172,
               "name": "Kevin Lankhuizen",
               "points": 2000
             },
             {
-              "rank": 170,
+              "rank": 172,
               "name": "Michael Hansen",
               "points": 2000
             },
             {
-              "rank": 170,
+              "rank": 172,
               "name": "Petr Tous",
               "points": 2000
             },
             {
-              "rank": 170,
+              "rank": 172,
               "name": "David Rosi",
               "points": 2000
             },
             {
-              "rank": 170,
+              "rank": 172,
               "name": "Jiri Brejcha",
               "points": 2000
             },
             {
-              "rank": 170,
+              "rank": 172,
               "name": "Martin Homola",
               "points": 2000
             },
             {
-              "rank": 170,
+              "rank": 172,
               "name": "Andras Borbely",
               "points": 2000
             },
             {
-              "rank": 170,
+              "rank": 172,
               "name": "David Pisek",
               "points": 2000
             },
             {
-              "rank": 170,
+              "rank": 172,
               "name": "Milan Biro",
               "points": 2000
             },
             {
-              "rank": 170,
+              "rank": 172,
               "name": "Jaimy Van de Weerd",
               "points": 2000
             },
             {
-              "rank": 170,
+              "rank": 172,
               "name": "Michal Smejda",
               "points": 2000
             },
             {
-              "rank": 170,
+              "rank": 172,
               "name": "Mio Varila",
               "points": 2000
             },
             {
-              "rank": 170,
+              "rank": 172,
               "name": "Adrian Dudek",
               "points": 2000
             },
             {
-              "rank": 170,
+              "rank": 172,
               "name": "Gabriel Varaljay",
               "points": 2000
             },
             {
-              "rank": 170,
+              "rank": 172,
               "name": "Jan Sliacky",
               "points": 2000
             },
             {
-              "rank": 170,
+              "rank": 172,
               "name": "Juraj Holub",
               "points": 2000
             },
             {
-              "rank": 170,
+              "rank": 172,
               "name": "Peter Kelemen",
               "points": 2000
             },
             {
-              "rank": 170,
+              "rank": 172,
               "name": "Jason Riedtke",
               "points": 2000
             },
             {
-              "rank": 170,
+              "rank": 172,
               "name": "Teemu Harju",
               "points": 2000
             },
             {
-              "rank": 170,
+              "rank": 172,
               "name": "Liam Maendl-Lawrance",
               "points": 2000
             },
             {
-              "rank": 170,
+              "rank": 172,
               "name": "Aaron Hardy",
               "points": 2000
             },
             {
-              "rank": 170,
+              "rank": 172,
               "name": "Nick Zwittnigg",
               "points": 2000
             },
             {
-              "rank": 170,
+              "rank": 172,
               "name": "Zoran Lerchbacher",
               "points": 2000
             },
             {
-              "rank": 170,
+              "rank": 172,
               "name": "Michael Hurtz",
               "points": 2000
             },
             {
-              "rank": 170,
+              "rank": 172,
               "name": "Petr Krivka",
               "points": 2000
             },
             {
-              "rank": 170,
+              "rank": 172,
               "name": "Robin Masino",
               "points": 2000
             },
             {
-              "rank": 170,
+              "rank": 172,
               "name": "Kevin Troppmann",
               "points": 2000
             },
             {
-              "rank": 170,
+              "rank": 172,
               "name": "Francois Schweyen",
               "points": 2000
             },
             {
-              "rank": 170,
+              "rank": 172,
               "name": "Pascal Devroey",
               "points": 2000
             },
             {
-              "rank": 170,
+              "rank": 172,
               "name": "Florian Hempel",
               "points": 2000
             },
             {
-              "rank": 170,
+              "rank": 172,
               "name": "Florian Preis",
               "points": 2000
             },
             {
-              "rank": 170,
+              "rank": 172,
               "name": "Wojciech Brulinski",
               "points": 2000
             },
             {
-              "rank": 170,
+              "rank": 172,
               "name": "Sam Spivey",
               "points": 2000
             },
             {
-              "rank": 170,
+              "rank": 172,
               "name": "Andreas Harrysson",
               "points": 2000
             },
             {
-              "rank": 170,
+              "rank": 172,
               "name": "Dawid Robak",
               "points": 2000
             },
             {
-              "rank": 170,
-              "name": "Krzysztof Kciuk",
-              "points": 2000
-            },
-            {
-              "rank": 170,
+              "rank": 172,
               "name": "Miroslaw Grudziecki",
               "points": 2000
             },
             {
-              "rank": 170,
+              "rank": 172,
               "name": "Piotr Maciejczak",
               "points": 2000
             },
             {
-              "rank": 213,
+              "rank": 215,
               "name": "Danny Trueman",
               "points": 1250
             },
             {
-              "rank": 213,
+              "rank": 215,
               "name": "Matthias Ehlers",
               "points": 1250
             },
             {
-              "rank": 213,
+              "rank": 215,
               "name": "Jack Todd",
               "points": 1250
             },
             {
-              "rank": 213,
+              "rank": 215,
               "name": "Jamai van den Herik",
               "points": 1250
             },
             {
-              "rank": 213,
+              "rank": 215,
               "name": "Oliver King",
               "points": 1250
             },
             {
-              "rank": 213,
+              "rank": 215,
               "name": "Ron Meulenkamp",
               "points": 1250
             },
             {
-              "rank": 213,
+              "rank": 215,
               "name": "Samuel Whittaker",
               "points": 1250
             },
             {
-              "rank": 220,
+              "rank": 222,
               "name": "Danny van Trijp",
               "points": 750
             },
             {
-              "rank": 220,
+              "rank": 222,
               "name": "Jesus Salate",
               "points": 750
             }
           ]
         }
       ],
-      "asOf": "October 11, 2026",
+      "asOf": "October 18, 2026",
       "note": "Prijzengeld over twee jaar. Laatst gepubliceerde ranking; geen live prognose.",
       "archived": false,
       "source": "Darts Rankings",
       "sourceUrl": "https://www.dartsrankings.com/lastranking",
-      "fetchedAt": "2026-10-22T04:37:14.504Z"
+      "fetchedAt": "2026-10-22T11:45:09.775Z"
     },
     "motogp-riders": {
       "season": "2026",
@@ -11977,7 +11987,7 @@
       "archived": false,
       "source": "MotoGP",
       "sourceUrl": "https://stats.motogp.com/en/world-standing",
-      "fetchedAt": "2026-10-22T04:37:16.309Z"
+      "fetchedAt": "2026-10-22T11:45:11.457Z"
     },
     "handbal-men": {
       "season": "2026/27",
@@ -12259,7 +12269,7 @@
       "archived": false,
       "source": "EHF",
       "sourceUrl": "https://ehfcl.eurohandball.com/men/2026-27/standings/",
-      "fetchedAt": "2026-10-22T04:37:18.089Z"
+      "fetchedAt": "2026-10-22T11:45:12.952Z"
     },
     "handbal-women": {
       "season": "2026/27",
@@ -12441,7 +12451,7 @@
       "archived": false,
       "source": "EHF",
       "sourceUrl": "https://ehfcl.eurohandball.com/women/2026-27/standings/",
-      "fetchedAt": "2026-10-22T04:37:19.927Z"
+      "fetchedAt": "2026-10-22T11:45:14.187Z"
     },
     "handbal-euro-men": {
       "season": "2026",
@@ -12853,7 +12863,7 @@
       "archived": true,
       "source": "EHF",
       "sourceUrl": "https://ehfeuro.eurohandball.com/men/2026/standings/Xg2Ubz1_S9dxy0p0unxCBg/final-tournament/",
-      "fetchedAt": "2026-10-22T04:37:17.948Z"
+      "fetchedAt": "2026-10-22T11:45:12.806Z"
     },
     "handbal-euro-women": {
       "season": "2024",
@@ -13265,7 +13275,7 @@
       "archived": true,
       "source": "EHF",
       "sourceUrl": "https://ehfeuro.eurohandball.com/women/2024/standings/R-saEwRJFutIKedhnRuDpg/FinalTournament/",
-      "fetchedAt": "2026-10-22T04:37:18.976Z"
+      "fetchedAt": "2026-10-22T11:45:13.082Z"
     },
     "handbal-world-men": {
       "season": "2025",
@@ -13442,7 +13452,7 @@
       "archived": true,
       "source": "IHF",
       "sourceUrl": "https://www.ihf.info/media-center/events/29th-ihf-mens-world-championship",
-      "fetchedAt": "2026-10-22T04:37:18.631Z"
+      "fetchedAt": "2026-10-22T11:45:13.389Z"
     },
     "handbal-world-women": {
       "season": "2025",
@@ -13619,7 +13629,7 @@
       "archived": true,
       "source": "IHF",
       "sourceUrl": "https://www.ihf.info/index.php/media-center/events/27th-ihf-womens-world-championship",
-      "fetchedAt": "2026-10-22T04:37:20.241Z"
+      "fetchedAt": "2026-10-22T11:45:14.654Z"
     }
   }
 }
