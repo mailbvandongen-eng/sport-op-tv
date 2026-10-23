@@ -2,7 +2,7 @@
   "schema": 1,
   "competition": "EHF Champions League Men",
   "sourceUrl": "https://ehfcl.eurohandball.com/men/2026-27/matches/",
-  "fetchedAt": "2026-10-22T21:31:15.527Z",
+  "fetchedAt": "2026-10-23T04:42:41.583Z",
   "matches": [
     {
       "id": "202711020101025",
@@ -786,7 +786,7 @@
       "location": "Kassel",
       "channel": "EHFTV",
       "source": "EHF confirmed",
-      "completed": false
+      "completed": true
     },
     {
       "id": "202711020101043",
@@ -800,7 +800,7 @@
       "location": "Szeged",
       "channel": "EHFTV",
       "source": "EHF confirmed",
-      "completed": false
+      "completed": true
     },
     {
       "id": "202711020101049",
@@ -814,7 +814,7 @@
       "location": "Barcelona",
       "channel": "EHFTV",
       "source": "EHF confirmed",
-      "completed": false
+      "completed": true
     },
     {
       "id": "202711020101064",
@@ -828,7 +828,7 @@
       "location": "Saupstad",
       "channel": "EHFTV",
       "source": "EHF confirmed",
-      "completed": false
+      "completed": true
     },
     {
       "id": "202711020101041",
@@ -840,6 +840,20 @@
       "away": "IFK Kristianstad",
       "competition": "EHF Champions League Men",
       "location": "Lisboa",
+      "channel": "EHFTV",
+      "source": "EHF confirmed",
+      "completed": true
+    },
+    {
+      "id": "202711020101004",
+      "date": "2026-10-28",
+      "utc": "2026-10-28T17:45:00Z",
+      "time": "18:45",
+      "event": "FC Porto vs One Veszprém HC",
+      "home": "FC Porto",
+      "away": "One Veszprém HC",
+      "competition": "EHF Champions League Men",
+      "location": "Porto",
       "channel": "EHFTV",
       "source": "EHF confirmed",
       "completed": false
@@ -868,20 +882,6 @@
       "away": "HBC Nantes",
       "competition": "EHF Champions League Men",
       "location": "Plock",
-      "channel": "EHFTV",
-      "source": "EHF confirmed",
-      "completed": false
-    },
-    {
-      "id": "202711020101004",
-      "date": "2026-10-28",
-      "utc": "2026-10-28T17:45:00Z",
-      "time": "18:45",
-      "event": "FC Porto vs One Veszprém HC",
-      "home": "FC Porto",
-      "away": "One Veszprém HC",
-      "competition": "EHF Champions League Men",
-      "location": "Porto",
       "channel": "EHFTV",
       "source": "EHF confirmed",
       "completed": false
