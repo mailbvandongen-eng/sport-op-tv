@@ -1,3 +1,9 @@
+## 3.16.1 — 24 oktober 2026
+
+- De agenda opent direct op voetbal met de laatst bewaarde wedstrijden; nieuwe gegevens worden daarna bijgewerkt.
+- De gekozen sport blijft actief als je dezelfde sportknop nogmaals indrukt. Andere sporten laden pas wanneer je ze opent.
+- ESPN-competities laden met begrensde gelijktijdigheid; een lege bronrespons vervangt de laatst goede voetbalagenda niet.
+
 ## 3.16.0 — 14 oktober 2026
 
 - Handbalagenda: alleen EHF Champions League Men, met officiële affiches en Nederlandse starttijden.
