@@ -11,11 +11,11 @@
             {
               "rank": 1,
               "name": "Manchester City",
-              "played": 7,
+              "played": 8,
               "wins": 7,
               "draws": 0,
-              "losses": 0,
-              "diff": 12,
+              "losses": 1,
+              "diff": 11,
               "points": 21
             },
             {
@@ -60,6 +60,16 @@
             },
             {
               "rank": 6,
+              "name": "Aston Villa",
+              "played": 8,
+              "wins": 3,
+              "draws": 2,
+              "losses": 3,
+              "diff": -3,
+              "points": 11
+            },
+            {
+              "rank": 7,
               "name": "Brentford",
               "played": 7,
               "wins": 2,
@@ -69,7 +79,7 @@
               "points": 10
             },
             {
-              "rank": 7,
+              "rank": 8,
               "name": "Leeds United",
               "played": 7,
               "wins": 2,
@@ -79,7 +89,7 @@
               "points": 10
             },
             {
-              "rank": 8,
+              "rank": 9,
               "name": "Everton",
               "played": 7,
               "wins": 2,
@@ -89,7 +99,7 @@
               "points": 10
             },
             {
-              "rank": 9,
+              "rank": 10,
               "name": "Ipswich Town",
               "played": 8,
               "wins": 3,
@@ -99,7 +109,7 @@
               "points": 10
             },
             {
-              "rank": 10,
+              "rank": 11,
               "name": "Hull City",
               "played": 7,
               "wins": 2,
@@ -109,18 +119,8 @@
               "points": 9
             },
             {
-              "rank": 11,
-              "name": "Newcastle United",
-              "played": 7,
-              "wins": 2,
-              "draws": 2,
-              "losses": 3,
-              "diff": -4,
-              "points": 8
-            },
-            {
               "rank": 12,
-              "name": "Aston Villa",
+              "name": "Newcastle United",
               "played": 7,
               "wins": 2,
               "draws": 2,
@@ -213,7 +213,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/eng.1",
-      "fetchedAt": "2026-10-24T10:52:31.681Z"
+      "fetchedAt": "2026-10-24T15:52:19.312Z"
     },
     "eredivisie": {
       "season": "2026-27 VriendenLoterij Eredivisie",
@@ -407,7 +407,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/ned.1",
-      "fetchedAt": "2026-10-24T10:52:31.679Z"
+      "fetchedAt": "2026-10-24T15:52:19.308Z"
     },
     "champions": {
       "season": "2026-27 UEFA Champions League",
@@ -781,7 +781,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.champions",
-      "fetchedAt": "2026-10-24T10:52:31.687Z"
+      "fetchedAt": "2026-10-24T15:52:19.365Z"
     },
     "europa": {
       "season": "2026-27 UEFA Europa League",
@@ -1155,7 +1155,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.europa",
-      "fetchedAt": "2026-10-24T10:52:31.696Z"
+      "fetchedAt": "2026-10-24T15:52:19.324Z"
     },
     "conference": {
       "season": "2026-27 UEFA Conference League",
@@ -1529,7 +1529,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.europa.conf",
-      "fetchedAt": "2026-10-24T10:52:31.789Z"
+      "fetchedAt": "2026-10-24T15:52:19.469Z"
     },
     "wk": {
       "season": "2026 Wereldkampioenschap",
@@ -3121,7 +3121,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/fifa.world",
-      "fetchedAt": "2026-10-24T10:52:31.992Z"
+      "fetchedAt": "2026-10-24T15:52:19.587Z"
     },
     "ek": {
       "season": "2024 UEFA Europees Kampioenschap",
@@ -3913,7 +3913,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.euro",
-      "fetchedAt": "2026-10-24T10:52:31.895Z"
+      "fetchedAt": "2026-10-24T15:52:19.683Z"
     },
     "nations": {
       "season": "2026 UEFA Nations League",
@@ -6135,7 +6135,7 @@
       "archived": false,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.nations",
-      "fetchedAt": "2026-10-24T10:52:31.890Z"
+      "fetchedAt": "2026-10-24T15:52:19.629Z"
     },
     "wk-vrouwen": {
       "season": "2023 FIFA Wereldkampioenschap Vrouwen",
@@ -7147,7 +7147,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/fifa.wwc",
-      "fetchedAt": "2026-10-24T10:52:32.183Z"
+      "fetchedAt": "2026-10-24T15:52:20.025Z"
     },
     "nations-vrouwen": {
       "season": "2025 UEFA Women's Nations League",
@@ -9459,7 +9459,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.w.nations",
-      "fetchedAt": "2026-10-24T10:52:32.175Z"
+      "fetchedAt": "2026-10-24T15:52:20.010Z"
     },
     "ek-vrouwen": {
       "season": "2025 Europees Kampioenschap Voetbal Vrouwen",
@@ -9961,7 +9961,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.weuro",
-      "fetchedAt": "2026-10-24T10:52:32.247Z"
+      "fetchedAt": "2026-10-24T15:52:19.973Z"
     },
     "f1-drivers": {
       "season": "2026",
@@ -10300,7 +10300,7 @@
       ],
       "source": "Jolpica",
       "sourceUrl": "https://api.jolpi.ca/ergast/f1/current/driverStandings.json",
-      "fetchedAt": "2026-10-24T10:52:32.741Z"
+      "fetchedAt": "2026-10-24T15:52:19.836Z"
     },
     "f1-constructors": {
       "season": "2026",
@@ -10555,7 +10555,7 @@
       ],
       "source": "Jolpica",
       "sourceUrl": "https://api.jolpi.ca/ergast/f1/current/constructorStandings.json",
-      "fetchedAt": "2026-10-24T10:52:33.099Z"
+      "fetchedAt": "2026-10-24T15:52:20.110Z"
     },
     "darts-premier": {
       "season": "2026",
@@ -10644,7 +10644,7 @@
       "archived": true,
       "source": "Mastercaller",
       "sourceUrl": "https://mastercaller.nl/toernooien/premier-league/2026/stand",
-      "fetchedAt": "2026-10-24T10:52:33.811Z"
+      "fetchedAt": "2026-10-24T15:52:21.277Z"
     },
     "darts-merit": {
       "season": "2026",
@@ -11776,7 +11776,7 @@
       "archived": false,
       "source": "Darts Rankings",
       "sourceUrl": "https://www.dartsrankings.com/lastranking",
-      "fetchedAt": "2026-10-24T10:52:33.889Z"
+      "fetchedAt": "2026-10-24T15:52:21.181Z"
     },
     "motogp-riders": {
       "season": "2026",
@@ -11985,7 +11985,7 @@
       "archived": false,
       "source": "MotoGP",
       "sourceUrl": "https://stats.motogp.com/en/world-standing",
-      "fetchedAt": "2026-10-24T10:52:35.388Z"
+      "fetchedAt": "2026-10-24T15:52:22.568Z"
     },
     "handbal-men": {
       "season": "2026/27",
@@ -12267,7 +12267,7 @@
       "archived": false,
       "source": "EHF",
       "sourceUrl": "https://ehfcl.eurohandball.com/men/2026-27/standings/",
-      "fetchedAt": "2026-10-24T10:52:36.614Z"
+      "fetchedAt": "2026-10-24T15:52:24.191Z"
     },
     "handbal-women": {
       "season": "2026/27",
@@ -12449,7 +12449,7 @@
       "archived": false,
       "source": "EHF",
       "sourceUrl": "https://ehfcl.eurohandball.com/women/2026-27/standings/",
-      "fetchedAt": "2026-10-24T10:52:38.528Z"
+      "fetchedAt": "2026-10-24T15:52:25.847Z"
     },
     "handbal-euro-men": {
       "season": "2026",
@@ -12861,7 +12861,7 @@
       "archived": true,
       "source": "EHF",
       "sourceUrl": "https://ehfeuro.eurohandball.com/men/2026/standings/Xg2Ubz1_S9dxy0p0unxCBg/final-tournament/",
-      "fetchedAt": "2026-10-24T10:52:36.536Z"
+      "fetchedAt": "2026-10-24T15:52:23.951Z"
     },
     "handbal-euro-women": {
       "season": "2024",
@@ -13273,7 +13273,7 @@
       "archived": true,
       "source": "EHF",
       "sourceUrl": "https://ehfeuro.eurohandball.com/women/2024/standings/R-saEwRJFutIKedhnRuDpg/FinalTournament/",
-      "fetchedAt": "2026-10-24T10:52:36.787Z"
+      "fetchedAt": "2026-10-24T15:52:24.061Z"
     },
     "handbal-world-men": {
       "season": "2025",
@@ -13450,7 +13450,7 @@
       "archived": true,
       "source": "IHF",
       "sourceUrl": "https://www.ihf.info/media-center/events/29th-ihf-mens-world-championship",
-      "fetchedAt": "2026-10-24T10:52:37.233Z"
+      "fetchedAt": "2026-10-24T15:52:24.959Z"
     },
     "handbal-world-women": {
       "season": "2025",
@@ -13627,7 +13627,7 @@
       "archived": true,
       "source": "IHF",
       "sourceUrl": "https://www.ihf.info/index.php/media-center/events/27th-ihf-womens-world-championship",
-      "fetchedAt": "2026-10-24T10:52:38.272Z"
+      "fetchedAt": "2026-10-24T15:52:26.041Z"
     }
   }
 }
