@@ -101,6 +101,7 @@
     'use strict';
 
     const RELEASES = [
+    {version: '3.16.2', date: '24 oktober 2026', title: 'Darts standaard uitgeklapt', notes: ['Dartswedstrijden en sessies staan voortaan direct open wanneer je de agenda opent.', 'De bestaande uitklapbediening blijft beschikbaar als je een onderdeel tijdelijk wilt sluiten.']},
     {version: '3.16.1', date: '24 oktober 2026', title: 'Sneller starten en sportkeuze behouden', notes: ['De agenda opent direct op voetbal met de laatst bewaarde wedstrijden; nieuwe gegevens worden daarna bijgewerkt.', 'Een gekozen sport blijft gekozen als je dezelfde sportknop nogmaals indrukt. Andere sporten laden pas wanneer je ze opent.', 'ESPN-competities worden met begrensde gelijktijdigheid opgehaald en een lege bronrespons vervangt de laatst goede voetbalagenda niet.']},
     {version: '3.16.0', date: '14 oktober 2026', title: 'Champions League handbal voor Rick', notes: ['De handbalagenda toont alleen EHF Champions League Men: echte wedstrijden en Nederlandse starttijden uit de officiële EHF-bron.', 'EHFTV is aanklikbaar. Het schema wordt iedere zes uur bijgewerkt; bij een storing blijft het laatst opgehaalde schema beschikbaar.']},
     {version: '3.15.3', date: '11 oktober 2026', title: 'Wijzigingen op jouw moment', notes: ['Met Wijzigingen niet meer tonen zet je het automatische wijzigingsscherm uit, ook voor toekomstige versies.', 'Via het versienummer onderaan kun je wijzigingen blijven bekijken en automatisch tonen weer aanzetten.']},

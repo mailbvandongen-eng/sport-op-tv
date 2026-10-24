@@ -8,6 +8,9 @@ assert.ok(headers.length);
 assert.ok(headers.some(css => /position:\s*static/.test(css)));
 assert.ok(headers.every(css => !/position:\s*sticky|top:\s*\d/.test(css)), 'Dagkop mag geen wedstrijdregels overlappen');
 assert.match(source, /class="event-location"/);
+assert.ok(source.includes('class="match-row darts-row darts-expandable expanded"'), 'Darts rows start expanded');
+assert.ok(source.includes('aria-expanded="true"'), 'Darts rows announce expanded state');
+assert.ok(source.includes('class="darts-matches-list" id="${eventId}" style="display:block;"'), 'Darts details start visible');
 
 const f1 = source.slice(source.indexOf('        function getF1SessionLabel('), source.indexOf('        // Static football data'));
 const ctx = vm.createContext({

@@ -34,7 +34,7 @@ function createApp(fetchImpl, cacheAgeMs = 0) {
       window.IntersectionObserver = class { observe() {} disconnect() {} };
       window.fetch = fetchImpl;
       window.localStorage.setItem('cacheVersion', '3.12.8');
-      window.localStorage.setItem('sportOpTvSeenRelease', '3.16.1');
+      window.localStorage.setItem('sportOpTvSeenRelease', '3.16.2');
       window.localStorage.setItem('selectedCompetitions', JSON.stringify(['Eredivisie']));
       window.localStorage.setItem('selectedFootballTeams', JSON.stringify(['club:ajax:mannen']));
       window.localStorage.setItem('sportOpTvFootballPreferences', JSON.stringify({ teams: ['club:ajax:mannen'], competitions: ['Eredivisie'] }));

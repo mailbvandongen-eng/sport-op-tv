@@ -1,3 +1,8 @@
+## 3.16.2 — 24 oktober 2026
+
+- Dartswedstrijden en sessies staan voortaan direct open wanneer je de agenda opent.
+- De bestaande uitklapbediening blijft beschikbaar als je een onderdeel tijdelijk wilt sluiten.
+
 ## 3.16.1 — 24 oktober 2026
 
 - De agenda opent direct op voetbal met de laatst bewaarde wedstrijden; nieuwe gegevens worden daarna bijgewerkt.
