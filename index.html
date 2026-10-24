@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="football-policy.js?v=3.16.0"></script>
+    <script src="football-policy.js?v=3.16.1"></script>
     <style>
         * {
             margin: 0;
@@ -2834,10 +2834,10 @@
             background: var(--text-secondary);
         }
     </style>
-    <link rel="stylesheet" href="search-ui.css?v=3.16.0">
-    <link rel="stylesheet" href="guide-ui.css?v=3.16.0">
-    <script src="search-enhancements.js?v=3.16.0"></script>
-    <link rel="stylesheet" href="standings-menu.css?v=3.16.0">
+    <link rel="stylesheet" href="search-ui.css?v=3.16.1">
+    <link rel="stylesheet" href="guide-ui.css?v=3.16.1">
+    <script src="search-enhancements.js?v=3.16.1"></script>
+    <link rel="stylesheet" href="standings-menu.css?v=3.16.1">
 </head>
 <body>
     <a class="skip-link" href="#events-container">Naar wedstrijden</a>
@@ -4318,7 +4318,7 @@
         // Fetch F1 sessions from OpenF1 API
         async function fetchF1Sessions() {
             try {
-                const response = await fetch(`${CONFIG.F1_API_URL}/sessions?year=2026`);
+                const response = await fetch(`${CONFIG.F1_API_URL}/sessions?year=2026`, { signal: AbortSignal.timeout(8000) });
                 if (!response.ok) throw new Error('F1 API error');
                 const sessions = await response.json();
 
@@ -4737,6 +4737,23 @@
             return dates;
         }
 
+        async function mapWithConcurrency(items, limit, mapper) {
+            const results = new Array(items.length);
+            let nextIndex = 0;
+            const workerCount = Math.min(Math.max(1, limit), items.length);
+
+            await Promise.all(Array.from({ length: workerCount }, async () => {
+                while (true) {
+                    const index = nextIndex++;
+                    if (index >= items.length) return;
+                    results[index] = await mapper(items[index], index);
+                }
+            }));
+
+            return results;
+        }
+
+        // Fetch matches from ESPN API (national leagues, UEFA, qualifiers, cups and supercups)
         function dedupeFootballMatches(matches) {
             const channelSpecificityScore = (channel = '') => {
                 if (!channel) return 0;
@@ -4976,14 +4993,24 @@
             results.forEach(matches => allMatches.push(...matches));
 
             console.log(`OpenFootball matches loaded: ${allMatches.length}`);
+            let hasLiveSourceMatches = allMatches.length > 0;
 
             // Fetch additional football competitions from ESPN API
             try {
                 const espnMatches = await fetchESPNMatches();
                 allMatches.push(...espnMatches);
                 console.log(`Added ${espnMatches.length} additional football matches from ESPN`);
+                if (espnMatches.length > 0) hasLiveSourceMatches = true;
             } catch (e) {
                 console.warn('Could not fetch ESPN matches:', e);
+            }
+
+            if (!hasLiveSourceMatches && cached) {
+                console.log('No current source matches; preserving last good football cache');
+                restoreFootballSourceHealth(cacheTime);
+                const repaired = normalizeFootballData(JSON.parse(cached)).map(normalizeFootballMatchChannel);
+                localStorage.setItem('footballSource', 'cache');
+                return repaired;
             }
 
             const staticFallbackMatches = getStaticFootballMatches();
@@ -5032,7 +5059,6 @@
             return getLocalDateKey(d);
         }
 
-        // Fetch matches from ESPN API (national leagues, UEFA, qualifiers, cups and supercups)
         async function fetchESPNMatches() {
             console.log('Fetching additional football competitions from ESPN API...');
             const allMatches = [];
@@ -5046,7 +5072,7 @@
             async function fetchCompetitionEvents(comp) {
                 const rangeUrl = `${CONFIG.ESPN_API_URL}/${comp.slug}/scoreboard?dates=${fromDate}-${toDate}`;
                 try {
-                    const rangeResponse = await fetch(rangeUrl);
+                    const rangeResponse = await fetch(rangeUrl, { signal: AbortSignal.timeout(10000) });
                     if (rangeResponse.ok) {
                         footballSourceHealth.successful += 1;
                         const data = await rangeResponse.json();
@@ -5060,14 +5086,17 @@
                     }
 
                     console.warn(`ESPN ${comp.name}: datumrange geweigerd, terugval op losse dagen`);
-                    const dailyResults = await Promise.all(dayKeys.map(async dateKey => {
-                        const response = await fetch(`${CONFIG.ESPN_API_URL}/${comp.slug}/scoreboard?dates=${dateKey}`);
-                        if (!response.ok) return [];
+                    const dailyResults = await mapWithConcurrency(dayKeys, 3, async dateKey => {
+                        const response = await fetch(`${CONFIG.ESPN_API_URL}/${comp.slug}/scoreboard?dates=${dateKey}`, {
+                            signal: AbortSignal.timeout(10000)
+                        });
+                        if (!response.ok) return { ok: false, events: [] };
                         const data = await response.json();
-                        return Array.isArray(data.events) ? data.events : [];
-                    }));
-                    footballSourceHealth.successful += 1;
-                    return dailyResults.flat();
+                        return { ok: true, events: Array.isArray(data.events) ? data.events : [] };
+                    });
+                    if (dailyResults.every(result => result.ok)) footballSourceHealth.successful += 1;
+                    else footballSourceHealth.failed += 1;
+                    return dailyResults.flatMap(result => result.events);
                 } catch (error) {
                     console.error(`Error fetching ${comp.name}:`, error);
                     footballSourceHealth.failed += 1;
@@ -5075,8 +5104,12 @@
                 }
             }
 
-            for (const comp of CONFIG.ESPN_COMPETITIONS) {
-                const events = await fetchCompetitionEvents(comp);
+            const competitionResults = await mapWithConcurrency(CONFIG.ESPN_COMPETITIONS, 4, async comp => ({
+                comp,
+                events: await fetchCompetitionEvents(comp)
+            }));
+
+            for (const { comp, events } of competitionResults) {
 
                 events.forEach(event => {
                     const matchDate = new Date(event.date);
@@ -5899,7 +5932,9 @@
         }
 
         async function renderResultsView(container, visibleDateRange = [], forceRefresh = false) {
-            await ensureDartsResultsLoaded(forceRefresh);
+            if (currentSportFilter === null || currentSportFilter === 'darts') {
+                await ensureDartsResultsLoaded(forceRefresh);
+            }
             const allResultItems = buildResultItems();
             const visibleDateSet = new Set(visibleDateRange);
             const resultItems = allResultItems.filter(item => visibleDateSet.has(item.dateKey)
@@ -5988,56 +6023,141 @@
         let forceRefreshSports = new Set();
         let scrollSyncObserver = null;
         let scrollSyncPausedUntil = 0;
+        const supportedSports = ['voetbal', 'darts', 'f1', 'motogp', 'handbal'];
+        const backgroundSportRefreshes = new Map();
+        let highlightsRefresh = null;
 
-        async function renderEvents() {
+        function readFootballCacheSnapshot() {
+            try {
+                const saved = JSON.parse(localStorage.getItem('footballCache') || 'null');
+                if (!Array.isArray(saved)) return null;
+                restoreFootballSourceHealth(localStorage.getItem('footballCacheTime'));
+                const matches = normalizeFootballData(saved).map(normalizeFootballMatchChannel);
+                matches.forEach(event => { event.sportType = 'voetbal'; });
+                try { localStorage.setItem('footballCache', JSON.stringify(matches)); } catch (_) { /* Keep the in-memory snapshot if storage is full. */ }
+                return matches;
+            } catch (_) {
+                return null;
+            }
+        }
+
+        function isFootballCacheStale() {
+            try {
+                const savedAt = Number(localStorage.getItem('footballCacheTime'));
+                return !savedAt || Date.now() - savedAt >= 60 * 60 * 1000;
+            } catch (_) {
+                return true;
+            }
+        }
+
+        async function loadSportData(sport, force = false) {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            if (sport === 'voetbal') {
+                const footballData = await fetchFootballMatches({ force });
+                const sanitized = sanitizeFootballMatches(footballData || []);
+                const reliable = filterReliableFootballMatches(sanitized);
+                cachedData.voetbal = countUpcomingFootballMatches(sanitized, today) >= countUpcomingFootballMatches(reliable, today)
+                    ? sanitized
+                    : reliable;
+                cachedData.voetbal.forEach(event => { event.sportType = 'voetbal'; });
+                return cachedData.voetbal;
+            }
+
+            if (sport === 'darts') {
+                const [staticEvents, schedule] = await Promise.all([
+                    Promise.resolve(getStaticDartsEvents()),
+                    fetchPdcDartsSchedule({ force })
+                ]);
+                cachedData.darts = mergeDartsScheduleEvents(staticEvents, schedule || []);
+                cachedData.darts.forEach(event => { event.sportType = 'darts'; });
+                return cachedData.darts;
+            }
+
+            if (sport === 'f1') {
+                cachedData.f1 = await fetchF1Sessions();
+                cachedData.f1.forEach(event => { event.sportType = 'f1'; });
+                return cachedData.f1;
+            }
+
+            if (sport === 'motogp') {
+                cachedData.motogp = getStaticMotoGPEvents();
+                cachedData.motogp.forEach(event => { event.sportType = 'motogp'; });
+                return cachedData.motogp;
+            }
+
+            if (sport === 'handbal') {
+                const matches = await fetchHandballEvents();
+                cachedData.handbal = (matches || []).filter(event => event.competition === 'EHF Champions League Men');
+                cachedData.handbal.forEach(event => { event.sportType = 'handbal'; });
+                return cachedData.handbal;
+            }
+
+            return [];
+        }
+
+        function startBackgroundSportRefresh(sport) {
+            if (backgroundSportRefreshes.has(sport)) return backgroundSportRefreshes.get(sport);
+            const refresh = loadSportData(sport, true)
+                .catch(error => console.error(`Achtergrondverversing ${sport} mislukt:`, error))
+                .then(() => {
+                    if (currentSportFilter === sport) return renderEvents({ skipBackgroundRefresh: true });
+                })
+                .finally(() => backgroundSportRefreshes.delete(sport));
+            backgroundSportRefreshes.set(sport, refresh);
+            return refresh;
+        }
+
+        function startHighlightsRefresh() {
+            if (cachedData.highlights !== null || highlightsRefresh) return;
+            highlightsRefresh = fetchWorldCupHighlights()
+                .then(items => { cachedData.highlights = items; })
+                .catch(error => console.warn('Could not refresh highlights in background:', error))
+                .finally(() => { highlightsRefresh = null; });
+        }
+
+        async function renderEvents(options = {}) {
             const container = document.getElementById('events-container');
             container.className = `events-container${showScores ? ' show-scores' : ''}`;
             document.body.dataset.sportView = currentSportFilter || 'all';
             updateResultsModeControls();
 
-            showLoading();
-
             const today = new Date();
             today.setHours(0, 0, 0, 0);
             const futureDays = 30;
             const forceAllRefresh = forceRefreshSports.has('all');
-            const forceFootballRefresh = forceAllRefresh || forceRefreshSports.has('voetbal');
             const forceDartsRefresh = forceAllRefresh || forceRefreshSports.has('darts');
+            const selectedSports = currentSportFilter ? [currentSportFilter] : supportedSports;
+
+            if (selectedSports.includes('voetbal') && !Array.isArray(cachedData.voetbal)) {
+                cachedData.voetbal = readFootballCacheSnapshot();
+            }
+
+            const missingOrForced = selectedSports.filter(sport =>
+                !Array.isArray(cachedData[sport]) || forceAllRefresh || forceRefreshSports.has(sport)
+            );
+            const hasVisibleData = selectedSports.every(sport => Array.isArray(cachedData[sport]));
+            if (!hasVisibleData) showLoading();
 
             try {
-                const staticDartsData = getStaticDartsEvents();
-                const freshMotoGPData = getStaticMotoGPEvents();
-                const freshHandballData = getStaticHandballEvents();
-                const [footballData, pdcDartsData, f1Data, motoGPData, handballData, highlightData] = await Promise.all([
-                    forceFootballRefresh ? fetchFootballMatches({ force: true }) : (cachedData.voetbal || fetchFootballMatches()),
-                    fetchPdcDartsSchedule({ force: forceDartsRefresh }),
-                    cachedData.f1 || fetchF1Sessions(),
-                    Promise.resolve(cachedData.motogp || freshMotoGPData),
-                    !forceAllRefresh && !forceRefreshSports.has('handbal') && cachedData.handbal?.every(e => e.competition === 'EHF Champions League Men') ? cachedData.handbal : fetchHandballEvents(),
-                    cachedData.highlights || fetchWorldCupHighlights()
-                ]);
+                if (currentSportFilter) {
+                    const sport = currentSportFilter;
+                    if (missingOrForced.includes(sport)) {
+                        await loadSportData(sport, forceAllRefresh || forceRefreshSports.has(sport));
+                    } else if (!options.skipBackgroundRefresh && (
+                        forceAllRefresh || forceRefreshSports.has(sport) ||
+                        (sport === 'voetbal' && isFootballCacheStale())
+                    )) {
+                        startBackgroundSportRefresh(sport);
+                    }
 
-                const sanitizedFootballData = sanitizeFootballMatches(footballData || []);
-                const reliableFootballData = filterReliableFootballMatches(sanitizedFootballData);
-                const sanitizedUpcomingCount = countUpcomingFootballMatches(sanitizedFootballData, today);
-                const reliableUpcomingCount = countUpcomingFootballMatches(reliableFootballData, today);
-
-                cachedData.voetbal = sanitizedUpcomingCount > reliableUpcomingCount
-                    ? sanitizedFootballData
-                    : reliableFootballData;
-                cachedData.darts = mergeDartsScheduleEvents(staticDartsData, pdcDartsData || []);
-                cachedData.f1 = f1Data || [];
-                cachedData.motogp = motoGPData || freshMotoGPData || [];
-                cachedData.handbal = handballData || freshHandballData || [];
-                cachedData.highlights = highlightData || [];
-                setWorldCupHighlights(cachedData.highlights);
-
-                cachedData.voetbal.forEach(e => e.sportType = 'voetbal');
-                cachedData.darts.forEach(e => e.sportType = 'darts');
-                cachedData.f1.forEach(e => e.sportType = 'f1');
-                cachedData.motogp.forEach(e => e.sportType = 'motogp');
-                cachedData.handbal.forEach(e => e.sportType = 'handbal');
-
+                    if (sport === 'voetbal') startHighlightsRefresh();
+                } else if (missingOrForced.length) {
+                    await Promise.all(missingOrForced.map(sport =>
+                        loadSportData(sport, forceAllRefresh || forceRefreshSports.has(sport))
+                    ));
+                }
             } catch (error) {
                 console.error('Fetch error:', error);
                 showError('Kon data niet ophalen. Probeer het later opnieuw.');
@@ -6047,11 +6167,11 @@
             }
 
             // Apply sport filter
-            let footballEvents = currentSportFilter === null || currentSportFilter === 'voetbal' ? [...cachedData.voetbal] : [];
-            let dartsEvents = currentSportFilter === null || currentSportFilter === 'darts' ? [...cachedData.darts] : [];
-            let f1Events = currentSportFilter === null || currentSportFilter === 'f1' ? [...cachedData.f1] : [];
-            let motoGPEvents = currentSportFilter === null || currentSportFilter === 'motogp' ? [...cachedData.motogp] : [];
-            let handballEvents = currentSportFilter === null || currentSportFilter === 'handbal' ? [...cachedData.handbal] : [];
+            let footballEvents = currentSportFilter === null || currentSportFilter === 'voetbal' ? [...(cachedData.voetbal || [])] : [];
+            let dartsEvents = currentSportFilter === null || currentSportFilter === 'darts' ? [...(cachedData.darts || [])] : [];
+            let f1Events = currentSportFilter === null || currentSportFilter === 'f1' ? [...(cachedData.f1 || [])] : [];
+            let motoGPEvents = currentSportFilter === null || currentSportFilter === 'motogp' ? [...(cachedData.motogp || [])] : [];
+            let handballEvents = currentSportFilter === null || currentSportFilter === 'handbal' ? [...(cachedData.handbal || [])] : [];
 
             // Football: apply the persistent competition filter.
             footballEvents = applyFootballFilters(footballEvents);
@@ -6061,11 +6181,11 @@
             // Update API status
             const statusEl = document.getElementById('api-status');
             const sources = [];
-            if (cachedData.voetbal.length > 0) sources.push('Voetbal');
-            if (cachedData.darts.length > 0) sources.push('Darts');
-            if (cachedData.f1.length > 0) sources.push('F1');
-            if (cachedData.motogp.length > 0) sources.push('MotoGP');
-            if (cachedData.handbal.length > 0) sources.push('Handbal');
+            if ((cachedData.voetbal || []).length > 0) sources.push('Voetbal');
+            if ((cachedData.darts || []).length > 0) sources.push('Darts');
+            if ((cachedData.f1 || []).length > 0) sources.push('F1');
+            if ((cachedData.motogp || []).length > 0) sources.push('MotoGP');
+            if ((cachedData.handbal || []).length > 0) sources.push('Handbal');
             const checkedSources = footballSourceHealth.successful + footballSourceHealth.failed;
             const updatedTime = footballSourceHealth.updatedAt
                 ? new Intl.DateTimeFormat('nl-NL', { hour: '2-digit', minute: '2-digit' }).format(new Date(footballSourceHealth.updatedAt))
@@ -6701,7 +6821,12 @@
         }
 
         function setSportFilter(sport, renderNow = true) {
-            currentSportFilter = sport || null;
+            const nextSport = sport || null;
+            if (currentSportFilter === nextSport) {
+                syncSportFilterButtons();
+                return Promise.resolve();
+            }
+            currentSportFilter = nextSport;
             syncSportFilterButtons();
             return renderNow ? renderEvents() : Promise.resolve();
         }
@@ -6919,13 +7044,13 @@
         document.querySelectorAll('.sport-filter-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const sport = btn.dataset.sport;
+                if (currentSportFilter === sport) return;
                 window.SPORT_OP_TV_SEARCH?.clear({ restoreSport: false, render: false });
-                const nextSport = currentSportFilter === sport ? null : sport;
 
                 resultsMode = false;
                 selectedDate = null;
 
-                setSportFilter(nextSport).then(() => {
+                setSportFilter(sport).then(() => {
                     setTimeout(() => scrollToTodayOrNearest(), 150);
                 });
             });
@@ -6959,9 +7084,9 @@
         // op verzoek van de gebruiker; zo springt of knippert de agenda niet
         // tijdens lezen en lijkt de app niet spontaan te herstarten.
     </script>
-    <script src="standings-config.js?v=3.16.0" defer></script>
-    <script src="standings-menu.js?v=3.16.0" defer></script>
-    <script src="release-notes.js?v=3.16.0" defer></script>
+    <script src="standings-config.js?v=3.16.1" defer></script>
+    <script src="standings-menu.js?v=3.16.1" defer></script>
+    <script src="release-notes.js?v=3.16.1" defer></script>
 </body>
 </html>
 

@@ -11,7 +11,7 @@ assert.match(source, /class="event-location"/);
 
 const f1 = source.slice(source.indexOf('        function getF1SessionLabel('), source.indexOf('        // Static football data'));
 const ctx = vm.createContext({
-    Date, CONFIG: { F1_API_URL: 'https://fixture.test' }, console,
+    Date, AbortSignal, CONFIG: { F1_API_URL: 'https://fixture.test' }, console,
     isLiveNow: () => false,
     fetch: async () => ({ ok: true, json: async () => [{
         date_start: '2026-10-09T12:30:00Z', session_name: 'Sprint Qualifying',

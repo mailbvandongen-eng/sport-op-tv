@@ -31,7 +31,7 @@ for (const rejectRange of [false, true]) {
         ], status: { type: { completed: true } } }]
     };
     const ctx = vm.createContext({
-        Date: Clock, console: { log() {}, warn() {}, error() {} },
+        Date: Clock, AbortSignal, console: { log() {}, warn() {}, error() {} },
         CONFIG: { ESPN_API_URL: 'https://fixture.test', ESPN_COMPETITIONS: [{ slug: 'uefa.europa', name: 'Europa League', channel: 'Ziggo Sport' }] },
         footballSourceHealth: { successful: 0, failed: 0 },
         shouldIncludeEspnMatch: () => true,
@@ -72,8 +72,8 @@ for (const sport of ['voetbal', 'darts', 'f1', 'motogp', 'handbal', null]) {
         CONFIG: { COUNTRY_FLAGS: {} }, currentSportFilter: sport,
         showScores: false, showPast: true, resultsMode: false,
         selectedDate: '2026-10-01', filters: { competitions: ['Europa League'] },
-        forceRefreshSports: new Set(),
-        cachedData: { voetbal: [], f1: [], motogp: [], handbal: [], highlights: [] },
+        forceRefreshSports: new Set(), isFootballCacheStale: () => false, startHighlightsRefresh() {}, supportedSports: ['voetbal', 'darts', 'f1', 'motogp', 'handbal'],
+        cachedData: { voetbal: [], darts: [], f1: [], motogp: [], handbal: [], highlights: [] },
         footballSourceHealth: { successful: 0, failed: 0 },
         applyFootballFilters: events => events.filter(event => core.matchesFootballFilters(event, { competitions: ['Europa League'] })),
         updateResultsModeControls() {}, showLoading() {}, showError: message => assert.fail(message),
