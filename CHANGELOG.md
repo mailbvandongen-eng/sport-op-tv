@@ -1,3 +1,8 @@
+## 3.16.3 — 25 oktober 2026
+
+- Het fallbackprogramma van het European Championship toont nu beide sessies: kwartfinales om 13:00 en halve finales plus finale om 19:00.
+- PDC-schema’s met een sponsornaam vervangen nu de overeenkomstige handmatige fallback, zodat dubbele dartskaarten uitblijven.
+
 ## 3.16.2 — 24 oktober 2026
 
 - Dartswedstrijden en sessies staan voortaan direct open wanneer je de agenda opent.

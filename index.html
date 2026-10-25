@@ -4169,8 +4169,9 @@
             { date: '2026-10-24', time: '19:00', event: 'European Championship', location: 'Dortmund', channel: 'Viaplay', matches: [
                 dartsSession('19:00', 'Kwartfinales')
             ]},
-            { date: '2026-10-25', time: '19:00', event: 'European Championship - Finale', location: 'Dortmund', channel: 'Viaplay', matches: [
-                dartsSession('19:00', 'Halve finales + finale')
+            { date: '2026-10-25', time: '13:00', event: 'European Championship', location: 'Dortmund', channel: 'Viaplay', matches: [
+                dartsSession('13:00', 'Middagsessie - Kwartfinales'),
+                dartsSession('19:00', 'Avondsessie - Halve finales + finale')
             ]},
             // Grand Slam of Darts 2026
             { date: '2026-11-14', time: '13:00', event: 'Grand Slam of Darts', location: 'Wolverhampton', channel: 'Viaplay', matches: [
@@ -5523,21 +5524,22 @@
             return Array.from(eventGroups.values());
         }
 
+        function haveSameDartsTournamentName(left = '', right = '') {
+            const a = normalizeDartsTournamentName(left);
+            const b = normalizeDartsTournamentName(right);
+            return Boolean(a && b && (a === b || a.endsWith(` ${b}`) || b.endsWith(` ${a}`)));
+        }
+
         function mergeDartsScheduleEvents(staticEvents = [], pdcEvents = []) {
             if (!Array.isArray(pdcEvents) || pdcEvents.length === 0) return staticEvents;
 
-            const pdcKeys = new Set(pdcEvents.map(event => [
-                getLocalDateKey(event.date),
-                normalizeDartsTournamentName(event.competition || event.title)
-            ].join('|')));
-
-            const filteredStatic = staticEvents.filter(event => {
-                const key = [
-                    getLocalDateKey(event.date),
-                    normalizeDartsTournamentName(event.competition || event.title)
-                ].join('|');
-                return !pdcKeys.has(key);
-            });
+            const filteredStatic = staticEvents.filter(staticEvent => !pdcEvents.some(pdcEvent =>
+                getLocalDateKey(staticEvent.date) === getLocalDateKey(pdcEvent.date)
+                && haveSameDartsTournamentName(
+                    staticEvent.competition || staticEvent.title,
+                    pdcEvent.competition || pdcEvent.title
+                )
+            ));
 
             return [...filteredStatic, ...pdcEvents]
                 .sort((a, b) => new Date(a.date) - new Date(b.date) || String(a.time || '').localeCompare(String(b.time || '')));
@@ -7086,7 +7088,7 @@
     </script>
     <script src="standings-config.js?v=3.16.2" defer></script>
     <script src="standings-menu.js?v=3.16.2" defer></script>
-    <script src="release-notes.js?v=3.16.2" defer></script>
+    <script src="release-notes.js?v=3.16.3" defer></script>
 </body>
 </html>
 
