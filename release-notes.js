@@ -101,6 +101,7 @@
     'use strict';
 
     const RELEASES = [
+    {version: '3.16.4', date: '26 oktober 2026', title: 'Dartsagenda wacht niet op PDC', notes: ['De lokale dartsagenda verschijnt direct; een trage PDC-feed blokkeert het openen niet meer.', 'De PDC-aanvraag stopt na 8 seconden en werkt de agenda bij zodra de feed antwoordt.']},
     {version: '3.16.3', date: '25 oktober 2026', title: 'Darts-finaledag compleet', notes: ['Het fallbackprogramma van het European Championship toont nu beide sessies: kwartfinales om 13:00 en halve finales plus finale om 19:00.', 'PDC-schema’s met een sponsornaam vervangen nu de overeenkomstige handmatige fallback, zodat dubbele dartskaarten uitblijven.']},
     {version: '3.16.2', date: '24 oktober 2026', title: 'Darts standaard uitgeklapt', notes: ['Dartswedstrijden en sessies staan voortaan direct open wanneer je de agenda opent.', 'De bestaande uitklapbediening blijft beschikbaar als je een onderdeel tijdelijk wilt sluiten.']},
     {version: '3.16.1', date: '24 oktober 2026', title: 'Sneller starten en sportkeuze behouden', notes: ['De agenda opent direct op voetbal met de laatst bewaarde wedstrijden; nieuwe gegevens worden daarna bijgewerkt.', 'Een gekozen sport blijft gekozen als je dezelfde sportknop nogmaals indrukt. Andere sporten laden pas wanneer je ze opent.', 'ESPN-competities worden met begrensde gelijktijdigheid opgehaald en een lege bronrespons vervangt de laatst goede voetbalagenda niet.']},
