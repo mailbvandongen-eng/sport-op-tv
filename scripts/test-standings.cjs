@@ -2,6 +2,7 @@ process.env.TZ='Europe/Amsterdam';
 const {JSDOM,ResourceLoader,VirtualConsole}=require('jsdom');
 const fs=require('fs'),assert=require('assert/strict'),path=require('path');
 const root=path.resolve(__dirname,'..'),core=require('../standings-config.js');
+const releaseVersion = fs.readFileSync(`${root}/release-notes.js`, 'utf8').match(/\\{version: '([0-9.]+)'/)[1];
 const now=new Date().toISOString();
 const football={season:{year:2026,displayName:'2026/27'},children:[{name:'Stand',standings:{entries:[{team:{displayName:'Ajax'},stats:[{name:'rank',value:1},{name:'wins',value:2},{name:'ties',value:0},{name:'losses',value:1},{name:'points',value:6},{name:'gamesPlayed',value:3}]}]}}]};
 const f1={MRData:{StandingsTable:{StandingsLists:[{season:'2026',round:'16',DriverStandings:[{position:'1',Driver:{givenName:'Andrea Kimi',familyName:'Antonelli'},Constructors:[{name:'Mercedes'}],points:'320',wins:'8'}],ConstructorStandings:[{position:'1',Constructor:{name:'Mercedes'},points:'550',wins:'9'}]}]}}};
@@ -11,7 +12,7 @@ class Local extends ResourceLoader{fetch(url){let name=new URL(url).pathname.spl
 const vc=new VirtualConsole();vc.on('jsdomError',e=>errors.push(e.message));
 const dom=new JSDOM(fs.readFileSync(path.join(root,'index.html'),'utf8'),{url:'https://sport.test/',runScripts:'dangerously',resources:new Local(),pretendToBeVisual:true,virtualConsole:vc,beforeParse(w){
 w.scrollTo=()=>{};w.HTMLElement.prototype.scrollIntoView=function(){};w.IntersectionObserver=class{observe(){}disconnect(){}};
-w.localStorage.setItem('sportOpTvSeenRelease','3.16.2');w.localStorage.setItem('cacheVersion','3.12.8');w.localStorage.setItem('sportStandingsFavorites','{broken');
+w.localStorage.setItem('sportOpTvSeenRelease',releaseVersion);w.localStorage.setItem('cacheVersion','3.12.8');w.localStorage.setItem('sportStandingsFavorites','{broken');
 w.localStorage.setItem('selectedCompetitions','["Eredivisie"]');
 w.fetch=async url=>{url=String(url);requests.push(url);if(url.includes('standings.json')){if(fail)throw Error('offline');return{ok:true,json:async()=>snapshots};}if(url.includes('/standings?')){if(fail)throw Error('offline');if(hold){hold=false;await new Promise(r=>release=r);}return{ok:true,json:async()=>football};}if(url.includes('jolpi.ca'))return{ok:true,json:async()=>f1};return{ok:true,json:async()=>url.includes('openf1')?[]:{events:[],matches:[],data:[],highlights:[]}};};
 }});

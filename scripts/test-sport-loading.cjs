@@ -2,6 +2,7 @@ const { JSDOM, ResourceLoader, VirtualConsole } = require('jsdom');
 const fs = require('fs');
 const assert = require('node:assert/strict');
 const root = require('path').resolve(__dirname, '..');
+const releaseVersion = fs.readFileSync(`${root}/release-notes.js`, 'utf8').match(/\\{version: '([0-9.]+)'/)[1];
 const handball = require(`${root}/data/handball-men.json`);
 const today = new Date();
 today.setHours(12, 0, 0, 0);
@@ -34,7 +35,7 @@ function createApp(fetchImpl, cacheAgeMs = 0) {
       window.IntersectionObserver = class { observe() {} disconnect() {} };
       window.fetch = fetchImpl;
       window.localStorage.setItem('cacheVersion', '3.12.8');
-      window.localStorage.setItem('sportOpTvSeenRelease', '3.16.2');
+      window.localStorage.setItem('sportOpTvSeenRelease', releaseVersion);
       window.localStorage.setItem('selectedCompetitions', JSON.stringify(['Eredivisie']));
       window.localStorage.setItem('selectedFootballTeams', JSON.stringify(['club:ajax:mannen']));
       window.localStorage.setItem('sportOpTvFootballPreferences', JSON.stringify({ teams: ['club:ajax:mannen'], competitions: ['Eredivisie'] }));
