@@ -2,7 +2,7 @@ process.env.TZ='Europe/Amsterdam';
 const {JSDOM,ResourceLoader,VirtualConsole}=require('jsdom');
 const fs=require('fs'),assert=require('assert/strict'),path=require('path');
 const root=path.resolve(__dirname,'..'),core=require('../standings-config.js');
-const releaseVersion = fs.readFileSync(`${root}/release-notes.js`, 'utf8').match(/\\{version: '([0-9.]+)'/)[1];
+const releaseVersion = fs.readFileSync(`${root}/release-notes.js`, 'utf8').match(/version: '([0-9.]+)'/)[1];
 const now=new Date().toISOString();
 const football={season:{year:2026,displayName:'2026/27'},children:[{name:'Stand',standings:{entries:[{team:{displayName:'Ajax'},stats:[{name:'rank',value:1},{name:'wins',value:2},{name:'ties',value:0},{name:'losses',value:1},{name:'points',value:6},{name:'gamesPlayed',value:3}]}]}}]};
 const f1={MRData:{StandingsTable:{StandingsLists:[{season:'2026',round:'16',DriverStandings:[{position:'1',Driver:{givenName:'Andrea Kimi',familyName:'Antonelli'},Constructors:[{name:'Mercedes'}],points:'320',wins:'8'}],ConstructorStandings:[{position:'1',Constructor:{name:'Mercedes'},points:'550',wins:'9'}]}]}}};
