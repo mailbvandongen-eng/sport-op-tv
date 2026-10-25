@@ -1,7 +1,7 @@
 const {JSDOM, ResourceLoader, VirtualConsole}=require('jsdom');
 const fs=require('fs'), assert=require('assert/strict');
 const root=require('path').resolve(__dirname,'..');
-const releaseVersion = fs.readFileSync(`${root}/release-notes.js`, 'utf8').match(/\\{version: '([0-9.]+)'/)[1];
+const releaseVersion = fs.readFileSync(`${root}/release-notes.js`, 'utf8').match(/version: '([0-9.]+)'/)[1];
 const requests=[], errors=[];
 process.env.TZ='Europe/Amsterdam';
 const today=new Date(); today.setHours(12,0,0,0);
