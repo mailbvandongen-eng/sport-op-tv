@@ -2,7 +2,7 @@ const { JSDOM, ResourceLoader, VirtualConsole } = require('jsdom');
 const fs = require('fs');
 const assert = require('node:assert/strict');
 const root = require('path').resolve(__dirname, '..');
-const releaseVersion = fs.readFileSync(`${root}/release-notes.js`, 'utf8').match(/\\{version: '([0-9.]+)'/)[1];
+const releaseVersion = fs.readFileSync(`${root}/release-notes.js`, 'utf8').match(/version: '([0-9.]+)'/)[1];
 const handball = require(`${root}/data/handball-men.json`);
 const today = new Date();
 today.setHours(12, 0, 0, 0);
