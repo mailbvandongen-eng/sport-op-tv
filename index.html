@@ -5659,7 +5659,7 @@
                 return cachedData.dartsFixtures;
             } catch (error) {
                 console.warn('Could not fetch PDC darts fixtures:', error);
-                return [];
+                return Array.isArray(cachedData.dartsFixtures) ? cachedData.dartsFixtures : [];
             } finally {
                 clearTimeout(timeoutId);
             }
