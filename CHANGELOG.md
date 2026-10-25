@@ -1,3 +1,8 @@
+## 3.16.4 — 26 oktober 2026
+
+- De lokale dartsagenda verschijnt direct; een trage PDC-feed blokkeert het openen niet meer.
+- De PDC-aanvraag stopt na 8 seconden en werkt de agenda bij zodra de feed antwoordt.
+
 ## 3.16.3 — 25 oktober 2026
 
 - Het fallbackprogramma van het European Championship toont nu beide sessies: kwartfinales om 13:00 en halve finales plus finale om 19:00.
