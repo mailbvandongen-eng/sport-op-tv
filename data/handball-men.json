@@ -2,7 +2,7 @@
   "schema": 1,
   "competition": "EHF Champions League Men",
   "sourceUrl": "https://ehfcl.eurohandball.com/men/2026-27/matches/",
-  "fetchedAt": "2026-10-29T22:42:02.821Z",
+  "fetchedAt": "2026-10-30T05:40:25.245Z",
   "matches": [
     {
       "id": "202711020101025",
@@ -954,7 +954,7 @@
       "location": "Berlin",
       "channel": "EHFTV",
       "source": "EHF confirmed",
-      "completed": false
+      "completed": true
     },
     {
       "id": "202711020101040",
@@ -968,7 +968,7 @@
       "location": "Svendborg",
       "channel": "EHFTV",
       "source": "EHF confirmed",
-      "completed": false
+      "completed": true
     },
     {
       "id": "202711020101046",
@@ -982,7 +982,7 @@
       "location": "Kristianstad",
       "channel": "EHFTV",
       "source": "EHF confirmed",
-      "completed": false
+      "completed": true
     },
     {
       "id": "202711020101055",
@@ -996,7 +996,7 @@
       "location": "Montpellier",
       "channel": "EHFTV",
       "source": "EHF confirmed",
-      "completed": false
+      "completed": true
     },
     {
       "id": "202711020101054",
@@ -1010,7 +1010,7 @@
       "location": "Aarhus",
       "channel": "EHFTV",
       "source": "EHF confirmed",
-      "completed": false
+      "completed": true
     },
     {
       "id": "202711020105007",
