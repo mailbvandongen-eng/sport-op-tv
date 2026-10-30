@@ -2,7 +2,7 @@
   "schema": 1,
   "competition": "EHF Champions League Men",
   "sourceUrl": "https://ehfcl.eurohandball.com/men/2026-27/matches/",
-  "fetchedAt": "2026-10-30T05:40:25.245Z",
+  "fetchedAt": "2026-10-30T12:47:22.106Z",
   "matches": [
     {
       "id": "202711020101025",
@@ -1013,34 +1013,6 @@
       "completed": true
     },
     {
-      "id": "202711020105007",
-      "date": "2027-03-24",
-      "utc": null,
-      "time": "TBD",
-      "event": "P04-A vs P04-B",
-      "home": "P04-A",
-      "away": "P04-B",
-      "competition": "EHF Champions League Men",
-      "location": "",
-      "channel": "EHFTV",
-      "source": "EHF confirmed",
-      "completed": false
-    },
-    {
-      "id": "202711020105008",
-      "date": "2027-03-24",
-      "utc": null,
-      "time": "TBD",
-      "event": "P04-B vs P04-A",
-      "home": "P04-B",
-      "away": "P04-A",
-      "competition": "EHF Champions League Men",
-      "location": "",
-      "channel": "EHFTV",
-      "source": "EHF confirmed",
-      "completed": false
-    },
-    {
       "id": "202711020105002",
       "date": "2027-03-24",
       "utc": null,
@@ -1104,6 +1076,34 @@
       "event": "P03-B vs P03-A",
       "home": "P03-B",
       "away": "P03-A",
+      "competition": "EHF Champions League Men",
+      "location": "",
+      "channel": "EHFTV",
+      "source": "EHF confirmed",
+      "completed": false
+    },
+    {
+      "id": "202711020105007",
+      "date": "2027-03-24",
+      "utc": null,
+      "time": "TBD",
+      "event": "P04-A vs P04-B",
+      "home": "P04-A",
+      "away": "P04-B",
+      "competition": "EHF Champions League Men",
+      "location": "",
+      "channel": "EHFTV",
+      "source": "EHF confirmed",
+      "completed": false
+    },
+    {
+      "id": "202711020105008",
+      "date": "2027-03-24",
+      "utc": null,
+      "time": "TBD",
+      "event": "P04-B vs P04-A",
+      "home": "P04-B",
+      "away": "P04-A",
       "competition": "EHF Champions League Men",
       "location": "",
       "channel": "EHFTV",
