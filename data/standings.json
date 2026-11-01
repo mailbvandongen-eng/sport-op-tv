@@ -213,7 +213,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/eng.1",
-      "fetchedAt": "2026-11-01T05:56:24.701Z"
+      "fetchedAt": "2026-11-01T13:14:38.076Z"
     },
     "eredivisie": {
       "season": "2026-27 VriendenLoterij Eredivisie",
@@ -354,6 +354,16 @@
             },
             {
               "rank": 14,
+              "name": "PEC Zwolle",
+              "played": 11,
+              "wins": 3,
+              "draws": 2,
+              "losses": 6,
+              "diff": -11,
+              "points": 11
+            },
+            {
+              "rank": 15,
               "name": "Sparta Rotterdam",
               "played": 10,
               "wins": 2,
@@ -361,16 +371,6 @@
               "losses": 5,
               "diff": -7,
               "points": 9
-            },
-            {
-              "rank": 15,
-              "name": "PEC Zwolle",
-              "played": 10,
-              "wins": 2,
-              "draws": 2,
-              "losses": 6,
-              "diff": -12,
-              "points": 8
             },
             {
               "rank": 16,
@@ -385,11 +385,11 @@
             {
               "rank": 17,
               "name": "ADO Den Haag",
-              "played": 10,
+              "played": 11,
               "wins": 1,
               "draws": 3,
-              "losses": 6,
-              "diff": -10,
+              "losses": 7,
+              "diff": -11,
               "points": 6
             },
             {
@@ -407,7 +407,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/ned.1",
-      "fetchedAt": "2026-11-01T05:56:24.709Z"
+      "fetchedAt": "2026-11-01T13:14:38.048Z"
     },
     "champions": {
       "season": "2026-27 UEFA Champions League",
@@ -781,7 +781,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.champions",
-      "fetchedAt": "2026-11-01T05:56:24.708Z"
+      "fetchedAt": "2026-11-01T13:14:38.045Z"
     },
     "europa": {
       "season": "2026-27 UEFA Europa League",
@@ -1155,7 +1155,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.europa",
-      "fetchedAt": "2026-11-01T05:56:24.757Z"
+      "fetchedAt": "2026-11-01T13:14:38.052Z"
     },
     "conference": {
       "season": "2026-27 UEFA Conference League",
@@ -1529,7 +1529,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.europa.conf",
-      "fetchedAt": "2026-11-01T05:56:24.879Z"
+      "fetchedAt": "2026-11-01T13:14:38.174Z"
     },
     "wk": {
       "season": "2026 Wereldkampioenschap",
@@ -3121,7 +3121,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/fifa.world",
-      "fetchedAt": "2026-11-01T05:56:24.910Z"
+      "fetchedAt": "2026-11-01T13:14:38.254Z"
     },
     "ek": {
       "season": "2024 UEFA Europees Kampioenschap",
@@ -3913,7 +3913,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.euro",
-      "fetchedAt": "2026-11-01T05:56:24.872Z"
+      "fetchedAt": "2026-11-01T13:14:38.330Z"
     },
     "nations": {
       "season": "2026 UEFA Nations League",
@@ -6135,7 +6135,7 @@
       "archived": false,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.nations",
-      "fetchedAt": "2026-11-01T05:56:24.896Z"
+      "fetchedAt": "2026-11-01T13:14:38.300Z"
     },
     "wk-vrouwen": {
       "season": "2023 FIFA Wereldkampioenschap Vrouwen",
@@ -7147,7 +7147,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/fifa.wwc",
-      "fetchedAt": "2026-11-01T05:56:25.031Z"
+      "fetchedAt": "2026-11-01T13:14:38.629Z"
     },
     "nations-vrouwen": {
       "season": "2025 UEFA Women's Nations League",
@@ -9459,7 +9459,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.w.nations",
-      "fetchedAt": "2026-11-01T05:56:25.069Z"
+      "fetchedAt": "2026-11-01T13:14:38.748Z"
     },
     "ek-vrouwen": {
       "season": "2025 Europees Kampioenschap Voetbal Vrouwen",
@@ -9961,7 +9961,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.weuro",
-      "fetchedAt": "2026-11-01T05:56:25.022Z"
+      "fetchedAt": "2026-11-01T13:14:38.645Z"
     },
     "f1-drivers": {
       "season": "2026",
@@ -10307,7 +10307,7 @@
       ],
       "source": "Jolpica",
       "sourceUrl": "https://api.jolpi.ca/ergast/f1/current/driverStandings.json",
-      "fetchedAt": "2026-11-01T05:56:24.991Z"
+      "fetchedAt": "2026-11-01T13:14:38.415Z"
     },
     "f1-constructors": {
       "season": "2026",
@@ -10562,7 +10562,7 @@
       ],
       "source": "Jolpica",
       "sourceUrl": "https://api.jolpi.ca/ergast/f1/current/constructorStandings.json",
-      "fetchedAt": "2026-11-01T05:56:25.097Z"
+      "fetchedAt": "2026-11-01T13:14:38.778Z"
     },
     "darts-premier": {
       "season": "2026",
@@ -10651,7 +10651,9 @@
       "archived": true,
       "source": "Mastercaller",
       "sourceUrl": "https://mastercaller.nl/toernooien/premier-league/2026/stand",
-      "fetchedAt": "2026-11-01T05:56:26.209Z"
+      "fetchedAt": "2026-11-01T05:56:26.209Z",
+      "error": "Bron tijdelijk niet beschikbaar",
+      "attemptedAt": "2026-11-01T13:14:39.347Z"
     },
     "darts-merit": {
       "season": "2026",
@@ -11783,7 +11785,7 @@
       "archived": false,
       "source": "Darts Rankings",
       "sourceUrl": "https://www.dartsrankings.com/lastranking",
-      "fetchedAt": "2026-11-01T05:56:25.962Z"
+      "fetchedAt": "2026-11-01T13:14:40.120Z"
     },
     "motogp-riders": {
       "season": "2026",
@@ -11796,7 +11798,7 @@
               "rank": 1,
               "name": "Marc Marquez",
               "team": "Ducati Lenovo Team",
-              "points": 374
+              "points": 399
             },
             {
               "rank": 2,
@@ -11808,25 +11810,25 @@
               "rank": 3,
               "name": "Marco Bezzecchi",
               "team": "Aprilia Racing",
-              "points": 322
+              "points": 332
             },
             {
               "rank": 4,
               "name": "Pedro Acosta",
               "team": "Red Bull KTM Factory Racing",
-              "points": 275
+              "points": 295
             },
             {
               "rank": 5,
               "name": "Ai Ogura",
               "team": "SuperFile Trackhouse MotoGP Team",
-              "points": 265
+              "points": 278
             },
             {
               "rank": 6,
               "name": "Fabio Di Giannantonio",
               "team": "Pertamina Enduro VR46 Racing Team",
-              "points": 257
+              "points": 265
             },
             {
               "rank": 7,
@@ -11838,55 +11840,55 @@
               "rank": 8,
               "name": "Alex Marquez",
               "team": "BK8 Gresini Racing MotoGP",
-              "points": 181
+              "points": 197
             },
             {
               "rank": 9,
               "name": "Francesco Bagnaia",
               "team": "Ducati Lenovo Team",
-              "points": 170
+              "points": 173
             },
             {
               "rank": 10,
+              "name": "Enea Bastianini",
+              "team": "Red Bull KTM Tech3",
+              "points": 134
+            },
+            {
+              "rank": 11,
               "name": "Fermin Aldeguer",
               "team": "BK8 Gresini Racing MotoGP",
               "points": 125
             },
             {
-              "rank": 11,
-              "name": "Enea Bastianini",
-              "team": "Red Bull KTM Tech3",
-              "points": 123
-            },
-            {
               "rank": 12,
               "name": "Brad Binder",
               "team": "Red Bull KTM Factory Racing",
-              "points": 111
+              "points": 118
             },
             {
               "rank": 13,
               "name": "Luca Marini",
               "team": "Honda HRC Castrol",
-              "points": 108
+              "points": 117
             },
             {
               "rank": 14,
+              "name": "Fabio Quartararo",
+              "team": "Monster Energy Yamaha MotoGP Team",
+              "points": 79
+            },
+            {
+              "rank": 15,
               "name": "Diogo Moreira",
               "team": "Pro Honda LCR",
               "points": 78
             },
             {
-              "rank": 15,
-              "name": "Fabio Quartararo",
-              "team": "Monster Energy Yamaha MotoGP Team",
-              "points": 74
-            },
-            {
               "rank": 16,
               "name": "Franco Morbidelli",
               "team": "Pertamina Enduro VR46 Racing Team",
-              "points": 59
+              "points": 65
             },
             {
               "rank": 17,
@@ -11910,7 +11912,7 @@
               "rank": 20,
               "name": "Alex Rins",
               "team": "Monster Energy Yamaha MotoGP Team",
-              "points": 25
+              "points": 29
             },
             {
               "rank": 21,
@@ -11922,13 +11924,13 @@
               "rank": 22,
               "name": "Maverick Viñales",
               "team": "Red Bull KTM Tech3",
-              "points": 12
+              "points": 14
             },
             {
               "rank": 23,
               "name": "Iker Lecuona",
               "team": "BK8 Gresini Racing MotoGP",
-              "points": 10
+              "points": 11
             },
             {
               "rank": 24,
@@ -11992,7 +11994,7 @@
       "archived": false,
       "source": "MotoGP",
       "sourceUrl": "https://stats.motogp.com/en/world-standing",
-      "fetchedAt": "2026-11-01T05:56:28.449Z"
+      "fetchedAt": "2026-11-01T13:14:41.282Z"
     },
     "handbal-men": {
       "season": "2026/27",
@@ -12404,7 +12406,7 @@
       "archived": false,
       "source": "EHF",
       "sourceUrl": "https://ehfcl.eurohandball.com/men/2026-27/standings/",
-      "fetchedAt": "2026-11-01T05:56:29.822Z"
+      "fetchedAt": "2026-11-01T13:14:42.887Z"
     },
     "handbal-women": {
       "season": "2026/27",
@@ -12586,7 +12588,7 @@
       "archived": false,
       "source": "EHF",
       "sourceUrl": "https://ehfcl.eurohandball.com/women/2026-27/standings/",
-      "fetchedAt": "2026-11-01T05:56:31.479Z"
+      "fetchedAt": "2026-11-01T13:14:45.030Z"
     },
     "handbal-euro-men": {
       "season": "2026",
@@ -12998,7 +13000,7 @@
       "archived": true,
       "source": "EHF",
       "sourceUrl": "https://ehfeuro.eurohandball.com/men/2026/standings/Xg2Ubz1_S9dxy0p0unxCBg/final-tournament/",
-      "fetchedAt": "2026-11-01T05:56:29.612Z"
+      "fetchedAt": "2026-11-01T13:14:43.116Z"
     },
     "handbal-euro-women": {
       "season": "2024",
@@ -13410,7 +13412,7 @@
       "archived": true,
       "source": "EHF",
       "sourceUrl": "https://ehfeuro.eurohandball.com/women/2024/standings/R-saEwRJFutIKedhnRuDpg/FinalTournament/",
-      "fetchedAt": "2026-11-01T05:56:29.953Z"
+      "fetchedAt": "2026-11-01T13:14:44.093Z"
     },
     "handbal-world-men": {
       "season": "2025",
@@ -13587,7 +13589,7 @@
       "archived": true,
       "source": "IHF",
       "sourceUrl": "https://www.ihf.info/media-center/events/29th-ihf-mens-world-championship",
-      "fetchedAt": "2026-11-01T05:56:30.626Z"
+      "fetchedAt": "2026-11-01T13:14:43.778Z"
     },
     "handbal-world-women": {
       "season": "2025",
@@ -13764,7 +13766,7 @@
       "archived": true,
       "source": "IHF",
       "sourceUrl": "https://www.ihf.info/index.php/media-center/events/27th-ihf-womens-world-championship",
-      "fetchedAt": "2026-11-01T05:56:31.630Z"
+      "fetchedAt": "2026-11-01T13:14:45.222Z"
     }
   }
 }
