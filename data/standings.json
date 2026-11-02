@@ -213,7 +213,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/eng.1",
-      "fetchedAt": "2026-11-02T05:55:31.764Z"
+      "fetchedAt": "2026-11-02T15:40:46.167Z"
     },
     "eredivisie": {
       "season": "2026-27 VriendenLoterij Eredivisie",
@@ -407,7 +407,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/ned.1",
-      "fetchedAt": "2026-11-02T05:55:31.766Z"
+      "fetchedAt": "2026-11-02T15:40:46.118Z"
     },
     "champions": {
       "season": "2026-27 UEFA Champions League",
@@ -781,7 +781,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.champions",
-      "fetchedAt": "2026-11-02T05:55:31.769Z"
+      "fetchedAt": "2026-11-02T15:40:46.120Z"
     },
     "europa": {
       "season": "2026-27 UEFA Europa League",
@@ -1155,7 +1155,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.europa",
-      "fetchedAt": "2026-11-02T05:55:31.789Z"
+      "fetchedAt": "2026-11-02T15:40:46.159Z"
     },
     "conference": {
       "season": "2026-27 UEFA Conference League",
@@ -1529,7 +1529,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.europa.conf",
-      "fetchedAt": "2026-11-02T05:55:31.881Z"
+      "fetchedAt": "2026-11-02T15:40:46.270Z"
     },
     "wk": {
       "season": "2026 Wereldkampioenschap",
@@ -3121,7 +3121,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/fifa.world",
-      "fetchedAt": "2026-11-02T05:55:32.020Z"
+      "fetchedAt": "2026-11-02T15:40:46.354Z"
     },
     "ek": {
       "season": "2024 UEFA Europees Kampioenschap",
@@ -3913,7 +3913,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.euro",
-      "fetchedAt": "2026-11-02T05:55:32.000Z"
+      "fetchedAt": "2026-11-02T15:40:46.330Z"
     },
     "nations": {
       "season": "2026 UEFA Nations League",
@@ -6135,7 +6135,7 @@
       "archived": false,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.nations",
-      "fetchedAt": "2026-11-02T05:55:31.994Z"
+      "fetchedAt": "2026-11-02T15:40:46.378Z"
     },
     "wk-vrouwen": {
       "season": "2023 FIFA Wereldkampioenschap Vrouwen",
@@ -7147,7 +7147,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/fifa.wwc",
-      "fetchedAt": "2026-11-02T05:55:32.161Z"
+      "fetchedAt": "2026-11-02T15:40:46.527Z"
     },
     "nations-vrouwen": {
       "season": "2025 UEFA Women's Nations League",
@@ -9459,7 +9459,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.w.nations",
-      "fetchedAt": "2026-11-02T05:55:32.201Z"
+      "fetchedAt": "2026-11-02T15:40:47.399Z"
     },
     "ek-vrouwen": {
       "season": "2025 Europees Kampioenschap Voetbal Vrouwen",
@@ -9961,7 +9961,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.weuro",
-      "fetchedAt": "2026-11-02T05:55:32.142Z"
+      "fetchedAt": "2026-11-02T15:40:46.532Z"
     },
     "f1-drivers": {
       "season": "2026",
@@ -10307,7 +10307,7 @@
       ],
       "source": "Jolpica",
       "sourceUrl": "https://api.jolpi.ca/ergast/f1/current/driverStandings.json",
-      "fetchedAt": "2026-11-02T05:55:32.123Z"
+      "fetchedAt": "2026-11-02T15:40:47.154Z"
     },
     "f1-constructors": {
       "season": "2026",
@@ -10562,7 +10562,7 @@
       ],
       "source": "Jolpica",
       "sourceUrl": "https://api.jolpi.ca/ergast/f1/current/constructorStandings.json",
-      "fetchedAt": "2026-11-02T05:55:32.244Z"
+      "fetchedAt": "2026-11-02T15:40:47.469Z"
     },
     "darts-premier": {
       "season": "2026",
@@ -10651,9 +10651,7 @@
       "archived": true,
       "source": "Mastercaller",
       "sourceUrl": "https://mastercaller.nl/toernooien/premier-league/2026/stand",
-      "fetchedAt": "2026-11-01T05:56:26.209Z",
-      "error": "Bron tijdelijk niet beschikbaar",
-      "attemptedAt": "2026-11-02T05:55:32.640Z"
+      "fetchedAt": "2026-11-02T15:40:48.580Z"
     },
     "darts-merit": {
       "season": "2026",
@@ -11785,7 +11783,7 @@
       "archived": false,
       "source": "Darts Rankings",
       "sourceUrl": "https://www.dartsrankings.com/lastranking",
-      "fetchedAt": "2026-11-02T05:55:33.177Z"
+      "fetchedAt": "2026-11-02T15:40:48.476Z"
     },
     "motogp-riders": {
       "season": "2026",
@@ -11994,7 +11992,7 @@
       "archived": false,
       "source": "MotoGP",
       "sourceUrl": "https://stats.motogp.com/en/world-standing",
-      "fetchedAt": "2026-11-02T05:55:34.364Z"
+      "fetchedAt": "2026-11-02T15:40:50.596Z"
     },
     "handbal-men": {
       "season": "2026/27",
@@ -12406,7 +12404,7 @@
       "archived": false,
       "source": "EHF",
       "sourceUrl": "https://ehfcl.eurohandball.com/men/2026-27/standings/",
-      "fetchedAt": "2026-11-02T05:55:35.946Z"
+      "fetchedAt": "2026-11-02T15:40:52.062Z"
     },
     "handbal-women": {
       "season": "2026/27",
@@ -12588,7 +12586,7 @@
       "archived": false,
       "source": "EHF",
       "sourceUrl": "https://ehfcl.eurohandball.com/women/2026-27/standings/",
-      "fetchedAt": "2026-11-02T05:55:37.495Z"
+      "fetchedAt": "2026-11-02T15:40:53.800Z"
     },
     "handbal-euro-men": {
       "season": "2026",
@@ -13000,7 +12998,7 @@
       "archived": true,
       "source": "EHF",
       "sourceUrl": "https://ehfeuro.eurohandball.com/men/2026/standings/Xg2Ubz1_S9dxy0p0unxCBg/final-tournament/",
-      "fetchedAt": "2026-11-02T05:55:36.121Z"
+      "fetchedAt": "2026-11-02T15:40:51.959Z"
     },
     "handbal-euro-women": {
       "season": "2024",
@@ -13412,7 +13410,7 @@
       "archived": true,
       "source": "EHF",
       "sourceUrl": "https://ehfeuro.eurohandball.com/women/2024/standings/R-saEwRJFutIKedhnRuDpg/FinalTournament/",
-      "fetchedAt": "2026-11-02T05:55:36.314Z"
+      "fetchedAt": "2026-11-02T15:40:52.976Z"
     },
     "handbal-world-men": {
       "season": "2025",
@@ -13589,7 +13587,7 @@
       "archived": true,
       "source": "IHF",
       "sourceUrl": "https://www.ihf.info/media-center/events/29th-ihf-mens-world-championship",
-      "fetchedAt": "2026-11-02T05:55:36.716Z"
+      "fetchedAt": "2026-11-02T15:40:52.775Z"
     },
     "handbal-world-women": {
       "season": "2025",
@@ -13766,7 +13764,7 @@
       "archived": true,
       "source": "IHF",
       "sourceUrl": "https://www.ihf.info/index.php/media-center/events/27th-ihf-womens-world-championship",
-      "fetchedAt": "2026-11-02T05:55:37.787Z"
+      "fetchedAt": "2026-11-02T15:40:53.998Z"
     }
   }
 }
