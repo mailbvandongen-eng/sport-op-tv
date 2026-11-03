@@ -70,6 +70,16 @@
             },
             {
               "rank": 7,
+              "name": "Everton",
+              "played": 9,
+              "wins": 3,
+              "draws": 4,
+              "losses": 2,
+              "diff": 0,
+              "points": 13
+            },
+            {
+              "rank": 8,
               "name": "AFC Bournemouth",
               "played": 9,
               "wins": 3,
@@ -79,7 +89,7 @@
               "points": 12
             },
             {
-              "rank": 8,
+              "rank": 9,
               "name": "Tottenham Hotspur",
               "played": 9,
               "wins": 3,
@@ -89,7 +99,7 @@
               "points": 12
             },
             {
-              "rank": 9,
+              "rank": 10,
               "name": "Aston Villa",
               "played": 9,
               "wins": 3,
@@ -99,7 +109,7 @@
               "points": 12
             },
             {
-              "rank": 10,
+              "rank": 11,
               "name": "Hull City",
               "played": 9,
               "wins": 2,
@@ -109,7 +119,7 @@
               "points": 11
             },
             {
-              "rank": 11,
+              "rank": 12,
               "name": "Leeds United",
               "played": 9,
               "wins": 2,
@@ -119,17 +129,17 @@
               "points": 11
             },
             {
-              "rank": 12,
+              "rank": 13,
               "name": "Newcastle United",
-              "played": 8,
+              "played": 9,
               "wins": 3,
               "draws": 2,
-              "losses": 3,
-              "diff": -2,
+              "losses": 4,
+              "diff": -3,
               "points": 11
             },
             {
-              "rank": 13,
+              "rank": 14,
               "name": "Ipswich Town",
               "played": 9,
               "wins": 3,
@@ -137,16 +147,6 @@
               "losses": 4,
               "diff": -4,
               "points": 11
-            },
-            {
-              "rank": 14,
-              "name": "Everton",
-              "played": 8,
-              "wins": 2,
-              "draws": 4,
-              "losses": 2,
-              "diff": -1,
-              "points": 10
             },
             {
               "rank": 15,
@@ -213,7 +213,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/eng.1",
-      "fetchedAt": "2026-11-02T15:40:46.167Z"
+      "fetchedAt": "2026-11-03T00:54:50.942Z"
     },
     "eredivisie": {
       "season": "2026-27 VriendenLoterij Eredivisie",
@@ -407,7 +407,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/ned.1",
-      "fetchedAt": "2026-11-02T15:40:46.118Z"
+      "fetchedAt": "2026-11-03T00:54:50.944Z"
     },
     "champions": {
       "season": "2026-27 UEFA Champions League",
@@ -781,7 +781,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.champions",
-      "fetchedAt": "2026-11-02T15:40:46.120Z"
+      "fetchedAt": "2026-11-03T00:54:50.949Z"
     },
     "europa": {
       "season": "2026-27 UEFA Europa League",
@@ -1155,7 +1155,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.europa",
-      "fetchedAt": "2026-11-02T15:40:46.159Z"
+      "fetchedAt": "2026-11-03T00:54:50.968Z"
     },
     "conference": {
       "season": "2026-27 UEFA Conference League",
@@ -1529,7 +1529,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.europa.conf",
-      "fetchedAt": "2026-11-02T15:40:46.270Z"
+      "fetchedAt": "2026-11-03T00:54:51.216Z"
     },
     "wk": {
       "season": "2026 Wereldkampioenschap",
@@ -3121,7 +3121,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/fifa.world",
-      "fetchedAt": "2026-11-02T15:40:46.354Z"
+      "fetchedAt": "2026-11-03T00:54:51.204Z"
     },
     "ek": {
       "season": "2024 UEFA Europees Kampioenschap",
@@ -3913,7 +3913,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.euro",
-      "fetchedAt": "2026-11-02T15:40:46.330Z"
+      "fetchedAt": "2026-11-03T00:54:51.258Z"
     },
     "nations": {
       "season": "2026 UEFA Nations League",
@@ -6135,7 +6135,7 @@
       "archived": false,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.nations",
-      "fetchedAt": "2026-11-02T15:40:46.378Z"
+      "fetchedAt": "2026-11-03T00:54:51.306Z"
     },
     "wk-vrouwen": {
       "season": "2023 FIFA Wereldkampioenschap Vrouwen",
@@ -7147,7 +7147,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/fifa.wwc",
-      "fetchedAt": "2026-11-02T15:40:46.527Z"
+      "fetchedAt": "2026-11-03T00:54:51.657Z"
     },
     "nations-vrouwen": {
       "season": "2025 UEFA Women's Nations League",
@@ -9459,7 +9459,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.w.nations",
-      "fetchedAt": "2026-11-02T15:40:47.399Z"
+      "fetchedAt": "2026-11-03T00:54:51.528Z"
     },
     "ek-vrouwen": {
       "season": "2025 Europees Kampioenschap Voetbal Vrouwen",
@@ -9961,7 +9961,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.weuro",
-      "fetchedAt": "2026-11-02T15:40:46.532Z"
+      "fetchedAt": "2026-11-03T00:54:51.664Z"
     },
     "f1-drivers": {
       "season": "2026",
@@ -10017,28 +10017,28 @@
               "rank": 7,
               "name": "Oscar Piastri",
               "team": "McLaren",
-              "points": 150,
+              "points": 144,
               "wins": 0
             },
             {
               "rank": 8,
               "name": "Isack Hadjar",
               "team": "Red Bull",
-              "points": 105,
+              "points": 107,
               "wins": 0
             },
             {
               "rank": 9,
               "name": "Liam Lawson",
               "team": "RB F1 Team, Red Bull",
-              "points": 79,
+              "points": 83,
               "wins": 0
             },
             {
               "rank": 10,
               "name": "Pierre Gasly",
               "team": "Alpine F1 Team",
-              "points": 43,
+              "points": 42,
               "wins": 0
             },
             {
@@ -10052,7 +10052,7 @@
               "rank": 12,
               "name": "Franco Colapinto",
               "team": "Alpine F1 Team",
-              "points": 31,
+              "points": 27,
               "wins": 0
             },
             {
@@ -10064,16 +10064,16 @@
             },
             {
               "rank": 14,
-              "name": "Nico Hülkenberg",
+              "name": "Gabriel Bortoleto",
               "team": "Audi",
-              "points": 13,
+              "points": 14,
               "wins": 0
             },
             {
               "rank": 15,
-              "name": "Gabriel Bortoleto",
+              "name": "Nico Hülkenberg",
               "team": "Audi",
-              "points": 10,
+              "points": 13,
               "wins": 0
             },
             {
@@ -10113,22 +10113,22 @@
             },
             {
               "rank": 21,
+              "name": "Ryo Hirakawa",
+              "team": "Haas F1 Team",
+              "points": 1,
+              "wins": 0
+            },
+            {
+              "rank": 22,
               "name": "Lance Stroll",
               "team": "Aston Martin",
               "points": 0,
               "wins": 0
             },
             {
-              "rank": 22,
+              "rank": 23,
               "name": "Valtteri Bottas",
               "team": "Cadillac F1 Team",
-              "points": 0,
-              "wins": 0
-            },
-            {
-              "rank": 23,
-              "name": "Ryo Hirakawa",
-              "team": "Haas F1 Team",
               "points": 0,
               "wins": 0
             },
@@ -10307,7 +10307,7 @@
       ],
       "source": "Jolpica",
       "sourceUrl": "https://api.jolpi.ca/ergast/f1/current/driverStandings.json",
-      "fetchedAt": "2026-11-02T15:40:47.154Z"
+      "fetchedAt": "2026-11-03T00:54:51.485Z"
     },
     "f1-constructors": {
       "season": "2026",
@@ -10335,42 +10335,42 @@
               "rank": 3,
               "name": "Red Bull",
               "team": "",
-              "points": 380,
+              "points": 382,
               "wins": 3
             },
             {
               "rank": 4,
               "name": "McLaren",
               "team": "",
-              "points": 371,
+              "points": 365,
               "wins": 2
             },
             {
               "rank": 5,
               "name": "RB F1 Team",
               "team": "",
-              "points": 104,
+              "points": 108,
               "wins": 0
             },
             {
               "rank": 6,
               "name": "Alpine F1 Team",
               "team": "",
-              "points": 74,
+              "points": 69,
               "wins": 0
             },
             {
               "rank": 7,
               "name": "Haas F1 Team",
               "team": "",
-              "points": 30,
+              "points": 31,
               "wins": 0
             },
             {
               "rank": 8,
               "name": "Audi",
               "team": "",
-              "points": 23,
+              "points": 27,
               "wins": 0
             },
             {
@@ -10562,7 +10562,7 @@
       ],
       "source": "Jolpica",
       "sourceUrl": "https://api.jolpi.ca/ergast/f1/current/constructorStandings.json",
-      "fetchedAt": "2026-11-02T15:40:47.469Z"
+      "fetchedAt": "2026-11-03T00:54:51.785Z"
     },
     "darts-premier": {
       "season": "2026",
@@ -10651,7 +10651,7 @@
       "archived": true,
       "source": "Mastercaller",
       "sourceUrl": "https://mastercaller.nl/toernooien/premier-league/2026/stand",
-      "fetchedAt": "2026-11-02T15:40:48.580Z"
+      "fetchedAt": "2026-11-03T00:54:54.321Z"
     },
     "darts-merit": {
       "season": "2026",
@@ -11783,7 +11783,7 @@
       "archived": false,
       "source": "Darts Rankings",
       "sourceUrl": "https://www.dartsrankings.com/lastranking",
-      "fetchedAt": "2026-11-02T15:40:48.476Z"
+      "fetchedAt": "2026-11-03T00:54:53.005Z"
     },
     "motogp-riders": {
       "season": "2026",
@@ -11992,7 +11992,7 @@
       "archived": false,
       "source": "MotoGP",
       "sourceUrl": "https://stats.motogp.com/en/world-standing",
-      "fetchedAt": "2026-11-02T15:40:50.596Z"
+      "fetchedAt": "2026-11-03T00:54:54.217Z"
     },
     "handbal-men": {
       "season": "2026/27",
@@ -12404,7 +12404,7 @@
       "archived": false,
       "source": "EHF",
       "sourceUrl": "https://ehfcl.eurohandball.com/men/2026-27/standings/",
-      "fetchedAt": "2026-11-02T15:40:52.062Z"
+      "fetchedAt": "2026-11-03T00:54:56.021Z"
     },
     "handbal-women": {
       "season": "2026/27",
@@ -12586,7 +12586,7 @@
       "archived": false,
       "source": "EHF",
       "sourceUrl": "https://ehfcl.eurohandball.com/women/2026-27/standings/",
-      "fetchedAt": "2026-11-02T15:40:53.800Z"
+      "fetchedAt": "2026-11-03T00:54:57.742Z"
     },
     "handbal-euro-men": {
       "season": "2026",
@@ -12998,7 +12998,7 @@
       "archived": true,
       "source": "EHF",
       "sourceUrl": "https://ehfeuro.eurohandball.com/men/2026/standings/Xg2Ubz1_S9dxy0p0unxCBg/final-tournament/",
-      "fetchedAt": "2026-11-02T15:40:51.959Z"
+      "fetchedAt": "2026-11-03T00:54:55.876Z"
     },
     "handbal-euro-women": {
       "season": "2024",
@@ -13410,7 +13410,7 @@
       "archived": true,
       "source": "EHF",
       "sourceUrl": "https://ehfeuro.eurohandball.com/women/2024/standings/R-saEwRJFutIKedhnRuDpg/FinalTournament/",
-      "fetchedAt": "2026-11-02T15:40:52.976Z"
+      "fetchedAt": "2026-11-03T00:54:56.855Z"
     },
     "handbal-world-men": {
       "season": "2025",
@@ -13587,7 +13587,7 @@
       "archived": true,
       "source": "IHF",
       "sourceUrl": "https://www.ihf.info/media-center/events/29th-ihf-mens-world-championship",
-      "fetchedAt": "2026-11-02T15:40:52.775Z"
+      "fetchedAt": "2026-11-03T00:54:56.687Z"
     },
     "handbal-world-women": {
       "season": "2025",
@@ -13764,7 +13764,7 @@
       "archived": true,
       "source": "IHF",
       "sourceUrl": "https://www.ihf.info/index.php/media-center/events/27th-ihf-womens-world-championship",
-      "fetchedAt": "2026-11-02T15:40:53.998Z"
+      "fetchedAt": "2026-11-03T00:54:58.526Z"
     }
   }
 }
