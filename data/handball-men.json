@@ -2,7 +2,7 @@
   "schema": 1,
   "competition": "EHF Champions League Men",
   "sourceUrl": "https://ehfcl.eurohandball.com/men/2026-27/matches/",
-  "fetchedAt": "2026-11-03T00:54:56.901Z",
+  "fetchedAt": "2026-11-03T14:04:26.966Z",
   "matches": [
     {
       "id": "202711020101025",
@@ -1029,27 +1029,13 @@
     {
       "id": "202711020103001",
       "date": "2026-11-18",
-      "utc": "2026-11-18T17:45:00Z",
-      "time": "18:45",
+      "utc": "2026-11-18T19:45:00Z",
+      "time": "20:45",
       "event": "Orlen Wisla Plock vs One Veszprém HC",
       "home": "Orlen Wisla Plock",
       "away": "One Veszprém HC",
       "competition": "EHF Champions League Men",
       "location": "Plock",
-      "channel": "EHFTV",
-      "source": "EHF confirmed",
-      "completed": false
-    },
-    {
-      "id": "202711020103025",
-      "date": "2026-11-18",
-      "utc": "2026-11-18T19:45:00Z",
-      "time": "20:45",
-      "event": "Sporting Clube de Portugal vs Dinamo Bucuresti",
-      "home": "Sporting Clube de Portugal",
-      "away": "Dinamo Bucuresti",
-      "competition": "EHF Champions League Men",
-      "location": "Lisboa",
       "channel": "EHFTV",
       "source": "EHF confirmed",
       "completed": false
@@ -1092,6 +1078,20 @@
       "away": "Paris Saint-Germain",
       "competition": "EHF Champions League Men",
       "location": "Kassel",
+      "channel": "EHFTV",
+      "source": "EHF confirmed",
+      "completed": false
+    },
+    {
+      "id": "202711020103025",
+      "date": "2026-11-19",
+      "utc": "2026-11-19T19:45:00Z",
+      "time": "20:45",
+      "event": "Sporting Clube de Portugal vs Dinamo Bucuresti",
+      "home": "Sporting Clube de Portugal",
+      "away": "Dinamo Bucuresti",
+      "competition": "EHF Champions League Men",
+      "location": "Lisboa",
       "channel": "EHFTV",
       "source": "EHF confirmed",
       "completed": false
