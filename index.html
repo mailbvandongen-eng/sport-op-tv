@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="football-policy.js?v=3.16.4"></script>
+    <script src="football-policy.js?v=3.17.0"></script>
     <style>
         * {
             margin: 0;
@@ -2834,10 +2834,10 @@
             background: var(--text-secondary);
         }
     </style>
-    <link rel="stylesheet" href="search-ui.css?v=3.16.4">
-    <link rel="stylesheet" href="guide-ui.css?v=3.16.4">
-    <script src="search-enhancements.js?v=3.16.4"></script>
-    <link rel="stylesheet" href="standings-menu.css?v=3.16.4">
+    <link rel="stylesheet" href="search-ui.css?v=3.17.0">
+    <link rel="stylesheet" href="guide-ui.css?v=3.17.0">
+    <script src="search-enhancements.js?v=3.17.0"></script>
+    <link rel="stylesheet" href="standings-menu.css?v=3.17.0">
 </head>
 <body>
     <a class="skip-link" href="#events-container">Naar wedstrijden</a>
@@ -3104,6 +3104,8 @@
                 'World Championship': 'en',
                 'European Championship': 'eu',
                 'World Cup of Darts': 'world',
+                'ADC Global Championship': 'world',
+                'MODUS Super Series': 'en',
                 'Formula 1': 'world',
                 'F1': 'world',
                 'MotoGP': 'world',
@@ -3437,6 +3439,7 @@
                 handbal: null,
                 dartsFixtures: null,
                 dartsResults: null,
+                dartsPluto: null,
                 highlights: null
             };
         }
@@ -5185,7 +5188,54 @@
                         });
                     });
             }
-            return events;
+            return [...events, ...getPlutoDartsEvents()];
+        }
+
+        // Darts buiten de PDC op Pluto TV (MODUS/ADC), dagelijks ververst uit data/darts-pluto.json.
+        function getPlutoDartsEvents(broadcasts = cachedData.dartsPluto || []) {
+            const todayKey = getLocalDateKey(new Date());
+            const fromKey = addDaysToDateKey(todayKey, -7);
+            const toKey = addDaysToDateKey(todayKey, 30);
+            return broadcasts
+                .filter(item => item && /^20\d{2}-\d{2}-\d{2}$/.test(item.date) && /^\d{2}:\d{2}$/.test(item.time) && item.date >= fromKey && item.date <= toKey)
+                .map(item => {
+                    const sessions = Array.isArray(item.sessions) ? item.sessions.filter(session => /^\d{2}:\d{2}$/.test(session?.time || '')) : [];
+                    const start = getStaticEventDate(item.date, item.time);
+                    const sessionStarts = (sessions.length ? sessions.map(session => session.time) : [item.time])
+                        .map(time => getStaticEventDate(item.date, time));
+                    return {
+                        date: start,
+                        time: item.time,
+                        title: item.event,
+                        location: item.stream || 'Pluto TV',
+                        competition: item.event,
+                        channel: item.channel || 'Pluto TV',
+                        matches: sessions.length ? sessions.map(session => dartsSession(session.time, session.label || 'Sessie')) : null,
+                        score: null,
+                        source: 'Pluto TV-schema via dartn.de',
+                        isStatic: true,
+                        live: sessionStarts.some(sessionStart => isLiveNow(sessionStart, null, 4))
+                    };
+                });
+        }
+
+        async function fetchPlutoDartsBroadcasts() {
+            try {
+                const response = await fetch('data/darts-pluto.json', { cache: 'no-store', signal: AbortSignal.timeout(8000) });
+                if (!response.ok) throw new Error('Pluto-dartsschema niet beschikbaar');
+                const data = await response.json();
+                if (data.schema !== 1 || !Array.isArray(data.broadcasts)) throw new Error('Ongeldig Pluto-dartsschema');
+                cachedData.dartsPluto = data.broadcasts;
+                try { localStorage.setItem('dartsPlutoSnapshot', JSON.stringify(data.broadcasts)); } catch (_) { /* Verse data werkt ook zonder opslag. */ }
+            } catch (error) {
+                if (!Array.isArray(cachedData.dartsPluto)) {
+                    try {
+                        const saved = JSON.parse(localStorage.getItem('dartsPlutoSnapshot') || 'null');
+                        cachedData.dartsPluto = Array.isArray(saved) ? saved : [];
+                    } catch (_) { cachedData.dartsPluto = []; }
+                }
+            }
+            return cachedData.dartsPluto;
         }
 
         function getStaticEventDate(dateKey, time = '') {
@@ -5674,8 +5724,8 @@
 
         function startDartsFeedRefresh(force = false) {
             if (dartsFeedRefresh) return dartsFeedRefresh;
-            dartsFeedRefresh = fetchPdcDartsSchedule({ force })
-                .then(schedule => {
+            dartsFeedRefresh = Promise.all([fetchPdcDartsSchedule({ force }), fetchPlutoDartsBroadcasts()])
+                .then(([schedule]) => {
                     cachedData.darts = mergeDartsScheduleEvents(getStaticDartsEvents(), schedule || []);
                     cachedData.darts.forEach(event => { event.sportType = 'darts'; });
                     if (currentSportFilter === 'darts' || currentSportFilter === null) {
@@ -6311,6 +6361,7 @@
                 const normalizedChannel = normalizeChannelList(channel);
                 if (!normalizedChannel) return '';
                 if (/^EHF\s*TV$/i.test(normalizedChannel)) return `<a class="channel-badge" href="https://www.ehftv.com/" target="_blank" rel="noopener noreferrer" title="Kijken op EHFTV (beschikbaarheid verschilt per land)">EHFTV ↗</a>`;
+                if (/^Pluto\s*TV$/i.test(normalizedChannel)) return `<a class="channel-badge" href="https://pluto.tv/" target="_blank" rel="noopener noreferrer" title="Gratis kijken op Pluto TV (beschikbaarheid verschilt per land)">Pluto TV ↗</a>`;
                 return `<span class="channel-badge">${normalizedChannel}</span>`;
             };
 
@@ -7112,9 +7163,9 @@
         // op verzoek van de gebruiker; zo springt of knippert de agenda niet
         // tijdens lezen en lijkt de app niet spontaan te herstarten.
     </script>
-    <script src="standings-config.js?v=3.16.4" defer></script>
-    <script src="standings-menu.js?v=3.16.4" defer></script>
-    <script src="release-notes.js?v=3.16.4" defer></script>
+    <script src="standings-config.js?v=3.17.0" defer></script>
+    <script src="standings-menu.js?v=3.17.0" defer></script>
+    <script src="release-notes.js?v=3.17.0" defer></script>
 </body>
 </html>
 

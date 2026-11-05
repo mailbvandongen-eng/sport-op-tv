@@ -101,6 +101,7 @@
     'use strict';
 
     const RELEASES = [
+    {version: '3.17.0', date: '5 november 2026', title: 'Darts op Pluto TV', notes: ['De dartsagenda toont nu ook toernooien buiten de PDC die gratis op Pluto TV te zien zijn, zoals de MODUS Super Series en het ADC Global Championship.', 'Per dag zie je de sessietijden. Het schema komt uit de openbare streamlijst van dartn.de en wordt elke zes uur bijgewerkt; bij een storing blijft het laatst opgehaalde schema staan.']},
     {version: '3.16.4', date: '26 oktober 2026', title: 'Dartsagenda wacht niet op PDC', notes: ['De lokale dartsagenda verschijnt direct; een trage PDC-feed blokkeert het openen niet meer.', 'De PDC-aanvraag stopt na 8 seconden en werkt de agenda bij zodra de feed antwoordt.']},
     {version: '3.16.3', date: '25 oktober 2026', title: 'Darts-finaledag compleet', notes: ['Het fallbackprogramma van het European Championship toont nu beide sessies: kwartfinales om 13:00 en halve finales plus finale om 19:00.', 'PDC-schema’s met een sponsornaam vervangen nu de overeenkomstige handmatige fallback, zodat dubbele dartskaarten uitblijven.']},
     {version: '3.16.2', date: '24 oktober 2026', title: 'Darts standaard uitgeklapt', notes: ['Dartswedstrijden en sessies staan voortaan direct open wanneer je de agenda opent.', 'De bestaande uitklapbediening blijft beschikbaar als je een onderdeel tijdelijk wilt sluiten.']},

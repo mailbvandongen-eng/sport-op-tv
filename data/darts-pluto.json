@@ -1,0 +1,140 @@
+{
+  "schema": 1,
+  "sourceUrl": "https://www.dartn.de/TV-Termine/",
+  "fetchedAt": "2026-11-05T16:52:11.026Z",
+  "broadcasts": [
+    {
+      "id": "2026-11-02-adc-global-championship",
+      "date": "2026-11-02",
+      "time": "13:30",
+      "event": "ADC Global Championship",
+      "channel": "Pluto TV",
+      "stream": "Pluto TV X Modus Super Series",
+      "sessions": [
+        {
+          "time": "13:30",
+          "label": "Middagsessie"
+        },
+        {
+          "time": "20:00",
+          "label": "Avondsessie"
+        }
+      ],
+      "source": "dartn.de"
+    },
+    {
+      "id": "2026-11-03-adc-global-championship",
+      "date": "2026-11-03",
+      "time": "13:30",
+      "event": "ADC Global Championship",
+      "channel": "Pluto TV",
+      "stream": "Pluto TV X Modus Super Series",
+      "sessions": [
+        {
+          "time": "13:30",
+          "label": "Middagsessie"
+        },
+        {
+          "time": "20:00",
+          "label": "Avondsessie"
+        }
+      ],
+      "source": "dartn.de"
+    },
+    {
+      "id": "2026-11-04-adc-global-championship",
+      "date": "2026-11-04",
+      "time": "13:30",
+      "event": "ADC Global Championship",
+      "channel": "Pluto TV",
+      "stream": "Pluto TV X Modus Super Series",
+      "sessions": [
+        {
+          "time": "13:30",
+          "label": "Middagsessie"
+        },
+        {
+          "time": "20:00",
+          "label": "Avondsessie"
+        }
+      ],
+      "source": "dartn.de"
+    },
+    {
+      "id": "2026-11-05-adc-global-championship",
+      "date": "2026-11-05",
+      "time": "13:30",
+      "event": "ADC Global Championship",
+      "channel": "Pluto TV",
+      "stream": "Pluto TV X Modus Super Series",
+      "sessions": [
+        {
+          "time": "13:30",
+          "label": "Middagsessie"
+        },
+        {
+          "time": "20:00",
+          "label": "Avondsessie"
+        }
+      ],
+      "source": "dartn.de"
+    },
+    {
+      "id": "2026-11-06-adc-global-championship",
+      "date": "2026-11-06",
+      "time": "13:30",
+      "event": "ADC Global Championship",
+      "channel": "Pluto TV",
+      "stream": "Pluto TV X Modus Super Series",
+      "sessions": [
+        {
+          "time": "13:30",
+          "label": "Middagsessie"
+        },
+        {
+          "time": "20:00",
+          "label": "Avondsessie"
+        }
+      ],
+      "source": "dartn.de"
+    },
+    {
+      "id": "2026-11-07-adc-global-championship",
+      "date": "2026-11-07",
+      "time": "13:30",
+      "event": "ADC Global Championship",
+      "channel": "Pluto TV",
+      "stream": "Pluto TV X Modus Super Series",
+      "sessions": [
+        {
+          "time": "13:30",
+          "label": "Middagsessie"
+        },
+        {
+          "time": "20:00",
+          "label": "Avondsessie"
+        }
+      ],
+      "source": "dartn.de"
+    },
+    {
+      "id": "2026-11-08-adc-global-championship",
+      "date": "2026-11-08",
+      "time": "13:30",
+      "event": "ADC Global Championship",
+      "channel": "Pluto TV",
+      "stream": "Pluto TV X Modus Super Series",
+      "sessions": [
+        {
+          "time": "13:30",
+          "label": "Middagsessie"
+        },
+        {
+          "time": "20:00",
+          "label": "Avondsessie"
+        }
+      ],
+      "source": "dartn.de"
+    }
+  ]
+}

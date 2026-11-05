@@ -1,3 +1,8 @@
+## 3.17.0 — 5 november 2026
+
+- De dartsagenda toont nu ook toernooien buiten de PDC die gratis op Pluto TV te zien zijn, zoals de MODUS Super Series en het ADC Global Championship.
+- Per dag zie je de sessietijden. Het schema komt uit de openbare streamlijst van dartn.de (`data/darts-pluto.json`) en wordt elke zes uur bijgewerkt; bij een storing blijft het laatst opgehaalde schema staan.
+
 ## 3.16.4 — 26 oktober 2026
 
 - De lokale dartsagenda verschijnt direct; een trage PDC-feed blokkeert het openen niet meer.
