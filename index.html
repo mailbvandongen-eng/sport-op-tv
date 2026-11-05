@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="football-policy.js?v=3.17.0"></script>
+    <script src="football-policy.js?v=3.18.0"></script>
     <style>
         * {
             margin: 0;
@@ -2834,10 +2834,10 @@
             background: var(--text-secondary);
         }
     </style>
-    <link rel="stylesheet" href="search-ui.css?v=3.17.0">
-    <link rel="stylesheet" href="guide-ui.css?v=3.17.0">
-    <script src="search-enhancements.js?v=3.17.0"></script>
-    <link rel="stylesheet" href="standings-menu.css?v=3.17.0">
+    <link rel="stylesheet" href="search-ui.css?v=3.18.0">
+    <link rel="stylesheet" href="guide-ui.css?v=3.18.0">
+    <script src="search-enhancements.js?v=3.18.0"></script>
+    <link rel="stylesheet" href="standings-menu.css?v=3.18.0">
 </head>
 <body>
     <a class="skip-link" href="#events-container">Naar wedstrijden</a>
@@ -5374,6 +5374,15 @@
             return false;
         }
 
+        // Vloertoernooien (Players Championships) met alle 128 tourkaarthouders; live op PDCTV.
+        function isPdcFloorTournament(name = '') {
+            return /^players championship \d+$/.test(normalizeDartsTournamentName(name));
+        }
+
+        function isShownPdcTournament(name = '') {
+            return isConfiguredDartsTournament(name) || isPdcFloorTournament(name);
+        }
+
         function getPdcParticipantName(participant = {}) {
             const fullName = [participant.firstName, participant.lastName]
                 .map(part => String(part || '').trim())
@@ -5439,6 +5448,7 @@
         function getDartsStageLabel(stageName = '') {
             const normalized = String(stageName || '').trim().toLowerCase();
             const labels = {
+                'last 128': 'Laatste 128',
                 'last 64': 'Laatste 64',
                 'last 32': 'Laatste 32',
                 'last 16': 'Laatste 16',
@@ -5464,7 +5474,7 @@
         }
 
         function formatPdcScheduleItem(attributes = {}) {
-            const localTime = getPdcFixtureLocalTime(attributes);
+            const localTime = isPdcFloorTournament(attributes.tournament?.name || '') ? '' : getPdcFixtureLocalTime(attributes);
             const { home, away } = getPdcMatchPlayers(attributes);
             const stage = getDartsStageLabel(attributes.stage?.name || '');
             let matchLabel = '';
@@ -5488,7 +5498,7 @@
 
             fixtures
                 .map(fixture => fixture.attributes || fixture)
-                .filter(attributes => attributes && isConfiguredDartsTournament(attributes.tournament?.name || ''))
+                .filter(attributes => attributes && isShownPdcTournament(attributes.tournament?.name || ''))
                 .forEach(attributes => {
                     const dateObj = getPdcFixtureDate(attributes);
                     if (!isValidDate(dateObj)) return;
@@ -5499,8 +5509,11 @@
                     if (!localDateKey || localDateKey < fromDateKey || localDateKey > toDateKey) return;
 
                     const tournamentName = cleanDartsTournamentName(attributes.tournament?.name || 'PDC Darts');
-                    const sessionStart = getDartsSessionStartTime(localTime);
-                    const sessionName = getDartsSessionLabel(localTime);
+                    const isFloor = isPdcFloorTournament(tournamentName);
+                    // De PDC-feed geeft bij vloerpartijen meestal geen starttijd; verzin er dan geen.
+                    const sessionStart = isFloor ? 'TBD' : getDartsSessionStartTime(localTime);
+                    // Vloertoernooien groeperen per ronde; tv-toernooien per middag-/avondsessie.
+                    const sessionName = isFloor ? (getDartsStageLabel(attributes.stage?.name || '') || 'Ronde') : getDartsSessionLabel(localTime);
                     const sessionKey = [
                         localDateKey,
                         attributes.tournamentID || tournamentName,
@@ -5516,7 +5529,9 @@
                             sessionName,
                             location: buildLocationLabel(attributes.tournament?.venue, attributes.tournament?.city),
                             fixtures: [],
-                            stages: new Set()
+                            stages: new Set(),
+                            isFloor,
+                            order: isFloor ? String(attributes.tournamentStageID || '').padStart(3, '0') : ''
                         });
                     }
 
@@ -5530,11 +5545,11 @@
             const eventGroups = new Map();
 
             Array.from(sessionGroups.values())
-                .sort((a, b) => a.localDateKey.localeCompare(b.localDateKey) || a.sessionStart.localeCompare(b.sessionStart))
+                .sort((a, b) => a.localDateKey.localeCompare(b.localDateKey)
+                    || (a.isFloor && b.isFloor ? a.order.localeCompare(b.order) : a.sessionStart.localeCompare(b.sessionStart)))
                 .forEach(session => {
                     session.fixtures.sort((a, b) => getPdcFixtureDate(a) - getPdcFixtureDate(b));
-
-                    const stageLabel = Array.from(session.stages).join(' / ');
+                    const stageLabel = session.isFloor ? '' : Array.from(session.stages).join(' / ');
                     const eventKey = [
                         session.localDateKey,
                         session.tournamentID || normalizeDartsTournamentName(session.tournamentName)
@@ -5542,22 +5557,29 @@
 
                     if (!eventGroups.has(eventKey)) {
                         eventGroups.set(eventKey, {
-                            date: `${session.localDateKey}T${session.sessionStart}`,
+                            date: `${session.localDateKey}T${session.isFloor ? '12:00' : session.sessionStart}`,
                             time: session.sessionStart,
                             title: session.tournamentName,
                             location: session.location,
                             competition: session.tournamentName,
-                            channel: 'Viaplay',
+                            channel: session.isFloor ? 'PDCTV' : 'Viaplay',
                             matches: [],
                             score: null,
                             live: false,
-                            isPdcDynamic: true
+                            isPdcDynamic: true,
+                            collapsed: session.isFloor
                         });
                     }
 
                     const event = eventGroups.get(eventKey);
                     event.time = [event.time, session.sessionStart].sort()[0];
-                    event.live = event.live || session.fixtures.some(fixture => {
+                    if (session.isFloor) {
+                        // Bezig = vandaag, met al uitslagen en nog openstaande partijen.
+                        const statuses = session.fixtures.map(fixture => String(fixture.status || '').toLowerCase());
+                        event.floorDone = (event.floorDone || 0) + statuses.filter(status => status === 'result').length;
+                        event.floorOpen = (event.floorOpen || 0) + statuses.filter(status => status !== 'result').length;
+                        event.live = session.localDateKey === todayKey && event.floorDone > 0 && event.floorOpen > 0;
+                    } else event.live = event.live || session.fixtures.some(fixture => {
                         const status = String(fixture.status || '').toLowerCase();
                         if (status === 'fixture') {
                             return isLiveNow(getPdcFixtureDate(fixture), null, 3);
@@ -5565,7 +5587,7 @@
                         return false;
                     });
                     event.matches.push(dartsSession(
-                        session.sessionStart,
+                        session.isFloor ? '' : session.sessionStart,
                         [session.sessionName, stageLabel].filter(Boolean).join(' - '),
                         session.fixtures.map(formatPdcScheduleItem)
                     ));
@@ -5642,7 +5664,7 @@
         function normalizePdcDartsResults(fixtures = []) {
             return fixtures
                 .map(fixture => fixture.attributes || fixture)
-                .filter(attributes => attributes && isConfiguredDartsTournament(attributes.tournament?.name || ''))
+                .filter(attributes => attributes && isShownPdcTournament(attributes.tournament?.name || ''))
                 .map(attributes => {
                     const dateObj = getPdcFixtureDate(attributes);
                     if (!isValidDate(dateObj)) return null;
@@ -6522,7 +6544,9 @@
                             const competitionLabel = getEventCompetitionLabel(event, comp);
                             let hasFallbackItems = false;
 
-                            html += `<div class="match-row darts-row darts-expandable expanded" data-search-text="${escapeHtml(getEventSearchText(event))}" data-event-id="${eventId}" role="button" tabindex="0" aria-expanded="true" aria-controls="${eventId}">`;
+                            // Vloertoernooien hebben 127 partijen; die starten ingeklapt.
+                            const startsExpanded = !event.collapsed;
+                            html += `<div class="match-row darts-row darts-expandable${startsExpanded ? ' expanded' : ''}" data-search-text="${escapeHtml(getEventSearchText(event))}" data-event-id="${eventId}" role="button" tabindex="0" aria-expanded="${startsExpanded}" aria-controls="${eventId}">`;
                             html += `<div class="event-info">`;
                             html += `<span class="match-time">${event.time}</span>`;
                             html += `<div class="event-copy">`;
@@ -6538,7 +6562,7 @@
                             html += `</div>`;
 
                             // Hidden matches list
-                            html += `<div class="darts-matches-list" id="${eventId}" style="display:block;">`;
+                            html += `<div class="darts-matches-list" id="${eventId}" style="display:${startsExpanded ? 'block' : 'none'};">`;
                             event.matches.forEach(m => {
                                 const fallbackItems = m.label ? getDartsFallbackItems(event.title || event.event || '', m.label) : [];
                                 const detailItems = Array.isArray(m.items) && m.items.length > 0 ? m.items : fallbackItems;
@@ -7163,9 +7187,9 @@
         // op verzoek van de gebruiker; zo springt of knippert de agenda niet
         // tijdens lezen en lijkt de app niet spontaan te herstarten.
     </script>
-    <script src="standings-config.js?v=3.17.0" defer></script>
-    <script src="standings-menu.js?v=3.17.0" defer></script>
-    <script src="release-notes.js?v=3.17.0" defer></script>
+    <script src="standings-config.js?v=3.18.0" defer></script>
+    <script src="standings-menu.js?v=3.18.0" defer></script>
+    <script src="release-notes.js?v=3.18.0" defer></script>
 </body>
 </html>
 

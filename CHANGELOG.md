@@ -1,3 +1,9 @@
+## 3.18.0 — 5 november 2026
+
+- De dartsagenda toont nu ook de Players Championships: de vloertoernooien van de PDC met alle 128 tourkaarthouders, live te volgen op PDCTV.
+- Per toernooidag zie je alle partijen per ronde, van de laatste 128 tot en met de finale. De lijst staat ingeklapt; tik op het toernooi om hem te openen.
+- Starttijden per partij publiceert de PDC niet vooraf, daarom staat er geen tijd bij.
+
 ## 3.17.0 — 5 november 2026
 
 - De dartsagenda toont nu ook toernooien buiten de PDC die gratis op Pluto TV te zien zijn, zoals de MODUS Super Series en het ADC Global Championship.

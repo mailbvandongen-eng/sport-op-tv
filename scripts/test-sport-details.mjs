@@ -8,9 +8,11 @@ assert.ok(headers.length);
 assert.ok(headers.some(css => /position:\s*static/.test(css)));
 assert.ok(headers.every(css => !/position:\s*sticky|top:\s*\d/.test(css)), 'Dagkop mag geen wedstrijdregels overlappen');
 assert.match(source, /class="event-location"/);
-assert.ok(source.includes('class="match-row darts-row darts-expandable expanded"'), 'Darts rows start expanded');
-assert.ok(source.includes('aria-expanded="true"'), 'Darts rows announce expanded state');
-assert.ok(source.includes('class="darts-matches-list" id="${eventId}" style="display:block;"'), 'Darts details start visible');
+assert.ok(source.includes('const startsExpanded = !event.collapsed;'), 'Darts rows start expanded unless marked collapsed');
+assert.ok(source.includes('darts-expandable${startsExpanded ? \' expanded\' : \'\'}'), 'Darts rows get the expanded class by default');
+assert.ok(source.includes('aria-expanded="${startsExpanded}"'), 'Darts rows announce their expanded state');
+assert.ok(source.includes('style="display:${startsExpanded ? \'block\' : \'none\'};"'), 'Darts details start visible by default');
+assert.ok(source.includes('collapsed: session.isFloor'), 'Only floor events (127 matches) start collapsed');
 
 const f1 = source.slice(source.indexOf('        function getF1SessionLabel('), source.indexOf('        // Static football data'));
 const ctx = vm.createContext({
