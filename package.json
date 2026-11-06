@@ -1,6 +1,6 @@
 {
   "name": "sport-op-tv-checks",
   "private": true,
-  "scripts": { "test:ui": "node scripts/test-release-choice.cjs && node scripts/test-guide.cjs && node scripts/test-bob-route.cjs && node scripts/test-darts-finals-day.cjs && node scripts/test-pluto-darts.cjs && node scripts/test-pdc-floor.cjs && node scripts/test-f1-fallback.mjs && node scripts/test-football-espn-priority.cjs" },
+  "scripts": { "test:ui": "node scripts/test-release-choice.cjs && node scripts/test-guide.cjs && node scripts/test-bob-route.cjs && node scripts/test-darts-finals-day.cjs && node scripts/test-pluto-darts.cjs && node scripts/test-pdc-floor.cjs && node scripts/test-f1-fallback.mjs && node scripts/test-football-espn-priority.cjs && node scripts/test-motogp.cjs" },
   "devDependencies": { "jsdom": "26.1.0", "axe-core": "4.11.0" }
 }

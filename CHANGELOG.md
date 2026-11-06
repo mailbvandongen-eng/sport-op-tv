@@ -1,3 +1,9 @@
+## 3.19.0 — 6 november 2026
+
+- MotoGP toont nu de officiële sessietijden in Nederlandse tijd: vrije trainingen, practice, beide kwalificaties, sprint en race (`data/motogp.json`).
+- Een workflow ververst het schema elke zes uur uit de officiële MotoGP-kalender. Bij een storing blijft het laatst opgehaalde schema staan, en anders de vaste kalender.
+- Het Pluto-dartsschema wordt nu ook via een workflow ververst.
+
 ## 3.18.2 — 6 november 2026
 
 - Sommige wedstrijden stonden er twee keer in, één keer met een voorlopige tijd van OpenFootball (bijvoorbeeld zaterdag 16:00) en één keer met de echte aftraptijd van ESPN. Waar ESPN de dag voor een competitie levert, toont de app nu alleen ESPN.

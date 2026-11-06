@@ -1,0 +1,37 @@
+name: Update MotoGP
+on:
+  schedule:
+    - cron: '50 */6 * * *'
+  workflow_dispatch:
+  push:
+    branches: [master]
+    paths: [scripts/update-motogp.cjs, .github/workflows/update-motogp.yml]
+permissions:
+  contents: write
+  pages: write
+concurrency:
+  group: motogp-update
+  cancel-in-progress: false
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/update-motogp.cjs
+      - name: Save schedule
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # Alleen committen als de sessies veranderen, niet bij alleen een nieuwe fetchedAt.
+          if git diff -U0 -- data/motogp.json | grep '^[-+] ' | grep -qv '"fetchedAt"' || ! git ls-files --error-unmatch data/motogp.json >/dev/null 2>&1; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add data/motogp.json
+            git commit -m 'Update MotoGP timetable'
+            git pull --rebase origin master
+            git push origin HEAD:master
+            gh api --method POST repos/${{ github.repository }}/pages/builds
+          fi

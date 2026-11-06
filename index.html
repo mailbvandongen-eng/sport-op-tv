@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="football-policy.js?v=3.18.2"></script>
+    <script src="football-policy.js?v=3.19.0"></script>
     <style>
         * {
             margin: 0;
@@ -2834,10 +2834,10 @@
             background: var(--text-secondary);
         }
     </style>
-    <link rel="stylesheet" href="search-ui.css?v=3.18.2">
-    <link rel="stylesheet" href="guide-ui.css?v=3.18.2">
-    <script src="search-enhancements.js?v=3.18.2"></script>
-    <link rel="stylesheet" href="standings-menu.css?v=3.18.2">
+    <link rel="stylesheet" href="search-ui.css?v=3.19.0">
+    <link rel="stylesheet" href="guide-ui.css?v=3.19.0">
+    <script src="search-enhancements.js?v=3.19.0"></script>
+    <link rel="stylesheet" href="standings-menu.css?v=3.19.0">
 </head>
 <body>
     <a class="skip-link" href="#events-container">Naar wedstrijden</a>
@@ -3436,6 +3436,7 @@
                 darts: null,
                 f1: null,
                 motogp: null,
+                motogpSessions: null,
                 handbal: null,
                 dartsFixtures: null,
                 dartsResults: null,
@@ -5322,7 +5323,7 @@
             return new Date(`${dateKey}T${eventTime}`);
         }
 
-        function getStaticMotoGPEvents() {
+        function getStaticMotoGPEvents(skipEventDates = new Set()) {
             const events = [];
             const today = new Date();
             today.setHours(0, 0, 0, 0);
@@ -5333,6 +5334,7 @@
                 const dateStr = getLocalDateKey(date);
 
                 motoGPCalendar
+                    .filter(event => !skipEventDates.has(event.date))
                     .forEach(event => {
                         const sessions = event.sessions || motoGPSessionTemplate;
                         sessions.forEach(session => {
@@ -5358,6 +5360,57 @@
                     });
             }
             return events;
+        }
+
+        // Officiële sessietijden uit data/motogp.json (workflow); de vaste kalender vult aan
+        // voor GP's waarvan nog geen tijden bekend zijn.
+        function getMotoGPEvents(sessions = cachedData.motogpSessions || []) {
+            const todayKey = getLocalDateKey(new Date());
+            const fromKey = addDaysToDateKey(todayKey, -7);
+            const toKey = addDaysToDateKey(todayKey, 30);
+            const valid = sessions.filter(session => session && /^20\d{2}-\d{2}-\d{2}$/.test(session.date)
+                && /^\d{2}:\d{2}$/.test(session.time) && !Number.isNaN(new Date(session.utc).getTime()));
+            const coveredEventDates = new Set(valid.map(session => session.eventStart));
+            const official = valid
+                .filter(session => session.date >= fromKey && session.date <= toKey)
+                .map(session => {
+                    const calendarEvent = motoGPCalendar.find(event => event.date === session.eventStart);
+                    const country = String(session.country || '').toLowerCase().replace(/\b\w/g, letter => letter.toUpperCase());
+                    const start = new Date(session.utc);
+                    return {
+                        date: start,
+                        time: session.time,
+                        title: `${calendarEvent?.event || `GP ${country}`} - ${session.label}`,
+                        location: calendarEvent?.location || session.circuit || '',
+                        competition: 'MotoGP 2026',
+                        channel: calendarEvent?.channel || 'Ziggo Sport',
+                        score: null,
+                        source: 'MotoGP official timetable',
+                        isStatic: true,
+                        live: session.end ? isLiveNow(start, session.end) : isLiveNow(start, null, 1)
+                    };
+                });
+            return [...official, ...getStaticMotoGPEvents(coveredEventDates)]
+                .sort((a, b) => a.date - b.date);
+        }
+
+        async function fetchMotoGPSessions() {
+            try {
+                const response = await fetch('data/motogp.json', { cache: 'no-store', signal: AbortSignal.timeout(8000) });
+                if (!response.ok) throw new Error('MotoGP-schema niet beschikbaar');
+                const data = await response.json();
+                if (data.schema !== 1 || !Array.isArray(data.sessions) || !data.sessions.length) throw new Error('Ongeldig MotoGP-schema');
+                cachedData.motogpSessions = data.sessions;
+                try { localStorage.setItem('motogpSessionsSnapshot', JSON.stringify(data.sessions)); } catch (_) { /* Verse data werkt ook zonder opslag. */ }
+            } catch (error) {
+                if (!Array.isArray(cachedData.motogpSessions)) {
+                    try {
+                        const saved = JSON.parse(localStorage.getItem('motogpSessionsSnapshot') || 'null');
+                        cachedData.motogpSessions = Array.isArray(saved) ? saved : [];
+                    } catch (_) { cachedData.motogpSessions = []; }
+                }
+            }
+            return cachedData.motogpSessions;
         }
 
         function getStaticHandballEvents(calendar = handballCalendar) {
@@ -6261,7 +6314,8 @@
             }
 
             if (sport === 'motogp') {
-                cachedData.motogp = getStaticMotoGPEvents();
+                await fetchMotoGPSessions();
+                cachedData.motogp = getMotoGPEvents();
                 cachedData.motogp.forEach(event => { event.sportType = 'motogp'; });
                 return cachedData.motogp;
             }
@@ -7266,9 +7320,9 @@
         // op verzoek van de gebruiker; zo springt of knippert de agenda niet
         // tijdens lezen en lijkt de app niet spontaan te herstarten.
     </script>
-    <script src="standings-config.js?v=3.18.2" defer></script>
-    <script src="standings-menu.js?v=3.18.2" defer></script>
-    <script src="release-notes.js?v=3.18.2" defer></script>
+    <script src="standings-config.js?v=3.19.0" defer></script>
+    <script src="standings-menu.js?v=3.19.0" defer></script>
+    <script src="release-notes.js?v=3.19.0" defer></script>
 </body>
 </html>
 
