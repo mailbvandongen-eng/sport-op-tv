@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="football-policy.js?v=3.18.1"></script>
+    <script src="football-policy.js?v=3.18.2"></script>
     <style>
         * {
             margin: 0;
@@ -2834,10 +2834,10 @@
             background: var(--text-secondary);
         }
     </style>
-    <link rel="stylesheet" href="search-ui.css?v=3.18.1">
-    <link rel="stylesheet" href="guide-ui.css?v=3.18.1">
-    <script src="search-enhancements.js?v=3.18.1"></script>
-    <link rel="stylesheet" href="standings-menu.css?v=3.18.1">
+    <link rel="stylesheet" href="search-ui.css?v=3.18.2">
+    <link rel="stylesheet" href="guide-ui.css?v=3.18.2">
+    <script src="search-enhancements.js?v=3.18.2"></script>
+    <link rel="stylesheet" href="standings-menu.css?v=3.18.2">
 </head>
 <body>
     <a class="skip-link" href="#events-container">Naar wedstrijden</a>
@@ -5058,6 +5058,15 @@
             // Fetch additional football competitions from ESPN API
             try {
                 const espnMatches = await fetchESPNMatches();
+                // OpenFootball heeft vaak voorlopige tijden (bijv. alles op zaterdag 16:00) en andere
+                // clubnamen. Waar ESPN de dag voor die competitie leverde, telt alleen ESPN.
+                const coverage = espnMatches.espnCoverage;
+                if (coverage?.size) {
+                    const kept = allMatches.filter(match => match.source !== 'OpenFootball'
+                        || !coverage.has(`${match.competition}|${getDatePartsInTimeZone(new Date(match.date), 'Europe/Amsterdam').dateKey}`));
+                    allMatches.length = 0;
+                    allMatches.push(...kept);
+                }
                 allMatches.push(...espnMatches);
                 console.log(`Added ${espnMatches.length} additional football matches from ESPN`);
                 if (espnMatches.length > 0) hasLiveSourceMatches = true;
@@ -5122,51 +5131,64 @@
         async function fetchESPNMatches() {
             console.log('Fetching additional football competitions from ESPN API...');
             const allMatches = [];
-
-            // ESPN documenteert datumqueries per dag. Probeer eerst één compacte
-            // periode inclusief de afgelopen drie dagen; bij weigering losse dagen.
             const dayKeys = buildDateRange(new Date(), 3, 7).map(dateKey => dateKey.replace(/-/g, ''));
-            const fromDate = dayKeys[0];
-            const toDate = dayKeys[dayKeys.length - 1];
 
-            async function fetchCompetitionEvents(comp) {
-                const rangeUrl = `${CONFIG.ESPN_API_URL}/${comp.slug}/scoreboard?dates=${fromDate}-${toDate}`;
-                try {
-                    const rangeResponse = await fetch(rangeUrl, { signal: AbortSignal.timeout(10000) });
-                    if (rangeResponse.ok) {
-                        footballSourceHealth.successful += 1;
-                        const data = await rangeResponse.json();
-                        return Array.isArray(data.events) ? data.events : [];
-                    }
-
-                    if (rangeResponse.status !== 400) {
-                        console.warn(`ESPN ${comp.name}: ${rangeResponse.status}`);
-                        footballSourceHealth.failed += 1;
-                        return [];
-                    }
-
-                    console.warn(`ESPN ${comp.name}: datumrange geweigerd, terugval op losse dagen`);
-                    const dailyResults = await mapWithConcurrency(dayKeys, 3, async dateKey => {
-                        const response = await fetch(`${CONFIG.ESPN_API_URL}/${comp.slug}/scoreboard?dates=${dateKey}`, {
-                            signal: AbortSignal.timeout(10000)
-                        });
-                        if (!response.ok) return { ok: false, events: [] };
-                        const data = await response.json();
-                        return { ok: true, events: Array.isArray(data.events) ? data.events : [] };
-                    });
-                    if (dailyResults.every(result => result.ok)) footballSourceHealth.successful += 1;
-                    else footballSourceHealth.failed += 1;
-                    return dailyResults.flatMap(result => result.events);
-                } catch (error) {
-                    console.error(`Error fetching ${comp.name}:`, error);
-                    footballSourceHealth.failed += 1;
-                    return [];
-                }
+            // ESPN weigert datumperiodes (400, november 2026) en blokkeert bij honderden losse
+            // verzoeken (403). Het dagoverzicht soccer/all geeft alle competities van een dag in
+            // één verzoek; het league-id in event.uid koppelt een wedstrijd aan de competitie.
+            async function fetchEspnEvents(url) {
+                const response = await fetch(url, { signal: AbortSignal.timeout(10000) });
+                if (!response.ok) throw new Error(`ESPN ${response.status}`);
+                const data = await response.json();
+                return Array.isArray(data.events) ? data.events : [];
             }
 
-            const competitionResults = await mapWithConcurrency(CONFIG.ESPN_COMPETITIONS, 4, async comp => ({
+            const dayResults = await mapWithConcurrency(dayKeys, 3, async dateKey => {
+                try {
+                    return { dateKey, ok: true, events: await fetchEspnEvents(`${CONFIG.ESPN_API_URL}/all/scoreboard?dates=${dateKey}&limit=1000`) };
+                } catch (error) {
+                    console.warn(`ESPN dagoverzicht ${dateKey} mislukt:`, error);
+                    return { dateKey, ok: false, events: [] };
+                }
+            });
+            dayResults.forEach(result => { footballSourceHealth[result.ok ? 'successful' : 'failed'] += 1; });
+
+            // Welke competitie/dag ESPN volledig heeft geleverd; daar vervangt ESPN OpenFootball.
+            const coverage = new Set();
+            const toDashKey = dateKey => `${dateKey.slice(0, 4)}-${dateKey.slice(4, 6)}-${dateKey.slice(6, 8)}`;
+            dayResults.filter(result => result.ok).forEach(result => {
+                CONFIG.ESPN_COMPETITIONS.forEach(comp => coverage.add(`${comp.name}|${toDashKey(result.dateKey)}`));
+            });
+
+            const eventsByLeague = new Map();
+            const addEvent = (leagueId, event) => {
+                if (!eventsByLeague.has(leagueId)) eventsByLeague.set(leagueId, new Map());
+                eventsByLeague.get(leagueId).set(event.id, event);
+            };
+            dayResults.flatMap(result => result.events).forEach(event => {
+                const leagueId = String(event.uid || '').match(/~l:(\d+)/)?.[1];
+                if (leagueId) addEvent(leagueId, event);
+            });
+
+            // Alleen voor een mislukte dag per competitie opvragen, met beperkte gelijktijdigheid.
+            const failedDays = dayResults.filter(result => !result.ok).map(result => result.dateKey);
+            if (failedDays.length) {
+                const jobs = failedDays.flatMap(dateKey => CONFIG.ESPN_COMPETITIONS.map(comp => ({ comp, dateKey })));
+                const fallback = await mapWithConcurrency(jobs, 4, async ({ comp, dateKey }) => {
+                    try {
+                        const events = await fetchEspnEvents(`${CONFIG.ESPN_API_URL}/${comp.slug}/scoreboard?dates=${dateKey}`);
+                        coverage.add(`${comp.name}|${toDashKey(dateKey)}`);
+                        return { comp, events };
+                    } catch (_) {
+                        return { comp, events: [] };
+                    }
+                });
+                fallback.forEach(({ comp, events }) => events.forEach(event => addEvent(comp.leagueId, event)));
+            }
+
+            const competitionResults = CONFIG.ESPN_COMPETITIONS.map(comp => ({
                 comp,
-                events: await fetchCompetitionEvents(comp)
+                events: [...(eventsByLeague.get(comp.leagueId)?.values() || [])]
             }));
 
             for (const { comp, events } of competitionResults) {
@@ -5213,6 +5235,7 @@
                 console.log(`Loaded ${events.length} ${comp.name} matches`);
             }
 
+            allMatches.espnCoverage = coverage;
             return allMatches;
         }
 
@@ -7243,9 +7266,9 @@
         // op verzoek van de gebruiker; zo springt of knippert de agenda niet
         // tijdens lezen en lijkt de app niet spontaan te herstarten.
     </script>
-    <script src="standings-config.js?v=3.18.1" defer></script>
-    <script src="standings-menu.js?v=3.18.1" defer></script>
-    <script src="release-notes.js?v=3.18.1" defer></script>
+    <script src="standings-config.js?v=3.18.2" defer></script>
+    <script src="standings-menu.js?v=3.18.2" defer></script>
+    <script src="release-notes.js?v=3.18.2" defer></script>
 </body>
 </html>
 

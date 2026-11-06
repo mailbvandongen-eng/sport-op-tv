@@ -1,3 +1,8 @@
+## 3.18.2 — 6 november 2026
+
+- Sommige wedstrijden stonden er twee keer in, één keer met een voorlopige tijd van OpenFootball (bijvoorbeeld zaterdag 16:00) en één keer met de echte aftraptijd van ESPN. Waar ESPN de dag voor een competitie levert, toont de app nu alleen ESPN.
+- ESPN weigert datumperiodes (HTTP 400), waardoor de app terugviel op ruim 400 losse verzoeken per keer laden. De app gebruikt nu het ESPN-dagoverzicht van alle competities: 11 verzoeken, met per competitie een terugval voor een mislukte dag.
+
 ## 3.18.1 — 6 november 2026
 
 - De F1-agenda bleef leeg zodra er een sessie live was: de bron OpenF1 blokkeert dan alle gratis toegang, ook tot het schema.
