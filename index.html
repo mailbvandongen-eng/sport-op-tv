@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="football-policy.js?v=3.18.0"></script>
+    <script src="football-policy.js?v=3.18.1"></script>
     <style>
         * {
             margin: 0;
@@ -2834,10 +2834,10 @@
             background: var(--text-secondary);
         }
     </style>
-    <link rel="stylesheet" href="search-ui.css?v=3.18.0">
-    <link rel="stylesheet" href="guide-ui.css?v=3.18.0">
-    <script src="search-enhancements.js?v=3.18.0"></script>
-    <link rel="stylesheet" href="standings-menu.css?v=3.18.0">
+    <link rel="stylesheet" href="search-ui.css?v=3.18.1">
+    <link rel="stylesheet" href="guide-ui.css?v=3.18.1">
+    <script src="search-enhancements.js?v=3.18.1"></script>
+    <link rel="stylesheet" href="standings-menu.css?v=3.18.1">
 </head>
 <body>
     <a class="skip-link" href="#events-container">Naar wedstrijden</a>
@@ -4319,29 +4319,85 @@
             return labels[name] || name;
         }
 
-        // Fetch F1 sessions from OpenF1 API
+        // OpenF1 weigert anoniem verkeer (401) zolang er een F1-sessie live is, ook voor het schema.
+        // Dan valt de app terug op het schema van Jolpica en daarna op de laatst opgehaalde sessies.
+        const F1_SNAPSHOT_KEY = 'f1SessionsSnapshot';
+        const F1_JOLPICA_SCHEDULE_URL = 'https://api.jolpi.ca/ergast/f1/2026.json?limit=100';
+        const JOLPICA_F1_SESSIONS = [
+            ['FirstPractice', 'Practice 1', 60],
+            ['SecondPractice', 'Practice 2', 60],
+            ['ThirdPractice', 'Practice 3', 60],
+            ['SprintQualifying', 'Sprint Qualifying', 45],
+            ['SprintShootout', 'Sprint Shootout', 45],
+            ['Sprint', 'Sprint', 60],
+            ['Qualifying', 'Qualifying', 60],
+            ['Race', 'Race', 120]
+        ];
+        const JOLPICA_COUNTRY_NAMES = { USA: 'United States', UAE: 'United Arab Emirates', UK: 'United Kingdom' };
+
+        function mapF1Session(session) {
+            return {
+                date: new Date(session.date_start),
+                time: new Date(session.date_start).toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Amsterdam' }),
+                title: getF1SessionLabel(session.session_name),
+                competition: `GP ${session.country_name}`,
+                circuit: session.circuit_short_name,
+                location: [session.circuit_short_name, session.location].filter(Boolean).join(' · '),
+                channel: 'Viaplay',
+                type: session.session_type,
+                live: isLiveNow(session.date_start, session.date_end),
+                score: null
+            };
+        }
+
+        // Jolpica geeft alleen starttijden; de eindtijd is een schatting voor de live-markering.
+        function convertJolpicaRaces(races = []) {
+            return races.flatMap(race => JOLPICA_F1_SESSIONS
+                .map(([key, sessionName, minutes]) => {
+                    const slot = key === 'Race' ? { date: race.date, time: race.time } : race[key];
+                    if (!slot?.date || !slot?.time) return null;
+                    const start = new Date(`${slot.date}T${slot.time}`);
+                    if (Number.isNaN(start.getTime())) return null;
+                    const country = race.Circuit?.Location?.country || '';
+                    return {
+                        date_start: start.toISOString(),
+                        date_end: new Date(start.getTime() + minutes * 60000).toISOString(),
+                        session_name: sessionName,
+                        country_name: JOLPICA_COUNTRY_NAMES[country] || country,
+                        circuit_short_name: race.Circuit?.circuitName || '',
+                        location: race.Circuit?.Location?.locality || ''
+                    };
+                })
+                .filter(Boolean));
+        }
+
+        async function fetchF1Json(url) {
+            const response = await fetch(url, { signal: AbortSignal.timeout(8000) });
+            if (!response.ok) throw new Error(`F1 bron ${response.status}`);
+            return response.json();
+        }
+
         async function fetchF1Sessions() {
             try {
-                const response = await fetch(`${CONFIG.F1_API_URL}/sessions?year=2026`, { signal: AbortSignal.timeout(8000) });
-                if (!response.ok) throw new Error('F1 API error');
-                const sessions = await response.json();
-
-                return sessions.map(session => ({
-                    date: new Date(session.date_start),
-                    time: new Date(session.date_start).toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Amsterdam' }),
-                    title: getF1SessionLabel(session.session_name),
-                    competition: `GP ${session.country_name}`,
-                    circuit: session.circuit_short_name,
-                    location: [session.circuit_short_name, session.location].filter(Boolean).join(' · '),
-                    channel: 'Viaplay',
-                    type: session.session_type,
-                    live: isLiveNow(session.date_start, session.date_end),
-                    score: null
-                }));
+                const sessions = await fetchF1Json(`${CONFIG.F1_API_URL}/sessions?year=2026`);
+                if (!Array.isArray(sessions) || !sessions.length) throw new Error('Leeg F1-schema');
+                try { localStorage.setItem(F1_SNAPSHOT_KEY, JSON.stringify(sessions)); } catch (_) { /* Verse data werkt ook zonder opslag. */ }
+                return sessions.map(mapF1Session);
             } catch (error) {
-                console.error('F1 API Error:', error);
-                return [];
+                console.warn('OpenF1 niet beschikbaar, Jolpica-schema gebruikt:', error);
             }
+            try {
+                const data = await fetchF1Json(F1_JOLPICA_SCHEDULE_URL);
+                const sessions = convertJolpicaRaces(data?.MRData?.RaceTable?.Races);
+                if (sessions.length) return sessions.map(mapF1Session);
+            } catch (error) {
+                console.warn('Jolpica F1-schema niet beschikbaar:', error);
+            }
+            try {
+                const saved = JSON.parse(localStorage.getItem(F1_SNAPSHOT_KEY) || 'null');
+                if (Array.isArray(saved) && saved.length) return saved.map(mapF1Session);
+            } catch (_) { /* Geen bewaard schema. */ }
+            return [];
         }
 
         // Static football data - BELANGRIJK:
@@ -7187,9 +7243,9 @@
         // op verzoek van de gebruiker; zo springt of knippert de agenda niet
         // tijdens lezen en lijkt de app niet spontaan te herstarten.
     </script>
-    <script src="standings-config.js?v=3.18.0" defer></script>
-    <script src="standings-menu.js?v=3.18.0" defer></script>
-    <script src="release-notes.js?v=3.18.0" defer></script>
+    <script src="standings-config.js?v=3.18.1" defer></script>
+    <script src="standings-menu.js?v=3.18.1" defer></script>
+    <script src="release-notes.js?v=3.18.1" defer></script>
 </body>
 </html>
 

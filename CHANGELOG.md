@@ -1,3 +1,8 @@
+## 3.18.1 — 6 november 2026
+
+- De F1-agenda bleef leeg zodra er een sessie live was: de bron OpenF1 blokkeert dan alle gratis toegang, ook tot het schema.
+- De app gebruikt dan het schema van Jolpica (dezelfde bron als de F1-standen), en anders het laatst opgehaalde schema op je toestel. De lopende sessie staat als live gemarkeerd.
+
 ## 3.18.0 — 5 november 2026
 
 - De dartsagenda toont nu ook de Players Championships: de vloertoernooien van de PDC met alle 128 tourkaarthouders, live te volgen op PDCTV.
