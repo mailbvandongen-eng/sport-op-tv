@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "sourceUrl": "https://www.dartn.de/TV-Termine/",
-  "fetchedAt": "2026-11-05T16:52:11.026Z",
+  "fetchedAt": "2026-11-09T22:40:39.609Z",
   "broadcasts": [
     {
       "id": "2026-11-02-adc-global-championship",
@@ -131,6 +131,104 @@
         },
         {
           "time": "20:00",
+          "label": "Avondsessie"
+        }
+      ],
+      "source": "dartn.de"
+    },
+    {
+      "id": "2026-11-09-modus-darts-super-series-double-trouble",
+      "date": "2026-11-09",
+      "time": "10:35",
+      "event": "Modus Darts Super Series – Double Trouble",
+      "channel": "Pluto TV",
+      "stream": "Pluto TV X Modus Super Series",
+      "sessions": [
+        {
+          "time": "10:35",
+          "label": "Ochtendsessie"
+        }
+      ],
+      "source": "dartn.de"
+    },
+    {
+      "id": "2026-11-10-modus-darts-super-series-double-trouble",
+      "date": "2026-11-10",
+      "time": "10:35",
+      "event": "Modus Darts Super Series – Double Trouble",
+      "channel": "Pluto TV",
+      "stream": "Pluto TV X Modus Super Series",
+      "sessions": [
+        {
+          "time": "10:35",
+          "label": "Ochtendsessie"
+        }
+      ],
+      "source": "dartn.de"
+    },
+    {
+      "id": "2026-11-11-modus-darts-super-series-double-trouble",
+      "date": "2026-11-11",
+      "time": "10:35",
+      "event": "Modus Darts Super Series – Double Trouble",
+      "channel": "Pluto TV",
+      "stream": "Pluto TV X Modus Super Series",
+      "sessions": [
+        {
+          "time": "10:35",
+          "label": "Ochtendsessie"
+        }
+      ],
+      "source": "dartn.de"
+    },
+    {
+      "id": "2026-11-12-modus-darts-super-series-double-trouble",
+      "date": "2026-11-12",
+      "time": "14:05",
+      "event": "Modus Darts Super Series – Double Trouble",
+      "channel": "Pluto TV",
+      "stream": "Pluto TV X Modus Super Series",
+      "sessions": [
+        {
+          "time": "14:05",
+          "label": "Middagsessie"
+        },
+        {
+          "time": "23:05",
+          "label": "Avondsessie"
+        }
+      ],
+      "source": "dartn.de"
+    },
+    {
+      "id": "2026-11-13-modus-darts-super-series-double-trouble",
+      "date": "2026-11-13",
+      "time": "14:05",
+      "event": "Modus Darts Super Series – Double Trouble",
+      "channel": "Pluto TV",
+      "stream": "Pluto TV X Modus Super Series",
+      "sessions": [
+        {
+          "time": "14:05",
+          "label": "Middagsessie"
+        },
+        {
+          "time": "23:05",
+          "label": "Avondsessie"
+        }
+      ],
+      "source": "dartn.de"
+    },
+    {
+      "id": "2026-11-14-modus-darts-super-series-double-trouble",
+      "date": "2026-11-14",
+      "time": "20:45",
+      "event": "Modus Darts Super Series – Double Trouble",
+      "channel": "Pluto TV",
+      "stream": "Pluto TV X Modus Super Series",
+      "sessions": [
+        {
+          "time": "20:45",
           "label": "Avondsessie"
         }
       ],
