@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="football-policy.js?v=3.19.0"></script>
+    <script src="football-policy.js?v=3.19.1"></script>
     <style>
         * {
             margin: 0;
@@ -2834,10 +2834,10 @@
             background: var(--text-secondary);
         }
     </style>
-    <link rel="stylesheet" href="search-ui.css?v=3.19.0">
-    <link rel="stylesheet" href="guide-ui.css?v=3.19.0">
-    <script src="search-enhancements.js?v=3.19.0"></script>
-    <link rel="stylesheet" href="standings-menu.css?v=3.19.0">
+    <link rel="stylesheet" href="search-ui.css?v=3.19.1">
+    <link rel="stylesheet" href="guide-ui.css?v=3.19.1">
+    <script src="search-enhancements.js?v=3.19.1"></script>
+    <link rel="stylesheet" href="standings-menu.css?v=3.19.1">
 </head>
 <body>
     <a class="skip-link" href="#events-container">Naar wedstrijden</a>
@@ -5846,8 +5846,10 @@
                 return cachedData.dartsFixtures;
             }
 
+            // Ruim afbreken: de feed is groot en op mobiel traag. Wie wacht, ziet al
+            // het bewaarde schema of na hooguit 6 s de vaste agenda.
             const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 8000);
+            const timeoutId = setTimeout(() => controller.abort(), 30000);
             try {
                 const separator = CONFIG.PDC_FIXTURES_URL.includes('?') ? '&' : '?';
                 const response = await fetch(`${CONFIG.PDC_FIXTURES_URL}${separator}v=${Date.now()}`, {
@@ -5857,6 +5859,7 @@
                 if (!response.ok) throw new Error(`PDC fixtures ${response.status}`);
                 const data = await response.json();
                 cachedData.dartsFixtures = data.data || [];
+                savePdcFixturesSnapshot(cachedData.dartsFixtures);
                 if (options.force) {
                     cachedData.dartsResults = null;
                 }
@@ -5874,14 +5877,60 @@
             return normalizePdcDartsSchedule(fixtures);
         }
 
+        // De PDC-feed is bijna 1 MB en op mobiel traag. Een slanke kopie van het
+        // laatst opgehaalde schema op het toestel laat darts direct verschijnen.
+        function savePdcFixturesSnapshot(fixtures) {
+            const pick = (source, keys) => source ? Object.fromEntries(keys.map(key => [key, source[key]])) : source;
+            const slim = (fixtures || []).map(fixture => {
+                const attributes = fixture.attributes || fixture;
+                return { attributes: {
+                    ...pick(attributes, ['name', 'status', 'startDate', 'startTime', 'tournamentID', 'tournamentStageID', 'participant1Score', 'participant2Score']),
+                    participant1: pick(attributes.participant1, ['firstName', 'lastName', 'nickname']),
+                    participant2: pick(attributes.participant2, ['firstName', 'lastName', 'nickname']),
+                    stage: pick(attributes.stage, ['name']),
+                    tournament: pick(attributes.tournament, ['name', 'venue', 'city'])
+                } };
+            });
+            try { localStorage.setItem('dartsPdcSnapshot', JSON.stringify(slim)); } catch (_) { /* Zonder opslag werkt de verse feed ook. */ }
+        }
+
+        function readDartsSnapshots() {
+            const read = key => {
+                try {
+                    const saved = JSON.parse(localStorage.getItem(key) || 'null');
+                    return Array.isArray(saved) ? saved : null;
+                } catch (_) { return null; }
+            };
+            if (!Array.isArray(cachedData.dartsPluto)) cachedData.dartsPluto = read('dartsPlutoSnapshot');
+            return Array.isArray(cachedData.dartsFixtures) ? cachedData.dartsFixtures : read('dartsPdcSnapshot');
+        }
+
+        function buildDartsEvents(fixtures) {
+            const events = Array.isArray(fixtures)
+                ? mergeDartsScheduleEvents(getStaticDartsEvents(), normalizePdcDartsSchedule(fixtures))
+                : getStaticDartsEvents();
+            events.forEach(event => { event.sportType = 'darts'; });
+            return events;
+        }
+
+        let dartsFeedLoad = null;
         let dartsFeedRefresh = null;
+
+        function loadDartsFeed(force = false) {
+            if (dartsFeedLoad) return dartsFeedLoad;
+            dartsFeedLoad = Promise.all([fetchPdcFixtures({ force }), fetchPlutoDartsBroadcasts()])
+                .then(([fixtures]) => {
+                    cachedData.darts = buildDartsEvents(fixtures);
+                    return cachedData.darts;
+                })
+                .finally(() => { dartsFeedLoad = null; });
+            return dartsFeedLoad;
+        }
 
         function startDartsFeedRefresh(force = false) {
             if (dartsFeedRefresh) return dartsFeedRefresh;
-            dartsFeedRefresh = Promise.all([fetchPdcDartsSchedule({ force }), fetchPlutoDartsBroadcasts()])
-                .then(([schedule]) => {
-                    cachedData.darts = mergeDartsScheduleEvents(getStaticDartsEvents(), schedule || []);
-                    cachedData.darts.forEach(event => { event.sportType = 'darts'; });
+            dartsFeedRefresh = loadDartsFeed(force)
+                .then(() => {
                     if (currentSportFilter === 'darts' || currentSportFilter === null) {
                         return renderEvents({ skipBackgroundRefresh: true });
                     }
@@ -6294,16 +6343,19 @@
             }
 
             if (sport === 'darts') {
-                // Toon de lokale agenda meteen; de PDC-feed mag de weergave niet blokkeren.
-                cachedData.darts = getStaticDartsEvents();
-                if (Array.isArray(cachedData.dartsFixtures)) {
-                    cachedData.darts = mergeDartsScheduleEvents(
-                        cachedData.darts,
-                        normalizePdcDartsSchedule(cachedData.dartsFixtures)
-                    );
+                // Met een bewaard schema verschijnt darts meteen en ververst de feed op de
+                // achtergrond. Zonder schema wacht de zandloper op de feed (max. 6 s),
+                // zodat er niet eerst een lege agenda staat; komt de feed later, dan
+                // verschijnt hij alsnog.
+                const fixtures = readDartsSnapshots();
+                if (Array.isArray(fixtures)) {
+                    cachedData.darts = buildDartsEvents(fixtures);
+                    startDartsFeedRefresh(force);
+                    return cachedData.darts;
                 }
-                cachedData.darts.forEach(event => { event.sportType = 'darts'; });
-                startDartsFeedRefresh(force);
+                const feed = startDartsFeedRefresh(force);
+                await Promise.race([feed, new Promise(resolve => setTimeout(resolve, 6000))]);
+                if (!Array.isArray(cachedData.darts)) cachedData.darts = buildDartsEvents(null);
                 return cachedData.darts;
             }
 
@@ -7314,15 +7366,20 @@
         }
 
         window.scrollTo(0, 0); // Always start at top
-        renderEvents();
+        renderEvents().finally(() => {
+            // Haal darts alvast op de achtergrond op, zodat de knop direct iets toont.
+            setTimeout(() => {
+                if (!Array.isArray(cachedData.darts) && !readDartsSnapshots()) startDartsFeedRefresh();
+            }, 1000);
+        });
 
         // Geen automatische volledige herbouw meer. Verversen gebeurt alleen
         // op verzoek van de gebruiker; zo springt of knippert de agenda niet
         // tijdens lezen en lijkt de app niet spontaan te herstarten.
     </script>
-    <script src="standings-config.js?v=3.19.0" defer></script>
-    <script src="standings-menu.js?v=3.19.0" defer></script>
-    <script src="release-notes.js?v=3.19.0" defer></script>
+    <script src="standings-config.js?v=3.19.1" defer></script>
+    <script src="standings-menu.js?v=3.19.1" defer></script>
+    <script src="release-notes.js?v=3.19.1" defer></script>
 </body>
 </html>
 

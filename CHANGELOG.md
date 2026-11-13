@@ -1,3 +1,9 @@
+## 3.19.1 — 13 november 2026
+
+- Darts bleef na het wisselen vanaf voetbal zo'n tien seconden leeg ("Geen uitzendingen"): de PDC-feed is bijna 1 MB en de agenda verscheen pas als die binnen was.
+- De app bewaart nu een slanke kopie van het laatst opgehaalde PDC- en Pluto-schema op het toestel en toont die direct; de feed ververst op de achtergrond.
+- Zonder bewaard schema staat er een zandloper tot de feed binnen is (maximaal 6 seconden; komt de feed later, dan verschijnt hij alsnog). De feed wordt niet meer na 8 seconden afgebroken maar pas na 30. Na het opstarten haalt de app darts alvast op de achtergrond op.
+
 ## 3.19.0 — 6 november 2026
 
 - MotoGP toont nu de officiële sessietijden in Nederlandse tijd: vrije trainingen, practice, beide kwalificaties, sprint en race (`data/motogp.json`).
