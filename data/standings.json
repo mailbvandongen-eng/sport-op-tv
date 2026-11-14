@@ -213,7 +213,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/eng.1",
-      "fetchedAt": "2026-11-14T13:28:46.634Z"
+      "fetchedAt": "2026-11-14T22:18:35.964Z"
     },
     "eredivisie": {
       "season": "2026-27 VriendenLoterij Eredivisie",
@@ -407,7 +407,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/ned.1",
-      "fetchedAt": "2026-11-14T13:28:46.630Z"
+      "fetchedAt": "2026-11-14T22:18:35.896Z"
     },
     "champions": {
       "season": "2026-27 UEFA Champions League",
@@ -781,7 +781,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.champions",
-      "fetchedAt": "2026-11-14T13:28:46.670Z"
+      "fetchedAt": "2026-11-14T22:18:35.916Z"
     },
     "europa": {
       "season": "2026-27 UEFA Europa League",
@@ -1155,7 +1155,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.europa",
-      "fetchedAt": "2026-11-14T13:28:46.701Z"
+      "fetchedAt": "2026-11-14T22:18:35.969Z"
     },
     "conference": {
       "season": "2026-27 UEFA Conference League",
@@ -1529,7 +1529,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.europa.conf",
-      "fetchedAt": "2026-11-14T13:28:46.738Z"
+      "fetchedAt": "2026-11-14T22:18:36.068Z"
     },
     "wk": {
       "season": "2026 Wereldkampioenschap",
@@ -3121,7 +3121,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/fifa.world",
-      "fetchedAt": "2026-11-14T13:28:46.865Z"
+      "fetchedAt": "2026-11-14T22:18:36.271Z"
     },
     "ek": {
       "season": "2024 UEFA Europees Kampioenschap",
@@ -3913,7 +3913,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.euro",
-      "fetchedAt": "2026-11-14T13:28:46.833Z"
+      "fetchedAt": "2026-11-14T22:18:36.167Z"
     },
     "nations": {
       "season": "2026 UEFA Nations League",
@@ -4060,41 +4060,41 @@
             {
               "rank": 1,
               "name": "Portugal",
-              "played": 4,
+              "played": 5,
               "wins": 4,
               "draws": 0,
-              "losses": 0,
-              "diff": 5,
+              "losses": 1,
+              "diff": 2,
               "points": 12
             },
             {
               "rank": 2,
               "name": "Denemarken",
-              "played": 4,
-              "wins": 2,
+              "played": 5,
+              "wins": 3,
               "draws": 0,
               "losses": 2,
+              "diff": 3,
+              "points": 9
+            },
+            {
+              "rank": 3,
+              "name": "Noorwegen",
+              "played": 5,
+              "wins": 2,
+              "draws": 0,
+              "losses": 3,
               "diff": 0,
               "points": 6
             },
             {
-              "rank": 3,
-              "name": "Wales",
-              "played": 4,
-              "wins": 1,
-              "draws": 0,
-              "losses": 3,
-              "diff": -3,
-              "points": 3
-            },
-            {
               "rank": 4,
-              "name": "Noorwegen",
-              "played": 4,
+              "name": "Wales",
+              "played": 5,
               "wins": 1,
               "draws": 0,
-              "losses": 3,
-              "diff": -2,
+              "losses": 4,
+              "diff": -5,
               "points": 3
             }
           ]
@@ -4150,41 +4150,41 @@
             {
               "rank": 1,
               "name": "Noord-Ierland",
-              "played": 4,
-              "wins": 2,
+              "played": 5,
+              "wins": 3,
               "draws": 2,
               "losses": 0,
-              "diff": 4,
-              "points": 8
+              "diff": 5,
+              "points": 11
             },
             {
               "rank": 2,
               "name": "Hongarije",
-              "played": 4,
-              "wins": 2,
+              "played": 5,
+              "wins": 3,
               "draws": 1,
               "losses": 1,
-              "diff": 1,
-              "points": 7
+              "diff": 3,
+              "points": 10
             },
             {
               "rank": 3,
               "name": "Oekraïne",
-              "played": 4,
+              "played": 5,
               "wins": 1,
               "draws": 1,
-              "losses": 2,
-              "diff": -3,
+              "losses": 3,
+              "diff": -4,
               "points": 4
             },
             {
               "rank": 4,
               "name": "Georgië",
-              "played": 4,
+              "played": 5,
               "wins": 0,
               "draws": 2,
-              "losses": 2,
-              "diff": -2,
+              "losses": 3,
+              "diff": -4,
               "points": 2
             }
           ]
@@ -4195,42 +4195,42 @@
             {
               "rank": 1,
               "name": "Oostenrijk",
-              "played": 4,
-              "wins": 2,
+              "played": 5,
+              "wins": 3,
               "draws": 2,
               "losses": 0,
-              "diff": 4,
-              "points": 8
+              "diff": 5,
+              "points": 11
             },
             {
               "rank": 2,
               "name": "Kosovo",
-              "played": 4,
+              "played": 5,
               "wins": 1,
-              "draws": 2,
+              "draws": 3,
               "losses": 1,
               "diff": -1,
-              "points": 5
+              "points": 6
             },
             {
               "rank": 3,
               "name": "Ierland",
-              "played": 4,
+              "played": 5,
               "wins": 1,
               "draws": 2,
-              "losses": 1,
-              "diff": 2,
+              "losses": 2,
+              "diff": 1,
               "points": 5
             },
             {
               "rank": 4,
               "name": "Israël",
-              "played": 4,
+              "played": 5,
               "wins": 0,
-              "draws": 2,
+              "draws": 3,
               "losses": 2,
               "diff": -5,
-              "points": 2
+              "points": 3
             }
           ]
         },
@@ -4240,42 +4240,42 @@
             {
               "rank": 1,
               "name": "Zweden",
-              "played": 4,
-              "wins": 3,
+              "played": 5,
+              "wins": 4,
               "draws": 1,
               "losses": 0,
-              "diff": 4,
-              "points": 10
+              "diff": 5,
+              "points": 13
             },
             {
               "rank": 2,
               "name": "Bosnië en Herzegovina",
-              "played": 4,
+              "played": 5,
               "wins": 2,
               "draws": 2,
-              "losses": 0,
-              "diff": 3,
+              "losses": 1,
+              "diff": 2,
               "points": 8
             },
             {
               "rank": 3,
               "name": "Polen",
-              "played": 4,
+              "played": 5,
               "wins": 1,
               "draws": 1,
-              "losses": 2,
-              "diff": 3,
+              "losses": 3,
+              "diff": 2,
               "points": 4
             },
             {
               "rank": 4,
               "name": "Roemenië",
-              "played": 4,
-              "wins": 0,
+              "played": 5,
+              "wins": 1,
               "draws": 0,
               "losses": 4,
-              "diff": -10,
-              "points": 0
+              "diff": -9,
+              "points": 3
             }
           ]
         },
@@ -5798,8 +5798,8 @@
           "name": "Israel at Kosovo",
           "home": "Kosovo",
           "away": "Israel",
-          "score": null,
-          "completed": false
+          "score": "0 – 0",
+          "completed": true
         },
         {
           "id": "401861164",
@@ -5808,8 +5808,8 @@
           "name": "Hungary at Georgia",
           "home": "Georgia",
           "away": "Hungary",
-          "score": null,
-          "completed": false
+          "score": "0 – 2",
+          "completed": true
         },
         {
           "id": "401861165",
@@ -5818,8 +5818,8 @@
           "name": "Wales at Norway",
           "home": "Norway",
           "away": "Wales",
-          "score": null,
-          "completed": false
+          "score": "3 – 1",
+          "completed": true
         },
         {
           "id": "401861170",
@@ -5828,8 +5828,8 @@
           "name": "Republic of Ireland at Austria",
           "home": "Austria",
           "away": "Republic of Ireland",
-          "score": null,
-          "completed": false
+          "score": "1 – 0",
+          "completed": true
         },
         {
           "id": "401861169",
@@ -5838,8 +5838,8 @@
           "name": "Ukraine at Northern Ireland",
           "home": "Northern Ireland",
           "away": "Ukraine",
-          "score": null,
-          "completed": false
+          "score": "1 – 0",
+          "completed": true
         },
         {
           "id": "401861167",
@@ -5848,8 +5848,8 @@
           "name": "Denmark at Portugal",
           "home": "Portugal",
           "away": "Denmark",
-          "score": null,
-          "completed": false
+          "score": "1 – 4",
+          "completed": true
         },
         {
           "id": "401861168",
@@ -5858,8 +5858,8 @@
           "name": "Poland at Romania",
           "home": "Romania",
           "away": "Poland",
-          "score": null,
-          "completed": false
+          "score": "2 – 1",
+          "completed": true
         },
         {
           "id": "401861166",
@@ -5868,8 +5868,8 @@
           "name": "Bosnia-Herzegovina at Sweden",
           "home": "Sweden",
           "away": "Bosnia-Herzegovina",
-          "score": null,
-          "completed": false
+          "score": "3 – 2",
+          "completed": true
         },
         {
           "id": "401861172",
@@ -6135,7 +6135,7 @@
       "archived": false,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.nations",
-      "fetchedAt": "2026-11-14T13:28:46.848Z"
+      "fetchedAt": "2026-11-14T22:18:36.226Z"
     },
     "wk-vrouwen": {
       "season": "2023 FIFA Wereldkampioenschap Vrouwen",
@@ -7147,7 +7147,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/fifa.wwc",
-      "fetchedAt": "2026-11-14T13:28:47.007Z"
+      "fetchedAt": "2026-11-14T22:18:36.493Z"
     },
     "nations-vrouwen": {
       "season": "2025 UEFA Women's Nations League",
@@ -9461,7 +9461,7 @@
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.w.nations",
       "fetchedAt": "2026-11-10T19:40:43.932Z",
       "error": "Bron tijdelijk niet beschikbaar",
-      "attemptedAt": "2026-11-14T13:28:46.968Z"
+      "attemptedAt": "2026-11-14T22:18:36.463Z"
     },
     "ek-vrouwen": {
       "season": "2025 Europees Kampioenschap Voetbal Vrouwen",
@@ -9963,7 +9963,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.weuro",
-      "fetchedAt": "2026-11-14T13:28:46.980Z"
+      "fetchedAt": "2026-11-14T22:18:36.470Z"
     },
     "f1-drivers": {
       "season": "2026",
@@ -10316,7 +10316,7 @@
       ],
       "source": "Jolpica",
       "sourceUrl": "https://api.jolpi.ca/ergast/f1/current/driverStandings.json",
-      "fetchedAt": "2026-11-14T13:28:47.001Z"
+      "fetchedAt": "2026-11-14T22:18:36.448Z"
     },
     "f1-constructors": {
       "season": "2026",
@@ -10571,7 +10571,7 @@
       ],
       "source": "Jolpica",
       "sourceUrl": "https://api.jolpi.ca/ergast/f1/current/constructorStandings.json",
-      "fetchedAt": "2026-11-14T13:28:47.082Z"
+      "fetchedAt": "2026-11-14T22:18:36.554Z"
     },
     "darts-premier": {
       "season": "2026",
@@ -10660,7 +10660,7 @@
       "archived": true,
       "source": "Mastercaller",
       "sourceUrl": "https://mastercaller.nl/toernooien/premier-league/2026/stand",
-      "fetchedAt": "2026-11-14T13:28:48.024Z"
+      "fetchedAt": "2026-11-14T22:18:37.626Z"
     },
     "darts-merit": {
       "season": "2026",
@@ -11802,7 +11802,7 @@
       "archived": false,
       "source": "Darts Rankings",
       "sourceUrl": "https://www.dartsrankings.com/lastranking",
-      "fetchedAt": "2026-11-14T13:28:47.906Z"
+      "fetchedAt": "2026-11-14T22:18:37.699Z"
     },
     "motogp-riders": {
       "season": "2026",
@@ -12017,7 +12017,7 @@
       "archived": false,
       "source": "MotoGP",
       "sourceUrl": "https://stats.motogp.com/en/world-standing",
-      "fetchedAt": "2026-11-14T13:28:49.636Z"
+      "fetchedAt": "2026-11-14T22:18:39.406Z"
     },
     "handbal-men": {
       "season": "2026/27",
@@ -12429,7 +12429,7 @@
       "archived": false,
       "source": "EHF",
       "sourceUrl": "https://ehfcl.eurohandball.com/men/2026-27/standings/",
-      "fetchedAt": "2026-11-14T13:28:51.049Z"
+      "fetchedAt": "2026-11-14T22:18:40.995Z"
     },
     "handbal-women": {
       "season": "2026/27",
@@ -12525,6 +12525,16 @@
           "rows": [
             {
               "rank": 1,
+              "name": "Györi Audi ETO KC",
+              "played": 8,
+              "wins": 7,
+              "draws": 1,
+              "losses": 0,
+              "diff": 60,
+              "points": 15
+            },
+            {
+              "rank": 2,
               "name": "Metz Handball",
               "played": 7,
               "wins": 6,
@@ -12534,37 +12544,37 @@
               "points": 13
             },
             {
-              "rank": 2,
-              "name": "Györi Audi ETO KC",
-              "played": 7,
-              "wins": 6,
-              "draws": 1,
-              "losses": 0,
-              "diff": 43,
-              "points": 13
-            },
-            {
               "rank": 3,
               "name": "Gloria Bistrita",
-              "played": 7,
+              "played": 8,
               "wins": 5,
               "draws": 0,
-              "losses": 2,
-              "diff": 3,
+              "losses": 3,
+              "diff": 0,
               "points": 10
             },
             {
               "rank": 4,
               "name": "Storhamar Håndball Elite",
-              "played": 7,
+              "played": 8,
               "wins": 4,
               "draws": 0,
-              "losses": 3,
-              "diff": -5,
+              "losses": 4,
+              "diff": -13,
               "points": 8
             },
             {
               "rank": 5,
+              "name": "HC Podravka",
+              "played": 8,
+              "wins": 3,
+              "draws": 0,
+              "losses": 5,
+              "diff": -21,
+              "points": 6
+            },
+            {
+              "rank": 6,
               "name": "Odense Håndbold",
               "played": 7,
               "wins": 2,
@@ -12574,33 +12584,23 @@
               "points": 5
             },
             {
-              "rank": 6,
-              "name": "HC Podravka",
-              "played": 7,
-              "wins": 2,
-              "draws": 0,
-              "losses": 5,
-              "diff": -24,
-              "points": 4
-            },
-            {
               "rank": 7,
               "name": "Nykøbing Falster Håndbold",
-              "played": 7,
-              "wins": 1,
+              "played": 8,
+              "wins": 2,
               "draws": 1,
               "losses": 5,
-              "diff": -32,
-              "points": 3
+              "diff": -24,
+              "points": 5
             },
             {
               "rank": 8,
               "name": "HSG Blomberg-Lippe",
-              "played": 7,
+              "played": 8,
               "wins": 0,
               "draws": 0,
-              "losses": 7,
-              "diff": -58,
+              "losses": 8,
+              "diff": -75,
               "points": 0
             }
           ]
@@ -12611,7 +12611,7 @@
       "archived": false,
       "source": "EHF",
       "sourceUrl": "https://ehfcl.eurohandball.com/women/2026-27/standings/",
-      "fetchedAt": "2026-11-14T13:28:52.559Z"
+      "fetchedAt": "2026-11-14T22:18:42.603Z"
     },
     "handbal-euro-men": {
       "season": "2026",
@@ -13023,7 +13023,7 @@
       "archived": true,
       "source": "EHF",
       "sourceUrl": "https://ehfeuro.eurohandball.com/men/2026/standings/Xg2Ubz1_S9dxy0p0unxCBg/final-tournament/",
-      "fetchedAt": "2026-11-14T13:28:50.931Z"
+      "fetchedAt": "2026-11-14T22:18:41.774Z"
     },
     "handbal-euro-women": {
       "season": "2024",
@@ -13435,7 +13435,7 @@
       "archived": true,
       "source": "EHF",
       "sourceUrl": "https://ehfeuro.eurohandball.com/women/2024/standings/R-saEwRJFutIKedhnRuDpg/FinalTournament/",
-      "fetchedAt": "2026-11-14T13:28:51.385Z"
+      "fetchedAt": "2026-11-14T22:18:41.304Z"
     },
     "handbal-world-men": {
       "season": "2025",
@@ -13612,7 +13612,7 @@
       "archived": true,
       "source": "IHF",
       "sourceUrl": "https://www.ihf.info/media-center/events/29th-ihf-mens-world-championship",
-      "fetchedAt": "2026-11-14T13:28:51.795Z"
+      "fetchedAt": "2026-11-14T22:18:41.833Z"
     },
     "handbal-world-women": {
       "season": "2025",
@@ -13789,7 +13789,7 @@
       "archived": true,
       "source": "IHF",
       "sourceUrl": "https://www.ihf.info/index.php/media-center/events/27th-ihf-womens-world-championship",
-      "fetchedAt": "2026-11-14T13:28:52.998Z"
+      "fetchedAt": "2026-11-14T22:18:42.932Z"
     }
   }
 }
