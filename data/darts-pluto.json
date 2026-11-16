@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "sourceUrl": "https://www.dartn.de/TV-Termine/",
-  "fetchedAt": "2026-11-09T22:40:39.609Z",
+  "fetchedAt": "2026-11-16T22:29:09.162Z",
   "broadcasts": [
     {
       "id": "2026-11-02-adc-global-championship",
@@ -224,6 +224,104 @@
       "date": "2026-11-14",
       "time": "20:45",
       "event": "Modus Darts Super Series – Double Trouble",
+      "channel": "Pluto TV",
+      "stream": "Pluto TV X Modus Super Series",
+      "sessions": [
+        {
+          "time": "20:45",
+          "label": "Avondsessie"
+        }
+      ],
+      "source": "dartn.de"
+    },
+    {
+      "id": "2026-11-16-modus-darts-super-series-women-s-week",
+      "date": "2026-11-16",
+      "time": "10:35",
+      "event": "Modus Darts Super Series – Women’s Week",
+      "channel": "Pluto TV",
+      "stream": "Pluto TV X Modus Super Series",
+      "sessions": [
+        {
+          "time": "10:35",
+          "label": "Ochtendsessie"
+        }
+      ],
+      "source": "dartn.de"
+    },
+    {
+      "id": "2026-11-17-modus-darts-super-series-women-s-week",
+      "date": "2026-11-17",
+      "time": "10:35",
+      "event": "Modus Darts Super Series – Women’s Week",
+      "channel": "Pluto TV",
+      "stream": "Pluto TV X Modus Super Series",
+      "sessions": [
+        {
+          "time": "10:35",
+          "label": "Ochtendsessie"
+        }
+      ],
+      "source": "dartn.de"
+    },
+    {
+      "id": "2026-11-18-modus-darts-super-series-women-s-week",
+      "date": "2026-11-18",
+      "time": "10:35",
+      "event": "Modus Darts Super Series – Women’s Week",
+      "channel": "Pluto TV",
+      "stream": "Pluto TV X Modus Super Series",
+      "sessions": [
+        {
+          "time": "10:35",
+          "label": "Ochtendsessie"
+        }
+      ],
+      "source": "dartn.de"
+    },
+    {
+      "id": "2026-11-19-modus-darts-super-series-women-s-week",
+      "date": "2026-11-19",
+      "time": "14:05",
+      "event": "Modus Darts Super Series – Women’s Week",
+      "channel": "Pluto TV",
+      "stream": "Pluto TV X Modus Super Series",
+      "sessions": [
+        {
+          "time": "14:05",
+          "label": "Middagsessie"
+        },
+        {
+          "time": "23:05",
+          "label": "Avondsessie"
+        }
+      ],
+      "source": "dartn.de"
+    },
+    {
+      "id": "2026-11-20-modus-darts-super-series-women-s-week",
+      "date": "2026-11-20",
+      "time": "14:05",
+      "event": "Modus Darts Super Series – Women’s Week",
+      "channel": "Pluto TV",
+      "stream": "Pluto TV X Modus Super Series",
+      "sessions": [
+        {
+          "time": "14:05",
+          "label": "Middagsessie"
+        },
+        {
+          "time": "23:05",
+          "label": "Avondsessie"
+        }
+      ],
+      "source": "dartn.de"
+    },
+    {
+      "id": "2026-11-21-modus-darts-super-series-women-s-week",
+      "date": "2026-11-21",
+      "time": "20:45",
+      "event": "Modus Darts Super Series – Women’s Week",
       "channel": "Pluto TV",
       "stream": "Pluto TV X Modus Super Series",
       "sessions": [
