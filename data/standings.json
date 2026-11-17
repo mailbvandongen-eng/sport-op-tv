@@ -213,7 +213,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/eng.1",
-      "fetchedAt": "2026-11-17T07:49:26.700Z"
+      "fetchedAt": "2026-11-17T20:50:22.869Z"
     },
     "eredivisie": {
       "season": "2026-27 VriendenLoterij Eredivisie",
@@ -407,7 +407,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/ned.1",
-      "fetchedAt": "2026-11-17T07:49:26.631Z"
+      "fetchedAt": "2026-11-17T20:50:22.870Z"
     },
     "champions": {
       "season": "2026-27 UEFA Champions League",
@@ -781,7 +781,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.champions",
-      "fetchedAt": "2026-11-17T07:49:26.633Z"
+      "fetchedAt": "2026-11-17T20:50:22.859Z"
     },
     "europa": {
       "season": "2026-27 UEFA Europa League",
@@ -1155,7 +1155,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.europa",
-      "fetchedAt": "2026-11-17T07:49:26.675Z"
+      "fetchedAt": "2026-11-17T20:50:22.908Z"
     },
     "conference": {
       "season": "2026-27 UEFA Conference League",
@@ -1529,7 +1529,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.europa.conf",
-      "fetchedAt": "2026-11-17T07:49:26.766Z"
+      "fetchedAt": "2026-11-17T20:50:22.954Z"
     },
     "wk": {
       "season": "2026 Wereldkampioenschap",
@@ -3121,7 +3121,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/fifa.world",
-      "fetchedAt": "2026-11-17T07:49:26.883Z"
+      "fetchedAt": "2026-11-17T20:50:23.075Z"
     },
     "ek": {
       "season": "2024 UEFA Europees Kampioenschap",
@@ -3913,7 +3913,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.euro",
-      "fetchedAt": "2026-11-17T07:49:26.855Z"
+      "fetchedAt": "2026-11-17T20:50:23.027Z"
     },
     "nations": {
       "season": "2026 UEFA Nations League",
@@ -6135,7 +6135,7 @@
       "archived": false,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.nations",
-      "fetchedAt": "2026-11-17T07:49:26.871Z"
+      "fetchedAt": "2026-11-17T20:50:23.046Z"
     },
     "wk-vrouwen": {
       "season": "2023 FIFA Wereldkampioenschap Vrouwen",
@@ -7147,2321 +7147,2189 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/fifa.wwc",
-      "fetchedAt": "2026-11-17T07:49:27.109Z"
+      "fetchedAt": "2026-11-17T20:50:23.208Z"
     },
     "nations-vrouwen": {
-      "season": "2025 UEFA Women's Nations League",
-      "year": 2025,
+      "season": "2027 UEFA Women's Nations League",
+      "year": 2027,
       "groups": [
         {
-          "name": "Group A1",
-          "rows": [
-            {
-              "rank": 1,
-              "name": "Duitsland",
-              "played": 6,
-              "wins": 5,
-              "draws": 1,
-              "losses": 0,
-              "diff": 22,
-              "points": 16
-            },
-            {
-              "rank": 2,
-              "name": "Nederland",
-              "played": 6,
-              "wins": 3,
-              "draws": 2,
-              "losses": 1,
-              "diff": 1,
-              "points": 11
-            },
-            {
-              "rank": 3,
-              "name": "Austria",
-              "played": 6,
-              "wins": 2,
-              "draws": 0,
-              "losses": 4,
-              "diff": -11,
-              "points": 6
-            },
-            {
-              "rank": 4,
-              "name": "Scotland",
-              "played": 6,
-              "wins": 0,
-              "draws": 1,
-              "losses": 5,
-              "diff": -12,
-              "points": 1
-            }
-          ]
-        },
-        {
-          "name": "Group A2",
-          "rows": [
-            {
-              "rank": 1,
-              "name": "Frankrijk",
-              "played": 6,
-              "wins": 6,
-              "draws": 0,
-              "losses": 0,
-              "diff": 12,
-              "points": 18
-            },
-            {
-              "rank": 2,
-              "name": "Noorwegen",
-              "played": 6,
-              "wins": 2,
-              "draws": 2,
-              "losses": 2,
-              "diff": -1,
-              "points": 8
-            },
-            {
-              "rank": 3,
-              "name": "IJsland",
-              "played": 6,
-              "wins": 0,
-              "draws": 4,
-              "losses": 2,
-              "diff": -3,
-              "points": 4
-            },
-            {
-              "rank": 4,
-              "name": "Zwitserland",
-              "played": 6,
-              "wins": 0,
-              "draws": 2,
-              "losses": 4,
-              "diff": -8,
-              "points": 2
-            }
-          ]
-        },
-        {
-          "name": "Group A3",
+          "name": "League A, Group 1",
           "rows": [
             {
               "rank": 1,
               "name": "Spanje",
-              "played": 6,
-              "wins": 5,
+              "played": 0,
+              "wins": 0,
               "draws": 0,
-              "losses": 1,
-              "diff": 13,
-              "points": 15
+              "losses": 0,
+              "diff": 0,
+              "points": 0
+            },
+            {
+              "rank": 2,
+              "name": "Noorwegen",
+              "played": 0,
+              "wins": 0,
+              "draws": 0,
+              "losses": 0,
+              "diff": 0,
+              "points": 0
+            },
+            {
+              "rank": 3,
+              "name": "Republic of Ireland",
+              "played": 0,
+              "wins": 0,
+              "draws": 0,
+              "losses": 0,
+              "diff": 0,
+              "points": 0
+            },
+            {
+              "rank": 4,
+              "name": "Zwitserland",
+              "played": 0,
+              "wins": 0,
+              "draws": 0,
+              "losses": 0,
+              "diff": 0,
+              "points": 0
+            }
+          ]
+        },
+        {
+          "name": "League A, Group 2",
+          "rows": [
+            {
+              "rank": 1,
+              "name": "Frankrijk",
+              "played": 0,
+              "wins": 0,
+              "draws": 0,
+              "losses": 0,
+              "diff": 0,
+              "points": 0
             },
             {
               "rank": 2,
               "name": "Engeland",
-              "played": 6,
-              "wins": 3,
-              "draws": 1,
-              "losses": 2,
-              "diff": 10,
-              "points": 10
+              "played": 0,
+              "wins": 0,
+              "draws": 0,
+              "losses": 0,
+              "diff": 0,
+              "points": 0
             },
             {
               "rank": 3,
-              "name": "Belgium",
-              "played": 6,
-              "wins": 2,
+              "name": "Austria",
+              "played": 0,
+              "wins": 0,
               "draws": 0,
-              "losses": 4,
-              "diff": -7,
-              "points": 6
+              "losses": 0,
+              "diff": 0,
+              "points": 0
             },
             {
               "rank": 4,
               "name": "Portugal",
-              "played": 6,
-              "wins": 1,
-              "draws": 1,
-              "losses": 4,
-              "diff": -16,
-              "points": 4
+              "played": 0,
+              "wins": 0,
+              "draws": 0,
+              "losses": 0,
+              "diff": 0,
+              "points": 0
             }
           ]
         },
         {
-          "name": "Group A4",
+          "name": "League A, Group 3",
           "rows": [
             {
               "rank": 1,
-              "name": "Zweden",
-              "played": 6,
-              "wins": 3,
-              "draws": 3,
+              "name": "Denemarken",
+              "played": 0,
+              "wins": 0,
+              "draws": 0,
               "losses": 0,
-              "diff": 7,
-              "points": 12
+              "diff": 0,
+              "points": 0
             },
             {
               "rank": 2,
               "name": "Italië",
-              "played": 6,
-              "wins": 3,
-              "draws": 1,
-              "losses": 2,
-              "diff": 4,
-              "points": 10
+              "played": 0,
+              "wins": 0,
+              "draws": 0,
+              "losses": 0,
+              "diff": 0,
+              "points": 0
             },
             {
               "rank": 3,
-              "name": "Denemarken",
-              "played": 6,
-              "wins": 3,
+              "name": "IJsland",
+              "played": 0,
+              "wins": 0,
               "draws": 0,
-              "losses": 3,
-              "diff": -5,
-              "points": 9
+              "losses": 0,
+              "diff": 0,
+              "points": 0
             },
             {
               "rank": 4,
               "name": "Wales",
-              "played": 6,
+              "played": 0,
               "wins": 0,
-              "draws": 2,
-              "losses": 4,
-              "diff": -6,
-              "points": 2
-            }
-          ]
-        },
-        {
-          "name": "Group B1",
-          "rows": [
-            {
-              "rank": 1,
-              "name": "Polen",
-              "played": 6,
-              "wins": 5,
-              "draws": 1,
+              "draws": 0,
               "losses": 0,
-              "diff": 14,
-              "points": 16
-            },
-            {
-              "rank": 2,
-              "name": "Noord-Ierland",
-              "played": 6,
-              "wins": 2,
-              "draws": 2,
-              "losses": 2,
-              "diff": -4,
-              "points": 8
-            },
-            {
-              "rank": 3,
-              "name": "Bosnië en Herzegovina",
-              "played": 6,
-              "wins": 1,
-              "draws": 2,
-              "losses": 3,
-              "diff": -3,
-              "points": 5
-            },
-            {
-              "rank": 4,
-              "name": "Romania",
-              "played": 6,
-              "wins": 1,
-              "draws": 1,
-              "losses": 4,
-              "diff": -7,
-              "points": 4
-            }
-          ]
-        },
-        {
-          "name": "Group B2",
-          "rows": [
-            {
-              "rank": 1,
-              "name": "Slovenië",
-              "played": 6,
-              "wins": 5,
-              "draws": 0,
-              "losses": 1,
-              "diff": 10,
-              "points": 15
-            },
-            {
-              "rank": 2,
-              "name": "Republic of Ireland",
-              "played": 6,
-              "wins": 5,
-              "draws": 0,
-              "losses": 1,
-              "diff": 4,
-              "points": 15
-            },
-            {
-              "rank": 3,
-              "name": "Türkiye",
-              "played": 6,
-              "wins": 2,
-              "draws": 0,
-              "losses": 4,
-              "diff": -4,
-              "points": 6
-            },
-            {
-              "rank": 4,
-              "name": "Greece",
-              "played": 6,
-              "wins": 0,
-              "draws": 0,
-              "losses": 6,
-              "diff": -10,
+              "diff": 0,
               "points": 0
             }
           ]
         },
         {
-          "name": "Group B3",
+          "name": "League A, Group 4",
+          "rows": [
+            {
+              "rank": 1,
+              "name": "Duitsland",
+              "played": 0,
+              "wins": 0,
+              "draws": 0,
+              "losses": 0,
+              "diff": 0,
+              "points": 0
+            },
+            {
+              "rank": 2,
+              "name": "Nederland",
+              "played": 0,
+              "wins": 0,
+              "draws": 0,
+              "losses": 0,
+              "diff": 0,
+              "points": 0
+            },
+            {
+              "rank": 3,
+              "name": "Zweden",
+              "played": 0,
+              "wins": 0,
+              "draws": 0,
+              "losses": 0,
+              "diff": 0,
+              "points": 0
+            },
+            {
+              "rank": 4,
+              "name": "Scotland",
+              "played": 0,
+              "wins": 0,
+              "draws": 0,
+              "losses": 0,
+              "diff": 0,
+              "points": 0
+            }
+          ]
+        },
+        {
+          "name": "League B, Group 1",
           "rows": [
             {
               "rank": 1,
               "name": "Servië",
-              "played": 6,
-              "wins": 4,
-              "draws": 2,
-              "losses": 0,
-              "diff": 6,
-              "points": 14
-            },
-            {
-              "rank": 2,
-              "name": "Finland",
-              "played": 6,
-              "wins": 3,
-              "draws": 2,
-              "losses": 1,
-              "diff": 6,
-              "points": 11
-            },
-            {
-              "rank": 3,
-              "name": "Hongarije",
-              "played": 6,
-              "wins": 1,
-              "draws": 1,
-              "losses": 4,
-              "diff": -4,
-              "points": 4
-            },
-            {
-              "rank": 4,
-              "name": "Wit-Rusland",
-              "played": 6,
+              "played": 0,
               "wins": 0,
-              "draws": 3,
-              "losses": 3,
-              "diff": -8,
-              "points": 3
-            }
-          ]
-        },
-        {
-          "name": "Group B4",
-          "rows": [
-            {
-              "rank": 1,
-              "name": "Oekraïne",
-              "played": 6,
-              "wins": 4,
-              "draws": 1,
-              "losses": 1,
-              "diff": 2,
-              "points": 13
+              "draws": 0,
+              "losses": 0,
+              "diff": 0,
+              "points": 0
             },
             {
               "rank": 2,
-              "name": "Tsjechische Republiek",
-              "played": 6,
-              "wins": 4,
-              "draws": 1,
-              "losses": 1,
-              "diff": 13,
-              "points": 13
+              "name": "Belgium",
+              "played": 0,
+              "wins": 0,
+              "draws": 0,
+              "losses": 0,
+              "diff": 0,
+              "points": 0
             },
             {
               "rank": 3,
               "name": "Albania",
-              "played": 6,
-              "wins": 2,
-              "draws": 0,
-              "losses": 4,
-              "diff": -2,
-              "points": 6
-            },
-            {
-              "rank": 4,
-              "name": "Croatia",
-              "played": 6,
-              "wins": 1,
-              "draws": 0,
-              "losses": 5,
-              "diff": -13,
-              "points": 3
-            }
-          ]
-        },
-        {
-          "name": "Group C1",
-          "rows": [
-            {
-              "rank": 1,
-              "name": "Slowakije",
-              "played": 6,
-              "wins": 6,
-              "draws": 0,
-              "losses": 0,
-              "diff": 26,
-              "points": 18
-            },
-            {
-              "rank": 2,
-              "name": "Faroe Islands",
-              "played": 6,
-              "wins": 3,
-              "draws": 1,
-              "losses": 2,
-              "diff": 4,
-              "points": 10
-            },
-            {
-              "rank": 3,
-              "name": "Moldova",
-              "played": 6,
-              "wins": 2,
-              "draws": 1,
-              "losses": 3,
-              "diff": 0,
-              "points": 7
-            },
-            {
-              "rank": 4,
-              "name": "Gibraltar",
-              "played": 6,
+              "played": 0,
               "wins": 0,
               "draws": 0,
-              "losses": 6,
-              "diff": -30,
+              "losses": 0,
+              "diff": 0,
+              "points": 0
+            },
+            {
+              "rank": 4,
+              "name": "Romania",
+              "played": 0,
+              "wins": 0,
+              "draws": 0,
+              "losses": 0,
+              "diff": 0,
               "points": 0
             }
           ]
         },
         {
-          "name": "Group C2",
+          "name": "League B, Group 2",
           "rows": [
             {
               "rank": 1,
-              "name": "Malta",
-              "played": 6,
-              "wins": 4,
-              "draws": 1,
-              "losses": 1,
-              "diff": 3,
-              "points": 13
-            },
-            {
-              "rank": 2,
-              "name": "Cyprus",
-              "played": 6,
-              "wins": 3,
-              "draws": 1,
-              "losses": 2,
-              "diff": 1,
-              "points": 10
-            },
-            {
-              "rank": 3,
-              "name": "Georgia",
-              "played": 6,
-              "wins": 2,
-              "draws": 0,
-              "losses": 4,
-              "diff": -2,
-              "points": 6
-            },
-            {
-              "rank": 4,
-              "name": "Andorra",
-              "played": 6,
-              "wins": 1,
-              "draws": 2,
-              "losses": 3,
-              "diff": -2,
-              "points": 5
-            }
-          ]
-        },
-        {
-          "name": "Group C3",
-          "rows": [
-            {
-              "rank": 1,
-              "name": "Luxembourg",
-              "played": 6,
-              "wins": 5,
-              "draws": 1,
-              "losses": 0,
-              "diff": 14,
-              "points": 16
-            },
-            {
-              "rank": 2,
-              "name": "Kazakhstan",
-              "played": 6,
-              "wins": 3,
-              "draws": 1,
-              "losses": 2,
-              "diff": 5,
-              "points": 10
-            },
-            {
-              "rank": 3,
-              "name": "Armenia",
-              "played": 6,
-              "wins": 2,
-              "draws": 1,
-              "losses": 3,
-              "diff": 2,
-              "points": 7
-            },
-            {
-              "rank": 4,
-              "name": "Liechtenstein",
-              "played": 6,
+              "name": "Oekraïne",
+              "played": 0,
               "wins": 0,
-              "draws": 1,
-              "losses": 5,
-              "diff": -21,
-              "points": 1
-            }
-          ]
-        },
-        {
-          "name": "Group C4",
-          "rows": [
-            {
-              "rank": 1,
-              "name": "Montenegro",
-              "played": 4,
-              "wins": 2,
-              "draws": 2,
+              "draws": 0,
               "losses": 0,
-              "diff": 3,
-              "points": 8
+              "diff": 0,
+              "points": 0
             },
             {
               "rank": 2,
-              "name": "Azerbaijan",
-              "played": 4,
-              "wins": 1,
-              "draws": 2,
-              "losses": 1,
-              "diff": -3,
-              "points": 5
+              "name": "Tsjechische Republiek",
+              "played": 0,
+              "wins": 0,
+              "draws": 0,
+              "losses": 0,
+              "diff": 0,
+              "points": 0
             },
             {
               "rank": 3,
-              "name": "Lithuania",
-              "played": 4,
-              "wins": 1,
+              "name": "Greece",
+              "played": 0,
+              "wins": 0,
               "draws": 0,
-              "losses": 3,
+              "losses": 0,
               "diff": 0,
-              "points": 3
+              "points": 0
+            },
+            {
+              "rank": 4,
+              "name": "Lithuania",
+              "played": 0,
+              "wins": 0,
+              "draws": 0,
+              "losses": 0,
+              "diff": 0,
+              "points": 0
             }
           ]
         },
         {
-          "name": "Group C5",
+          "name": "League B, Group 3",
           "rows": [
             {
               "rank": 1,
-              "name": "Israel",
-              "played": 4,
-              "wins": 3,
-              "draws": 1,
+              "name": "Polen",
+              "played": 0,
+              "wins": 0,
+              "draws": 0,
               "losses": 0,
-              "diff": 7,
-              "points": 10
+              "diff": 0,
+              "points": 0
             },
             {
               "rank": 2,
-              "name": "Estonia",
-              "played": 4,
-              "wins": 1,
-              "draws": 1,
-              "losses": 2,
-              "diff": -4,
-              "points": 4
+              "name": "Finland",
+              "played": 0,
+              "wins": 0,
+              "draws": 0,
+              "losses": 0,
+              "diff": 0,
+              "points": 0
+            },
+            {
+              "rank": 3,
+              "name": "Noord-Ierland",
+              "played": 0,
+              "wins": 0,
+              "draws": 0,
+              "losses": 0,
+              "diff": 0,
+              "points": 0
+            },
+            {
+              "rank": 4,
+              "name": "Wit-Rusland",
+              "played": 0,
+              "wins": 0,
+              "draws": 0,
+              "losses": 0,
+              "diff": 0,
+              "points": 0
+            }
+          ]
+        },
+        {
+          "name": "League B, Group 4",
+          "rows": [
+            {
+              "rank": 1,
+              "name": "Slovenië",
+              "played": 0,
+              "wins": 0,
+              "draws": 0,
+              "losses": 0,
+              "diff": 0,
+              "points": 0
+            },
+            {
+              "rank": 2,
+              "name": "Türkiye",
+              "played": 0,
+              "wins": 0,
+              "draws": 0,
+              "losses": 0,
+              "diff": 0,
+              "points": 0
+            },
+            {
+              "rank": 3,
+              "name": "Hongarije",
+              "played": 0,
+              "wins": 0,
+              "draws": 0,
+              "losses": 0,
+              "diff": 0,
+              "points": 0
+            },
+            {
+              "rank": 4,
+              "name": "Kosovo",
+              "played": 0,
+              "wins": 0,
+              "draws": 0,
+              "losses": 0,
+              "diff": 0,
+              "points": 0
+            }
+          ]
+        },
+        {
+          "name": "League C, Group 1",
+          "rows": [
+            {
+              "rank": 1,
+              "name": "Slowakije",
+              "played": 0,
+              "wins": 0,
+              "draws": 0,
+              "losses": 0,
+              "diff": 0,
+              "points": 0
+            },
+            {
+              "rank": 2,
+              "name": "Croatia",
+              "played": 0,
+              "wins": 0,
+              "draws": 0,
+              "losses": 0,
+              "diff": 0,
+              "points": 0
             },
             {
               "rank": 3,
               "name": "Bulgaria",
-              "played": 4,
+              "played": 0,
               "wins": 0,
-              "draws": 2,
-              "losses": 2,
-              "diff": -3,
-              "points": 2
+              "draws": 0,
+              "losses": 0,
+              "diff": 0,
+              "points": 0
+            },
+            {
+              "rank": 4,
+              "name": "Gibraltar",
+              "played": 0,
+              "wins": 0,
+              "draws": 0,
+              "losses": 0,
+              "diff": 0,
+              "points": 0
             }
           ]
         },
         {
-          "name": "Group C6",
+          "name": "League C, Group 2",
           "rows": [
             {
               "rank": 1,
               "name": "Latvia",
-              "played": 4,
-              "wins": 2,
-              "draws": 2,
+              "played": 0,
+              "wins": 0,
+              "draws": 0,
               "losses": 0,
-              "diff": 2,
-              "points": 8
+              "diff": 0,
+              "points": 0
             },
             {
               "rank": 2,
-              "name": "Kosovo",
-              "played": 4,
-              "wins": 2,
-              "draws": 1,
-              "losses": 1,
-              "diff": 6,
-              "points": 7
+              "name": "Azerbaijan",
+              "played": 0,
+              "wins": 0,
+              "draws": 0,
+              "losses": 0,
+              "diff": 0,
+              "points": 0
+            },
+            {
+              "rank": 3,
+              "name": "Georgia",
+              "played": 0,
+              "wins": 0,
+              "draws": 0,
+              "losses": 0,
+              "diff": 0,
+              "points": 0
+            },
+            {
+              "rank": 4,
+              "name": "Liechtenstein",
+              "played": 0,
+              "wins": 0,
+              "draws": 0,
+              "losses": 0,
+              "diff": 0,
+              "points": 0
+            }
+          ]
+        },
+        {
+          "name": "League C, Group 3",
+          "rows": [
+            {
+              "rank": 1,
+              "name": "Israel",
+              "played": 0,
+              "wins": 0,
+              "draws": 0,
+              "losses": 0,
+              "diff": 0,
+              "points": 0
+            },
+            {
+              "rank": 2,
+              "name": "Faroe Islands",
+              "played": 0,
+              "wins": 0,
+              "draws": 0,
+              "losses": 0,
+              "diff": 0,
+              "points": 0
             },
             {
               "rank": 3,
               "name": "North Macedonia",
-              "played": 4,
+              "played": 0,
               "wins": 0,
-              "draws": 1,
-              "losses": 3,
-              "diff": -8,
-              "points": 1
+              "draws": 0,
+              "losses": 0,
+              "diff": 0,
+              "points": 0
+            },
+            {
+              "rank": 4,
+              "name": "Andorra",
+              "played": 0,
+              "wins": 0,
+              "draws": 0,
+              "losses": 0,
+              "diff": 0,
+              "points": 0
+            }
+          ]
+        },
+        {
+          "name": "Leauge C, Group 4",
+          "rows": [
+            {
+              "rank": 1,
+              "name": "Luxembourg",
+              "played": 0,
+              "wins": 0,
+              "draws": 0,
+              "losses": 0,
+              "diff": 0,
+              "points": 0
+            },
+            {
+              "rank": 2,
+              "name": "Bosnië en Herzegovina",
+              "played": 0,
+              "wins": 0,
+              "draws": 0,
+              "losses": 0,
+              "diff": 0,
+              "points": 0
+            },
+            {
+              "rank": 3,
+              "name": "Estonia",
+              "played": 0,
+              "wins": 0,
+              "draws": 0,
+              "losses": 0,
+              "diff": 0,
+              "points": 0
+            },
+            {
+              "rank": 4,
+              "name": "San Marino",
+              "played": 0,
+              "wins": 0,
+              "draws": 0,
+              "losses": 0,
+              "diff": 0,
+              "points": 0
+            }
+          ]
+        },
+        {
+          "name": "League C, Group 5",
+          "rows": [
+            {
+              "rank": 1,
+              "name": "Malta",
+              "played": 0,
+              "wins": 0,
+              "draws": 0,
+              "losses": 0,
+              "diff": 0,
+              "points": 0
+            },
+            {
+              "rank": 2,
+              "name": "Moldova",
+              "played": 0,
+              "wins": 0,
+              "draws": 0,
+              "losses": 0,
+              "diff": 0,
+              "points": 0
+            },
+            {
+              "rank": 3,
+              "name": "Cyprus",
+              "played": 0,
+              "wins": 0,
+              "draws": 0,
+              "losses": 0,
+              "diff": 0,
+              "points": 0
+            }
+          ]
+        },
+        {
+          "name": "League C, Group 6",
+          "rows": [
+            {
+              "rank": 1,
+              "name": "Montenegro",
+              "played": 0,
+              "wins": 0,
+              "draws": 0,
+              "losses": 0,
+              "diff": 0,
+              "points": 0
+            },
+            {
+              "rank": 2,
+              "name": "Kazakhstan",
+              "played": 0,
+              "wins": 0,
+              "draws": 0,
+              "losses": 0,
+              "diff": 0,
+              "points": 0
+            },
+            {
+              "rank": 3,
+              "name": "Armenia",
+              "played": 0,
+              "wins": 0,
+              "draws": 0,
+              "losses": 0,
+              "diff": 0,
+              "points": 0
             }
           ]
         }
       ],
       "matches": [
         {
-          "id": "724224",
-          "date": "2025-02-21T10:30Z",
+          "id": "401933988",
+          "date": "2027-03-02T20:00Z",
           "round": "group-stage",
-          "name": "Liechtenstein at Armenia",
-          "home": "Armenia",
-          "away": "Liechtenstein",
-          "score": "6 – 1",
-          "completed": true
-        },
-        {
-          "id": "724227",
-          "date": "2025-02-21T12:00Z",
-          "round": "group-stage",
-          "name": "Romania at Bosnia-Herzegovina",
-          "home": "Bosnia-Herzegovina",
-          "away": "Romania",
-          "score": "4 – 0",
-          "completed": true
-        },
-        {
-          "id": "724228",
-          "date": "2025-02-21T12:30Z",
-          "round": "group-stage",
-          "name": "Israel at Bulgaria",
-          "home": "Bulgaria",
-          "away": "Israel",
-          "score": "1 – 3",
-          "completed": true
-        },
-        {
-          "id": "724245",
-          "date": "2025-02-21T13:00Z",
-          "round": "group-stage",
-          "name": "Montenegro at Azerbaijan",
-          "home": "Azerbaijan",
-          "away": "Montenegro",
-          "score": "0 – 0",
-          "completed": true
-        },
-        {
-          "id": "724248",
-          "date": "2025-02-21T13:00Z",
-          "round": "group-stage",
-          "name": "Gibraltar at Moldova",
-          "home": "Moldova",
-          "away": "Gibraltar",
-          "score": "1 – 0",
-          "completed": true
-        },
-        {
-          "id": "724238",
-          "date": "2025-02-21T13:00Z",
-          "round": "group-stage",
-          "name": "Kosovo at North Macedonia",
-          "home": "North Macedonia",
-          "away": "Kosovo",
-          "score": "0 – 4",
-          "completed": true
-        },
-        {
-          "id": "724234",
-          "date": "2025-02-21T14:30Z",
-          "round": "group-stage",
-          "name": "Slovenia at Greece",
-          "home": "Greece",
-          "away": "Slovenia",
-          "score": "1 – 2",
-          "completed": true
-        },
-        {
-          "id": "724233",
-          "date": "2025-02-21T15:00Z",
-          "round": "group-stage",
-          "name": "Andorra at Georgia",
-          "home": "Georgia",
-          "away": "Andorra",
-          "score": "2 – 1",
-          "completed": true
-        },
-        {
-          "id": "724247",
-          "date": "2025-02-21T17:00Z",
-          "round": "group-stage",
-          "name": "Ukraine at Albania",
+          "name": "Romania at Albania",
           "home": "Albania",
-          "away": "Ukraine",
-          "score": "1 – 2",
-          "completed": true
+          "away": "Romania",
+          "score": null,
+          "completed": false
         },
         {
-          "id": "724246",
-          "date": "2025-02-21T17:00Z",
-          "round": "group-stage",
-          "name": "Scotland at Austria",
-          "home": "Austria",
-          "away": "Scotland",
-          "score": "1 – 0",
-          "completed": true
-        },
-        {
-          "id": "724230",
-          "date": "2025-02-21T17:00Z",
-          "round": "group-stage",
-          "name": "Malta at Cyprus",
-          "home": "Cyprus",
-          "away": "Malta",
-          "score": "2 – 1",
-          "completed": true
-        },
-        {
-          "id": "724242",
-          "date": "2025-02-21T17:00Z",
-          "round": "group-stage",
-          "name": "Finland at Serbia",
-          "home": "Serbia",
-          "away": "Finland",
-          "score": "1 – 0",
-          "completed": true
-        },
-        {
-          "id": "724235",
-          "date": "2025-02-21T17:15Z",
-          "round": "group-stage",
-          "name": "Wales at Italy",
-          "home": "Italy",
-          "away": "Wales",
-          "score": "1 – 0",
-          "completed": true
-        },
-        {
-          "id": "724244",
-          "date": "2025-02-21T17:45Z",
-          "round": "group-stage",
-          "name": "Belgium at Spain",
-          "home": "Spain",
-          "away": "Belgium",
-          "score": "3 – 2",
-          "completed": true
-        },
-        {
-          "id": "724229",
-          "date": "2025-02-21T18:00Z",
-          "round": "group-stage",
-          "name": "Czechia at Croatia",
-          "home": "Croatia",
-          "away": "Czechia",
-          "score": "0 – 4",
-          "completed": true
-        },
-        {
-          "id": "724243",
-          "date": "2025-02-21T18:00Z",
-          "round": "group-stage",
-          "name": "Faroe Islands at Slovakia ",
-          "home": "Slovakia ",
-          "away": "Faroe Islands",
-          "score": "3 – 0",
-          "completed": true
-        },
-        {
-          "id": "724225",
-          "date": "2025-02-21T18:00Z",
-          "round": "group-stage",
-          "name": "Iceland at Switzerland",
-          "home": "Switzerland",
-          "away": "Iceland",
-          "score": "0 – 0",
-          "completed": true
-        },
-        {
-          "id": "724231",
-          "date": "2025-02-21T18:15Z",
-          "round": "group-stage",
-          "name": "Sweden at Denmark",
-          "home": "Denmark",
-          "away": "Sweden",
-          "score": "1 – 2",
-          "completed": true
-        },
-        {
-          "id": "724236",
-          "date": "2025-02-21T18:30Z",
-          "round": "group-stage",
-          "name": "Kazakhstan at Luxembourg",
-          "home": "Luxembourg",
-          "away": "Kazakhstan",
-          "score": "2 – 2",
-          "completed": true
-        },
-        {
-          "id": "724226",
-          "date": "2025-02-21T19:00Z",
-          "round": "group-stage",
-          "name": "Hungary at Belarus",
-          "home": "Belarus",
-          "away": "Hungary",
-          "score": "0 – 2",
-          "completed": true
-        },
-        {
-          "id": "724241",
-          "date": "2025-02-21T19:30Z",
-          "round": "group-stage",
-          "name": "Türkiye at Republic of Ireland",
-          "home": "Republic of Ireland",
-          "away": "Türkiye",
-          "score": "1 – 0",
-          "completed": true
-        },
-        {
-          "id": "724237",
-          "date": "2025-02-21T19:45Z",
-          "round": "group-stage",
-          "name": "Germany at Netherlands",
-          "home": "Netherlands",
-          "away": "Germany",
-          "score": "2 – 2",
-          "completed": true
-        },
-        {
-          "id": "724239",
-          "date": "2025-02-21T19:45Z",
-          "round": "group-stage",
-          "name": "Northern Ireland at Poland",
-          "home": "Poland",
-          "away": "Northern Ireland",
-          "score": "2 – 0",
-          "completed": true
-        },
-        {
-          "id": "724240",
-          "date": "2025-02-21T19:45Z",
-          "round": "group-stage",
-          "name": "England at Portugal",
-          "home": "Portugal",
-          "away": "England",
-          "score": "1 – 1",
-          "completed": true
-        },
-        {
-          "id": "724232",
-          "date": "2025-02-21T20:10Z",
-          "round": "group-stage",
-          "name": "Norway at France",
-          "home": "France",
-          "away": "Norway",
-          "score": "1 – 0",
-          "completed": true
-        },
-        {
-          "id": "724269",
-          "date": "2025-02-25T10:30Z",
+          "id": "401934679",
+          "date": "2027-03-02T20:00Z",
           "round": "group-stage",
           "name": "Kazakhstan at Armenia",
           "home": "Armenia",
           "away": "Kazakhstan",
-          "score": "2 – 0",
-          "completed": true
+          "score": null,
+          "completed": false
         },
         {
-          "id": "724255",
-          "date": "2025-02-25T13:00Z",
+          "id": "401934057",
+          "date": "2027-03-02T20:00Z",
           "round": "group-stage",
-          "name": "Latvia at Kosovo",
-          "home": "Kosovo",
-          "away": "Latvia",
-          "score": "0 – 1",
-          "completed": true
-        },
-        {
-          "id": "724270",
-          "date": "2025-02-25T13:00Z",
-          "round": "group-stage",
-          "name": "Lithuania at Montenegro",
-          "home": "Montenegro",
-          "away": "Lithuania",
-          "score": "3 – 1",
-          "completed": true
-        },
-        {
-          "id": "724253",
-          "date": "2025-02-25T13:30Z",
-          "round": "group-stage",
-          "name": "Estonia at Israel",
-          "home": "Israel",
-          "away": "Estonia",
-          "score": "3 – 1",
-          "completed": true
-        },
-        {
-          "id": "724264",
-          "date": "2025-02-25T15:30Z",
-          "round": "group-stage",
-          "name": "Greece at Türkiye",
-          "home": "Türkiye",
-          "away": "Greece",
-          "score": "1 – 0",
-          "completed": true
-        },
-        {
-          "id": "724259",
-          "date": "2025-02-25T16:00Z",
-          "round": "group-stage",
-          "name": "Poland at Romania",
-          "home": "Romania",
-          "away": "Poland",
-          "score": "0 – 1",
-          "completed": true
-        },
-        {
-          "id": "724249",
-          "date": "2025-02-25T16:30Z",
-          "round": "group-stage",
-          "name": "Albania at Czechia",
-          "home": "Czechia",
-          "away": "Albania",
-          "score": "5 – 1",
-          "completed": true
-        },
-        {
-          "id": "724262",
-          "date": "2025-02-25T16:30Z",
-          "round": "group-stage",
-          "name": "Moldova at Slovakia ",
-          "home": "Slovakia ",
-          "away": "Moldova",
-          "score": "1 – 0",
-          "completed": true
-        },
-        {
-          "id": "724267",
-          "date": "2025-02-25T17:00Z",
-          "round": "group-stage",
-          "name": "Georgia at Cyprus",
-          "home": "Cyprus",
-          "away": "Georgia",
-          "score": "2 – 1",
-          "completed": true
-        },
-        {
-          "id": "724252",
-          "date": "2025-02-25T17:00Z",
-          "round": "group-stage",
-          "name": "Finland at Hungary",
-          "home": "Hungary",
-          "away": "Finland",
-          "score": "0 – 1",
-          "completed": true
-        },
-        {
-          "id": "724258",
-          "date": "2025-02-25T17:00Z",
-          "round": "group-stage",
-          "name": "Switzerland at Norway",
-          "home": "Norway",
-          "away": "Switzerland",
-          "score": "2 – 1",
-          "completed": true
-        },
-        {
-          "id": "724261",
-          "date": "2025-02-25T17:00Z",
-          "round": "group-stage",
-          "name": "Belarus at Serbia",
-          "home": "Serbia",
-          "away": "Belarus",
-          "score": "0 – 0",
-          "completed": true
-        },
-        {
-          "id": "724263",
-          "date": "2025-02-25T17:00Z",
-          "round": "group-stage",
-          "name": "Republic of Ireland at Slovenia",
-          "home": "Slovenia",
-          "away": "Republic of Ireland",
-          "score": "4 – 0",
-          "completed": true
-        },
-        {
-          "id": "724265",
-          "date": "2025-02-25T17:00Z",
-          "round": "group-stage",
-          "name": "Croatia at Ukraine",
-          "home": "Ukraine",
-          "away": "Croatia",
-          "score": "2 – 1",
-          "completed": true
-        },
-        {
-          "id": "724251",
-          "date": "2025-02-25T17:15Z",
-          "round": "group-stage",
-          "name": "Austria at Germany",
-          "home": "Germany",
-          "away": "Austria",
-          "score": "4 – 1",
-          "completed": true
-        },
-        {
-          "id": "724254",
-          "date": "2025-02-25T17:15Z",
-          "round": "group-stage",
-          "name": "Denmark at Italy",
-          "home": "Italy",
-          "away": "Denmark",
-          "score": "1 – 3",
-          "completed": true
-        },
-        {
-          "id": "724268",
-          "date": "2025-02-25T18:00Z",
-          "round": "group-stage",
-          "name": "Faroe Islands at Gibraltar",
-          "home": "Gibraltar",
-          "away": "Faroe Islands",
-          "score": "0 – 1",
-          "completed": true
-        },
-        {
-          "id": "724271",
-          "date": "2025-02-25T18:30Z",
-          "round": "group-stage",
-          "name": "Liechtenstein at Luxembourg",
-          "home": "Luxembourg",
-          "away": "Liechtenstein",
-          "score": "7 – 0",
-          "completed": true
-        },
-        {
-          "id": "724256",
-          "date": "2025-02-25T18:30Z",
-          "round": "group-stage",
-          "name": "Andorra at Malta",
-          "home": "Malta",
-          "away": "Andorra",
-          "score": "1 – 0",
-          "completed": true
-        },
-        {
-          "id": "724257",
-          "date": "2025-02-25T19:00Z",
-          "round": "group-stage",
-          "name": "Bosnia-Herzegovina at Northern Ireland",
-          "home": "Northern Ireland",
-          "away": "Bosnia-Herzegovina",
-          "score": "3 – 2",
-          "completed": true
-        },
-        {
-          "id": "724266",
-          "date": "2025-02-25T19:15Z",
-          "round": "group-stage",
-          "name": "Sweden at Wales",
-          "home": "Wales",
-          "away": "Sweden",
-          "score": "1 – 1",
-          "completed": true
-        },
-        {
-          "id": "724260",
-          "date": "2025-02-25T19:30Z",
-          "round": "group-stage",
-          "name": "Netherlands at Scotland",
-          "home": "Scotland",
-          "away": "Netherlands",
-          "score": "1 – 2",
-          "completed": true
-        },
-        {
-          "id": "724250",
-          "date": "2025-02-25T20:10Z",
-          "round": "group-stage",
-          "name": "Iceland at France",
-          "home": "France",
-          "away": "Iceland",
-          "score": "3 – 2",
-          "completed": true
-        },
-        {
-          "id": "724273",
-          "date": "2025-02-26T19:15Z",
-          "round": "group-stage",
-          "name": "Portugal at Belgium",
-          "home": "Belgium",
-          "away": "Portugal",
-          "score": "0 – 1",
-          "completed": true
-        },
-        {
-          "id": "724272",
-          "date": "2025-02-26T20:00Z",
-          "round": "group-stage",
-          "name": "Spain at England",
-          "home": "England",
-          "away": "Spain",
-          "score": "1 – 0",
-          "completed": true
-        },
-        {
-          "id": "724298",
-          "date": "2025-04-04T11:00Z",
-          "round": "group-stage",
-          "name": "Luxembourg at Armenia",
-          "home": "Armenia",
-          "away": "Luxembourg",
-          "score": "1 – 3",
-          "completed": true
-        },
-        {
-          "id": "724287",
-          "date": "2025-04-04T13:00Z",
-          "round": "group-stage",
-          "name": "Latvia at North Macedonia",
-          "home": "North Macedonia",
-          "away": "Latvia",
-          "score": "1 – 2",
-          "completed": true
-        },
-        {
-          "id": "724274",
-          "date": "2025-04-04T14:00Z",
-          "round": "group-stage",
-          "name": "Croatia at Albania",
-          "home": "Albania",
-          "away": "Croatia",
-          "score": "4 – 0",
-          "completed": true
-        },
-        {
-          "id": "724282",
-          "date": "2025-04-04T14:00Z",
-          "round": "group-stage",
-          "name": "Republic of Ireland at Greece",
-          "home": "Greece",
-          "away": "Republic of Ireland",
-          "score": "0 – 4",
-          "completed": true
-        },
-        {
-          "id": "724292",
-          "date": "2025-04-04T14:30Z",
-          "round": "group-stage",
-          "name": "Türkiye at Slovenia",
-          "home": "Slovenia",
-          "away": "Türkiye",
-          "score": "3 – 0",
-          "completed": true
-        },
-        {
-          "id": "724280",
-          "date": "2025-04-04T15:00Z",
-          "round": "group-stage",
-          "name": "Belarus at Finland",
-          "home": "Finland",
-          "away": "Belarus",
-          "score": "0 – 0",
-          "completed": true
-        },
-        {
-          "id": "724281",
-          "date": "2025-04-04T15:00Z",
-          "round": "group-stage",
-          "name": "Malta at Georgia",
-          "home": "Georgia",
-          "away": "Malta",
-          "score": "2 – 3",
-          "completed": true
-        },
-        {
-          "id": "724275",
-          "date": "2025-04-04T15:30Z",
-          "round": "group-stage",
-          "name": "Kazakhstan at Liechtenstein",
-          "home": "Liechtenstein",
-          "away": "Kazakhstan",
-          "score": "0 – 4",
-          "completed": true
-        },
-        {
-          "id": "724285",
-          "date": "2025-04-04T15:30Z",
-          "round": "group-stage",
-          "name": "Azerbaijan at Lithuania",
-          "home": "Lithuania",
-          "away": "Azerbaijan",
-          "score": "0 – 2",
-          "completed": true
-        },
-        {
-          "id": "724276",
-          "date": "2025-04-04T16:00Z",
-          "round": "group-stage",
-          "name": "Andorra at Cyprus",
-          "home": "Cyprus",
-          "away": "Andorra",
-          "score": "2 – 2",
-          "completed": true
-        },
-        {
-          "id": "724278",
-          "date": "2025-04-04T16:00Z",
-          "round": "group-stage",
-          "name": "Bulgaria at Estonia",
-          "home": "Estonia",
-          "away": "Bulgaria",
-          "score": "0 – 0",
-          "completed": true
-        },
-        {
-          "id": "724279",
-          "date": "2025-04-04T16:00Z",
-          "round": "group-stage",
-          "name": "Moldova at Faroe Islands",
-          "home": "Faroe Islands",
-          "away": "Moldova",
-          "score": "2 – 0",
-          "completed": true
-        },
-        {
-          "id": "724288",
-          "date": "2025-04-04T16:00Z",
-          "round": "group-stage",
-          "name": "Bosnia-Herzegovina at Poland",
-          "home": "Poland",
-          "away": "Bosnia-Herzegovina",
-          "score": "5 – 1",
-          "completed": true
-        },
-        {
-          "id": "724290",
-          "date": "2025-04-04T16:00Z",
-          "round": "group-stage",
-          "name": "Northern Ireland at Romania",
-          "home": "Romania",
-          "away": "Northern Ireland",
-          "score": "1 – 1",
-          "completed": true
-        },
-        {
-          "id": "724295",
-          "date": "2025-04-04T16:00Z",
-          "round": "group-stage",
-          "name": "Czechia at Ukraine",
-          "home": "Ukraine",
-          "away": "Czechia",
-          "score": "1 – 0",
-          "completed": true
-        },
-        {
-          "id": "724284",
-          "date": "2025-04-04T16:45Z",
-          "round": "group-stage",
-          "name": "Norway at Iceland",
-          "home": "Iceland",
-          "away": "Norway",
-          "score": "0 – 0",
-          "completed": true
-        },
-        {
-          "id": "724297",
-          "date": "2025-04-04T17:00Z",
-          "round": "group-stage",
-          "name": "Slovakia  at Gibraltar",
-          "home": "Gibraltar",
-          "away": "Slovakia ",
-          "score": "0 – 8",
-          "completed": true
-        },
-        {
-          "id": "724293",
-          "date": "2025-04-04T17:00Z",
-          "round": "group-stage",
-          "name": "Italy at Sweden",
-          "home": "Sweden",
-          "away": "Italy",
-          "score": "3 – 2",
-          "completed": true
-        },
-        {
-          "id": "724283",
-          "date": "2025-04-04T18:00Z",
-          "round": "group-stage",
-          "name": "Serbia at Hungary",
-          "home": "Hungary",
-          "away": "Serbia",
-          "score": "0 – 1",
-          "completed": true
-        },
-        {
-          "id": "724286",
-          "date": "2025-04-04T18:00Z",
-          "round": "group-stage",
-          "name": "Austria at Netherlands",
-          "home": "Netherlands",
-          "away": "Austria",
-          "score": "3 – 1",
-          "completed": true
-        },
-        {
-          "id": "724294",
-          "date": "2025-04-04T18:00Z",
-          "round": "group-stage",
-          "name": "France at Switzerland",
-          "home": "Switzerland",
-          "away": "France",
-          "score": "0 – 2",
-          "completed": true
-        },
-        {
-          "id": "724296",
-          "date": "2025-04-04T18:15Z",
-          "round": "group-stage",
-          "name": "Denmark at Wales",
-          "home": "Wales",
-          "away": "Denmark",
-          "score": "1 – 2",
-          "completed": true
-        },
-        {
-          "id": "724291",
-          "date": "2025-04-04T18:35Z",
-          "round": "group-stage",
-          "name": "Germany at Scotland",
-          "home": "Scotland",
-          "away": "Germany",
-          "score": "0 – 4",
-          "completed": true
-        },
-        {
-          "id": "724289",
-          "date": "2025-04-04T18:45Z",
-          "round": "group-stage",
-          "name": "Spain at Portugal",
-          "home": "Portugal",
-          "away": "Spain",
-          "score": "2 – 4",
-          "completed": true
-        },
-        {
-          "id": "724277",
-          "date": "2025-04-04T19:00Z",
-          "round": "group-stage",
-          "name": "Belgium at England",
-          "home": "England",
-          "away": "Belgium",
-          "score": "5 – 0",
-          "completed": true
-        },
-        {
-          "id": "724310",
-          "date": "2025-04-08T11:00Z",
-          "round": "group-stage",
-          "name": "Bulgaria at Israel",
-          "home": "Israel",
-          "away": "Bulgaria",
-          "score": "3 – 3",
-          "completed": true
-        },
-        {
-          "id": "724312",
-          "date": "2025-04-08T12:00Z",
-          "round": "group-stage",
-          "name": "North Macedonia at Kosovo",
-          "home": "Kosovo",
-          "away": "North Macedonia",
-          "score": "3 – 0",
-          "completed": true
-        },
-        {
-          "id": "724311",
-          "date": "2025-04-08T13:00Z",
-          "round": "group-stage",
-          "name": "Armenia at Kazakhstan",
-          "home": "Kazakhstan",
-          "away": "Armenia",
-          "score": "3 – 2",
-          "completed": true
-        },
-        {
-          "id": "724303",
-          "date": "2025-04-08T13:30Z",
-          "round": "group-stage",
-          "name": "Poland at Bosnia-Herzegovina",
-          "home": "Bosnia-Herzegovina",
-          "away": "Poland",
-          "score": "1 – 1",
-          "completed": true
-        },
-        {
-          "id": "724304",
-          "date": "2025-04-08T14:00Z",
-          "round": "group-stage",
-          "name": "Albania at Croatia",
-          "home": "Croatia",
-          "away": "Albania",
-          "score": "1 – 2",
-          "completed": true
-        },
-        {
-          "id": "724314",
-          "date": "2025-04-08T14:00Z",
-          "round": "group-stage",
-          "name": "Slovakia  at Moldova",
-          "home": "Moldova",
-          "away": "Slovakia ",
-          "score": "0 – 2",
-          "completed": true
-        },
-        {
-          "id": "724305",
-          "date": "2025-04-08T15:30Z",
-          "round": "group-stage",
-          "name": "Ukraine at Czechia",
-          "home": "Czechia",
-          "away": "Ukraine",
-          "score": "1 – 1",
-          "completed": true
-        },
-        {
-          "id": "724307",
-          "date": "2025-04-08T15:30Z",
-          "round": "group-stage",
-          "name": "Hungary at Finland",
-          "home": "Finland",
-          "away": "Hungary",
-          "score": "3 – 0",
-          "completed": true
-        },
-        {
-          "id": "724323",
-          "date": "2025-04-08T15:30Z",
-          "round": "group-stage",
-          "name": "Luxembourg at Liechtenstein",
-          "home": "Liechtenstein",
-          "away": "Luxembourg",
-          "score": "2 – 3",
-          "completed": true
-        },
-        {
-          "id": "724308",
-          "date": "2025-04-08T15:45Z",
-          "round": "group-stage",
-          "name": "Scotland at Germany",
-          "home": "Germany",
-          "away": "Scotland",
-          "score": "6 – 1",
-          "completed": true
-        },
-        {
-          "id": "724306",
-          "date": "2025-04-08T16:00Z",
-          "round": "group-stage",
-          "name": "Italy at Denmark",
-          "home": "Denmark",
-          "away": "Italy",
-          "score": "0 – 3",
-          "completed": true
-        },
-        {
-          "id": "724322",
-          "date": "2025-04-08T16:00Z",
-          "round": "group-stage",
-          "name": "Gibraltar at Faroe Islands",
-          "home": "Faroe Islands",
-          "away": "Gibraltar",
-          "score": "5 – 0",
-          "completed": true
-        },
-        {
-          "id": "724315",
-          "date": "2025-04-08T16:00Z",
-          "round": "group-stage",
-          "name": "Azerbaijan at Montenegro",
-          "home": "Montenegro",
-          "away": "Azerbaijan",
-          "score": "1 – 1",
-          "completed": true
-        },
-        {
-          "id": "724300",
-          "date": "2025-04-08T16:00Z",
-          "round": "group-stage",
-          "name": "Slovenia at Türkiye",
-          "home": "Türkiye",
-          "away": "Slovenia",
-          "score": "0 – 1",
-          "completed": true
-        },
-        {
-          "id": "724321",
-          "date": "2025-04-08T16:15Z",
-          "round": "group-stage",
-          "name": "Netherlands at Austria",
-          "home": "Austria",
-          "away": "Netherlands",
-          "score": "1 – 3",
-          "completed": true
-        },
-        {
-          "id": "724309",
-          "date": "2025-04-08T16:45Z",
-          "round": "group-stage",
-          "name": "Switzerland at Iceland",
-          "home": "Iceland",
-          "away": "Switzerland",
-          "score": "3 – 3",
-          "completed": true
-        },
-        {
-          "id": "724313",
-          "date": "2025-04-08T17:00Z",
-          "round": "group-stage",
-          "name": "Georgia at Malta",
-          "home": "Malta",
-          "away": "Georgia",
-          "score": "2 – 1",
-          "completed": true
-        },
-        {
-          "id": "724317",
-          "date": "2025-04-08T17:00Z",
-          "round": "group-stage",
-          "name": "France at Norway",
-          "home": "Norway",
-          "away": "France",
-          "score": "0 – 2",
-          "completed": true
-        },
-        {
-          "id": "724319",
-          "date": "2025-04-08T17:00Z",
-          "round": "group-stage",
-          "name": "Portugal at Spain",
-          "home": "Spain",
-          "away": "Portugal",
-          "score": "7 – 1",
-          "completed": true
-        },
-        {
-          "id": "724320",
-          "date": "2025-04-08T17:00Z",
-          "round": "group-stage",
-          "name": "Wales at Sweden",
-          "home": "Sweden",
-          "away": "Wales",
-          "score": "1 – 1",
-          "completed": true
-        },
-        {
-          "id": "724299",
-          "date": "2025-04-08T18:00Z",
-          "round": "group-stage",
-          "name": "Cyprus at Andorra",
-          "home": "Andorra",
-          "away": "Cyprus",
-          "score": "2 – 1",
-          "completed": true
-        },
-        {
-          "id": "724316",
-          "date": "2025-04-08T18:00Z",
-          "round": "group-stage",
-          "name": "Romania at Northern Ireland",
-          "home": "Northern Ireland",
-          "away": "Romania",
-          "score": "1 – 0",
-          "completed": true
-        },
-        {
-          "id": "724302",
-          "date": "2025-04-08T18:30Z",
-          "round": "group-stage",
-          "name": "England at Belgium",
-          "home": "Belgium",
-          "away": "England",
-          "score": "3 – 2",
-          "completed": true
-        },
-        {
-          "id": "724318",
-          "date": "2025-04-08T18:30Z",
-          "round": "group-stage",
-          "name": "Greece at Republic of Ireland",
-          "home": "Republic of Ireland",
-          "away": "Greece",
-          "score": "2 – 1",
-          "completed": true
-        },
-        {
-          "id": "724301",
-          "date": "2025-04-08T19:00Z",
-          "round": "group-stage",
-          "name": "Serbia at Belarus",
-          "home": "Belarus",
-          "away": "Serbia",
-          "score": "0 – 3",
-          "completed": true
-        },
-        {
-          "id": "724326",
-          "date": "2025-05-30T12:00Z",
-          "round": "group-stage",
-          "name": "Liechtenstein at Kazakhstan",
-          "home": "Kazakhstan",
-          "away": "Liechtenstein",
-          "score": "4 – 0",
-          "completed": true
-        },
-        {
-          "id": "724327",
-          "date": "2025-05-30T14:00Z",
-          "round": "group-stage",
-          "name": "Lithuania at Azerbaijan",
+          "name": "Liechtenstein at Azerbaijan",
           "home": "Azerbaijan",
-          "away": "Lithuania",
-          "score": "0 – 5",
-          "completed": true
+          "away": "Liechtenstein",
+          "score": null,
+          "completed": false
         },
         {
-          "id": "724345",
-          "date": "2025-05-30T15:00Z",
-          "round": "group-stage",
-          "name": "Croatia at Czechia",
-          "home": "Czechia",
-          "away": "Croatia",
-          "score": "5 – 0",
-          "completed": true
-        },
-        {
-          "id": "724342",
-          "date": "2025-05-30T15:00Z",
-          "round": "group-stage",
-          "name": "Israel at Estonia",
-          "home": "Estonia",
-          "away": "Israel",
-          "score": "0 – 3",
-          "completed": true
-        },
-        {
-          "id": "724332",
-          "date": "2025-05-30T15:00Z",
-          "round": "group-stage",
-          "name": "Bosnia-Herzegovina at Romania",
-          "home": "Romania",
-          "away": "Bosnia-Herzegovina",
-          "score": "2 – 0",
-          "completed": true
-        },
-        {
-          "id": "724348",
-          "date": "2025-05-30T15:00Z",
-          "round": "group-stage",
-          "name": "Gibraltar at Slovakia ",
-          "home": "Slovakia ",
-          "away": "Gibraltar",
-          "score": "11 – 0",
-          "completed": true
-        },
-        {
-          "id": "724338",
-          "date": "2025-05-30T16:00Z",
-          "round": "group-stage",
-          "name": "North Macedonia at Latvia",
-          "home": "Latvia",
-          "away": "North Macedonia",
-          "score": "1 – 1",
-          "completed": true
-        },
-        {
-          "id": "724329",
-          "date": "2025-05-30T16:00Z",
-          "round": "group-stage",
-          "name": "Greece at Slovenia",
-          "home": "Slovenia",
-          "away": "Greece",
-          "score": "2 – 0",
-          "completed": true
-        },
-        {
-          "id": "724339",
-          "date": "2025-05-30T16:20Z",
-          "round": "group-stage",
-          "name": "Sweden at Italy",
-          "home": "Italy",
-          "away": "Sweden",
-          "score": "0 – 0",
-          "completed": true
-        },
-        {
-          "id": "724324",
-          "date": "2025-05-30T17:00Z",
-          "round": "group-stage",
-          "name": "Georgia at Andorra",
-          "home": "Andorra",
-          "away": "Georgia",
-          "score": "1 – 2",
-          "completed": true
-        },
-        {
-          "id": "724337",
-          "date": "2025-05-30T17:00Z",
-          "round": "group-stage",
-          "name": "Armenia at Luxembourg",
-          "home": "Luxembourg",
-          "away": "Armenia",
-          "score": "2 – 0",
-          "completed": true
-        },
-        {
-          "id": "724336",
-          "date": "2025-05-30T17:00Z",
-          "round": "group-stage",
-          "name": "Cyprus at Malta",
-          "home": "Malta",
-          "away": "Cyprus",
-          "score": "1 – 0",
-          "completed": true
-        },
-        {
-          "id": "724335",
-          "date": "2025-05-30T17:00Z",
-          "round": "group-stage",
-          "name": "Faroe Islands at Moldova",
-          "home": "Moldova",
-          "away": "Faroe Islands",
-          "score": "1 – 1",
-          "completed": true
-        },
-        {
-          "id": "724330",
-          "date": "2025-05-30T17:00Z",
-          "round": "group-stage",
-          "name": "Hungary at Serbia",
-          "home": "Serbia",
-          "away": "Hungary",
-          "score": "1 – 0",
-          "completed": true
-        },
-        {
-          "id": "724328",
-          "date": "2025-05-30T17:00Z",
-          "round": "group-stage",
-          "name": "Republic of Ireland at Türkiye",
-          "home": "Türkiye",
-          "away": "Republic of Ireland",
-          "score": "1 – 2",
-          "completed": true
-        },
-        {
-          "id": "724325",
-          "date": "2025-05-30T17:00Z",
-          "round": "group-stage",
-          "name": "Albania at Ukraine",
-          "home": "Ukraine",
-          "away": "Albania",
-          "score": "2 – 1",
-          "completed": true
-        },
-        {
-          "id": "724344",
-          "date": "2025-05-30T17:15Z",
-          "round": "group-stage",
-          "name": "Wales at Denmark",
-          "home": "Denmark",
-          "away": "Wales",
-          "score": "1 – 0",
-          "completed": true
-        },
-        {
-          "id": "724347",
-          "date": "2025-05-30T18:00Z",
+          "id": "401934316",
+          "date": "2027-03-02T20:00Z",
           "round": "group-stage",
           "name": "Finland at Belarus",
           "home": "Belarus",
           "away": "Finland",
-          "score": "0 – 3",
-          "completed": true
+          "score": null,
+          "completed": false
         },
         {
-          "id": "724334",
-          "date": "2025-05-30T18:00Z",
+          "id": "401934058",
+          "date": "2027-03-02T20:00Z",
+          "round": "group-stage",
+          "name": "Moldova at Cyprus",
+          "home": "Cyprus",
+          "away": "Moldova",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934310",
+          "date": "2027-03-02T20:00Z",
+          "round": "group-stage",
+          "name": "Italy at Denmark",
+          "home": "Denmark",
+          "away": "Italy",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934303",
+          "date": "2027-03-02T20:00Z",
+          "round": "group-stage",
+          "name": "Austria at France",
+          "home": "France",
+          "away": "Austria",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934056",
+          "date": "2027-03-02T20:00Z",
+          "round": "group-stage",
+          "name": "Latvia at Georgia",
+          "home": "Georgia",
+          "away": "Latvia",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934032",
+          "date": "2027-03-02T20:00Z",
+          "round": "group-stage",
+          "name": "Bulgaria at Gibraltar",
+          "home": "Gibraltar",
+          "away": "Bulgaria",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934021",
+          "date": "2027-03-02T20:00Z",
+          "round": "group-stage",
+          "name": "Czechia at Greece",
+          "home": "Greece",
+          "away": "Czechia",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934005",
+          "date": "2027-03-02T20:00Z",
+          "round": "group-stage",
+          "name": "Kosovo at Hungary",
+          "home": "Hungary",
+          "away": "Kosovo",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934642",
+          "date": "2027-03-02T20:00Z",
+          "round": "group-stage",
+          "name": "Faroe Islands at Israel",
+          "home": "Israel",
+          "away": "Faroe Islands",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934055",
+          "date": "2027-03-02T20:00Z",
+          "round": "group-stage",
+          "name": "Bosnia-Herzegovina at Luxembourg",
+          "home": "Luxembourg",
+          "away": "Bosnia-Herzegovina",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934641",
+          "date": "2027-03-02T20:00Z",
+          "round": "group-stage",
+          "name": "Andorra at North Macedonia",
+          "home": "North Macedonia",
+          "away": "Andorra",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934290",
+          "date": "2027-03-02T20:00Z",
           "round": "group-stage",
           "name": "Poland at Northern Ireland",
           "home": "Northern Ireland",
           "away": "Poland",
-          "score": "0 – 4",
-          "completed": true
+          "score": null,
+          "completed": false
         },
         {
-          "id": "724333",
-          "date": "2025-05-30T18:00Z",
+          "id": "401934302",
+          "date": "2027-03-02T20:00Z",
           "round": "group-stage",
-          "name": "Iceland at Norway",
-          "home": "Norway",
+          "name": "England at Portugal",
+          "home": "Portugal",
+          "away": "England",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401933974",
+          "date": "2027-03-02T20:00Z",
+          "round": "group-stage",
+          "name": "Switzerland at Republic of Ireland",
+          "home": "Republic of Ireland",
+          "away": "Switzerland",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934034",
+          "date": "2027-03-02T20:00Z",
+          "round": "group-stage",
+          "name": "Estonia at San Marino",
+          "home": "San Marino",
+          "away": "Estonia",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934143",
+          "date": "2027-03-02T20:00Z",
+          "round": "group-stage",
+          "name": "Netherlands at Scotland",
+          "home": "Scotland",
+          "away": "Netherlands",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401933989",
+          "date": "2027-03-02T20:00Z",
+          "round": "group-stage",
+          "name": "Belgium at Serbia",
+          "home": "Serbia",
+          "away": "Belgium",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934033",
+          "date": "2027-03-02T20:00Z",
+          "round": "group-stage",
+          "name": "Croatia at Slovakia ",
+          "home": "Slovakia ",
+          "away": "Croatia",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934006",
+          "date": "2027-03-02T20:00Z",
+          "round": "group-stage",
+          "name": "Türkiye at Slovenia",
+          "home": "Slovenia",
+          "away": "Türkiye",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401933987",
+          "date": "2027-03-02T20:00Z",
+          "round": "group-stage",
+          "name": "Norway at Spain",
+          "home": "Spain",
+          "away": "Norway",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934144",
+          "date": "2027-03-02T20:00Z",
+          "round": "group-stage",
+          "name": "Germany at Sweden",
+          "home": "Sweden",
+          "away": "Germany",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934004",
+          "date": "2027-03-02T20:00Z",
+          "round": "group-stage",
+          "name": "Lithuania at Ukraine",
+          "home": "Ukraine",
+          "away": "Lithuania",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934284",
+          "date": "2027-03-02T20:00Z",
+          "round": "group-stage",
+          "name": "Iceland at Wales",
+          "home": "Wales",
           "away": "Iceland",
-          "score": "1 – 1",
-          "completed": true
+          "score": null,
+          "completed": false
         },
         {
-          "id": "724346",
-          "date": "2025-05-30T18:30Z",
+          "id": "401933973",
+          "date": "2027-03-06T20:00Z",
           "round": "group-stage",
-          "name": "Spain at Belgium",
-          "home": "Belgium",
-          "away": "Spain",
-          "score": "1 – 5",
-          "completed": true
+          "name": "Serbia at Albania",
+          "home": "Albania",
+          "away": "Serbia",
+          "score": null,
+          "completed": false
         },
         {
-          "id": "724340",
-          "date": "2025-05-30T18:30Z",
+          "id": "401934300",
+          "date": "2027-03-06T20:00Z",
+          "round": "group-stage",
+          "name": "Portugal at Austria",
+          "home": "Austria",
+          "away": "Portugal",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934044",
+          "date": "2027-03-06T20:00Z",
+          "round": "group-stage",
+          "name": "Estonia at Bosnia-Herzegovina",
+          "home": "Bosnia-Herzegovina",
+          "away": "Estonia",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934030",
+          "date": "2027-03-06T20:00Z",
+          "round": "group-stage",
+          "name": "Slovakia  at Bulgaria",
+          "home": "Bulgaria",
+          "away": "Slovakia ",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934042",
+          "date": "2027-03-06T20:00Z",
+          "round": "group-stage",
+          "name": "Gibraltar at Croatia",
+          "home": "Croatia",
+          "away": "Gibraltar",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934051",
+          "date": "2027-03-06T20:00Z",
+          "round": "group-stage",
+          "name": "Malta at Cyprus",
+          "home": "Cyprus",
+          "away": "Malta",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934019",
+          "date": "2027-03-06T20:00Z",
+          "round": "group-stage",
+          "name": "Ukraine at Czechia",
+          "home": "Czechia",
+          "away": "Ukraine",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934301",
+          "date": "2027-03-06T20:00Z",
+          "round": "group-stage",
+          "name": "France at England",
+          "home": "England",
+          "away": "France",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934031",
+          "date": "2027-03-06T20:00Z",
+          "round": "group-stage",
+          "name": "Azerbaijan at Georgia",
+          "home": "Georgia",
+          "away": "Azerbaijan",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934162",
+          "date": "2027-03-06T20:00Z",
+          "round": "group-stage",
+          "name": "Scotland at Germany",
+          "home": "Germany",
+          "away": "Scotland",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934018",
+          "date": "2027-03-06T20:00Z",
+          "round": "group-stage",
+          "name": "Lithuania at Greece",
+          "home": "Greece",
+          "away": "Lithuania",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934003",
+          "date": "2027-03-06T20:00Z",
+          "round": "group-stage",
+          "name": "Slovenia at Hungary",
+          "home": "Hungary",
+          "away": "Slovenia",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934618",
+          "date": "2027-03-06T20:00Z",
+          "round": "group-stage",
+          "name": "Andorra at Israel",
+          "home": "Israel",
+          "away": "Andorra",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934309",
+          "date": "2027-03-06T20:00Z",
+          "round": "group-stage",
+          "name": "Iceland at Italy",
+          "home": "Italy",
+          "away": "Iceland",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934045",
+          "date": "2027-03-06T20:00Z",
+          "round": "group-stage",
+          "name": "Latvia at Liechtenstein",
+          "home": "Liechtenstein",
+          "away": "Latvia",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934678",
+          "date": "2027-03-06T20:00Z",
+          "round": "group-stage",
+          "name": "Armenia at Montenegro",
+          "home": "Montenegro",
+          "away": "Armenia",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934142",
+          "date": "2027-03-06T20:00Z",
+          "round": "group-stage",
+          "name": "Sweden at Netherlands",
+          "home": "Netherlands",
+          "away": "Sweden",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934640",
+          "date": "2027-03-06T20:00Z",
+          "round": "group-stage",
+          "name": "Faroe Islands at North Macedonia",
+          "home": "North Macedonia",
+          "away": "Faroe Islands",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934315",
+          "date": "2027-03-06T20:00Z",
+          "round": "group-stage",
+          "name": "Belarus at Northern Ireland",
+          "home": "Northern Ireland",
+          "away": "Belarus",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934289",
+          "date": "2027-03-06T20:00Z",
+          "round": "group-stage",
+          "name": "Finland at Poland",
+          "home": "Poland",
+          "away": "Finland",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401933986",
+          "date": "2027-03-06T20:00Z",
+          "round": "group-stage",
+          "name": "Norway at Republic of Ireland",
+          "home": "Republic of Ireland",
+          "away": "Norway",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401933972",
+          "date": "2027-03-06T20:00Z",
+          "round": "group-stage",
+          "name": "Belgium at Romania",
+          "home": "Romania",
+          "away": "Belgium",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934046",
+          "date": "2027-03-06T20:00Z",
+          "round": "group-stage",
+          "name": "Luxembourg at San Marino",
+          "home": "San Marino",
+          "away": "Luxembourg",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401933971",
+          "date": "2027-03-06T20:00Z",
+          "round": "group-stage",
+          "name": "Spain at Switzerland",
+          "home": "Switzerland",
+          "away": "Spain",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934020",
+          "date": "2027-03-06T20:00Z",
+          "round": "group-stage",
+          "name": "Kosovo at Türkiye",
+          "home": "Türkiye",
+          "away": "Kosovo",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934283",
+          "date": "2027-03-06T20:00Z",
+          "round": "group-stage",
+          "name": "Denmark at Wales",
+          "home": "Wales",
+          "away": "Denmark",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934299",
+          "date": "2027-04-18T18:00Z",
+          "round": "group-stage",
+          "name": "Austria at England",
+          "home": "England",
+          "away": "Austria",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934298",
+          "date": "2027-04-19T18:00Z",
+          "round": "group-stage",
+          "name": "France at Portugal",
+          "home": "Portugal",
+          "away": "France",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401933969",
+          "date": "2027-04-20T18:00Z",
+          "round": "group-stage",
+          "name": "Romania at Belgium",
+          "home": "Belgium",
+          "away": "Romania",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934040",
+          "date": "2027-04-20T18:00Z",
+          "round": "group-stage",
+          "name": "San Marino at Bosnia-Herzegovina",
+          "home": "Bosnia-Herzegovina",
+          "away": "San Marino",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934029",
+          "date": "2027-04-20T18:00Z",
+          "round": "group-stage",
+          "name": "Croatia at Bulgaria",
+          "home": "Bulgaria",
+          "away": "Croatia",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934016",
+          "date": "2027-04-20T18:00Z",
+          "round": "group-stage",
+          "name": "Lithuania at Czechia",
+          "home": "Czechia",
+          "away": "Lithuania",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934639",
+          "date": "2027-04-20T18:00Z",
+          "round": "group-stage",
+          "name": "Andorra at Faroe Islands",
+          "home": "Faroe Islands",
+          "away": "Andorra",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934287",
+          "date": "2027-04-20T18:00Z",
+          "round": "group-stage",
+          "name": "Northern Ireland at Finland",
+          "home": "Finland",
+          "away": "Northern Ireland",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934161",
+          "date": "2027-04-20T18:00Z",
           "round": "group-stage",
           "name": "Netherlands at Germany",
           "home": "Germany",
           "away": "Netherlands",
-          "score": "4 – 0",
-          "completed": true
+          "score": null,
+          "completed": false
         },
         {
-          "id": "724331",
-          "date": "2025-05-30T18:35Z",
+          "id": "401934001",
+          "date": "2027-04-20T18:00Z",
           "round": "group-stage",
-          "name": "Austria at Scotland",
-          "home": "Scotland",
-          "away": "Austria",
-          "score": "0 – 1",
-          "completed": true
-        },
-        {
-          "id": "724343",
-          "date": "2025-05-30T18:45Z",
-          "round": "group-stage",
-          "name": "Portugal at England",
-          "home": "England",
-          "away": "Portugal",
-          "score": "6 – 0",
-          "completed": true
-        },
-        {
-          "id": "724341",
-          "date": "2025-05-30T19:10Z",
-          "round": "group-stage",
-          "name": "Switzerland at France",
-          "home": "France",
-          "away": "Switzerland",
-          "score": "4 – 0",
-          "completed": true
-        },
-        {
-          "id": "724372",
-          "date": "2025-06-03T17:00Z",
-          "round": "group-stage",
-          "name": "Czechia at Albania",
-          "home": "Albania",
-          "away": "Czechia",
-          "score": "1 – 2",
-          "completed": true
-        },
-        {
-          "id": "724350",
-          "date": "2025-06-03T17:00Z",
-          "round": "group-stage",
-          "name": "Malta at Andorra",
-          "home": "Andorra",
-          "away": "Malta",
-          "score": "0 – 0",
-          "completed": true
-        },
-        {
-          "id": "724369",
-          "date": "2025-06-03T17:00Z",
-          "round": "group-stage",
-          "name": "Northern Ireland at Bosnia-Herzegovina",
-          "home": "Bosnia-Herzegovina",
-          "away": "Northern Ireland",
-          "score": "1 – 1",
-          "completed": true
-        },
-        {
-          "id": "724368",
-          "date": "2025-06-03T17:00Z",
-          "round": "group-stage",
-          "name": "Estonia at Bulgaria",
-          "home": "Bulgaria",
-          "away": "Estonia",
-          "score": "0 – 1",
-          "completed": true
-        },
-        {
-          "id": "724367",
-          "date": "2025-06-03T17:00Z",
-          "round": "group-stage",
-          "name": "Ukraine at Croatia",
-          "home": "Croatia",
-          "away": "Ukraine",
-          "score": "2 – 0",
-          "completed": true
-        },
-        {
-          "id": "724366",
-          "date": "2025-06-03T17:00Z",
-          "round": "group-stage",
-          "name": "Slovakia  at Faroe Islands",
-          "home": "Faroe Islands",
-          "away": "Slovakia ",
-          "score": "1 – 2",
-          "completed": true
-        },
-        {
-          "id": "724365",
-          "date": "2025-06-03T17:00Z",
-          "round": "group-stage",
-          "name": "Serbia at Finland",
-          "home": "Finland",
-          "away": "Serbia",
-          "score": "1 – 1",
-          "completed": true
-        },
-        {
-          "id": "724364",
-          "date": "2025-06-03T17:00Z",
-          "round": "group-stage",
-          "name": "Cyprus at Georgia",
-          "home": "Georgia",
-          "away": "Cyprus",
-          "score": "1 – 2",
-          "completed": true
-        },
-        {
-          "id": "724349",
-          "date": "2025-06-03T17:00Z",
-          "round": "group-stage",
-          "name": "Moldova at Gibraltar",
-          "home": "Gibraltar",
-          "away": "Moldova",
-          "score": "0 – 4",
-          "completed": true
-        },
-        {
-          "id": "724363",
-          "date": "2025-06-03T17:00Z",
-          "round": "group-stage",
-          "name": "Türkiye at Greece",
+          "name": "Ukraine at Greece",
           "home": "Greece",
-          "away": "Türkiye",
-          "score": "0 – 1",
-          "completed": true
+          "away": "Ukraine",
+          "score": null,
+          "completed": false
         },
         {
-          "id": "724362",
-          "date": "2025-06-03T17:00Z",
+          "id": "401934281",
+          "date": "2027-04-20T18:00Z",
           "round": "group-stage",
-          "name": "Belarus at Hungary",
-          "home": "Hungary",
-          "away": "Belarus",
-          "score": "0 – 0",
-          "completed": true
-        },
-        {
-          "id": "724360",
-          "date": "2025-06-03T17:00Z",
-          "round": "group-stage",
-          "name": "Luxembourg at Kazakhstan",
-          "home": "Kazakhstan",
-          "away": "Luxembourg",
-          "score": "1 – 3",
-          "completed": true
-        },
-        {
-          "id": "724359",
-          "date": "2025-06-03T17:00Z",
-          "round": "group-stage",
-          "name": "Kosovo at Latvia",
-          "home": "Latvia",
-          "away": "Kosovo",
-          "score": "2 – 2",
-          "completed": true
-        },
-        {
-          "id": "724371",
-          "date": "2025-06-03T17:00Z",
-          "round": "group-stage",
-          "name": "Armenia at Liechtenstein",
-          "home": "Liechtenstein",
-          "away": "Armenia",
-          "score": "2 – 2",
-          "completed": true
-        },
-        {
-          "id": "724358",
-          "date": "2025-06-03T17:00Z",
-          "round": "group-stage",
-          "name": "Montenegro at Lithuania",
-          "home": "Lithuania",
-          "away": "Montenegro",
-          "score": "0 – 1",
-          "completed": true
-        },
-        {
-          "id": "724356",
-          "date": "2025-06-03T17:00Z",
-          "round": "group-stage",
-          "name": "Romania at Poland",
-          "home": "Poland",
-          "away": "Romania",
-          "score": "3 – 0",
-          "completed": true
-        },
-        {
-          "id": "724355",
-          "date": "2025-06-03T17:00Z",
-          "round": "group-stage",
-          "name": "Belgium at Portugal",
-          "home": "Portugal",
-          "away": "Belgium",
-          "score": "0 – 3",
-          "completed": true
-        },
-        {
-          "id": "724354",
-          "date": "2025-06-03T17:00Z",
-          "round": "group-stage",
-          "name": "Slovenia at Republic of Ireland",
-          "home": "Republic of Ireland",
-          "away": "Slovenia",
-          "score": "1 – 0",
-          "completed": true
-        },
-        {
-          "id": "724353",
-          "date": "2025-06-03T17:00Z",
-          "round": "group-stage",
-          "name": "England at Spain",
-          "home": "Spain",
-          "away": "England",
-          "score": "2 – 1",
-          "completed": true
-        },
-        {
-          "id": "724352",
-          "date": "2025-06-03T17:30Z",
-          "round": "group-stage",
-          "name": "Denmark at Sweden",
-          "home": "Sweden",
-          "away": "Denmark",
-          "score": "6 – 1",
-          "completed": true
-        },
-        {
-          "id": "724373",
-          "date": "2025-06-03T17:30Z",
-          "round": "group-stage",
-          "name": "Italy at Wales",
-          "home": "Wales",
-          "away": "Italy",
-          "score": "1 – 4",
-          "completed": true
-        },
-        {
-          "id": "724361",
-          "date": "2025-06-03T18:00Z",
-          "round": "group-stage",
-          "name": "France at Iceland",
+          "name": "Denmark at Iceland",
           "home": "Iceland",
-          "away": "France",
-          "score": "0 – 2",
-          "completed": true
+          "away": "Denmark",
+          "score": null,
+          "completed": false
         },
         {
-          "id": "724351",
-          "date": "2025-06-03T18:00Z",
+          "id": "401934617",
+          "date": "2027-04-20T18:00Z",
+          "round": "group-stage",
+          "name": "North Macedonia at Israel",
+          "home": "Israel",
+          "away": "North Macedonia",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934282",
+          "date": "2027-04-20T18:00Z",
+          "round": "group-stage",
+          "name": "Wales at Italy",
+          "home": "Italy",
+          "away": "Wales",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934677",
+          "date": "2027-04-20T18:00Z",
+          "round": "group-stage",
+          "name": "Armenia at Kazakhstan",
+          "home": "Kazakhstan",
+          "away": "Armenia",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934002",
+          "date": "2027-04-20T18:00Z",
+          "round": "group-stage",
+          "name": "Slovenia at Kosovo",
+          "home": "Kosovo",
+          "away": "Slovenia",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934043",
+          "date": "2027-04-20T18:00Z",
+          "round": "group-stage",
+          "name": "Azerbaijan at Latvia",
+          "home": "Latvia",
+          "away": "Azerbaijan",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934041",
+          "date": "2027-04-20T18:00Z",
+          "round": "group-stage",
+          "name": "Georgia at Liechtenstein",
+          "home": "Liechtenstein",
+          "away": "Georgia",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934039",
+          "date": "2027-04-20T18:00Z",
+          "round": "group-stage",
+          "name": "Estonia at Luxembourg",
+          "home": "Luxembourg",
+          "away": "Estonia",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934050",
+          "date": "2027-04-20T18:00Z",
+          "round": "group-stage",
+          "name": "Malta at Moldova",
+          "home": "Moldova",
+          "away": "Malta",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401933967",
+          "date": "2027-04-20T18:00Z",
+          "round": "group-stage",
+          "name": "Switzerland at Norway",
+          "home": "Norway",
+          "away": "Switzerland",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934288",
+          "date": "2027-04-20T18:00Z",
+          "round": "group-stage",
+          "name": "Belarus at Poland",
+          "home": "Poland",
+          "away": "Belarus",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401933970",
+          "date": "2027-04-20T18:00Z",
+          "round": "group-stage",
+          "name": "Albania at Serbia",
+          "home": "Serbia",
+          "away": "Albania",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934038",
+          "date": "2027-04-20T18:00Z",
+          "round": "group-stage",
+          "name": "Gibraltar at Slovakia ",
+          "home": "Slovakia ",
+          "away": "Gibraltar",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401933968",
+          "date": "2027-04-20T18:00Z",
+          "round": "group-stage",
+          "name": "Republic of Ireland at Spain",
+          "home": "Spain",
+          "away": "Republic of Ireland",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934160",
+          "date": "2027-04-20T18:00Z",
+          "round": "group-stage",
+          "name": "Scotland at Sweden",
+          "home": "Sweden",
+          "away": "Scotland",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934017",
+          "date": "2027-04-20T18:00Z",
+          "round": "group-stage",
+          "name": "Hungary at Türkiye",
+          "home": "Türkiye",
+          "away": "Hungary",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934297",
+          "date": "2027-04-23T18:00Z",
+          "round": "group-stage",
+          "name": "England at Austria",
+          "home": "Austria",
+          "away": "England",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934296",
+          "date": "2027-04-23T18:00Z",
+          "round": "group-stage",
+          "name": "Portugal at France",
+          "home": "France",
+          "away": "Portugal",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401933966",
+          "date": "2027-04-24T18:00Z",
+          "round": "group-stage",
+          "name": "Belgium at Albania",
+          "home": "Albania",
+          "away": "Belgium",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934637",
+          "date": "2027-04-24T18:00Z",
+          "round": "group-stage",
+          "name": "North Macedonia at Andorra",
+          "home": "Andorra",
+          "away": "North Macedonia",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934036",
+          "date": "2027-04-24T18:00Z",
+          "round": "group-stage",
+          "name": "Georgia at Azerbaijan",
+          "home": "Azerbaijan",
+          "away": "Georgia",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934314",
+          "date": "2027-04-24T18:00Z",
+          "round": "group-stage",
+          "name": "Northern Ireland at Belarus",
+          "home": "Belarus",
+          "away": "Northern Ireland",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934035",
+          "date": "2027-04-24T18:00Z",
+          "round": "group-stage",
+          "name": "Luxembourg at Bosnia-Herzegovina",
+          "home": "Bosnia-Herzegovina",
+          "away": "Luxembourg",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934014",
+          "date": "2027-04-24T18:00Z",
+          "round": "group-stage",
+          "name": "Bulgaria at Croatia",
+          "home": "Croatia",
+          "away": "Bulgaria",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401933994",
+          "date": "2027-04-24T18:00Z",
+          "round": "group-stage",
+          "name": "Greece at Czechia",
+          "home": "Czechia",
+          "away": "Greece",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934308",
+          "date": "2027-04-24T18:00Z",
+          "round": "group-stage",
+          "name": "Wales at Denmark",
+          "home": "Denmark",
+          "away": "Wales",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934028",
+          "date": "2027-04-24T18:00Z",
+          "round": "group-stage",
+          "name": "San Marino at Estonia",
+          "home": "Estonia",
+          "away": "San Marino",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934638",
+          "date": "2027-04-24T18:00Z",
+          "round": "group-stage",
+          "name": "Israel at Faroe Islands",
+          "home": "Faroe Islands",
+          "away": "Israel",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934286",
+          "date": "2027-04-24T18:00Z",
+          "round": "group-stage",
+          "name": "Poland at Finland",
+          "home": "Finland",
+          "away": "Poland",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934027",
+          "date": "2027-04-24T18:00Z",
+          "round": "group-stage",
+          "name": "Slovakia  at Gibraltar",
+          "home": "Gibraltar",
+          "away": "Slovakia ",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934000",
+          "date": "2027-04-24T18:00Z",
+          "round": "group-stage",
+          "name": "Türkiye at Hungary",
+          "home": "Hungary",
+          "away": "Türkiye",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934307",
+          "date": "2027-04-24T18:00Z",
+          "round": "group-stage",
+          "name": "Italy at Iceland",
+          "home": "Iceland",
+          "away": "Italy",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934663",
+          "date": "2027-04-24T18:00Z",
+          "round": "group-stage",
+          "name": "Montenegro at Kazakhstan",
+          "home": "Kazakhstan",
+          "away": "Montenegro",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934037",
+          "date": "2027-04-24T18:00Z",
+          "round": "group-stage",
+          "name": "Liechtenstein at Latvia",
+          "home": "Latvia",
+          "away": "Liechtenstein",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401933999",
+          "date": "2027-04-24T18:00Z",
+          "round": "group-stage",
+          "name": "Ukraine at Lithuania",
+          "home": "Lithuania",
+          "away": "Ukraine",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934049",
+          "date": "2027-04-24T18:00Z",
+          "round": "group-stage",
+          "name": "Cyprus at Malta",
+          "home": "Malta",
+          "away": "Cyprus",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934141",
+          "date": "2027-04-24T18:00Z",
+          "round": "group-stage",
+          "name": "Germany at Netherlands",
+          "home": "Netherlands",
+          "away": "Germany",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401933965",
+          "date": "2027-04-24T18:00Z",
+          "round": "group-stage",
+          "name": "Spain at Norway",
+          "home": "Norway",
+          "away": "Spain",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934140",
+          "date": "2027-04-24T18:00Z",
+          "round": "group-stage",
+          "name": "Sweden at Scotland",
+          "home": "Scotland",
+          "away": "Sweden",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401933985",
+          "date": "2027-04-24T18:00Z",
+          "round": "group-stage",
+          "name": "Romania at Serbia",
+          "home": "Serbia",
+          "away": "Romania",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934015",
+          "date": "2027-04-24T18:00Z",
+          "round": "group-stage",
+          "name": "Kosovo at Slovenia",
+          "home": "Slovenia",
+          "away": "Kosovo",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401933964",
+          "date": "2027-04-24T18:00Z",
+          "round": "group-stage",
+          "name": "Republic of Ireland at Switzerland",
+          "home": "Switzerland",
+          "away": "Republic of Ireland",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934635",
+          "date": "2027-06-11T18:00Z",
+          "round": "group-stage",
+          "name": "Faroe Islands at Andorra",
+          "home": "Andorra",
+          "away": "Faroe Islands",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934013",
+          "date": "2027-06-11T18:00Z",
+          "round": "group-stage",
+          "name": "Latvia at Azerbaijan",
+          "home": "Azerbaijan",
+          "away": "Latvia",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934313",
+          "date": "2027-06-11T18:00Z",
+          "round": "group-stage",
+          "name": "Poland at Belarus",
+          "home": "Belarus",
+          "away": "Poland",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401933984",
+          "date": "2027-06-11T18:00Z",
+          "round": "group-stage",
+          "name": "Albania at Belgium",
+          "home": "Belgium",
+          "away": "Albania",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934025",
+          "date": "2027-06-11T18:00Z",
+          "round": "group-stage",
+          "name": "Gibraltar at Bulgaria",
+          "home": "Bulgaria",
+          "away": "Gibraltar",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934010",
+          "date": "2027-06-11T18:00Z",
+          "round": "group-stage",
+          "name": "Slovakia  at Croatia",
+          "home": "Croatia",
+          "away": "Slovakia ",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934306",
+          "date": "2027-06-11T18:00Z",
+          "round": "group-stage",
+          "name": "Iceland at Denmark",
+          "home": "Denmark",
+          "away": "Iceland",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934012",
+          "date": "2027-06-11T18:00Z",
+          "round": "group-stage",
+          "name": "Bosnia-Herzegovina at Estonia",
+          "home": "Estonia",
+          "away": "Bosnia-Herzegovina",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934295",
+          "date": "2027-06-11T18:00Z",
+          "round": "group-stage",
+          "name": "England at France",
+          "home": "France",
+          "away": "England",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934026",
+          "date": "2027-06-11T18:00Z",
+          "round": "group-stage",
+          "name": "Liechtenstein at Georgia",
+          "home": "Georgia",
+          "away": "Liechtenstein",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401933997",
+          "date": "2027-06-11T18:00Z",
+          "round": "group-stage",
+          "name": "Hungary at Kosovo",
+          "home": "Kosovo",
+          "away": "Hungary",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401933993",
+          "date": "2027-06-11T18:00Z",
+          "round": "group-stage",
+          "name": "Greece at Lithuania",
+          "home": "Lithuania",
+          "away": "Greece",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934011",
+          "date": "2027-06-11T18:00Z",
+          "round": "group-stage",
+          "name": "San Marino at Luxembourg",
+          "home": "Luxembourg",
+          "away": "San Marino",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934048",
+          "date": "2027-06-11T18:00Z",
+          "round": "group-stage",
+          "name": "Cyprus at Moldova",
+          "home": "Moldova",
+          "away": "Cyprus",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934676",
+          "date": "2027-06-11T18:00Z",
+          "round": "group-stage",
+          "name": "Kazakhstan at Montenegro",
+          "home": "Montenegro",
+          "away": "Kazakhstan",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934636",
+          "date": "2027-06-11T18:00Z",
+          "round": "group-stage",
+          "name": "Israel at North Macedonia",
+          "home": "North Macedonia",
+          "away": "Israel",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934285",
+          "date": "2027-06-11T18:00Z",
+          "round": "group-stage",
+          "name": "Finland at Northern Ireland",
+          "home": "Northern Ireland",
+          "away": "Finland",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934279",
+          "date": "2027-06-11T18:00Z",
+          "round": "group-stage",
+          "name": "Austria at Portugal",
+          "home": "Portugal",
+          "away": "Austria",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401933982",
+          "date": "2027-06-11T18:00Z",
+          "round": "group-stage",
+          "name": "Spain at Republic of Ireland",
+          "home": "Republic of Ireland",
+          "away": "Spain",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401933983",
+          "date": "2027-06-11T18:00Z",
+          "round": "group-stage",
+          "name": "Serbia at Romania",
+          "home": "Romania",
+          "away": "Serbia",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934159",
+          "date": "2027-06-11T18:00Z",
+          "round": "group-stage",
+          "name": "Germany at Scotland",
+          "home": "Scotland",
+          "away": "Germany",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934139",
+          "date": "2027-06-11T18:00Z",
+          "round": "group-stage",
+          "name": "Netherlands at Sweden",
+          "home": "Sweden",
+          "away": "Netherlands",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401933981",
+          "date": "2027-06-11T18:00Z",
           "round": "group-stage",
           "name": "Norway at Switzerland",
           "home": "Switzerland",
           "away": "Norway",
-          "score": "0 – 1",
-          "completed": true
+          "score": null,
+          "completed": false
         },
         {
-          "id": "724370",
-          "date": "2025-06-03T18:30Z",
+          "id": "401933998",
+          "date": "2027-06-11T18:00Z",
           "round": "group-stage",
-          "name": "Germany at Austria",
-          "home": "Austria",
-          "away": "Germany",
-          "score": "0 – 6",
-          "completed": true
+          "name": "Slovenia at Türkiye",
+          "home": "Türkiye",
+          "away": "Slovenia",
+          "score": null,
+          "completed": false
         },
         {
-          "id": "724357",
-          "date": "2025-06-03T18:30Z",
+          "id": "401933996",
+          "date": "2027-06-11T18:00Z",
+          "round": "group-stage",
+          "name": "Czechia at Ukraine",
+          "home": "Ukraine",
+          "away": "Czechia",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934280",
+          "date": "2027-06-11T18:00Z",
+          "round": "group-stage",
+          "name": "Italy at Wales",
+          "home": "Wales",
+          "away": "Italy",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934616",
+          "date": "2027-06-15T18:00Z",
+          "round": "group-stage",
+          "name": "Israel at Andorra",
+          "home": "Andorra",
+          "away": "Israel",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934675",
+          "date": "2027-06-15T18:00Z",
+          "round": "group-stage",
+          "name": "Montenegro at Armenia",
+          "home": "Armenia",
+          "away": "Montenegro",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934277",
+          "date": "2027-06-15T18:00Z",
+          "round": "group-stage",
+          "name": "France at Austria",
+          "home": "Austria",
+          "away": "France",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401933980",
+          "date": "2027-06-15T18:00Z",
+          "round": "group-stage",
+          "name": "Serbia at Belgium",
+          "home": "Belgium",
+          "away": "Serbia",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934278",
+          "date": "2027-06-15T18:00Z",
+          "round": "group-stage",
+          "name": "Portugal at England",
+          "home": "England",
+          "away": "Portugal",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934022",
+          "date": "2027-06-15T18:00Z",
+          "round": "group-stage",
+          "name": "Luxembourg at Estonia",
+          "home": "Estonia",
+          "away": "Luxembourg",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934615",
+          "date": "2027-06-15T18:00Z",
+          "round": "group-stage",
+          "name": "North Macedonia at Faroe Islands",
+          "home": "Faroe Islands",
+          "away": "North Macedonia",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934311",
+          "date": "2027-06-15T18:00Z",
+          "round": "group-stage",
+          "name": "Belarus at Finland",
+          "home": "Finland",
+          "away": "Belarus",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934158",
+          "date": "2027-06-15T18:00Z",
+          "round": "group-stage",
+          "name": "Sweden at Germany",
+          "home": "Germany",
+          "away": "Sweden",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934008",
+          "date": "2027-06-15T18:00Z",
+          "round": "group-stage",
+          "name": "Croatia at Gibraltar",
+          "home": "Gibraltar",
+          "away": "Croatia",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934304",
+          "date": "2027-06-15T18:00Z",
+          "round": "group-stage",
+          "name": "Wales at Iceland",
+          "home": "Iceland",
+          "away": "Wales",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934305",
+          "date": "2027-06-15T18:00Z",
+          "round": "group-stage",
+          "name": "Denmark at Italy",
+          "home": "Italy",
+          "away": "Denmark",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401933992",
+          "date": "2027-06-15T18:00Z",
+          "round": "group-stage",
+          "name": "Türkiye at Kosovo",
+          "home": "Kosovo",
+          "away": "Türkiye",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934023",
+          "date": "2027-06-15T18:00Z",
+          "round": "group-stage",
+          "name": "Georgia at Latvia",
+          "home": "Latvia",
+          "away": "Georgia",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934009",
+          "date": "2027-06-15T18:00Z",
+          "round": "group-stage",
+          "name": "Azerbaijan at Liechtenstein",
+          "home": "Liechtenstein",
+          "away": "Azerbaijan",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401933990",
+          "date": "2027-06-15T18:00Z",
+          "round": "group-stage",
+          "name": "Czechia at Lithuania",
+          "home": "Lithuania",
+          "away": "Czechia",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934047",
+          "date": "2027-06-15T18:00Z",
+          "round": "group-stage",
+          "name": "Moldova at Malta",
+          "home": "Malta",
+          "away": "Moldova",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401934138",
+          "date": "2027-06-15T18:00Z",
           "round": "group-stage",
           "name": "Scotland at Netherlands",
           "home": "Netherlands",
           "away": "Scotland",
-          "score": "1 – 1",
-          "completed": true
+          "score": null,
+          "completed": false
         },
         {
-          "id": "736776",
-          "date": "2025-10-24T15:00Z",
-          "round": "relegation-playoffs",
-          "name": "Türkiye at Kosovo",
-          "home": "Kosovo",
-          "away": "Türkiye",
-          "score": "0 – 4",
-          "completed": true
-        },
-        {
-          "id": "736773",
-          "date": "2025-10-24T15:30Z",
-          "round": "relegation-playoffs",
-          "name": "Austria at Czechia",
-          "home": "Czechia",
-          "away": "Austria",
-          "score": "1 – 0",
-          "completed": true
-        },
-        {
-          "id": "736769",
-          "date": "2025-10-24T15:45Z",
-          "round": "semifinals",
-          "name": "France at Germany",
-          "home": "Germany",
-          "away": "France",
-          "score": "1 – 0",
-          "completed": true
-        },
-        {
-          "id": "736772",
-          "date": "2025-10-24T16:00Z",
-          "round": "relegation-playoffs",
-          "name": "Albania at Cyprus",
-          "home": "Cyprus",
-          "away": "Albania",
-          "score": "3 – 2",
-          "completed": true
-        },
-        {
-          "id": "736777",
-          "date": "2025-10-24T16:00Z",
-          "round": "relegation-playoffs",
-          "name": "Denmark at Finland",
-          "home": "Finland",
-          "away": "Denmark",
-          "score": "1 – 6",
-          "completed": true
-        },
-        {
-          "id": "736775",
-          "date": "2025-10-24T18:00Z",
-          "round": "relegation-playoffs",
-          "name": "Iceland at Northern Ireland",
-          "home": "Northern Ireland",
-          "away": "Iceland",
-          "score": "0 – 2",
-          "completed": true
-        },
-        {
-          "id": "736774",
-          "date": "2025-10-24T18:00Z",
-          "round": "relegation-playoffs",
-          "name": "Belgium at Republic of Ireland",
-          "home": "Republic of Ireland",
-          "away": "Belgium",
-          "score": "4 – 2",
-          "completed": true
-        },
-        {
-          "id": "736768",
-          "date": "2025-10-24T18:00Z",
-          "round": "semifinals",
-          "name": "Sweden at Spain",
-          "home": "Spain",
-          "away": "Sweden",
-          "score": "4 – 0",
-          "completed": true
-        },
-        {
-          "id": "736778",
-          "date": "2025-10-28T17:00Z",
-          "round": "relegation-playoffs",
-          "name": "Cyprus at Albania",
-          "home": "Albania",
-          "away": "Cyprus",
-          "score": "3 – 0",
-          "completed": true
-        },
-        {
-          "id": "736782",
-          "date": "2025-10-28T17:00Z",
-          "round": "relegation-playoffs",
-          "name": "Czechia at Austria",
-          "home": "Austria",
-          "away": "Czechia",
-          "score": "2 – 0",
-          "completed": true
-        },
-        {
-          "id": "736780",
-          "date": "2025-10-28T17:00Z",
-          "round": "relegation-playoffs",
-          "name": "Finland at Denmark",
-          "home": "Denmark",
-          "away": "Finland",
-          "score": "2 – 0",
-          "completed": true
-        },
-        {
-          "id": "736783",
-          "date": "2025-10-28T17:00Z",
-          "round": "relegation-playoffs",
-          "name": "Kosovo at Türkiye",
-          "home": "Türkiye",
-          "away": "Kosovo",
-          "score": "3 – 0",
-          "completed": true
-        },
-        {
-          "id": "736770",
-          "date": "2025-10-28T18:00Z",
-          "round": "semifinals",
-          "name": "Spain at Sweden",
-          "home": "Sweden",
-          "away": "Spain",
-          "score": "0 – 1",
-          "completed": true
-        },
-        {
-          "id": "736781",
-          "date": "2025-10-28T19:30Z",
-          "round": "relegation-playoffs",
-          "name": "Republic of Ireland at Belgium",
-          "home": "Belgium",
+          "id": "401933978",
+          "date": "2027-06-15T18:00Z",
+          "round": "group-stage",
+          "name": "Republic of Ireland at Norway",
+          "home": "Norway",
           "away": "Republic of Ireland",
-          "score": "2 – 1",
-          "completed": true
+          "score": null,
+          "completed": false
         },
         {
-          "id": "736771",
-          "date": "2025-10-28T20:10Z",
-          "round": "semifinals",
-          "name": "Germany at France",
-          "home": "France",
-          "away": "Germany",
-          "score": "2 – 2",
-          "completed": true
-        },
-        {
-          "id": "736779",
-          "date": "2025-10-29T17:00Z",
-          "round": "relegation-playoffs",
-          "name": "Northern Ireland at Iceland",
-          "home": "Iceland",
+          "id": "401934312",
+          "date": "2027-06-15T18:00Z",
+          "round": "group-stage",
+          "name": "Northern Ireland at Poland",
+          "home": "Poland",
           "away": "Northern Ireland",
-          "score": "3 – 0",
-          "completed": true
+          "score": null,
+          "completed": false
         },
         {
-          "id": "760311",
-          "date": "2025-11-28T19:30Z",
-          "round": "finals",
-          "name": "Spain at Germany",
-          "home": "Germany",
-          "away": "Spain",
-          "score": "0 – 0",
-          "completed": true
+          "id": "401933979",
+          "date": "2027-06-15T18:00Z",
+          "round": "group-stage",
+          "name": "Albania at Romania",
+          "home": "Romania",
+          "away": "Albania",
+          "score": null,
+          "completed": false
         },
         {
-          "id": "760312",
-          "date": "2025-11-28T20:10Z",
-          "round": "3rd-place-match",
-          "name": "Sweden at France",
-          "home": "France",
-          "away": "Sweden",
-          "score": "2 – 1",
-          "completed": true
+          "id": "401934024",
+          "date": "2027-06-15T18:00Z",
+          "round": "group-stage",
+          "name": "Bosnia-Herzegovina at San Marino",
+          "home": "San Marino",
+          "away": "Bosnia-Herzegovina",
+          "score": null,
+          "completed": false
         },
         {
-          "id": "760313",
-          "date": "2025-12-02T17:30Z",
-          "round": "finals",
-          "name": "Germany at Spain",
+          "id": "401934007",
+          "date": "2027-06-15T18:00Z",
+          "round": "group-stage",
+          "name": "Bulgaria at Slovakia ",
+          "home": "Slovakia ",
+          "away": "Bulgaria",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401933995",
+          "date": "2027-06-15T18:00Z",
+          "round": "group-stage",
+          "name": "Hungary at Slovenia",
+          "home": "Slovenia",
+          "away": "Hungary",
+          "score": null,
+          "completed": false
+        },
+        {
+          "id": "401933963",
+          "date": "2027-06-15T18:00Z",
+          "round": "group-stage",
+          "name": "Switzerland at Spain",
           "home": "Spain",
-          "away": "Germany",
-          "score": "3 – 0",
-          "completed": true
+          "away": "Switzerland",
+          "score": null,
+          "completed": false
         },
         {
-          "id": "760314",
-          "date": "2025-12-02T18:00Z",
-          "round": "3rd-place-match",
-          "name": "France at Sweden",
-          "home": "Sweden",
-          "away": "France",
-          "score": "2 – 2",
-          "completed": true
+          "id": "401933991",
+          "date": "2027-06-15T18:00Z",
+          "round": "group-stage",
+          "name": "Greece at Ukraine",
+          "home": "Ukraine",
+          "away": "Greece",
+          "score": null,
+          "completed": false
         }
       ],
-      "archived": true,
+      "archived": false,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.w.nations",
-      "fetchedAt": "2026-11-10T19:40:43.932Z",
-      "error": "Bron tijdelijk niet beschikbaar",
-      "attemptedAt": "2026-11-17T07:49:27.031Z"
+      "fetchedAt": "2026-11-17T20:50:23.247Z"
     },
     "ek-vrouwen": {
       "season": "2025 Europees Kampioenschap Voetbal Vrouwen",
@@ -9963,7 +9831,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.weuro",
-      "fetchedAt": "2026-11-17T07:49:27.086Z"
+      "fetchedAt": "2026-11-17T20:50:23.227Z"
     },
     "f1-drivers": {
       "season": "2026",
@@ -10316,7 +10184,7 @@
       ],
       "source": "Jolpica",
       "sourceUrl": "https://api.jolpi.ca/ergast/f1/current/driverStandings.json",
-      "fetchedAt": "2026-11-17T07:49:27.309Z"
+      "fetchedAt": "2026-11-17T20:50:23.497Z"
     },
     "f1-constructors": {
       "season": "2026",
@@ -10571,7 +10439,7 @@
       ],
       "source": "Jolpica",
       "sourceUrl": "https://api.jolpi.ca/ergast/f1/current/constructorStandings.json",
-      "fetchedAt": "2026-11-17T07:49:27.660Z"
+      "fetchedAt": "2026-11-17T20:50:23.723Z"
     },
     "darts-premier": {
       "season": "2026",
@@ -10660,7 +10528,9 @@
       "archived": true,
       "source": "Mastercaller",
       "sourceUrl": "https://mastercaller.nl/toernooien/premier-league/2026/stand",
-      "fetchedAt": "2026-11-17T07:49:28.307Z"
+      "fetchedAt": "2026-11-17T07:49:28.307Z",
+      "error": "Bron tijdelijk niet beschikbaar",
+      "attemptedAt": "2026-11-17T20:50:23.985Z"
     },
     "darts-merit": {
       "season": "2026",
@@ -11802,7 +11672,7 @@
       "archived": false,
       "source": "Darts Rankings",
       "sourceUrl": "https://www.dartsrankings.com/lastranking",
-      "fetchedAt": "2026-11-17T07:49:28.380Z"
+      "fetchedAt": "2026-11-17T20:50:24.210Z"
     },
     "motogp-riders": {
       "season": "2026",
@@ -12017,7 +11887,7 @@
       "archived": false,
       "source": "MotoGP",
       "sourceUrl": "https://stats.motogp.com/en/world-standing",
-      "fetchedAt": "2026-11-17T07:49:29.875Z"
+      "fetchedAt": "2026-11-17T20:50:26.145Z"
     },
     "handbal-men": {
       "season": "2026/27",
@@ -12429,7 +12299,7 @@
       "archived": false,
       "source": "EHF",
       "sourceUrl": "https://ehfcl.eurohandball.com/men/2026-27/standings/",
-      "fetchedAt": "2026-11-17T07:49:31.265Z"
+      "fetchedAt": "2026-11-17T20:50:27.217Z"
     },
     "handbal-women": {
       "season": "2026/27",
@@ -12611,7 +12481,7 @@
       "archived": false,
       "source": "EHF",
       "sourceUrl": "https://ehfcl.eurohandball.com/women/2026-27/standings/",
-      "fetchedAt": "2026-11-17T07:49:33.418Z"
+      "fetchedAt": "2026-11-17T20:50:28.438Z"
     },
     "handbal-euro-men": {
       "season": "2026",
@@ -13023,7 +12893,7 @@
       "archived": true,
       "source": "EHF",
       "sourceUrl": "https://ehfeuro.eurohandball.com/men/2026/standings/Xg2Ubz1_S9dxy0p0unxCBg/final-tournament/",
-      "fetchedAt": "2026-11-17T07:49:31.364Z"
+      "fetchedAt": "2026-11-17T20:50:27.319Z"
     },
     "handbal-euro-women": {
       "season": "2024",
@@ -13435,7 +13305,7 @@
       "archived": true,
       "source": "EHF",
       "sourceUrl": "https://ehfeuro.eurohandball.com/women/2024/standings/R-saEwRJFutIKedhnRuDpg/FinalTournament/",
-      "fetchedAt": "2026-11-17T07:49:32.639Z"
+      "fetchedAt": "2026-11-17T20:50:27.606Z"
     },
     "handbal-world-men": {
       "season": "2025",
@@ -13612,7 +13482,7 @@
       "archived": true,
       "source": "IHF",
       "sourceUrl": "https://www.ihf.info/media-center/events/29th-ihf-mens-world-championship",
-      "fetchedAt": "2026-11-17T07:49:32.404Z"
+      "fetchedAt": "2026-11-17T20:50:27.684Z"
     },
     "handbal-world-women": {
       "season": "2025",
@@ -13789,7 +13659,7 @@
       "archived": true,
       "source": "IHF",
       "sourceUrl": "https://www.ihf.info/index.php/media-center/events/27th-ihf-womens-world-championship",
-      "fetchedAt": "2026-11-17T07:49:33.932Z"
+      "fetchedAt": "2026-11-17T20:50:28.944Z"
     }
   }
 }
