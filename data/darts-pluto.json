@@ -1,27 +1,8 @@
 {
   "schema": 1,
   "sourceUrl": "https://www.dartn.de/TV-Termine/",
-  "fetchedAt": "2026-11-18T07:54:18.868Z",
+  "fetchedAt": "2026-11-19T07:53:38.788Z",
   "broadcasts": [
-    {
-      "id": "2026-11-04-adc-global-championship",
-      "date": "2026-11-04",
-      "time": "13:30",
-      "event": "ADC Global Championship",
-      "channel": "Pluto TV",
-      "stream": "Pluto TV X Modus Super Series",
-      "sessions": [
-        {
-          "time": "13:30",
-          "label": "Middagsessie"
-        },
-        {
-          "time": "20:00",
-          "label": "Avondsessie"
-        }
-      ],
-      "source": "dartn.de"
-    },
     {
       "id": "2026-11-05-adc-global-championship",
       "date": "2026-11-05",
