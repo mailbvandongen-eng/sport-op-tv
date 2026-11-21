@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "sourceUrl": "https://api.motogp.pulselive.com/motogp/v1/events",
-  "fetchedAt": "2026-11-06T20:54:28.995Z",
+  "fetchedAt": "2026-11-21T19:49:04.417Z",
   "sessions": [
     {
       "id": "364a0bd9-d3c2-4ab3-a4cd-211ff469953e-FP1",
@@ -2029,8 +2029,8 @@
       "session": "SPR",
       "label": "Sprint",
       "date": "2026-11-21",
-      "time": "16:00",
-      "utc": "2026-11-21T15:00:00.000Z",
+      "time": "15:30",
+      "utc": "2026-11-21T14:30:00.000Z",
       "end": null
     },
     {
