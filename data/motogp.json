@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "sourceUrl": "https://api.motogp.pulselive.com/motogp/v1/events",
-  "fetchedAt": "2026-11-21T19:49:04.417Z",
+  "fetchedAt": "2026-11-22T19:58:46.463Z",
   "sessions": [
     {
       "id": "364a0bd9-d3c2-4ab3-a4cd-211ff469953e-FP1",
@@ -2015,9 +2015,9 @@
       "session": "Q2",
       "label": "Kwalificatie 2",
       "date": "2026-11-21",
-      "time": "12:15",
-      "utc": "2026-11-21T11:15:00.000Z",
-      "end": "2026-11-21T11:30:00.000Z"
+      "time": "12:20",
+      "utc": "2026-11-21T11:20:00.000Z",
+      "end": "2026-11-21T11:35:00.000Z"
     },
     {
       "id": "c7f7626b-807f-4a6f-813e-7ad2c68302a3-SPR",
