@@ -21,11 +21,11 @@
             {
               "rank": 2,
               "name": "Brighton & Hove Albion",
-              "played": 10,
+              "played": 11,
               "wins": 7,
               "draws": 1,
-              "losses": 2,
-              "diff": 19,
+              "losses": 3,
+              "diff": 17,
               "points": 22
             },
             {
@@ -40,21 +40,21 @@
             },
             {
               "rank": 4,
+              "name": "Liverpool",
+              "played": 11,
+              "wins": 6,
+              "draws": 3,
+              "losses": 2,
+              "diff": 8,
+              "points": 21
+            },
+            {
+              "rank": 5,
               "name": "AFC Bournemouth",
               "played": 11,
               "wins": 5,
               "draws": 3,
               "losses": 3,
-              "diff": 4,
-              "points": 18
-            },
-            {
-              "rank": 5,
-              "name": "Liverpool",
-              "played": 10,
-              "wins": 5,
-              "draws": 3,
-              "losses": 2,
               "diff": 4,
               "points": 18
             },
@@ -110,6 +110,16 @@
             },
             {
               "rank": 11,
+              "name": "Hull City",
+              "played": 11,
+              "wins": 3,
+              "draws": 5,
+              "losses": 3,
+              "diff": 2,
+              "points": 14
+            },
+            {
+              "rank": 12,
               "name": "Aston Villa",
               "played": 11,
               "wins": 3,
@@ -119,7 +129,7 @@
               "points": 14
             },
             {
-              "rank": 12,
+              "rank": 13,
               "name": "Newcastle United",
               "played": 11,
               "wins": 3,
@@ -129,7 +139,7 @@
               "points": 13
             },
             {
-              "rank": 13,
+              "rank": 14,
               "name": "Coventry City",
               "played": 11,
               "wins": 4,
@@ -137,16 +147,6 @@
               "losses": 7,
               "diff": -8,
               "points": 12
-            },
-            {
-              "rank": 14,
-              "name": "Hull City",
-              "played": 10,
-              "wins": 2,
-              "draws": 5,
-              "losses": 3,
-              "diff": 0,
-              "points": 11
             },
             {
               "rank": 15,
@@ -191,11 +191,11 @@
             {
               "rank": 19,
               "name": "Manchester United",
-              "played": 10,
+              "played": 11,
               "wins": 1,
               "draws": 5,
-              "losses": 4,
-              "diff": -5,
+              "losses": 5,
+              "diff": -9,
               "points": 8
             },
             {
@@ -213,7 +213,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/eng.1",
-      "fetchedAt": "2026-11-22T06:39:18.227Z"
+      "fetchedAt": "2026-11-22T19:30:51.847Z"
     },
     "eredivisie": {
       "season": "2026-27 VriendenLoterij Eredivisie",
@@ -235,15 +235,35 @@
             {
               "rank": 2,
               "name": "Ajax",
-              "played": 12,
-              "wins": 7,
+              "played": 13,
+              "wins": 8,
               "draws": 4,
               "losses": 1,
-              "diff": 17,
-              "points": 25
+              "diff": 20,
+              "points": 28
             },
             {
               "rank": 3,
+              "name": "FC Twente",
+              "played": 13,
+              "wins": 8,
+              "draws": 3,
+              "losses": 2,
+              "diff": 19,
+              "points": 27
+            },
+            {
+              "rank": 4,
+              "name": "AZ",
+              "played": 13,
+              "wins": 8,
+              "draws": 2,
+              "losses": 3,
+              "diff": 12,
+              "points": 26
+            },
+            {
+              "rank": 5,
               "name": "Feyenoord",
               "played": 13,
               "wins": 7,
@@ -253,17 +273,7 @@
               "points": 25
             },
             {
-              "rank": 4,
-              "name": "FC Twente",
-              "played": 12,
-              "wins": 7,
-              "draws": 3,
-              "losses": 2,
-              "diff": 18,
-              "points": 24
-            },
-            {
-              "rank": 5,
+              "rank": 6,
               "name": "sc Heerenveen",
               "played": 13,
               "wins": 7,
@@ -273,24 +283,14 @@
               "points": 24
             },
             {
-              "rank": 6,
-              "name": "AZ",
-              "played": 12,
-              "wins": 7,
-              "draws": 2,
-              "losses": 3,
-              "diff": 8,
-              "points": 23
-            },
-            {
               "rank": 7,
               "name": "Fortuna Sittard",
-              "played": 12,
-              "wins": 5,
+              "played": 13,
+              "wins": 6,
               "draws": 5,
               "losses": 2,
-              "diff": 0,
-              "points": 20
+              "diff": 1,
+              "points": 23
             },
             {
               "rank": 8,
@@ -305,11 +305,11 @@
             {
               "rank": 9,
               "name": "Go Ahead Eagles",
-              "played": 12,
+              "played": 13,
               "wins": 4,
               "draws": 5,
-              "losses": 3,
-              "diff": -3,
+              "losses": 4,
+              "diff": -4,
               "points": 17
             },
             {
@@ -355,11 +355,11 @@
             {
               "rank": 14,
               "name": "Sparta Rotterdam",
-              "played": 12,
+              "played": 13,
               "wins": 3,
               "draws": 3,
-              "losses": 6,
-              "diff": -8,
+              "losses": 7,
+              "diff": -12,
               "points": 12
             },
             {
@@ -385,21 +385,21 @@
             {
               "rank": 17,
               "name": "ADO Den Haag",
-              "played": 12,
+              "played": 13,
               "wins": 2,
               "draws": 3,
-              "losses": 7,
-              "diff": -9,
+              "losses": 8,
+              "diff": -12,
               "points": 9
             },
             {
               "rank": 18,
               "name": "Willem II",
-              "played": 12,
+              "played": 13,
               "wins": 0,
               "draws": 3,
-              "losses": 9,
-              "diff": -29,
+              "losses": 10,
+              "diff": -30,
               "points": 3
             }
           ]
@@ -407,7 +407,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/ned.1",
-      "fetchedAt": "2026-11-22T06:39:18.178Z"
+      "fetchedAt": "2026-11-22T19:30:51.837Z"
     },
     "champions": {
       "season": "2026-27 UEFA Champions League",
@@ -781,7 +781,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.champions",
-      "fetchedAt": "2026-11-22T06:39:18.164Z"
+      "fetchedAt": "2026-11-22T19:30:51.840Z"
     },
     "europa": {
       "season": "2026-27 UEFA Europa League",
@@ -1155,7 +1155,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.europa",
-      "fetchedAt": "2026-11-22T06:39:18.278Z"
+      "fetchedAt": "2026-11-22T19:30:51.872Z"
     },
     "conference": {
       "season": "2026-27 UEFA Conference League",
@@ -1529,7 +1529,7 @@
       ],
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.europa.conf",
-      "fetchedAt": "2026-11-22T06:39:18.353Z"
+      "fetchedAt": "2026-11-22T19:30:51.989Z"
     },
     "wk": {
       "season": "2026 Wereldkampioenschap",
@@ -3121,7 +3121,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/fifa.world",
-      "fetchedAt": "2026-11-22T06:39:18.430Z"
+      "fetchedAt": "2026-11-22T19:30:52.094Z"
     },
     "ek": {
       "season": "2024 UEFA Europees Kampioenschap",
@@ -3913,7 +3913,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.euro",
-      "fetchedAt": "2026-11-22T06:39:18.399Z"
+      "fetchedAt": "2026-11-22T19:30:52.132Z"
     },
     "nations": {
       "season": "2026 UEFA Nations League",
@@ -6135,7 +6135,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.nations",
-      "fetchedAt": "2026-11-22T06:39:18.499Z"
+      "fetchedAt": "2026-11-22T19:30:52.115Z"
     },
     "wk-vrouwen": {
       "season": "2023 FIFA Wereldkampioenschap Vrouwen",
@@ -7147,7 +7147,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/fifa.wwc",
-      "fetchedAt": "2026-11-22T06:39:18.606Z"
+      "fetchedAt": "2026-11-22T19:30:52.466Z"
     },
     "nations-vrouwen": {
       "season": "2027 UEFA Women's Nations League",
@@ -9329,7 +9329,7 @@
       "archived": false,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.w.nations",
-      "fetchedAt": "2026-11-22T06:39:18.624Z"
+      "fetchedAt": "2026-11-22T19:30:52.411Z"
     },
     "ek-vrouwen": {
       "season": "2025 Europees Kampioenschap Voetbal Vrouwen",
@@ -9831,7 +9831,7 @@
       "archived": true,
       "source": "ESPN",
       "sourceUrl": "https://www.espn.com/soccer/standings/_/league/uefa.weuro",
-      "fetchedAt": "2026-11-22T06:39:18.613Z"
+      "fetchedAt": "2026-11-22T19:30:52.416Z"
     },
     "f1-drivers": {
       "season": "2026",
@@ -9845,49 +9845,49 @@
               "rank": 1,
               "name": "Andrea Kimi Antonelli",
               "team": "Mercedes",
-              "points": 390,
+              "points": 402,
               "wins": 9
             },
             {
               "rank": 2,
               "name": "Max Verstappen",
               "team": "Red Bull",
-              "points": 279,
-              "wins": 3
+              "points": 304,
+              "wins": 4
             },
             {
               "rank": 3,
-              "name": "George Russell",
-              "team": "Mercedes",
-              "points": 262,
-              "wins": 3
+              "name": "Lewis Hamilton",
+              "team": "Ferrari",
+              "points": 267,
+              "wins": 1
             },
             {
               "rank": 4,
-              "name": "Lewis Hamilton",
-              "team": "Ferrari",
-              "points": 261,
-              "wins": 1
+              "name": "George Russell",
+              "team": "Mercedes",
+              "points": 264,
+              "wins": 3
             },
             {
               "rank": 5,
-              "name": "Charles Leclerc",
-              "team": "Ferrari",
-              "points": 249,
-              "wins": 1
+              "name": "Lando Norris",
+              "team": "McLaren",
+              "points": 264,
+              "wins": 3
             },
             {
               "rank": 6,
-              "name": "Lando Norris",
-              "team": "McLaren",
-              "points": 246,
-              "wins": 3
+              "name": "Charles Leclerc",
+              "team": "Ferrari",
+              "points": 250,
+              "wins": 1
             },
             {
               "rank": 7,
               "name": "Oscar Piastri",
               "team": "McLaren",
-              "points": 152,
+              "points": 167,
               "wins": 0
             },
             {
@@ -9908,7 +9908,7 @@
               "rank": 10,
               "name": "Pierre Gasly",
               "team": "Alpine F1 Team",
-              "points": 42,
+              "points": 52,
               "wins": 0
             },
             {
@@ -9922,7 +9922,7 @@
               "rank": 12,
               "name": "Franco Colapinto",
               "team": "Alpine F1 Team",
-              "points": 27,
+              "points": 35,
               "wins": 0
             },
             {
@@ -9948,22 +9948,22 @@
             },
             {
               "rank": 16,
+              "name": "Carlos Sainz",
+              "team": "Williams",
+              "points": 11,
+              "wins": 0
+            },
+            {
+              "rank": 17,
               "name": "Esteban Ocon",
               "team": "Haas F1 Team",
               "points": 7,
               "wins": 0
             },
             {
-              "rank": 17,
+              "rank": 18,
               "name": "Fernando Alonso",
               "team": "Aston Martin",
-              "points": 7,
-              "wins": 0
-            },
-            {
-              "rank": 18,
-              "name": "Carlos Sainz",
-              "team": "Williams",
               "points": 7,
               "wins": 0
             },
@@ -10184,7 +10184,7 @@
       ],
       "source": "Jolpica",
       "sourceUrl": "https://api.jolpi.ca/ergast/f1/current/driverStandings.json",
-      "fetchedAt": "2026-11-22T06:39:18.548Z"
+      "fetchedAt": "2026-11-22T19:30:52.753Z"
     },
     "f1-constructors": {
       "season": "2026",
@@ -10198,28 +10198,28 @@
               "rank": 1,
               "name": "Mercedes",
               "team": "",
-              "points": 652,
+              "points": 666,
               "wins": 12
             },
             {
               "rank": 2,
               "name": "Ferrari",
               "team": "",
-              "points": 510,
+              "points": 517,
               "wins": 2
             },
             {
               "rank": 3,
               "name": "Red Bull",
               "team": "",
-              "points": 415,
-              "wins": 3
+              "points": 440,
+              "wins": 4
             },
             {
               "rank": 4,
               "name": "McLaren",
               "team": "",
-              "points": 398,
+              "points": 431,
               "wins": 3
             },
             {
@@ -10233,7 +10233,7 @@
               "rank": 6,
               "name": "Alpine F1 Team",
               "team": "",
-              "points": 69,
+              "points": 87,
               "wins": 0
             },
             {
@@ -10254,7 +10254,7 @@
               "rank": 9,
               "name": "Williams",
               "team": "",
-              "points": 12,
+              "points": 16,
               "wins": 0
             },
             {
@@ -10439,7 +10439,7 @@
       ],
       "source": "Jolpica",
       "sourceUrl": "https://api.jolpi.ca/ergast/f1/current/constructorStandings.json",
-      "fetchedAt": "2026-11-22T06:39:18.667Z"
+      "fetchedAt": "2026-11-22T19:30:53.245Z"
     },
     "darts-premier": {
       "season": "2026",
@@ -10528,9 +10528,7 @@
       "archived": true,
       "source": "Mastercaller",
       "sourceUrl": "https://mastercaller.nl/toernooien/premier-league/2026/stand",
-      "fetchedAt": "2026-11-21T19:08:57.766Z",
-      "error": "Bron tijdelijk niet beschikbaar",
-      "attemptedAt": "2026-11-22T06:39:19.127Z"
+      "fetchedAt": "2026-11-22T19:30:54.084Z"
     },
     "darts-merit": {
       "season": "2026",
@@ -11672,7 +11670,7 @@
       "archived": false,
       "source": "Darts Rankings",
       "sourceUrl": "https://www.dartsrankings.com/lastranking",
-      "fetchedAt": "2026-11-22T06:39:19.339Z"
+      "fetchedAt": "2026-11-22T19:30:53.978Z"
     },
     "motogp-riders": {
       "season": "2026",
@@ -11685,19 +11683,19 @@
               "rank": 1,
               "name": "Marc Marquez",
               "team": "Ducati Lenovo Team",
-              "points": 431
+              "points": 439
             },
             {
               "rank": 2,
               "name": "Jorge Martin",
               "team": "Aprilia Racing",
-              "points": 376
+              "points": 396
             },
             {
               "rank": 3,
               "name": "Marco Bezzecchi",
               "team": "Aprilia Racing",
-              "points": 369
+              "points": 394
             },
             {
               "rank": 4,
@@ -11709,19 +11707,19 @@
               "rank": 5,
               "name": "Ai Ogura",
               "team": "SuperFile Trackhouse MotoGP Team",
-              "points": 298
+              "points": 309
             },
             {
               "rank": 6,
               "name": "Fabio Di Giannantonio",
               "team": "Pertamina Enduro VR46 Racing Team",
-              "points": 285
+              "points": 298
             },
             {
               "rank": 7,
               "name": "Raul Fernandez",
               "team": "SuperFile Trackhouse MotoGP Team",
-              "points": 267
+              "points": 283
             },
             {
               "rank": 8,
@@ -11739,31 +11737,31 @@
               "rank": 10,
               "name": "Enea Bastianini",
               "team": "Red Bull KTM Tech3",
-              "points": 147
+              "points": 152
             },
             {
               "rank": 11,
               "name": "Fermin Aldeguer",
               "team": "BK8 Gresini Racing MotoGP",
-              "points": 129
+              "points": 139
             },
             {
               "rank": 12,
               "name": "Brad Binder",
               "team": "Red Bull KTM Factory Racing",
-              "points": 118
+              "points": 127
             },
             {
               "rank": 13,
               "name": "Luca Marini",
               "team": "Honda HRC Castrol",
-              "points": 117
+              "points": 124
             },
             {
               "rank": 14,
               "name": "Fabio Quartararo",
               "team": "Monster Energy Yamaha MotoGP Team",
-              "points": 81
+              "points": 85
             },
             {
               "rank": 15,
@@ -11775,7 +11773,7 @@
               "rank": 16,
               "name": "Franco Morbidelli",
               "team": "Pertamina Enduro VR46 Racing Team",
-              "points": 70
+              "points": 71
             },
             {
               "rank": 17,
@@ -11785,27 +11783,27 @@
             },
             {
               "rank": 18,
+              "name": "Jack Miller",
+              "team": "Prima Pramac Yamaha MotoGP",
+              "points": 34
+            },
+            {
+              "rank": 19,
               "name": "Joan Mir",
               "team": "Honda HRC Castrol",
               "points": 33
             },
             {
-              "rank": 19,
-              "name": "Jack Miller",
-              "team": "Prima Pramac Yamaha MotoGP",
-              "points": 31
-            },
-            {
               "rank": 20,
               "name": "Alex Rins",
               "team": "Monster Energy Yamaha MotoGP Team",
-              "points": 29
+              "points": 31
             },
             {
               "rank": 21,
               "name": "Iker Lecuona",
               "team": "Ducati Lenovo Team",
-              "points": 19
+              "points": 25
             },
             {
               "rank": 22,
@@ -11887,7 +11885,7 @@
       "archived": false,
       "source": "MotoGP",
       "sourceUrl": "https://stats.motogp.com/en/world-standing",
-      "fetchedAt": "2026-11-22T06:39:21.436Z"
+      "fetchedAt": "2026-11-22T19:30:55.178Z"
     },
     "handbal-men": {
       "season": "2026/27",
@@ -12299,7 +12297,7 @@
       "archived": false,
       "source": "EHF",
       "sourceUrl": "https://ehfcl.eurohandball.com/men/2026-27/standings/",
-      "fetchedAt": "2026-11-22T06:39:22.557Z"
+      "fetchedAt": "2026-11-22T19:30:56.824Z"
     },
     "handbal-women": {
       "season": "2026/27",
@@ -12481,7 +12479,7 @@
       "archived": false,
       "source": "EHF",
       "sourceUrl": "https://ehfcl.eurohandball.com/women/2026-27/standings/",
-      "fetchedAt": "2026-11-22T06:39:23.792Z"
+      "fetchedAt": "2026-11-22T19:30:58.802Z"
     },
     "handbal-euro-men": {
       "season": "2026",
@@ -12893,7 +12891,7 @@
       "archived": true,
       "source": "EHF",
       "sourceUrl": "https://ehfeuro.eurohandball.com/men/2026/standings/Xg2Ubz1_S9dxy0p0unxCBg/final-tournament/",
-      "fetchedAt": "2026-11-22T06:39:22.747Z"
+      "fetchedAt": "2026-11-22T19:30:57.868Z"
     },
     "handbal-euro-women": {
       "season": "2024",
@@ -13305,7 +13303,7 @@
       "archived": true,
       "source": "EHF",
       "sourceUrl": "https://ehfeuro.eurohandball.com/women/2024/standings/R-saEwRJFutIKedhnRuDpg/FinalTournament/",
-      "fetchedAt": "2026-11-22T06:39:23.066Z"
+      "fetchedAt": "2026-11-22T19:30:58.098Z"
     },
     "handbal-world-men": {
       "season": "2025",
@@ -13482,7 +13480,7 @@
       "archived": true,
       "source": "IHF",
       "sourceUrl": "https://www.ihf.info/media-center/events/29th-ihf-mens-world-championship",
-      "fetchedAt": "2026-11-22T06:39:22.405Z"
+      "fetchedAt": "2026-11-22T19:30:57.170Z"
     },
     "handbal-world-women": {
       "season": "2025",
@@ -13659,7 +13657,7 @@
       "archived": true,
       "source": "IHF",
       "sourceUrl": "https://www.ihf.info/index.php/media-center/events/27th-ihf-womens-world-championship",
-      "fetchedAt": "2026-11-22T06:39:24.017Z"
+      "fetchedAt": "2026-11-22T19:30:59.072Z"
     }
   }
 }
