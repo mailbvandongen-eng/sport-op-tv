@@ -1,27 +1,8 @@
 {
   "schema": 1,
   "sourceUrl": "https://www.dartn.de/TV-Termine/",
-  "fetchedAt": "2026-11-22T07:24:59.860Z",
+  "fetchedAt": "2026-11-23T08:08:51.683Z",
   "broadcasts": [
-    {
-      "id": "2026-11-08-adc-global-championship",
-      "date": "2026-11-08",
-      "time": "13:30",
-      "event": "ADC Global Championship",
-      "channel": "Pluto TV",
-      "stream": "Pluto TV X Modus Super Series",
-      "sessions": [
-        {
-          "time": "13:30",
-          "label": "Middagsessie"
-        },
-        {
-          "time": "20:00",
-          "label": "Avondsessie"
-        }
-      ],
-      "source": "dartn.de"
-    },
     {
       "id": "2026-11-09-modus-darts-super-series-double-trouble",
       "date": "2026-11-09",
@@ -208,6 +189,104 @@
       "date": "2026-11-21",
       "time": "20:45",
       "event": "Modus Darts Super Series – Women’s Week",
+      "channel": "Pluto TV",
+      "stream": "Pluto TV X Modus Super Series",
+      "sessions": [
+        {
+          "time": "20:45",
+          "label": "Avondsessie"
+        }
+      ],
+      "source": "dartn.de"
+    },
+    {
+      "id": "2026-11-23-modus-darts-super-series-international-pairs-week",
+      "date": "2026-11-23",
+      "time": "10:35",
+      "event": "Modus Darts Super Series – International Pairs Week",
+      "channel": "Pluto TV",
+      "stream": "Pluto TV X Modus Super Series",
+      "sessions": [
+        {
+          "time": "10:35",
+          "label": "Ochtendsessie"
+        }
+      ],
+      "source": "dartn.de"
+    },
+    {
+      "id": "2026-11-24-modus-darts-super-series-international-pairs-week",
+      "date": "2026-11-24",
+      "time": "10:35",
+      "event": "Modus Darts Super Series – International Pairs Week",
+      "channel": "Pluto TV",
+      "stream": "Pluto TV X Modus Super Series",
+      "sessions": [
+        {
+          "time": "10:35",
+          "label": "Ochtendsessie"
+        }
+      ],
+      "source": "dartn.de"
+    },
+    {
+      "id": "2026-11-25-modus-darts-super-series-international-pairs-week",
+      "date": "2026-11-25",
+      "time": "10:35",
+      "event": "Modus Darts Super Series – International Pairs Week",
+      "channel": "Pluto TV",
+      "stream": "Pluto TV X Modus Super Series",
+      "sessions": [
+        {
+          "time": "10:35",
+          "label": "Ochtendsessie"
+        }
+      ],
+      "source": "dartn.de"
+    },
+    {
+      "id": "2026-11-26-modus-darts-super-series-international-pairs-week",
+      "date": "2026-11-26",
+      "time": "14:05",
+      "event": "Modus Darts Super Series – International Pairs Week",
+      "channel": "Pluto TV",
+      "stream": "Pluto TV X Modus Super Series",
+      "sessions": [
+        {
+          "time": "14:05",
+          "label": "Middagsessie"
+        },
+        {
+          "time": "23:05",
+          "label": "Avondsessie"
+        }
+      ],
+      "source": "dartn.de"
+    },
+    {
+      "id": "2026-11-27-modus-darts-super-series-international-pairs-week",
+      "date": "2026-11-27",
+      "time": "14:05",
+      "event": "Modus Darts Super Series – International Pairs Week",
+      "channel": "Pluto TV",
+      "stream": "Pluto TV X Modus Super Series",
+      "sessions": [
+        {
+          "time": "14:05",
+          "label": "Middagsessie"
+        },
+        {
+          "time": "23:05",
+          "label": "Avondsessie"
+        }
+      ],
+      "source": "dartn.de"
+    },
+    {
+      "id": "2026-11-28-modus-darts-super-series-international-pairs-week",
+      "date": "2026-11-28",
+      "time": "20:45",
+      "event": "Modus Darts Super Series – International Pairs Week",
       "channel": "Pluto TV",
       "stream": "Pluto TV X Modus Super Series",
       "sessions": [
