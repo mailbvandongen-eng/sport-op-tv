@@ -1,23 +1,8 @@
 {
   "schema": 1,
   "sourceUrl": "https://www.dartn.de/TV-Termine/",
-  "fetchedAt": "2026-11-25T09:04:35.877Z",
+  "fetchedAt": "2026-11-26T08:51:28.715Z",
   "broadcasts": [
-    {
-      "id": "2026-11-11-modus-darts-super-series-double-trouble",
-      "date": "2026-11-11",
-      "time": "10:35",
-      "event": "Modus Darts Super Series – Double Trouble",
-      "channel": "Pluto TV",
-      "stream": "Pluto TV X Modus Super Series",
-      "sessions": [
-        {
-          "time": "10:35",
-          "label": "Ochtendsessie"
-        }
-      ],
-      "source": "dartn.de"
-    },
     {
       "id": "2026-11-12-modus-darts-super-series-double-trouble",
       "date": "2026-11-12",
