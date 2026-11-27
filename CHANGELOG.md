@@ -1,3 +1,8 @@
+## 3.20.0 — 27 november 2026
+
+- Darts per podium: bij de Players Championship Finals (en andere toernooien met twee podia) staan de partijen per sessie gesplitst in "Main Stage (tv)" en "Stage Two (alleen PDCTV)". De PDC-feed zet overal "Board 1", dus de indeling komt uit de speelschema's in het PDC-nieuws (`scripts/update-darts-stages.cjs` → `data/darts-stages.json`, elk uur via een workflow). Latere artikelen gaan voor, zodat verplaatste partijen kloppen. Partijen zonder bekend podium blijven gewoon in de sessie staan.
+- Darts op Pluto TV is uit de lijst gehaald, inclusief de workflow, het script en de data.
+
 ## 3.19.1 — 13 november 2026
 
 - Darts bleef na het wisselen vanaf voetbal zo'n tien seconden leeg ("Geen uitzendingen"): de PDC-feed is bijna 1 MB en de agenda verscheen pas als die binnen was.

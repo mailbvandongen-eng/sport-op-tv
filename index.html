@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="football-policy.js?v=3.19.1"></script>
+    <script src="football-policy.js?v=3.20.0"></script>
     <style>
         * {
             margin: 0;
@@ -2834,10 +2834,10 @@
             background: var(--text-secondary);
         }
     </style>
-    <link rel="stylesheet" href="search-ui.css?v=3.19.1">
-    <link rel="stylesheet" href="guide-ui.css?v=3.19.1">
-    <script src="search-enhancements.js?v=3.19.1"></script>
-    <link rel="stylesheet" href="standings-menu.css?v=3.19.1">
+    <link rel="stylesheet" href="search-ui.css?v=3.20.0">
+    <link rel="stylesheet" href="guide-ui.css?v=3.20.0">
+    <script src="search-enhancements.js?v=3.20.0"></script>
+    <link rel="stylesheet" href="standings-menu.css?v=3.20.0">
 </head>
 <body>
     <a class="skip-link" href="#events-container">Naar wedstrijden</a>
@@ -3440,7 +3440,7 @@
                 handbal: null,
                 dartsFixtures: null,
                 dartsResults: null,
-                dartsPluto: null,
+                dartsStages: null,
                 highlights: null
             };
         }
@@ -5268,54 +5268,34 @@
                         });
                     });
             }
-            return [...events, ...getPlutoDartsEvents()];
+            return events;
         }
 
-        // Darts buiten de PDC op Pluto TV (MODUS/ADC), dagelijks ververst uit data/darts-pluto.json.
-        function getPlutoDartsEvents(broadcasts = cachedData.dartsPluto || []) {
-            const todayKey = getLocalDateKey(new Date());
-            const fromKey = addDaysToDateKey(todayKey, -7);
-            const toKey = addDaysToDateKey(todayKey, 30);
-            return broadcasts
-                .filter(item => item && /^20\d{2}-\d{2}-\d{2}$/.test(item.date) && /^\d{2}:\d{2}$/.test(item.time) && item.date >= fromKey && item.date <= toKey)
-                .map(item => {
-                    const sessions = Array.isArray(item.sessions) ? item.sessions.filter(session => /^\d{2}:\d{2}$/.test(session?.time || '')) : [];
-                    const start = getStaticEventDate(item.date, item.time);
-                    const sessionStarts = (sessions.length ? sessions.map(session => session.time) : [item.time])
-                        .map(time => getStaticEventDate(item.date, time));
-                    return {
-                        date: start,
-                        time: item.time,
-                        title: item.event,
-                        location: item.stream || 'Pluto TV',
-                        competition: item.event,
-                        channel: item.channel || 'Pluto TV',
-                        matches: sessions.length ? sessions.map(session => dartsSession(session.time, session.label || 'Sessie')) : null,
-                        score: null,
-                        source: 'Pluto TV-schema via dartn.de',
-                        isStatic: true,
-                        live: sessionStarts.some(sessionStart => isLiveNow(sessionStart, null, 4))
-                    };
-                });
-        }
-
-        async function fetchPlutoDartsBroadcasts() {
+        // Podium per partij (Main Stage = tv, Stage Two = alleen PDCTV), uit het
+        // PDC-nieuws via data/darts-stages.json; de fixtures-feed zet overal "Board 1".
+        async function fetchDartsStages() {
             try {
-                const response = await fetch('data/darts-pluto.json', { cache: 'no-store', signal: AbortSignal.timeout(8000) });
-                if (!response.ok) throw new Error('Pluto-dartsschema niet beschikbaar');
+                const response = await fetch('data/darts-stages.json', { cache: 'no-store', signal: AbortSignal.timeout(8000) });
+                if (!response.ok) throw new Error('Podiumindeling niet beschikbaar');
                 const data = await response.json();
-                if (data.schema !== 1 || !Array.isArray(data.broadcasts)) throw new Error('Ongeldig Pluto-dartsschema');
-                cachedData.dartsPluto = data.broadcasts;
-                try { localStorage.setItem('dartsPlutoSnapshot', JSON.stringify(data.broadcasts)); } catch (_) { /* Verse data werkt ook zonder opslag. */ }
+                if (data.schema !== 1 || !data.days || typeof data.days !== 'object') throw new Error('Ongeldige podiumindeling');
+                cachedData.dartsStages = data.days;
+                try { localStorage.setItem('dartsStagesSnapshot', JSON.stringify(data.days)); } catch (_) { /* Verse data werkt ook zonder opslag. */ }
             } catch (error) {
-                if (!Array.isArray(cachedData.dartsPluto)) {
-                    try {
-                        const saved = JSON.parse(localStorage.getItem('dartsPlutoSnapshot') || 'null');
-                        cachedData.dartsPluto = Array.isArray(saved) ? saved : [];
-                    } catch (_) { cachedData.dartsPluto = []; }
-                }
+                if (!cachedData.dartsStages) cachedData.dartsStages = {};
             }
-            return cachedData.dartsPluto;
+            return cachedData.dartsStages;
+        }
+
+        function getDartsPlayerKey(name = '') {
+            return String(name).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z]/g, '');
+        }
+
+        function getDartsMatchStage(dateKey, home, away, stages = cachedData.dartsStages) {
+            const matches = stages?.[dateKey]?.matches;
+            if (!Array.isArray(matches) || !home || !away) return null;
+            const key = [home, away].map(getDartsPlayerKey).sort().join('|');
+            return matches.find(match => [match.home, match.away].map(getDartsPlayerKey).sort().join('|') === key) || null;
         }
 
         function getStaticEventDate(dateKey, time = '') {
@@ -5645,11 +5625,17 @@
                     // De PDC-feed geeft bij vloerpartijen meestal geen starttijd; verzin er dan geen.
                     const sessionStart = isFloor ? 'TBD' : getDartsSessionStartTime(localTime);
                     // Vloertoernooien groeperen per ronde; tv-toernooien per middag-/avondsessie.
-                    const sessionName = isFloor ? (getDartsStageLabel(attributes.stage?.name || '') || 'Ronde') : getDartsSessionLabel(localTime);
+                    const { home, away } = getPdcMatchPlayers(attributes);
+                    const scheduled = isFloor ? null : getDartsMatchStage(localDateKey, home, away);
+                    const podium = scheduled?.stage || '';
+                    // Volgens het PDC-schema hoort een uitgelopen middagpartij bij de middag, ook na 17:00.
+                    const scheduledSession = { morning: 'Ochtendsessie', afternoon: 'Middagsessie', evening: 'Avondsessie' }[scheduled?.session];
+                    const sessionName = isFloor ? (getDartsStageLabel(attributes.stage?.name || '') || 'Ronde') : (scheduledSession || getDartsSessionLabel(localTime));
                     const sessionKey = [
                         localDateKey,
                         attributes.tournamentID || tournamentName,
-                        sessionName
+                        sessionName,
+                        podium
                     ].join('|');
 
                     if (!sessionGroups.has(sessionKey)) {
@@ -5659,6 +5645,7 @@
                             tournamentID: attributes.tournamentID || '',
                             sessionStart,
                             sessionName,
+                            podium,
                             location: buildLocationLabel(attributes.tournament?.venue, attributes.tournament?.city),
                             fixtures: [],
                             stages: new Set(),
@@ -5678,7 +5665,8 @@
 
             Array.from(sessionGroups.values())
                 .sort((a, b) => a.localDateKey.localeCompare(b.localDateKey)
-                    || (a.isFloor && b.isFloor ? a.order.localeCompare(b.order) : a.sessionStart.localeCompare(b.sessionStart)))
+                    || (a.isFloor && b.isFloor ? a.order.localeCompare(b.order) : a.sessionStart.localeCompare(b.sessionStart))
+                    || a.podium.localeCompare(b.podium))
                 .forEach(session => {
                     session.fixtures.sort((a, b) => getPdcFixtureDate(a) - getPdcFixtureDate(b));
                     const stageLabel = session.isFloor ? '' : Array.from(session.stages).join(' / ');
@@ -5718,9 +5706,10 @@
                         }
                         return false;
                     });
+                    const podiumLabel = { 'Main Stage': 'Main Stage (tv)', 'Stage Two': 'Stage Two (alleen PDCTV)' }[session.podium] || '';
                     event.matches.push(dartsSession(
                         session.isFloor ? '' : session.sessionStart,
-                        [session.sessionName, stageLabel].filter(Boolean).join(' - '),
+                        [session.sessionName, podiumLabel, stageLabel].filter(Boolean).join(' - '),
                         session.fixtures.map(formatPdcScheduleItem)
                     ));
                 });
@@ -5901,7 +5890,9 @@
                     return Array.isArray(saved) ? saved : null;
                 } catch (_) { return null; }
             };
-            if (!Array.isArray(cachedData.dartsPluto)) cachedData.dartsPluto = read('dartsPlutoSnapshot');
+            if (!cachedData.dartsStages) {
+                try { cachedData.dartsStages = JSON.parse(localStorage.getItem('dartsStagesSnapshot') || 'null'); } catch (_) { /* Zonder podia gaat het ook. */ }
+            }
             return Array.isArray(cachedData.dartsFixtures) ? cachedData.dartsFixtures : read('dartsPdcSnapshot');
         }
 
@@ -5918,7 +5909,7 @@
 
         function loadDartsFeed(force = false) {
             if (dartsFeedLoad) return dartsFeedLoad;
-            dartsFeedLoad = Promise.all([fetchPdcFixtures({ force }), fetchPlutoDartsBroadcasts()])
+            dartsFeedLoad = Promise.all([fetchPdcFixtures({ force }), fetchDartsStages()])
                 .then(([fixtures]) => {
                     cachedData.darts = buildDartsEvents(fixtures);
                     return cachedData.darts;
@@ -6568,7 +6559,6 @@
                 const normalizedChannel = normalizeChannelList(channel);
                 if (!normalizedChannel) return '';
                 if (/^EHF\s*TV$/i.test(normalizedChannel)) return `<a class="channel-badge" href="https://www.ehftv.com/" target="_blank" rel="noopener noreferrer" title="Kijken op EHFTV (beschikbaarheid verschilt per land)">EHFTV ↗</a>`;
-                if (/^Pluto\s*TV$/i.test(normalizedChannel)) return `<a class="channel-badge" href="https://pluto.tv/" target="_blank" rel="noopener noreferrer" title="Gratis kijken op Pluto TV (beschikbaarheid verschilt per land)">Pluto TV ↗</a>`;
                 return `<span class="channel-badge">${normalizedChannel}</span>`;
             };
 
@@ -7377,9 +7367,9 @@
         // op verzoek van de gebruiker; zo springt of knippert de agenda niet
         // tijdens lezen en lijkt de app niet spontaan te herstarten.
     </script>
-    <script src="standings-config.js?v=3.19.1" defer></script>
-    <script src="standings-menu.js?v=3.19.1" defer></script>
-    <script src="release-notes.js?v=3.19.1" defer></script>
+    <script src="standings-config.js?v=3.20.0" defer></script>
+    <script src="standings-menu.js?v=3.20.0" defer></script>
+    <script src="release-notes.js?v=3.20.0" defer></script>
 </body>
 </html>
 

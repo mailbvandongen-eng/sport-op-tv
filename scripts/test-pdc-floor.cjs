@@ -45,7 +45,7 @@ class Local extends ResourceLoader {
       window.fetch = async url => {
         const address = String(url);
         if (address.includes('pdcservices')) return { ok: true, status: 200, json: async () => feed };
-        if (address.includes('darts-pluto.json')) return { ok: true, status: 200, json: async () => ({ schema: 1, broadcasts: [] }) };
+        if (address.includes('darts-stages.json')) return { ok: true, status: 200, json: async () => ({ schema: 1, days: {} }) };
         return { ok: true, status: 200, json: async () => ({ events: [], matches: [], data: [], items: [] }) };
       };
     }

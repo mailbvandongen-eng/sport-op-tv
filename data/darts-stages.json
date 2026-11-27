@@ -1,0 +1,203 @@
+{
+  "schema": 1,
+  "fetchedAt": "2026-11-27T20:28:24.313Z",
+  "days": {
+    "2026-11-27": {
+      "source": "https://www.pdc.tv/news/2026/november/27/2026-ladbrokes-players-championship-finals---day-one-latest/",
+      "matches": [
+        {
+          "home": "Martin Schindler",
+          "away": "Charlie Manby",
+          "stage": "Main Stage",
+          "session": "afternoon"
+        },
+        {
+          "home": "Kevin Doets",
+          "away": "Ritchie Edhouse",
+          "stage": "Main Stage",
+          "session": "afternoon"
+        },
+        {
+          "home": "Luke Woodhouse",
+          "away": "Alexander Merkx",
+          "stage": "Main Stage",
+          "session": "afternoon"
+        },
+        {
+          "home": "Chris Dobey",
+          "away": "Mike De Decker",
+          "stage": "Main Stage",
+          "session": "afternoon"
+        },
+        {
+          "home": "Jonny Clayton",
+          "away": "Tom Sykes",
+          "stage": "Main Stage",
+          "session": "afternoon"
+        },
+        {
+          "home": "Karel Sedlacek",
+          "away": "Gary Anderson",
+          "stage": "Main Stage",
+          "session": "afternoon"
+        },
+        {
+          "home": "Justin Hood",
+          "away": "James Wade",
+          "stage": "Main Stage",
+          "session": "afternoon"
+        },
+        {
+          "home": "Rob Owen",
+          "away": "Tom Bissell",
+          "stage": "Stage Two",
+          "session": "afternoon"
+        },
+        {
+          "home": "Niels Zonneveld",
+          "away": "Niko Springer",
+          "stage": "Stage Two",
+          "session": "afternoon"
+        },
+        {
+          "home": "James Hurrell",
+          "away": "William O'Connor",
+          "stage": "Stage Two",
+          "session": "afternoon"
+        },
+        {
+          "home": "Tommy Morris",
+          "away": "Callan Rydz",
+          "stage": "Stage Two",
+          "session": "afternoon"
+        },
+        {
+          "home": "Maik Kuivenhoven",
+          "away": "Daryl Gurney",
+          "stage": "Stage Two",
+          "session": "afternoon"
+        },
+        {
+          "home": "Bradley Brooks",
+          "away": "Andrew Gilding",
+          "stage": "Stage Two",
+          "session": "afternoon"
+        },
+        {
+          "home": "Kim Huybrechts",
+          "away": "Joe Hunt",
+          "stage": "Stage Two",
+          "session": "afternoon"
+        },
+        {
+          "home": "Cameron Menzies",
+          "away": "Mensur Suljovic",
+          "stage": "Stage Two",
+          "session": "afternoon"
+        },
+        {
+          "home": "Joe Cullen",
+          "away": "Richard Veenstra",
+          "stage": "Main Stage",
+          "session": "afternoon"
+        },
+        {
+          "home": "Jeffrey de Graaf",
+          "away": "Gian van Veen",
+          "stage": "Main Stage",
+          "session": "evening"
+        },
+        {
+          "home": "Beau Greaves",
+          "away": "Christian Kist",
+          "stage": "Main Stage",
+          "session": "evening"
+        },
+        {
+          "home": "Ross Smith",
+          "away": "Michael Smith",
+          "stage": "Main Stage",
+          "session": "evening"
+        },
+        {
+          "home": "Sebastian Bialecki",
+          "away": "Gerwyn Price",
+          "stage": "Main Stage",
+          "session": "evening"
+        },
+        {
+          "home": "Michael van Gerwen",
+          "away": "Connor Scutt",
+          "stage": "Main Stage",
+          "session": "evening"
+        },
+        {
+          "home": "Luke Humphries",
+          "away": "Darryl Pilgrim",
+          "stage": "Main Stage",
+          "session": "evening"
+        },
+        {
+          "home": "Wessel Nijman",
+          "away": "Henry Coates",
+          "stage": "Main Stage",
+          "session": "evening"
+        },
+        {
+          "home": "Mickey Mansell",
+          "away": "Rob Cross",
+          "stage": "Stage Two",
+          "session": "evening"
+        },
+        {
+          "home": "Danny Noppert",
+          "away": "Scott Williams",
+          "stage": "Stage Two",
+          "session": "evening"
+        },
+        {
+          "home": "Gabriel Clemens",
+          "away": "Dave Chisnall",
+          "stage": "Stage Two",
+          "session": "evening"
+        },
+        {
+          "home": "Ryan Searle",
+          "away": "Brendan Dolan",
+          "stage": "Stage Two",
+          "session": "evening"
+        },
+        {
+          "home": "Jermaine Wattimena",
+          "away": "Keane Barry",
+          "stage": "Stage Two",
+          "session": "evening"
+        },
+        {
+          "home": "Cristo Reyes",
+          "away": "Darius Labanauskas",
+          "stage": "Stage Two",
+          "session": "evening"
+        },
+        {
+          "home": "Dirk van Duijvenbode",
+          "away": "Alan Soutar",
+          "stage": "Stage Two",
+          "session": "evening"
+        },
+        {
+          "home": "Krzysztof Ratajski",
+          "away": "Damon Heta",
+          "stage": "Stage Two",
+          "session": "evening"
+        },
+        {
+          "home": "Stephen Bunting",
+          "away": "Max Hopp",
+          "stage": "Stage Two",
+          "session": "evening"
+        }
+      ]
+    }
+  }
+}
