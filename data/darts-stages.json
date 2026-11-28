@@ -1,9 +1,9 @@
 {
   "schema": 1,
-  "fetchedAt": "2026-11-27T20:28:24.313Z",
+  "fetchedAt": "2026-11-28T03:21:57.236Z",
   "days": {
     "2026-11-27": {
-      "source": "https://www.pdc.tv/news/2026/november/27/2026-ladbrokes-players-championship-finals---day-one-latest/",
+      "source": "https://www.pdc.tv/news/2026/november/27/Coates-stuns-top-seed-Nijman-on-day-shocks-Minehead/",
       "matches": [
         {
           "home": "Martin Schindler",
@@ -114,8 +114,8 @@
           "session": "evening"
         },
         {
-          "home": "Ross Smith",
-          "away": "Michael Smith",
+          "home": "Michael Smith",
+          "away": "Ross Smith",
           "stage": "Main Stage",
           "session": "evening"
         },
@@ -138,8 +138,8 @@
           "session": "evening"
         },
         {
-          "home": "Wessel Nijman",
-          "away": "Henry Coates",
+          "home": "Henry Coates",
+          "away": "Wessel Nijman",
           "stage": "Main Stage",
           "session": "evening"
         },
@@ -174,9 +174,9 @@
           "session": "evening"
         },
         {
-          "home": "Cristo Reyes",
-          "away": "Darius Labanauskas",
-          "stage": "Stage Two",
+          "home": "Darius Labanauskas",
+          "away": "Cristo Reyes",
+          "stage": "Main Stage",
           "session": "evening"
         },
         {
@@ -186,8 +186,8 @@
           "session": "evening"
         },
         {
-          "home": "Krzysztof Ratajski",
-          "away": "Damon Heta",
+          "home": "Damon Heta",
+          "away": "Krzysztof Ratajski",
           "stage": "Stage Two",
           "session": "evening"
         },
@@ -196,6 +196,107 @@
           "away": "Max Hopp",
           "stage": "Stage Two",
           "session": "evening"
+        }
+      ]
+    },
+    "2026-11-28": {
+      "source": "https://www.pdc.tv/news/2026/november/27/Coates-stuns-top-seed-Nijman-on-day-shocks-Minehead/",
+      "matches": [
+        {
+          "home": "Michael Smith",
+          "away": "Niels Zonneveld",
+          "stage": "Main Stage",
+          "session": "afternoon"
+        },
+        {
+          "home": "Henry Coates",
+          "away": "Gabriel Clemens",
+          "stage": "Main Stage",
+          "session": "afternoon"
+        },
+        {
+          "home": "Beau Greaves",
+          "away": "Rob Owen",
+          "stage": "Main Stage",
+          "session": "afternoon"
+        },
+        {
+          "home": "Chris Dobey",
+          "away": "Joe Cullen",
+          "stage": "Main Stage",
+          "session": "afternoon"
+        },
+        {
+          "home": "Darius Labanauskas",
+          "away": "Michael van Gerwen",
+          "stage": "Main Stage",
+          "session": "afternoon"
+        },
+        {
+          "home": "Luke Humphries",
+          "away": "Damon Heta",
+          "stage": "Main Stage",
+          "session": "afternoon"
+        },
+        {
+          "home": "Luke Woodhouse",
+          "away": "Stephen Bunting",
+          "stage": "Main Stage",
+          "session": "afternoon"
+        },
+        {
+          "home": "Danny Noppert",
+          "away": "Jonny Clayton",
+          "stage": "Main Stage",
+          "session": "afternoon"
+        },
+        {
+          "home": "Bradley Brooks",
+          "away": "Kim Huybrechts",
+          "stage": "Stage Two",
+          "session": "afternoon"
+        },
+        {
+          "home": "Karel Sedlacek",
+          "away": "Mickey Mansell",
+          "stage": "Stage Two",
+          "session": "afternoon"
+        },
+        {
+          "home": "Kevin Doets",
+          "away": "Justin Hood",
+          "stage": "Stage Two",
+          "session": "afternoon"
+        },
+        {
+          "home": "Martin Schindler",
+          "away": "Cameron Menzies",
+          "stage": "Stage Two",
+          "session": "afternoon"
+        },
+        {
+          "home": "James Hurrell",
+          "away": "Tommy Morris",
+          "stage": "Stage Two",
+          "session": "afternoon"
+        },
+        {
+          "home": "Sebastian Bialecki",
+          "away": "Jeffrey de Graaf",
+          "stage": "Stage Two",
+          "session": "afternoon"
+        },
+        {
+          "home": "Dirk van Duijvenbode",
+          "away": "Maik Kuivenhoven",
+          "stage": "Stage Two",
+          "session": "afternoon"
+        },
+        {
+          "home": "Jermaine Wattimena",
+          "away": "Ryan Searle",
+          "stage": "Stage Two",
+          "session": "afternoon"
         }
       ]
     }
